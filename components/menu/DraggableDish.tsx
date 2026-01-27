@@ -2,7 +2,7 @@
 
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import { Button, Box, Text } from '@chakra-ui/react'
+import { Button } from '@/components/ui/button'
 
 interface DraggableDishProps {
   dish: {
@@ -36,7 +36,7 @@ export function DraggableDish({ dish }: DraggableDishProps) {
   }
 
   return (
-    <Box
+    <div
       ref={setNodeRef}
       style={style}
       {...listeners}
@@ -45,12 +45,11 @@ export function DraggableDish({ dish }: DraggableDishProps) {
       <Button
         variant="ghost"
         size="sm"
-        justifyContent="flex-start"
-        w="100%"
-        isDisabled={isDragging}
+        className="w-full justify-start"
+        disabled={isDragging}
       >
-        <Text fontSize="sm">{dish.name}</Text>
+        <span className="text-sm">{dish.name}</span>
       </Button>
-    </Box>
+    </div>
   )
 }

@@ -102,6 +102,16 @@ export default function WikiPage() {
                 >
                   🚀 Setup & Installation
                 </button>
+                <button
+                  onClick={() => toggleSection('design')}
+                  className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                    activeSection === 'design'
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  🎨 Design Guidelines
+                </button>
               </nav>
             </div>
           </div>
@@ -551,6 +561,138 @@ NODE_ENV="development"`}</pre>
                       <li><code>npm run db:studio</code> - Prisma Studio öffnen (Datenbank-Editor)</li>
                       <li><code>npm run db:generate</code> - Prisma Client generieren</li>
                     </ul>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Design Guidelines */}
+            {activeSection === 'design' && (
+              <section className="bg-white rounded-lg shadow-md p-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  🎨 Design Guidelines
+                </h2>
+                <div className="prose max-w-none space-y-6">
+                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                    <p className="text-blue-800 font-medium">
+                      📄 Vollständige Design-Guideline verfügbar in: <code className="bg-blue-100 px-2 py-1 rounded">DESIGN_GUIDELINES.md</code>
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h3>Übersicht</h3>
+                    <p className="text-gray-700">
+                      Die Design Guidelines definieren konsistente Patterns, Farben, Typografie und Komponenten-Stile für die gesamte Kantine Platform.
+                    </p>
+
+                    <h3>Kernprinzipien</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Modern & Clean:</strong> Minimalistisches, aufgeräumtes Design</li>
+                      <li><strong>Konsistenz:</strong> Einheitliche Patterns über die gesamte Plattform</li>
+                      <li><strong>Accessibility:</strong> Barrierefreie Implementierung</li>
+                      <li><strong>Responsive:</strong> Mobile-first Ansatz</li>
+                      <li><strong>Performance:</strong> Optimierte Animationen</li>
+                    </ul>
+
+                    <h3>Farb-System</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-4">
+                      <div className="p-4 bg-green-600 text-white rounded-lg text-center">
+                        <div className="font-bold">Kategorie</div>
+                        <div className="text-sm">bg-green-600</div>
+                      </div>
+                      <div className="p-4 bg-blue-500 text-white rounded-lg text-center">
+                        <div className="font-bold">FIT & VITAL</div>
+                        <div className="text-sm">bg-blue-500</div>
+                      </div>
+                      <div className="p-4 bg-amber-100 text-amber-800 rounded-lg text-center border border-amber-300">
+                        <div className="font-bold">Allergene</div>
+                        <div className="text-sm">bg-amber-50</div>
+                      </div>
+                      <div className="p-4 bg-red-600 text-white rounded-lg text-center">
+                        <div className="font-bold">Inaktiv</div>
+                        <div className="text-sm">bg-destructive</div>
+                      </div>
+                    </div>
+
+                    <h3>Card-Design</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Border-Radius:</strong> <code>rounded-2xl</code> (16px)</li>
+                      <li><strong>Bild-Verhältnis:</strong> <code>aspect-[4/3]</code></li>
+                      <li><strong>Hover-Effekt:</strong> <code>hover:shadow-2xl hover:scale-[1.02]</code></li>
+                      <li><strong>Bild-Zoom:</strong> <code>group-hover:scale-110</code></li>
+                      <li><strong>Padding:</strong> <code>p-4</code> (16px)</li>
+                    </ul>
+
+                    <h3>Badge-System</h3>
+                    <div className="bg-gray-50 p-4 rounded-lg my-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-md">KATEGORIE</span>
+                          <span className="text-sm text-gray-600">Overlay-Badge (top-left)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 bg-green-50 text-green-700 rounded-full text-xs">Vegan</span>
+                          <span className="text-sm text-gray-600">Inline Diet-Tag</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full text-xs">Allergen</span>
+                          <span className="text-sm text-gray-600">Inline Allergen</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h3>Typografie</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>H1:</strong> <code>text-4xl md:text-5xl font-bold</code></li>
+                      <li><strong>H2:</strong> <code>text-3xl font-bold</code></li>
+                      <li><strong>H3 (Card-Titel):</strong> <code>text-lg font-bold</code></li>
+                      <li><strong>Body:</strong> <code>text-sm</code></li>
+                      <li><strong>Muted:</strong> <code>text-sm text-muted-foreground</code></li>
+                    </ul>
+
+                    <h3>Layout-Patterns</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Grid:</strong> <code>grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6</code></li>
+                      <li><strong>Header-Gradient:</strong> <code>bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50</code></li>
+                      <li><strong>SVG-Welle:</strong> Wellenförmiger Untergrund für Header</li>
+                    </ul>
+
+                    <h3>Animationen</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Card Transition:</strong> <code>transition-all duration-300</code></li>
+                      <li><strong>Bild Zoom:</strong> <code>transition-transform duration-500</code></li>
+                      <li><strong>Fade-In:</strong> Staggered Animation mit <code>index * 0.05s</code> Delay</li>
+                    </ul>
+
+                    <h3>Best Practices</h3>
+                    <div className="bg-green-50 border-l-4 border-green-500 p-4 my-4">
+                      <h4 className="font-bold text-green-800 mb-2">✅ DO's</h4>
+                      <ul className="list-disc list-inside space-y-1 text-green-700">
+                        <li>Konsistente Badge-Farben verwenden</li>
+                        <li>Hover-Effekte konsistent implementieren</li>
+                        <li>Dark Mode immer berücksichtigen</li>
+                        <li>Mobile-first Responsive Design</li>
+                        <li>Semantisches HTML verwenden</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-red-50 border-l-4 border-red-500 p-4 my-4">
+                      <h4 className="font-bold text-red-800 mb-2">❌ DON'Ts</h4>
+                      <ul className="list-disc list-inside space-y-1 text-red-700">
+                        <li>Inkonsistente Border-Radius verwenden</li>
+                        <li>Ohne Dark Mode Support entwickeln</li>
+                        <li>Zu viele Badges anzeigen (max. 2 Diet-Tags, 3 Allergene)</li>
+                        <li>Ohne Hover-States implementieren</li>
+                        <li>Inkonsistente Spacing verwenden</li>
+                      </ul>
+                    </div>
+
+                    <div className="mt-6 p-4 bg-gray-100 rounded-lg">
+                      <h4 className="font-bold mb-2">📚 Weitere Informationen</h4>
+                      <p className="text-sm text-gray-700">
+                        Für detaillierte Spezifikationen, Code-Beispiele und vollständige Komponenten-Referenzen siehe die vollständige <code>DESIGN_GUIDELINES.md</code> Datei im Projekt-Root.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </section>

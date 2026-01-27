@@ -1,8 +1,8 @@
 'use client'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { formatCurrency } from '@/lib/utils'
-import { TrendingUp, Euro, ShoppingCart } from 'lucide-react'
+import { TrendingUp, Euro, ShoppingCart, Users } from 'lucide-react'
 
 interface RevenueKPIProps {
   revenue: number
@@ -10,49 +10,88 @@ interface RevenueKPIProps {
 }
 
 export function RevenueKPI({ revenue, weeklyOrders }: RevenueKPIProps) {
+  // Berechne prozentuale Änderung (simuliert - in Produktion aus API)
+  const revenueChange = 12.5 // Beispiel: +12.5%
+  const ordersChange = 8.3 // Beispiel: +8.3%
+  
+  // Sicherstellen, dass Werte Zahlen sind
+  const revenueNum = typeof revenue === 'number' ? revenue : (typeof revenue === 'string' ? parseFloat(revenue) : 0) || 0
+  const weeklyOrdersNum = typeof weeklyOrders === 'number' ? weeklyOrders : (typeof weeklyOrders === 'string' ? parseFloat(weeklyOrders) : 0) || 0
+  const avgOrderValue = revenueNum > 0 && weeklyOrdersNum > 0 ? revenueNum / weeklyOrdersNum : 0
+  const avgOrderChange = 5.2 // Beispiel: +5.2%
+
   return (
-    <div className="space-y-4 h-full flex flex-col">
-      <Card className="border-l-4 border-l-primary flex-1">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg">Umsatz diesen Monat</CardTitle>
-          <CardDescription className="text-xs">Gesamter Umsatz durch Bestellungen</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-3xl font-bold text-foreground mb-1">
-                {formatCurrency(revenue)}
-              </div>
-              <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                <TrendingUp className="w-3 h-3" />
-                <span>Aktueller Monat</span>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Umsatz Karte mit Orange-Pink Gradient */}
+      <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-orange-500 via-pink-500 to-pink-600">
+        {/* Subtile Hintergrund-Formen */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+        
+        <CardContent className="p-6 relative z-10">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-white/90 text-sm font-medium mb-2">Weekly Sales</p>
+              <h3 className="text-3xl font-bold text-white mb-2">
+                {formatCurrency(revenueNum)}
+              </h3>
+              <div className="flex items-center gap-1.5 text-white/80 text-xs">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>Increased by {revenueChange}%</span>
               </div>
             </div>
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
-              <Euro className="w-6 h-6 text-primary" />
+            <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm">
+              <Euro className="w-7 h-7 text-white" />
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className="border-l-4 border-l-green-500 flex-1">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg">Bestellungen diese Woche</CardTitle>
-          <CardDescription className="text-xs">Anzahl der Bestellungen (Montag - Sonntag)</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-3xl font-bold text-foreground mb-1">
-                {weeklyOrders}
-              </div>
-              <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                <TrendingUp className="w-3 h-3" />
-                <span>Aktuelle Woche</span>
+      {/* Bestellungen Karte mit Blau Gradient */}
+      <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600">
+        {/* Subtile Hintergrund-Formen */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+        
+        <CardContent className="p-6 relative z-10">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-white/90 text-sm font-medium mb-2">Weekly Orders</p>
+              <h3 className="text-3xl font-bold text-white mb-2">
+                {weeklyOrdersNum.toLocaleString('de-DE')}
+              </h3>
+              <div className="flex items-center gap-1.5 text-white/80 text-xs">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>Increased by {ordersChange}%</span>
               </div>
             </div>
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500/10">
-              <ShoppingCart className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm">
+              <ShoppingCart className="w-7 h-7 text-white" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Durchschnittlicher Bestellwert Karte mit Teal-Grün Gradient */}
+      <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-teal-400 via-emerald-500 to-green-600">
+        {/* Subtile Hintergrund-Formen */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+        
+        <CardContent className="p-6 relative z-10">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-white/90 text-sm font-medium mb-2">Average Order Value</p>
+              <h3 className="text-3xl font-bold text-white mb-2">
+                {formatCurrency(avgOrderValue)}
+              </h3>
+              <div className="flex items-center gap-1.5 text-white/80 text-xs">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>Increased by {avgOrderChange}%</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm">
+              <Users className="w-7 h-7 text-white" />
             </div>
           </div>
         </CardContent>

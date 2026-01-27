@@ -39,12 +39,12 @@ export function TopDishesBarChart({ data }: TopDishesBarChartProps) {
   }))
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Top 5 Gerichte</CardTitle>
-        <CardDescription>Beliebteste Gerichte diesen Monat</CardDescription>
+    <Card className="border-border/50 shadow-sm">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">Top Gerichte</CardTitle>
+        <CardDescription className="text-sm">Beliebteste Gerichte diesen Monat</CardDescription>
       </CardHeader>
-      <CardContent className="h-[350px]">
+      <CardContent className="h-[300px]">
         <ChartContainer config={chartConfig} className="h-full">
           <BarChart
             accessibilityLayer

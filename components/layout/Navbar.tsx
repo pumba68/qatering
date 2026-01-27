@@ -9,70 +9,92 @@ export default function Navbar() {
   const { data: session, status } = useSession()
   const pathname = usePathname()
 
-  // #region agent log
-  if (typeof window !== 'undefined') {
-    fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/layout/Navbar.tsx:11',message:'Navbar render',data:{status,hasSession:!!session,userId:(session?.user as any)?.id,userRole:(session?.user as any)?.role,pathname},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H'})}).catch(()=>{});
-  }
-  // #endregion
-
-  // Navbar nicht auf Login/Register anzeigen
-  if (pathname === '/login' || pathname === '/register') {
+  // Navbar nicht auf Login/Register oder im Admin-Bereich anzeigen
+  // Im Admin-Bereich ist die Sidebar die Hauptnavigation
+  if (pathname === '/login' || pathname === '/register' || pathname.startsWith('/admin')) {
     return null
   }
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors">
+    <nav className="sticky top-0 z-50 glass-strong border-b border-border/40 backdrop-blur-xl bg-background/80 transition-all duration-300">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl">🍽️</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
+          <Link 
+            href="/" 
+            className="flex items-center space-x-3 group transition-transform hover:scale-105"
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 rounded-xl blur-lg group-hover:bg-primary/30 transition-colors"></div>
+              <span className="relative text-3xl transform transition-transform group-hover:rotate-12">🍽️</span>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               Kantine Platform
             </span>
           </Link>
 
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4">
             {status === 'loading' ? (
-              <div className="text-gray-500 dark:text-gray-400">Lädt...</div>
+              <div className="flex items-center space-x-2 text-muted-foreground">
+                <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                <span>Lädt...</span>
+              </div>
             ) : session ? (
               <>
                 <Link
                   href="/menu"
-                  className={`text-gray-700 dark:text-gray-300 hover:text-primary transition-colors ${
-                    pathname === '/menu' ? 'text-primary font-medium' : ''
+                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    pathname === '/menu' 
+                      ? 'text-primary bg-primary/10' 
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
                   }`}
                 >
-                  Menü
+                  {pathname === '/menu' && (
+                    <span className="absolute inset-0 bg-primary/5 rounded-lg blur-sm"></span>
+                  )}
+                  <span className="relative">Menü</span>
                 </Link>
                 <Link
                   href="/wiki"
-                  className={`text-gray-700 dark:text-gray-300 hover:text-primary transition-colors ${
-                    pathname === '/wiki' ? 'text-primary font-medium' : ''
+                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    pathname === '/wiki' 
+                      ? 'text-primary bg-primary/10' 
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
                   }`}
                 >
-                  📚 Wiki
+                  {pathname === '/wiki' && (
+                    <span className="absolute inset-0 bg-primary/5 rounded-lg blur-sm"></span>
+                  )}
+                  <span className="relative">📚 Wiki</span>
                 </Link>
                 {(session.user as any)?.role === 'KITCHEN_STAFF' ||
                 (session.user as any)?.role === 'ADMIN' ? (
                   <Link
                     href="/admin"
-                    className={`text-gray-700 dark:text-gray-300 hover:text-primary transition-colors ${
+                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       pathname.startsWith('/admin')
-                        ? 'text-primary font-medium'
-                        : ''
+                        ? 'text-primary bg-primary/10' 
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent'
                     }`}
                   >
-                    Admin
+                    {pathname.startsWith('/admin') && (
+                      <span className="absolute inset-0 bg-primary/5 rounded-lg blur-sm"></span>
+                    )}
+                    <span className="relative">Admin</span>
                   </Link>
                 ) : null}
                 <ThemeToggle />
-                <div className="flex items-center space-x-3">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    {session.user?.name || session.user?.email}
-                  </span>
+                <div className="flex items-center space-x-3 pl-3 border-l border-border">
+                  <div className="flex flex-col items-end">
+                    <span className="text-sm font-medium text-foreground">
+                      {session.user?.name || session.user?.email?.split('@')[0]}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {session.user?.email}
+                    </span>
+                  </div>
                   <button
                     onClick={() => signOut({ callbackUrl: '/' })}
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all duration-200"
                   >
                     Abmelden
                   </button>
@@ -83,13 +105,13 @@ export default function Navbar() {
                 <ThemeToggle />
                 <Link
                   href="/login"
-                  className="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all duration-200"
                 >
                   Anmelden
                 </Link>
                 <Link
                   href="/register"
-                  className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                  className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl hover-lift"
                 >
                   Registrieren
                 </Link>

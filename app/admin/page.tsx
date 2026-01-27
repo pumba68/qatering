@@ -175,38 +175,68 @@ export default function AdminDashboard() {
   const sortedDates = Object.keys(ordersByDate).sort((a, b) => b.localeCompare(a))
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/10">
       {/* Header */}
-      <div className="bg-card shadow-sm border-b border-border">
+      <div className="bg-white dark:bg-gray-900 border-b border-border/50 shadow-sm">
         <div className="px-6 py-6">
-          <h1 className="text-3xl font-bold text-foreground mb-4">
-            🍳 Küchen-Dashboard
-          </h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 shadow-md">
+                <span className="text-xl">🍳</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                  Dashboard
+                </h1>
+                <p className="text-sm text-muted-foreground mt-0.5">Übersicht & Bestellungen</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <span className="text-sm">Overview</span>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Charts Section */}
+      {/* Main Content */}
       <div className="px-6 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          {/* KPI Cards */}
-          <div className="flex flex-col h-[350px]">
-            {analyticsLoading ? (
-              <Card className="h-full flex items-center justify-center">
-                <CardContent className="p-6">
-                  <div className="text-center text-muted-foreground">Lade KPI...</div>
-                </CardContent>
-              </Card>
-            ) : analytics ? (
-              <RevenueKPI revenue={analytics.monthlyRevenue} weeklyOrders={analytics.weeklyOrders} />
-            ) : null}
-          </div>
+        {/* KPI Cards Row */}
+        <div className="mb-6 animate-in fade-in slide-in-from-bottom" style={{ animationDelay: '100ms' }}>
+          {analyticsLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="border-border/50">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                      <div className="text-center text-muted-foreground text-sm">Lade KPI...</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : analytics ? (
+            <RevenueKPI revenue={analytics.monthlyRevenue} weeklyOrders={analytics.weeklyOrders} />
+          ) : null}
+        </div>
 
+        {/* Charts Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           {/* Area Chart */}
-          <div>
+          <div className="animate-in fade-in slide-in-from-bottom" style={{ animationDelay: '200ms' }}>
             {analyticsLoading ? (
-              <Card>
+              <Card className="border-border/50">
                 <CardContent className="p-6">
-                  <div className="text-center text-muted-foreground">Lade Chart...</div>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <div className="text-center text-muted-foreground text-sm">Lade Chart...</div>
+                  </div>
                 </CardContent>
               </Card>
             ) : analytics ? (
@@ -215,11 +245,14 @@ export default function AdminDashboard() {
           </div>
 
           {/* Bar Chart */}
-          <div>
+          <div className="animate-in fade-in slide-in-from-bottom" style={{ animationDelay: '300ms' }}>
             {analyticsLoading ? (
-              <Card>
+              <Card className="border-border/50">
                 <CardContent className="p-6">
-                  <div className="text-center text-muted-foreground">Lade Chart...</div>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <div className="text-center text-muted-foreground text-sm">Lade Chart...</div>
+                  </div>
                 </CardContent>
               </Card>
             ) : analytics ? (
@@ -229,24 +262,32 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Bestellübersicht mit akzentuiertem Hintergrund */}
+      {/* Bestellübersicht */}
       <div className="px-6 pb-8">
-        <div className="bg-muted/50 rounded-lg border border-border p-6 space-y-6">
+        <Card className="border-border/50 shadow-sm animate-in fade-in slide-in-from-bottom" style={{ animationDelay: '400ms' }}>
+          <CardContent className="p-6 space-y-6">
           <div className="flex flex-wrap gap-4 items-center justify-between">
-            <h2 className="text-2xl font-bold text-foreground">Bestellübersicht</h2>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">Bestellübersicht</h2>
+              <p className="text-sm text-muted-foreground mt-0.5">Verwalten Sie alle Bestellungen</p>
+            </div>
             
             {/* Filter */}
-            <div className="flex flex-wrap gap-4 items-center">
-              <div className="flex gap-2">
+            <div className="flex flex-wrap gap-3 items-center">
+              <div className="flex gap-2 bg-muted/50 p-1 rounded-lg">
                 <Button
                   onClick={() => setFilter('today')}
-                  variant={filter === 'today' ? 'default' : 'secondary'}
+                  variant={filter === 'today' ? 'default' : 'ghost'}
+                  size="sm"
+                  className={filter === 'today' ? 'shadow-md' : ''}
                 >
                   Heute
                 </Button>
                 <Button
                   onClick={() => setFilter('all')}
-                  variant={filter === 'all' ? 'default' : 'secondary'}
+                  variant={filter === 'all' ? 'default' : 'ghost'}
+                  size="sm"
+                  className={filter === 'all' ? 'shadow-md' : ''}
                 >
                   Alle
                 </Button>
@@ -255,7 +296,7 @@ export default function AdminDashboard() {
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="px-4 py-2 border border-input bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+                className="px-4 py-2 border border-input bg-background/50 text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors hover:border-primary/50"
               >
                 <option value="ALL">Alle Status</option>
                 <option value="PENDING">Ausstehend</option>
@@ -269,45 +310,63 @@ export default function AdminDashboard() {
 
           {/* Tabellarische Ansicht */}
           {loading ? (
-            <div className="text-center py-12 text-muted-foreground">Lade Bestellungen...</div>
+            <div className="text-center py-16">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                <div className="text-muted-foreground">Lade Bestellungen...</div>
+              </div>
+            </div>
           ) : sortedDates.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              Keine Bestellungen gefunden
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+                <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <p className="text-muted-foreground text-lg">Keine Bestellungen gefunden</p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-8">
               {sortedDates.map((dateKey) => {
                 const dateOrders = ordersByDate[dateKey]
                 const date = new Date(dateKey)
 
                 return (
-                  <div key={dateKey} className="space-y-3">
-                    <div className="border-b border-border pb-2">
-                      <h3 className="text-lg font-semibold text-foreground">
-                        {formatDate(date)}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {dateOrders.length} Bestellung{dateOrders.length !== 1 ? 'en' : ''}
-                      </p>
+                  <div key={dateKey} className="space-y-4">
+                    <div className="border-b border-border/50 pb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-1 h-8 bg-gradient-to-b from-primary to-purple-600 rounded-full"></div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-foreground">
+                            {formatDate(date)}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {dateOrders.length} Bestellung{dateOrders.length !== 1 ? 'en' : ''}
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto rounded-xl border border-border/50">
                       <table className="w-full">
                         <thead>
-                          <tr className="border-b border-border">
-                            <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">
+                          <tr className="border-b border-border/50 bg-muted/30">
+                            <th className="text-left py-4 px-6 text-sm font-semibold text-foreground">
                               Bestellnummer
                             </th>
-                            <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">
+                            <th className="text-left py-4 px-6 text-sm font-semibold text-foreground">
                               Besteller
                             </th>
-                            <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">
+                            <th className="text-left py-4 px-6 text-sm font-semibold text-foreground">
                               Gericht
                             </th>
-                            <th className="text-right py-3 px-4 text-sm font-semibold text-foreground">
+                            <th className="text-right py-4 px-6 text-sm font-semibold text-foreground">
                               Gesamtpreis
                             </th>
-                            <th className="text-center py-3 px-4 text-sm font-semibold text-foreground">
+                            <th className="text-center py-4 px-6 text-sm font-semibold text-foreground">
+                              Status
+                            </th>
+                            <th className="text-center py-4 px-6 text-sm font-semibold text-foreground">
                               Aktionen
                             </th>
                           </tr>
@@ -321,25 +380,33 @@ export default function AdminDashboard() {
                             return (
                               <tr
                                 key={order.id}
-                                className="border-b border-border/50 hover:bg-muted/30 transition-colors"
+                                className="border-b border-border/30 hover:bg-muted/20 transition-colors group"
                               >
-                                <td className="py-3 px-4">
-                                  <span className="font-mono font-medium text-foreground">
+                                <td className="py-4 px-6">
+                                  <span className="font-mono font-semibold text-foreground bg-muted/50 px-2 py-1 rounded">
                                     {order.pickupCode}
                                   </span>
                                 </td>
-                                <td className="py-3 px-4 text-sm text-foreground">
-                                  {order.user.name || order.user.email}
+                                <td className="py-4 px-6 text-sm text-foreground">
+                                  <div>
+                                    <div className="font-medium">{order.user.name || order.user.email.split('@')[0]}</div>
+                                    <div className="text-xs text-muted-foreground">{order.user.email}</div>
+                                  </div>
                                 </td>
-                                <td className="py-3 px-4 text-sm text-foreground">
+                                <td className="py-4 px-6 text-sm text-foreground">
                                   {dishesText}
                                 </td>
-                                <td className="py-3 px-4 text-right">
-                                  <span className="font-semibold text-foreground">
+                                <td className="py-4 px-6 text-right">
+                                  <span className="font-semibold text-foreground text-base">
                                     {formatCurrency(order.totalAmount)}
                                   </span>
                                 </td>
-                                <td className="py-3 px-4">
+                                <td className="py-4 px-6 text-center">
+                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(order.status)}`}>
+                                    {getStatusLabel(order.status)}
+                                  </span>
+                                </td>
+                                <td className="py-4 px-6">
                                   <div className="flex items-center justify-center gap-2">
                                     {order.status !== 'CANCELLED' && order.status !== 'PICKED_UP' && (
                                       <>
@@ -348,7 +415,7 @@ export default function AdminDashboard() {
                                             onClick={() => confirmOrder(order.id)}
                                             variant="ghost"
                                             size="icon"
-                                            className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-50 dark:hover:bg-green-950"
+                                            className="h-9 w-9 text-green-600 hover:text-green-700 hover:bg-green-50 dark:hover:bg-green-950 rounded-lg transition-all hover:scale-110"
                                             title="Bestätigen"
                                           >
                                             <Check className="h-4 w-4" />
@@ -358,7 +425,7 @@ export default function AdminDashboard() {
                                           onClick={() => cancelOrder(order.id)}
                                           variant="ghost"
                                           size="icon"
-                                          className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                          className="h-9 w-9 text-destructive hover:text-destructive hover:bg-destructive/10 rounded-lg transition-all hover:scale-110"
                                           title="Stornieren"
                                         >
                                           <X className="h-4 w-4" />
@@ -388,7 +455,8 @@ export default function AdminDashboard() {
               })}
             </div>
           )}
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

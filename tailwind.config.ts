@@ -84,11 +84,40 @@ const config = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'gradient-shift': {
+  				'0%, 100%': {
+  					'background-position': '0% 50%'
+  				},
+  				'50%': {
+  					'background-position': '100% 50%'
+  				}
+  			},
+  			'shimmer': {
+  				'0%': {
+  					left: '-100%'
+  				},
+  				'100%': {
+  					left: '100%'
+  				}
+  			},
+  			'pulse-glow': {
+  				'0%, 100%': {
+  					opacity: '1',
+  					boxShadow: '0 0 0 0 rgba(59, 130, 246, 0.7)'
+  				},
+  				'50%': {
+  					opacity: '0.8',
+  					boxShadow: '0 0 0 10px rgba(59, 130, 246, 0)'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'gradient-shift': 'gradient-shift 8s ease infinite',
+  			'shimmer': 'shimmer 2s infinite',
+  			'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
   		}
   	}
   },

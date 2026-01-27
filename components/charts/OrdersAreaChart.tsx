@@ -22,24 +22,24 @@ interface OrdersAreaChartProps {
 const chartConfig = {
   currentMonth: {
     label: 'Dieser Monat',
-    color: 'hsl(var(--chart-1))',
+    color: 'hsl(262, 83%, 58%)', // Purple
   },
   lastMonth: {
     label: 'Vormonat',
-    color: 'hsl(var(--chart-2))',
+    color: 'hsl(340, 82%, 52%)', // Pink
   },
 } satisfies ChartConfig
 
 export function OrdersAreaChart({ data }: OrdersAreaChartProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Bestellungen - Trend</CardTitle>
-        <CardDescription>
+    <Card className="border-border/50 shadow-sm">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">Visit And Sales Statistics</CardTitle>
+        <CardDescription className="text-sm">
           Vergleich: Aktueller Monat vs. Vormonat
         </CardDescription>
       </CardHeader>
-      <CardContent className="h-[350px]">
+      <CardContent className="h-[300px]">
         <ChartContainer config={chartConfig} className="h-full">
           <AreaChart
             accessibilityLayer

@@ -20,22 +20,27 @@ export default function MenuPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [cartOpen, setCartOpen] = useState(false)
 
-  const handleSelectItem = (item: any) => {
+  const handleSelectItem = (item: any, quantity: number = 1) => {
     const existingItem = cart.find((i) => i.menuItemId === item.id)
     if (existingItem) {
-      setCart(
-        cart.map((i) =>
-          i.menuItemId === item.id
-            ? { ...i, quantity: i.quantity + 1 }
-            : i
+      const newQuantity = existingItem.quantity + quantity
+      if (newQuantity <= 0) {
+        handleRemoveItem(item.id)
+      } else {
+        setCart(
+          cart.map((i) =>
+            i.menuItemId === item.id
+              ? { ...i, quantity: newQuantity }
+              : i
+          )
         )
-      )
-    } else {
+      }
+    } else if (quantity > 0) {
       setCart([
         ...cart,
         {
           menuItemId: item.id,
-          quantity: 1,
+          quantity: quantity,
           dishName: item.dish.name,
           price: item.price,
         },
@@ -43,11 +48,7 @@ export default function MenuPage() {
     }
   }
 
-  const handleRemoveItem = (menuItemId: string) => {
-    setCart(cart.filter((i) => i.menuItemId !== menuItemId))
-  }
-
-  const handleUpdateQuantity = (menuItemId: string, quantity: number) => {
+  const handleQuantityChange = (menuItemId: string, quantity: number) => {
     if (quantity <= 0) {
       handleRemoveItem(menuItemId)
     } else {
@@ -59,14 +60,19 @@ export default function MenuPage() {
     }
   }
 
+  const handleRemoveItem = (menuItemId: string) => {
+    setCart(cart.filter((i) => i.menuItemId !== menuItemId))
+  }
+
+
   const totalAmount = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   )
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-green-50/30 dark:to-green-950/10">
+      <div className="container mx-auto px-4 py-8 md:py-12">
         {/* Warenkorb Button (Floating oder in Header) */}
         {cart.length > 0 && (
           <div className="fixed bottom-6 right-6 z-40">
@@ -83,7 +89,12 @@ export default function MenuPage() {
         )}
 
         {/* Menü Bereich */}
-        <MenuWeek locationId={locationId} onSelectItem={handleSelectItem} />
+        <MenuWeek 
+          locationId={locationId} 
+          onSelectItem={handleSelectItem}
+          cart={cart}
+          onQuantityChange={handleQuantityChange}
+        />
 
         {/* Collapsible Warenkorb Sidebar */}
         <CartSidebar
@@ -91,7 +102,7 @@ export default function MenuPage() {
           isOpen={cartOpen}
           onOpenChange={setCartOpen}
           onRemoveItem={handleRemoveItem}
-          onUpdateQuantity={handleUpdateQuantity}
+          onUpdateQuantity={handleQuantityChange}
           totalAmount={totalAmount}
           locationId={locationId}
           selectedDate={selectedDate}

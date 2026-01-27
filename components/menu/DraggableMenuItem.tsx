@@ -2,16 +2,12 @@
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import {
-  Card,
-  CardBody,
-  Flex,
-  Text,
-  Input,
-  HStack,
-  Badge,
-  IconButton,
-} from '@chakra-ui/react'
+import { Card, CardContent } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { X } from 'lucide-react'
+import { formatCurrency } from '@/lib/utils'
 
 interface DraggableMenuItemProps {
   item: {
@@ -64,29 +60,26 @@ export function DraggableMenuItem({
     <Card
       ref={setNodeRef}
       style={style}
-      size="sm"
-      variant="outline"
+      className="border-border/50"
       {...attributes}
       {...listeners}
     >
-      <CardBody p={3}>
-        <Flex justify="space-between" align="start" mb={2}>
-          <Text fontWeight="medium" fontSize="sm" flex={1}>
-            {item.dish.name}
-          </Text>
-          <IconButton
-            aria-label="Gericht entfernen"
-            icon={<Text>✕</Text>}
-            size="xs"
-            colorScheme="red"
+      <CardContent className="p-3">
+        <div className="flex justify-between items-start mb-2 gap-2">
+          <p className="font-medium text-sm flex-1 line-clamp-2">{item.dish.name}</p>
+          <Button
             variant="ghost"
+            size="sm"
+            className="h-6 w-6 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
             onClick={(e) => {
               e.stopPropagation()
               onRemove(item.id)
             }}
-          />
-        </Flex>
-        <HStack spacing={2}>
+          >
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
+        <div className="flex items-center gap-2 mb-2">
           <Input
             type="number"
             step="0.1"
@@ -96,23 +89,20 @@ export function DraggableMenuItem({
               onPriceUpdate(item.id, parseFloat(e.target.value))
             }}
             onClick={(e) => e.stopPropagation()}
-            w="80px"
-            size="sm"
+            className="w-20 h-8 text-sm"
           />
-          <Text fontSize="xs" color="gray.600">
-            €
-          </Text>
-        </HStack>
+          <span className="text-xs text-muted-foreground">€</span>
+        </div>
         {item.dish.dietTags.length > 0 && (
-          <HStack spacing={1} mt={2} flexWrap="wrap">
+          <div className="flex items-center gap-1 flex-wrap">
             {item.dish.dietTags.slice(0, 2).map((tag) => (
-              <Badge key={tag} colorScheme="green" fontSize="xs">
+              <Badge key={tag} variant="secondary" className="text-xs">
                 {tag}
               </Badge>
             ))}
-          </HStack>
+          </div>
         )}
-      </CardBody>
+      </CardContent>
     </Card>
   )
 }

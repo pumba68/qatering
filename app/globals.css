@@ -147,4 +147,191 @@
       transform: translateY(0);
     }
   }
+
+  /* Modern Glassmorphism Effects */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .dark .glass-strong {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Smooth Gradient Animations */
+  .gradient-animate {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Hover Lift Effect */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Shimmer Effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Pulse Glow */
+  .pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    }
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* Admin Sidebar Purple Background */
+  .admin-sidebar-purple [data-sidebar="sidebar"] {
+    background-color: #583BBF !important;
+    border: 0 !important;
+  }
+
+  /* Admin Sidebar - Breitere collapsed Sidebar für Icons (4.5rem = 72px, ca. 70-80px) */
+  .admin-sidebar-purple.group[data-collapsible="icon"] {
+    --sidebar-width-icon: 4.5rem !important;
+  }
+
+  /* Sidebar Spacer Width im collapsed State */
+  .admin-sidebar-purple.group[data-collapsible="icon"] > div:first-child {
+    width: 4.5rem !important;
+  }
+
+  /* Sidebar Container Width im collapsed State - Fixed Position - Überschreibe Tailwind w-[--sidebar-width-icon] */
+  .admin-sidebar-purple.group[data-collapsible="icon"] > div:last-child.group-data-\[collapsible\=icon\]\:w-\[--sidebar-width-icon\] {
+    width: 4.5rem !important;
+  }
+
+  /* Fallback für alle Container */
+  .admin-sidebar-purple.group[data-collapsible="icon"] > div:last-child {
+    width: 4.5rem !important;
+  }
+
+  /* Sidebar Inner Container Width im collapsed State */
+  .admin-sidebar-purple.group[data-collapsible="icon"] > div:last-child > div[data-sidebar="sidebar"] {
+    width: 4.5rem !important;
+    max-width: 4.5rem !important;
+  }
+
+  /* Sicherstellen, dass Icons im collapsed State nicht abgeschnitten werden */
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="content"] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    overflow: visible !important;
+  }
+
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="header"],
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="footer"] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    overflow: visible !important;
+  }
+
+  /* Links im collapsed State zentrieren und genug Platz geben */
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="content"] a,
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="content"] button,
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="footer"] button {
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible !important;
+  }
+
+  /* Icons selbst sollten genug Platz haben und nicht abgeschnitten werden */
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="content"] svg,
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="footer"] svg,
+  .admin-sidebar-purple.group[data-collapsible="icon"] [data-sidebar="header"] svg {
+    flex-shrink: 0;
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
 }

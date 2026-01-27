@@ -2,17 +2,11 @@
 
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import {
-  Card,
-  CardBody,
-  VStack,
-  Box,
-  Heading,
-  Text,
-  Button,
-} from '@chakra-ui/react'
-import { DraggableMenuItem } from './DraggableMenuItem'
 import { formatDayName, formatShortDate } from '@/lib/week-utils'
+import { DraggableMenuItem } from './DraggableMenuItem'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Plus } from 'lucide-react'
 
 interface MenuItem {
   id: string
@@ -74,38 +68,20 @@ export function DroppableDayCard({
 
   const itemIds = items.map((item) => item.id)
   
-  // Prüfe ob das gezogene Gericht bereits an diesem Tag vorhanden ist
   const dishAlreadyExists = draggedDishId
     ? items.some(item => item.dishId === draggedDishId)
     : false
   
-  // Bestimme die visuellen Styles basierend auf dem Zustand
   const getCardStyles = () => {
     if (!isOver && !isDragOver) {
-      return {
-        bg: undefined,
-        borderWidth: '1px',
-        borderColor: undefined,
-      }
+      return 'border-border/50'
     }
     
     if (dishAlreadyExists) {
-      // Rot wenn Gericht bereits vorhanden
-      return {
-        bg: 'red.50',
-        _dark: { bg: 'red.900' },
-        borderWidth: '2px',
-        borderColor: 'red.300',
-      }
+      return 'bg-red-50 dark:bg-red-950/20 border-2 border-red-300 dark:border-red-700'
     }
     
-    // Blau wenn Drop erlaubt
-    return {
-      bg: 'blue.50',
-      _dark: { bg: 'blue.900' },
-      borderWidth: '2px',
-      borderColor: 'blue.300',
-    }
+    return 'bg-blue-50 dark:bg-blue-950/20 border-2 border-blue-300 dark:border-blue-700'
   }
 
   const cardStyles = getCardStyles()
@@ -113,100 +89,79 @@ export function DroppableDayCard({
   return (
     <Card
       ref={setNodeRef}
-      minH="400px"
-      bg={cardStyles.bg}
-      _dark={cardStyles._dark}
-      borderWidth={cardStyles.borderWidth}
-      borderColor={cardStyles.borderColor}
-      transition="all 0.2s"
-      position="relative"
+      className={`min-h-[400px] transition-all ${cardStyles}`}
     >
-      <CardBody>
-        <VStack align="stretch" spacing={3}>
-          <Box>
-            <Heading size="md">{formatDayName(day)}</Heading>
-            <Text fontSize="sm" color="gray.600">
-              {formatShortDate(day)}
-            </Text>
-          </Box>
-
-          <VStack spacing={2} align="stretch" mb={3} minH="200px">
-            {items.length > 0 ? (
-              <SortableContext
-                items={itemIds}
-                strategy={verticalListSortingStrategy}
-              >
-                {items.map((item) => (
-                  <DraggableMenuItem
-                    key={item.id}
-                    item={item}
-                    onRemove={onRemoveItem}
-                    onPriceUpdate={onUpdatePrice}
-                  />
-                ))}
-              </SortableContext>
-            ) : (
-              <Box
-                p={4}
-                textAlign="center"
-                color={dishAlreadyExists ? 'red.500' : 'gray.400'}
-                borderWidth="2px"
-                borderStyle="dashed"
-                borderColor={dishAlreadyExists ? 'red.300' : 'gray.300'}
-                borderRadius="md"
-                bg={dishAlreadyExists ? 'red.50' : undefined}
-                _dark={{ bg: dishAlreadyExists ? 'red.900' : undefined }}
-              >
-                <Text fontSize="sm" fontWeight={dishAlreadyExists ? 'bold' : 'normal'}>
-                  {dishAlreadyExists
-                    ? 'Gericht bereits vorhanden!'
-                    : 'Gericht hierher ziehen'}
-                </Text>
-              </Box>
-            )}
-          </VStack>
-
-          <Button
-            onClick={onAddDishClick}
-            colorScheme="blue"
-            variant="outline"
-            size="sm"
-          >
-            + Gericht hinzufügen
-          </Button>
-
-          {showDishSelector && dishes && dishes.length > 0 && (
-            <Box
-              mt={3}
-              p={3}
-              bg="gray.50"
-              _dark={{ bg: 'gray.800' }}
-              borderRadius="md"
-              borderWidth="1px"
-              maxH="240px"
-              overflowY="auto"
+      <CardHeader className="pb-3">
+        <CardTitle className="text-base">{formatDayName(day)}</CardTitle>
+        <p className="text-xs text-muted-foreground mt-0.5">
+          {formatShortDate(day)}
+        </p>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <div className="min-h-[200px] space-y-2">
+          {items.length > 0 ? (
+            <SortableContext
+              items={itemIds}
+              strategy={verticalListSortingStrategy}
             >
-              <VStack spacing={1} align="stretch">
-                {dishes.map((dish) => (
-                  <Button
-                    key={dish.id}
-                    onClick={() => {
-                      if (onDishSelect) {
-                        onDishSelect(dish.id, day)
-                      }
-                    }}
-                    variant="ghost"
-                    size="sm"
-                    justifyContent="flex-start"
-                  >
-                    {dish.name}
-                  </Button>
-                ))}
-              </VStack>
-            </Box>
+              {items.map((item) => (
+                <DraggableMenuItem
+                  key={item.id}
+                  item={item}
+                  onRemove={onRemoveItem}
+                  onPriceUpdate={onUpdatePrice}
+                />
+              ))}
+            </SortableContext>
+          ) : (
+            <div
+              className={`p-4 text-center rounded-lg border-2 border-dashed transition-colors ${
+                dishAlreadyExists
+                  ? 'bg-red-50 dark:bg-red-950/20 border-red-300 dark:border-red-700 text-red-600 dark:text-red-400'
+                  : 'bg-muted/30 border-border text-muted-foreground'
+              }`}
+            >
+              <p className={`text-sm ${dishAlreadyExists ? 'font-bold' : ''}`}>
+                {dishAlreadyExists
+                  ? 'Gericht bereits vorhanden!'
+                  : 'Gericht hierher ziehen'}
+              </p>
+            </div>
           )}
-        </VStack>
-      </CardBody>
+        </div>
+
+        <Button
+          onClick={onAddDishClick}
+          variant="outline"
+          size="sm"
+          className="w-full"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Gericht hinzufügen
+        </Button>
+
+        {showDishSelector && dishes && dishes.length > 0 && (
+          <div className="mt-3 p-3 bg-muted/50 rounded-lg border border-border max-h-[240px] overflow-y-auto">
+            <div className="space-y-1">
+              {dishes.map((dish) => (
+                <Button
+                  key={dish.id}
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start"
+                  onClick={() => {
+                    if (onDishSelect) {
+                      onDishSelect(dish.id, day)
+                    }
+                  }}
+                >
+                  {dish.name}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+      </CardContent>
     </Card>
   )
 }

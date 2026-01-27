@@ -19,6 +19,12 @@ export function generatePickupCode(): string {
 // Formatierung für Währung
 export function formatCurrency(amount: number | string): string {
   const num = typeof amount === 'string' ? parseFloat(amount) : amount
+  if (isNaN(num) || !isFinite(num)) {
+    return new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR',
+    }).format(0)
+  }
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
@@ -42,4 +48,12 @@ export function formatTime(date: Date | string): string {
     hour: '2-digit',
     minute: '2-digit',
   }).format(d)
+}
+
+// Datum zu YYYY-MM-DD String (lokal, ohne Zeitzonen-Konvertierung)
+export function formatDateToKey(date: Date): string {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
