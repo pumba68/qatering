@@ -1,0 +1,499 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { formatCurrency } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
+
+interface Dish {
+  id: string
+  name: string
+  description: string | null
+  imageUrl: string | null
+  category: string | null
+  dietTags: string[]
+  allergens: string[]
+  calories: number | null
+  protein: number | null
+  carbs: number | null
+  fat: number | null
+  isActive: boolean
+  createdAt: string
+}
+
+export default function AdminDishesPage() {
+  const [dishes, setDishes] = useState<Dish[]>([])
+  const [loading, setLoading] = useState(true)
+  const [showForm, setShowForm] = useState(false)
+  const [editingDish, setEditingDish] = useState<Dish | null>(null)
+
+  useEffect(() => {
+    fetchDishes()
+  }, [])
+
+  async function fetchDishes() {
+    try {
+      setLoading(true)
+      const response = await fetch('/api/admin/dishes?includeInactive=true')
+      if (!response.ok) throw new Error('Fehler beim Laden')
+      const data = await response.json()
+      setDishes(data)
+    } catch (error) {
+      console.error('Fehler:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Möchten Sie dieses Gericht wirklich löschen?')) return
+
+    try {
+      const response = await fetch(`/api/admin/dishes/${id}`, {
+        method: 'DELETE',
+      })
+      if (!response.ok) throw new Error('Fehler beim Löschen')
+      fetchDishes()
+    } catch (error) {
+      alert('Fehler beim Löschen')
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-foreground">Gerichte-Verwaltung</h1>
+          <div className="flex gap-4">
+            <Link
+              href="/admin/menu-planner"
+              className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
+            >
+              Speiseplan-Editor
+            </Link>
+            <button
+              onClick={() => {
+                setEditingDish(null)
+                setShowForm(true)
+              }}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              + Neues Gericht
+            </button>
+          </div>
+        </div>
+
+        {showForm && (
+          <DishForm
+            dish={editingDish}
+            onClose={() => {
+              setShowForm(false)
+              setEditingDish(null)
+            }}
+            onSave={() => {
+              fetchDishes()
+              setShowForm(false)
+              setEditingDish(null)
+            }}
+          />
+        )}
+
+        {loading ? (
+          <div className="text-center py-12 text-muted-foreground">Lädt...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {dishes.map((dish, index) => (
+              <div
+                key={dish.id}
+                className={`bg-card rounded-lg shadow-md p-6 border border-border transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${
+                  !dish.isActive ? 'opacity-60' : ''
+                }`}
+                style={{
+                  animation: `fadeIn 0.3s ease-out ${index * 0.05}s both`
+                }}
+              >
+                {dish.imageUrl && (
+                  <img
+                    src={dish.imageUrl}
+                    alt={dish.name}
+                    className="w-full h-48 object-cover rounded mb-4 transition-transform duration-300 hover:scale-105"
+                  />
+                )}
+                <h3 className="text-xl font-semibold text-foreground mb-2">
+                  {dish.name}
+                </h3>
+                {dish.description && (
+                  <p className="text-muted-foreground text-sm mb-3">{dish.description}</p>
+                )}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {dish.dietTags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 bg-green-100 dark:bg-green-950/30 text-green-700 dark:text-green-400 text-xs rounded transition-colors"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                {dish.category && (
+                  <p className="text-sm text-muted-foreground mb-3">Kategorie: {dish.category}</p>
+                )}
+                {!dish.isActive && (
+                  <p className="text-xs text-destructive mb-3">Inaktiv</p>
+                )}
+                <div className="flex gap-2 mt-4">
+                  <button
+                    onClick={() => {
+                      setEditingDish(dish)
+                      setShowForm(true)
+                    }}
+                    className="flex-1 px-3 py-2 bg-primary/10 text-primary rounded hover:bg-primary/20 text-sm transition-all duration-200 hover:scale-105"
+                  >
+                    Bearbeiten
+                  </button>
+                  <button
+                    onClick={() => handleDelete(dish.id)}
+                    className="flex-1 px-3 py-2 bg-destructive/10 text-destructive rounded hover:bg-destructive/20 text-sm transition-all duration-200 hover:scale-105"
+                  >
+                    Löschen
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {dishes.length === 0 && !loading && (
+          <div className="text-center py-12 text-muted-foreground">
+            Noch keine Gerichte vorhanden. Erstellen Sie das erste Gericht!
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function DishForm({
+  dish,
+  onClose,
+  onSave,
+}: {
+  dish: Dish | null
+  onClose: () => void
+  onSave: () => void
+}) {
+  const [formData, setFormData] = useState({
+    name: dish?.name || '',
+    description: dish?.description || '',
+    imageUrl: dish?.imageUrl || '',
+    category: dish?.category || '',
+    dietTags: dish?.dietTags || [] as string[],
+    allergens: dish?.allergens || [] as string[],
+    calories: dish?.calories?.toString() || '',
+    protein: dish?.protein?.toString() || '',
+    carbs: dish?.carbs?.toString() || '',
+    fat: dish?.fat?.toString() || '',
+  })
+  const [isSaving, setIsSaving] = useState(false)
+  const [dietOptions, setDietOptions] = useState<string[]>([])
+  const [allergenOptions, setAllergenOptions] = useState<string[]>([])
+  const [dishCategoryOptions, setDishCategoryOptions] = useState<string[]>([])
+  const [loadingMetadata, setLoadingMetadata] = useState(true)
+
+  useEffect(() => {
+    async function loadMetadata() {
+      try {
+        const [dietCategories, allergens, dishCategories] = await Promise.all([
+          fetch('/api/admin/metadata?type=DIET_CATEGORY').then((r) => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`)
+            return r.json()
+          }),
+          fetch('/api/admin/metadata?type=ALLERGEN').then((r) => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`)
+            return r.json()
+          }),
+          fetch('/api/admin/metadata?type=DISH_CATEGORY').then((r) => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`)
+            return r.json()
+          }),
+        ])
+
+        setDietOptions(dietCategories.map((m: any) => m.name))
+        setAllergenOptions(allergens.map((m: any) => m.name))
+        setDishCategoryOptions(dishCategories.map((m: any) => m.name))
+      } catch (error) {
+        console.error('Fehler beim Laden der Metadaten:', error)
+        // Fallback zu leeren Arrays
+        setDietOptions([])
+        setAllergenOptions([])
+        setDishCategoryOptions([])
+      } finally {
+        setLoadingMetadata(false)
+      }
+    }
+    loadMetadata()
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSaving(true)
+
+    try {
+      const payload = {
+        ...formData,
+        calories: formData.calories ? parseInt(formData.calories) : null,
+        protein: formData.protein ? parseFloat(formData.protein) : null,
+        carbs: formData.carbs ? parseFloat(formData.carbs) : null,
+        fat: formData.fat ? parseFloat(formData.fat) : null,
+      }
+
+      const url = dish ? `/api/admin/dishes/${dish.id}` : '/api/admin/dishes'
+      const method = dish ? 'PATCH' : 'POST'
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) throw new Error('Fehler beim Speichern')
+      onSave()
+    } catch (error) {
+      alert('Fehler beim Speichern')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const toggleTag = (tag: string, type: 'dietTags' | 'allergens') => {
+    setFormData((prev) => ({
+      ...prev,
+      [type]: prev[type].includes(tag)
+        ? prev[type].filter((t) => t !== tag)
+        : [...prev[type], tag],
+    }))
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+      <div className="bg-card rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-border animate-in zoom-in-95 duration-200">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            {dish ? 'Gericht bearbeiten' : 'Neues Gericht'}
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">
+                Name *
+              </Label>
+              <Input
+                id="name"
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+                placeholder="Name des Gerichts"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="description">
+                Beschreibung
+              </Label>
+              <Textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                rows={3}
+                placeholder="Beschreibung des Gerichts..."
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="imageUrl">
+                Bild-URL
+              </Label>
+              <Input
+                id="imageUrl"
+                type="url"
+                value={formData.imageUrl}
+                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="category">
+                Kategorie
+              </Label>
+              {loadingMetadata ? (
+                <Input
+                  id="category"
+                  type="text"
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  placeholder="Lädt Kategorien..."
+                  disabled
+                />
+              ) : (
+                <div className="space-y-2">
+                  <select
+                    id="category"
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <option value="">-- Keine Kategorie --</option>
+                    {dishCategoryOptions.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                  <Input
+                    type="text"
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    placeholder="oder eigene Kategorie eingeben"
+                    className="mt-2"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label>Diät-Kategorien</Label>
+              {loadingMetadata ? (
+                <div className="text-sm text-muted-foreground">Lädt Diät-Kategorien...</div>
+              ) : dietOptions.length === 0 ? (
+                <div className="text-sm text-muted-foreground">
+                  Keine Diät-Kategorien verfügbar. Erstellen Sie welche unter{' '}
+                  <Link href="/admin/metadata" className="text-primary underline">
+                    Metadaten-Verwaltung
+                  </Link>
+                  .
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {dietOptions.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => toggleTag(option, 'dietTags')}
+                      className={`px-3 py-1 rounded-full text-sm transition-all duration-200 ${
+                        formData.dietTags.includes(option)
+                          ? 'bg-green-600 dark:bg-green-700 text-white scale-105 shadow-md'
+                          : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label>Allergene</Label>
+              {loadingMetadata ? (
+                <div className="text-sm text-muted-foreground">Lädt Allergene...</div>
+              ) : allergenOptions.length === 0 ? (
+                <div className="text-sm text-muted-foreground">
+                  Keine Allergene verfügbar. Erstellen Sie welche unter{' '}
+                  <Link href="/admin/metadata" className="text-primary underline">
+                    Metadaten-Verwaltung
+                  </Link>
+                  .
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {allergenOptions.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => toggleTag(option, 'allergens')}
+                      className={`px-3 py-1 rounded-full text-sm transition-all duration-200 ${
+                        formData.allergens.includes(option)
+                          ? 'bg-destructive text-destructive-foreground scale-105 shadow-md'
+                          : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="calories">Kalorien</Label>
+                <Input
+                  id="calories"
+                  type="number"
+                  value={formData.calories}
+                  onChange={(e) => setFormData({ ...formData, calories: e.target.value })}
+                  placeholder="0"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="protein">Protein (g)</Label>
+                <Input
+                  id="protein"
+                  type="number"
+                  step="0.1"
+                  value={formData.protein}
+                  onChange={(e) => setFormData({ ...formData, protein: e.target.value })}
+                  placeholder="0.0"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="carbs">Kohlenhydrate (g)</Label>
+                <Input
+                  id="carbs"
+                  type="number"
+                  step="0.1"
+                  value={formData.carbs}
+                  onChange={(e) => setFormData({ ...formData, carbs: e.target.value })}
+                  placeholder="0.0"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="fat">Fett (g)</Label>
+                <Input
+                  id="fat"
+                  type="number"
+                  step="0.1"
+                  value={formData.fat}
+                  onChange={(e) => setFormData({ ...formData, fat: e.target.value })}
+                  placeholder="0.0"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="submit"
+                disabled={isSaving}
+                className="flex-1"
+              >
+                {isSaving ? 'Speichert...' : 'Speichern'}
+              </Button>
+              <Button
+                type="button"
+                onClick={onClose}
+                variant="outline"
+              >
+                Abbrechen
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,343 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Multi-Tenant: Organisationen/Locations (White-Label Support)
+model Organization {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique // Für White-Label URLs: kantine-platform.com/organization-slug
+  logoUrl     String?
+  primaryColor String? @default("#3b82f6")
+  secondaryColor String? @default("#1e40af")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  locations   Location[]
+  users       User[]
+  
+  @@map("organizations")
+}
+
+// Standorte (Multi-Location Support)
+model Location {
+  id          String   @id @default(cuid())
+  organizationId String
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  openingHours Json? // { monday: "11:00-14:00", ... }
+  workingDays Int[]   @default([1, 2, 3, 4, 5]) // 0=Sonntag, 1=Montag, ..., 6=Samstag
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  menus        Menu[]
+  orders       Order[]
+  users        UserLocation[]
+  coupons      Coupon[]
+  
+  @@map("locations")
+}
+
+// Benutzer (Kunden, Küchenpersonal, Admins)
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  passwordHash  String? // Für Credentials Provider
+  role          UserRole @default(CUSTOMER)
+  image         String?
+  organizationId String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  organization  Organization? @relation(fields: [organizationId], references: [id])
+  locations     UserLocation[]
+  orders        Order[]
+  sessions      Session[]
+  accounts      Account[]
+  couponRedemptions CouponRedemption[]
+  
+  @@map("users")
+}
+
+enum UserRole {
+  CUSTOMER      // Kunde
+  KITCHEN_STAFF // Küchenpersonal
+  ADMIN         // Organisation Admin
+  SUPER_ADMIN   // Platform Admin
+}
+
+// Many-to-Many: User <-> Location (für Multi-Location Zugriff)
+model UserLocation {
+  id         String   @id @default(cuid())
+  userId     String
+  locationId String
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, locationId])
+  @@map("user_locations")
+}
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Wöchentliche Essenspläne
+model Menu {
+  id          String   @id @default(cuid())
+  locationId  String
+  weekNumber  Int      // Kalenderwoche
+  year        Int
+  startDate   DateTime // Startdatum der Woche (Montag)
+  endDate     DateTime // Enddatum der Woche (Sonntag)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  location    Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  menuItems   MenuItem[]
+  
+  @@unique([locationId, weekNumber, year])
+  @@map("menus")
+}
+
+// Gerichte auf einem Menü-Tag
+model MenuItem {
+  id          String   @id @default(cuid())
+  menuId      String
+  dishId      String
+  date        DateTime // Für welchen Tag (Montag-Sonntag)
+  available   Boolean  @default(true)
+  price       Decimal  @db.Decimal(10, 2)
+  maxOrders   Int?     // Max. Bestellungen (z.B. 50 Portionen)
+  currentOrders Int    @default(0) // Aktuelle Bestellungen
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  menu        Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  dish        Dish     @relation(fields: [dishId], references: [id])
+  orderItems  OrderItem[]
+  
+  @@map("menu_items")
+}
+
+// Gerichte (Master-Daten)
+model Dish {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?  @db.Text
+  imageUrl      String?
+  category      String?  // "Hauptgericht", "Dessert", "Salat", etc.
+  // Nährwerte (für Phase 2 vorbereitet)
+  calories      Int?
+  protein       Decimal? @db.Decimal(5, 2)
+  carbs         Decimal? @db.Decimal(5, 2)
+  fat           Decimal? @db.Decimal(5, 2)
+  // Allergene & Diäten (für Phase 2 vorbereitet)
+  allergens     String[] // ["Nüsse", "Gluten", "Laktose"]
+  dietTags      String[] // ["vegetarisch", "vegan", "low-carb"]
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  menuItems     MenuItem[]
+  coupons       Coupon[] // Für FREE_ITEM Coupons
+  
+  @@map("dishes")
+}
+
+// Bestellungen
+model Order {
+  id              String      @id @default(cuid())
+  userId          String
+  locationId      String
+  status          OrderStatus @default(PENDING)
+  totalAmount     Decimal     @db.Decimal(10, 2)
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentMethod   String?     // "card", "paypal", "payroll", etc.
+  paymentIntentId String?     // Für Stripe/PayPal
+  pickupCode      String      @unique // QR-Code zur Abholung
+  pickupDate      DateTime    // Für welchen Tag
+  pickupTimeSlot  String?     // "12:00-12:15", "12:15-12:30", etc.
+  notes           String?     @db.Text
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  pickedUpAt      DateTime?
+
+  user            User        @relation(fields: [userId], references: [id])
+  location        Location    @relation(fields: [locationId], references: [id])
+  items           OrderItem[]
+  couponRedemptions CouponRedemption[]
+  couponCode      String?     // Optional: Eingelöster Coupon-Code (für Referenz)
+  discountAmount  Decimal?    @db.Decimal(10, 2) // Optional: Angewendeter Rabatt
+  finalAmount     Decimal?    @db.Decimal(10, 2) // Optional: Endbetrag nach Coupon (falls vorhanden)
+  
+  @@index([userId])
+  @@index([locationId])
+  @@index([pickupCode])
+  @@index([pickupDate])
+  @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING        // Bestellt, nicht zubereitet
+  CONFIRMED      // Bestätigt von Küche
+  PREPARING      // In Zubereitung
+  READY          // Fertig zur Abholung
+  PICKED_UP      // Abgeholt
+  CANCELLED      // Storniert
+}
+
+enum PaymentStatus {
+  PENDING        // Zahlung ausstehend
+  PROCESSING     // In Bearbeitung
+  COMPLETED      // Bezahlt
+  FAILED         // Fehlgeschlagen
+  REFUNDED       // Rückerstattet
+}
+
+// Coupon-Typen
+enum CouponType {
+  DISCOUNT_PERCENTAGE  // Rabatt in Prozent (z.B. 10% Rabatt)
+  DISCOUNT_FIXED       // Fixer Rabatt (z.B. 5€ Rabatt)
+  FREE_ITEM            // Kostenloses Extra (z.B. kostenloser Nachtisch)
+}
+
+// Coupons/Gutscheine
+model Coupon {
+  id              String    @id @default(cuid())
+  code            String    @unique // Coupon-Code (z.B. "SUMMER2024")
+  name            String    // Name der Aktion
+  description     String?   @db.Text // Beschreibung der Aktion
+  type            CouponType // Typ des Coupons
+  discountValue   Decimal?  @db.Decimal(10, 2) // Rabattwert (Prozent oder fixer Betrag)
+  freeItemDishId  String?   // Für FREE_ITEM: ID des kostenlosen Gerichts
+  locationId      String?   // Optional: Nur für bestimmte Location
+  startDate       DateTime? // Optional: Startdatum
+  endDate         DateTime? // Optional: Enddatum
+  maxUses         Int?      // Optional: Maximale Gesamt-Nutzungen (z.B. 100x)
+  maxUsesPerUser  Int       @default(1) // Maximale Nutzungen pro User (1 = einmalig, null = unbegrenzt)
+  currentUses     Int       @default(0) // Aktuelle Anzahl der Nutzungen
+  minOrderAmount  Decimal?  @db.Decimal(10, 2) // Optional: Mindestbestellwert
+  isActive        Boolean   @default(true) // Aktiv/Inaktiv
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  location        Location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  freeItemDish    Dish?     @relation(fields: [freeItemDishId], references: [id])
+  redemptions     CouponRedemption[]
+
+  @@index([code, isActive])
+  @@index([locationId])
+  @@map("coupons")
+}
+
+// Coupon-Einlösungen (Tracking)
+model CouponRedemption {
+  id          String   @id @default(cuid())
+  couponId    String
+  userId      String
+  orderId     String
+  redeemedAt  DateTime @default(now())
+
+  coupon      Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@unique([couponId, userId, orderId]) // Verhindert doppelte Einlösung
+  @@index([couponId])
+  @@index([userId])
+  @@index([orderId])
+  @@map("coupon_redemptions")
+}
+
+// Metadaten-Typen
+enum MetadataType {
+  DIET_CATEGORY    // Diät-Kategorien (vegan, vegetarisch, etc.)
+  ALLERGEN        // Allergene (Nüsse, Gluten, etc.)
+  DISH_CATEGORY   // Speise-Kategorien (Hauptgericht, Dessert, etc.)
+}
+
+// Bestellte Gerichte
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  menuItemId  String
+  quantity    Int      @default(1)
+  price       Decimal  @db.Decimal(10, 2) // Preis zum Zeitpunkt der Bestellung
+  createdAt   DateTime @default(now())
+
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem    MenuItem @relation(fields: [menuItemId], references: [id])
+  
+  @@map("order_items")
+}
+
+// Metadaten-Verwaltung (Diät-Kategorien, Allergene, Speise-Kategorien)
+model Metadata {
+  id          String       @id @default(cuid())
+  type        MetadataType // Typ der Metadaten
+  name        String       // Name des Wertes (z.B. "vegan", "Gluten")
+  description String?      // Optionale Beschreibung
+  icon        String?      // Optional: Icon-Name oder Emoji
+  color       String?      // Optional: Farbe für UI (z.B. "#22c55e" für grün)
+  isActive    Boolean      @default(true) // Soft-Delete
+  sortOrder   Int          @default(0) // Sortierreihenfolge
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([type, name]) // Verhindert Duplikate pro Typ
+  @@index([type, isActive])
+  @@map("metadata")
+}
