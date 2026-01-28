@@ -42,7 +42,14 @@ export async function GET(
       )
     }
 
-    return NextResponse.json(order)
+    const walletTx = await prisma.walletTransaction.findFirst({
+      where: { orderId: params.orderId, type: 'ORDER_PAYMENT' },
+      orderBy: { createdAt: 'desc' },
+    })
+    const walletBalanceAfter = walletTx ? Number(walletTx.balanceAfter) : null
+
+    const out = { ...order, walletBalanceAfter }
+    return NextResponse.json(out)
   } catch (error) {
     console.error('Fehler beim Abrufen der Bestellung:', error)
     return NextResponse.json(

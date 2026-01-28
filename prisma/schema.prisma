@@ -120,8 +120,52 @@ model User {
   sessions      Session[]
   accounts      Account[]
   couponRedemptions CouponRedemption[]
+  wallet        Wallet?
+  walletTransactions WalletTransaction[]
+  performedWalletActions WalletTransaction[] @relation("WalletAudit")
 
   @@map("users")
+}
+
+// Guthaben-System (Wallet)
+model Wallet {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  balance   Decimal  @db.Decimal(10, 2) @default(0) // Nie negativ (app-seitig + CHECK)
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("wallets")
+}
+
+enum WalletTransactionType {
+  TOP_UP         // Aufladung
+  ORDER_PAYMENT  // Bestellzahlung
+  REFUND         // Erstattung (Stornierung)
+  ADJUSTMENT     // Admin-Anpassung
+}
+
+model WalletTransaction {
+  id            String                @id @default(cuid())
+  userId        String
+  type          WalletTransactionType
+  amount        Decimal               @db.Decimal(10, 2) // + Gutschrift, - Abbuchung
+  balanceBefore Decimal               @db.Decimal(10, 2)
+  balanceAfter  Decimal               @db.Decimal(10, 2)
+  description   String?               @db.Text
+  orderId       String?
+  performedById String?               // Admin bei TOP_UP/ADJUSTMENT
+  createdAt     DateTime              @default(now())
+
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order         Order?  @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  performedBy   User?   @relation("WalletAudit", fields: [performedById], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([orderId])
+  @@index([createdAt])
+  @@map("wallet_transactions")
 }
 
 enum UserRole {
@@ -278,6 +322,7 @@ model Order {
   employerCompanyId     String?  // Referenz auf Company, falls Zuschuss angewendet wurde
 
   employerCompany Company? @relation(fields: [employerCompanyId], references: [id])
+  walletTransactions WalletTransaction[]
 
   @@index([userId])
   @@index([locationId])

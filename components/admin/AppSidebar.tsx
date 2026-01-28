@@ -11,6 +11,8 @@ import {
   LogOut,
   Building2,
   Users,
+  Wallet,
+  Coins,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -65,6 +67,16 @@ const menuItems = [
     title: 'Nutzer',
     url: '/admin/users',
     icon: Users,
+  },
+  {
+    title: 'Guthaben aufladen',
+    url: '/admin/wallet/top-up',
+    icon: Coins,
+  },
+  {
+    title: 'Guthaben verwalten',
+    url: '/admin/wallet/balances',
+    icon: Wallet,
   },
   {
     title: 'Einstellungen',

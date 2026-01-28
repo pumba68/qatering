@@ -28,6 +28,8 @@ interface Order {
     id: string
     name: string
   } | null
+  paymentMethod?: string | null
+  walletBalanceAfter?: number | null
   pickupDate: string
   createdAt: string
   items: OrderItem[]
@@ -180,6 +182,12 @@ export default function OrderConfirmationPage() {
                 <p className="text-xs text-muted-foreground mt-1">
                   Hinweis: Ein Teil Ihres Essens wird durch Ihren Arbeitgeber bezuschusst.
                 </p>
+              )}
+              {order.walletBalanceAfter != null && (
+                <div className="mt-3 pt-3 border-t border-border flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">Zahlung per Guthaben · Neues Guthaben:</span>
+                  <span className="font-semibold text-foreground">{formatCurrency(order.walletBalanceAfter)}</span>
+                </div>
               )}
             </div>
           </div>

@@ -170,8 +170,7 @@ export default function CartSidebar({
       }
 
       const order = await response.json()
-      
-      // Weiterleitung zur Bestellbestätigung
+      if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('wallet-refresh'))
       window.location.href = `/order/confirmation/${order.id}`
     } catch (error) {
       alert(error instanceof Error ? error.message : 'Fehler beim Checkout')
@@ -376,10 +375,12 @@ export default function CartSidebar({
                           : formatCurrency(totalAmount)}
                       </span>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      Hinweis: Falls Ihr Arbeitgeber eine Bezuschussung mit der Kantine vereinbart hat,
-                      wird dieser Zuschuss bei der Bestellbestätigung automatisch vom Gesamtbetrag abgezogen.
-                    </p>
+                <p className="text-xs text-muted-foreground">
+                  Zahlung erfolgt per Guthaben. Bei unzureichendem Guthaben wird die Bestellung abgelehnt.
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Falls Ihr Arbeitgeber eine Bezuschussung vereinbart hat, wird diese automatisch abgezogen.
+                </p>
                   </div>
                 </div>
 

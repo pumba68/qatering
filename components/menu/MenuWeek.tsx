@@ -92,7 +92,7 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
       // Setze Standard-Tag: Heute, wenn verfügbar, sonst ersten verfügbaren Tag
       if (data.menuItems && data.menuItems.length > 0) {
         const todayKey = new Date().toISOString().split('T')[0]
-        const todayItem = data.menuItems.find(item => {
+        const todayItem = data.menuItems.find((item: { date: string }) => {
           const itemDate = new Date(item.date)
           return itemDate.toISOString().split('T')[0] === todayKey
         })

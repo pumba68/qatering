@@ -9,10 +9,13 @@ export async function GET(request: NextRequest) {
     if (auth.error) return auth.error
 
     const { searchParams } = new URL(request.url)
-    const role = searchParams.get('role')
+    const roleParam = searchParams.get('role')
     const search = searchParams.get('search')?.trim() || ''
+    const validRoles = ['CUSTOMER', 'KITCHEN_STAFF', 'ADMIN', 'SUPER_ADMIN'] as const
+    const role: (typeof validRoles)[number] | undefined =
+      roleParam && validRoles.includes(roleParam as (typeof validRoles)[number]) ? (roleParam as (typeof validRoles)[number]) : undefined
 
-    const where: { role?: string; OR?: Array<{ email?: { contains: string; mode: 'insensitive' }; name?: { contains: string; mode: 'insensitive' } }> } = {}
+    const where: { role?: (typeof validRoles)[number]; OR?: Array<{ email?: { contains: string; mode: 'insensitive' }; name?: { contains: string; mode: 'insensitive' } }> } = {}
     if (role) where.role = role
     if (search) {
       where.OR = [

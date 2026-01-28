@@ -112,6 +112,16 @@ export default function WikiPage() {
                 >
                   🎨 Design Guidelines
                 </button>
+                <button
+                  onClick={() => toggleSection('wallet')}
+                  className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                    activeSection === 'wallet'
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  💰 Guthaben &amp; Wallet
+                </button>
               </nav>
             </div>
           </div>
@@ -666,7 +676,7 @@ NODE_ENV="development"`}</pre>
 
                     <h3>Best Practices</h3>
                     <div className="bg-green-50 border-l-4 border-green-500 p-4 my-4">
-                      <h4 className="font-bold text-green-800 mb-2">✅ DO's</h4>
+                      <h4 className="font-bold text-green-800 mb-2">✅ DO&apos;s</h4>
                       <ul className="list-disc list-inside space-y-1 text-green-700">
                         <li>Konsistente Badge-Farben verwenden</li>
                         <li>Hover-Effekte konsistent implementieren</li>
@@ -677,7 +687,7 @@ NODE_ENV="development"`}</pre>
                     </div>
 
                     <div className="bg-red-50 border-l-4 border-red-500 p-4 my-4">
-                      <h4 className="font-bold text-red-800 mb-2">❌ DON'Ts</h4>
+                      <h4 className="font-bold text-red-800 mb-2">❌ DON&apos;Ts</h4>
                       <ul className="list-disc list-inside space-y-1 text-red-700">
                         <li>Inkonsistente Border-Radius verwenden</li>
                         <li>Ohne Dark Mode Support entwickeln</li>
@@ -693,6 +703,123 @@ NODE_ENV="development"`}</pre>
                         Für detaillierte Spezifikationen, Code-Beispiele und vollständige Komponenten-Referenzen siehe die vollständige <code>DESIGN_GUIDELINES.md</code> Datei im Projekt-Root.
                       </p>
                     </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Guthaben & Wallet – Fachliche Dokumentation */}
+            {activeSection === 'wallet' && (
+              <section className="bg-white rounded-lg shadow-md p-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  💰 Guthaben &amp; Wallet
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Fachliche Dokumentation des internen Guthaben-Systems: Geschäftslogik, Prozesse und Regeln aus Business-Sicht.
+                </p>
+
+                <div className="prose max-w-none space-y-6">
+                  <div>
+                    <h3>Übersicht und Zweck</h3>
+                    <p className="text-gray-700">
+                      Das <strong>Guthaben-System (Wallet)</strong> ist ein internes, bargeldloses Zahlungsmodell für die Kantine. Jeder registrierte Nutzer besitzt ein <em>Wallet</em> – ein Guthabenkonto in Euro. Bezahlung von Bestellungen erfolgt ausschließlich über dieses Guthaben; Bargeld oder externe Zahlungsmittel kommen dabei nicht zum Einsatz.
+                    </p>
+                    <p className="text-gray-700">
+                      Ziel ist eine schlanke Abwicklung: Mitarbeiter laden ihr Konto auf (z. B. per Barzahlung oder Überweisung an die Kantine), und beim Bestellen wird der Betrag direkt vom Guthaben abgebucht. So entfallen Kassenvorgänge und Kleingeld an der Essensausgabe.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Rollen und Rechte</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Mitarbeiter / Kunde:</strong> Sieht nur das eigene Guthaben und die eigene Transaktionshistorie. Kann nicht selbst aufladen.</li>
+                      <li><strong>Küchenpersonal:</strong> Wie Mitarbeiter – eigenes Guthaben einsehbar, keine Verwaltungsrechte.</li>
+                      <li><strong>Kantinen-Manager / Admin:</strong> Darf Guthaben aufladen, alle Guthaben einsehen, Nutzer suchen/filtern sowie manuelle Korrekturen vornehmen (mit Pflichtangabe eines Grundes).</li>
+                    </ul>
+                    <p className="text-gray-700 mt-2">
+                      Gäste (nicht eingeloggt) haben keinen Zugriff auf Guthaben oder Wallet-Funktionen.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Auflade-Prozess</h3>
+                    <ol className="list-decimal list-inside space-y-2 text-gray-700">
+                      <li>Mitarbeiter zahlt <strong>bar</strong> an der Kasse oder <strong>überweist</strong> auf das Konto der Kantine.</li>
+                      <li>Ein Manager oder Admin loggt sich ins Admin-Panel ein und öffnet <strong>Guthaben aufladen</strong>.</li>
+                      <li>Er wählt den Nutzer (z. B. per E-Mail), gibt den <strong>Aufladebetrag</strong> ein (min. 5 €, max. 200 € pro Vorgang) und optional eine <strong>Notiz</strong> (z. B. „Barzahlung 24.01.2026“).</li>
+                      <li>Nach Bestätigung wird das Guthaben <strong>sofort</strong> dem Konto gutgeschrieben. Der Mitarbeiter kann damit direkt bestellen.</li>
+                    </ol>
+                    <p className="text-gray-700 mt-2">
+                      Für höhere Beträge als 200 € sind mehrere Aufladungen nötig. Eine Aufladung durch den Nutzer selbst (z. B. per Karte) ist im aktuellen Modell nicht vorgesehen; das bleibt ggf. späteren Erweiterungen vorbehalten.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Bezahlung bei der Bestellung</h3>
+                    <p className="text-gray-700">
+                      Beim Absenden einer Bestellung wird zuerst geprüft, ob das Guthaben für den zu zahlenden Betrag (nach Coupons und ggf. Arbeitgeber-Zuschuss) ausreicht.
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 mt-2">
+                      <li><strong>Guthaben reicht nicht:</strong> Die Bestellung wird abgelehnt. Der Nutzer erhält eine klare Meldung, wie viel verfügbar ist und wie viel benötigt wird (z. B. „Verfügbar: 3,50 €, Benötigt: 5,00 €“).</li>
+                      <li><strong>Guthaben reicht:</strong> Der Betrag wird vom Wallet <strong>atomar</strong> abgebucht: Guthabenänderung und Anlegen der Bestellung laufen in einem gemeinsamen Schritt. Gelingt einer der Teilschritte nicht, wird beides zurückgerollt – es gibt keine Bestellung ohne Abbuchung und keine Abbuchung ohne Bestellung.</li>
+                    </ul>
+                    <p className="text-gray-700 mt-2">
+                      <strong>Negatives Guthaben</strong> ist nicht erlaubt. Die Bestellung kann nur durchgehen, wenn das Konto nach der Abbuchung immer noch &ge; 0 € ist. Das neue Guthaben wird auf der Bestellbestätigung angezeigt und im Header-Widget aktualisiert.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Transaktionstypen und Historie</h3>
+                    <p className="text-gray-700">
+                      Jede Änderung am Guthaben wird als <strong>Transaktion</strong> festgehalten. Es gibt vier Typen:
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 mt-2">
+                      <li><strong>Aufladung (Gutschrift):</strong> Admin hat Guthaben hinzugefügt. Optional mit Notiz.</li>
+                      <li><strong>Bestellzahlung (Abbuchung):</strong> Bezahlung einer Bestellung. Verknüpft mit der Bestellreferenz.</li>
+                      <li><strong>Erstattung (Gutschrift):</strong> Rückbuchung z. B. bei Stornierung einer Bestellung.</li>
+                      <li><strong>Admin-Anpassung:</strong> Manuelle Korrektur (Plus oder Minus). Ein <strong>Grund</strong> ist Pflicht und wird mitgespeichert.</li>
+                    </ul>
+                    <p className="text-gray-700 mt-2">
+                      Transaktionen sind <strong>unveränderbar</strong>. Falsche Buchungen werden nicht gelöscht oder überschrieben, sondern durch eine neue <em>Anpassungs-Transaktion</em> korrigiert. So bleibt die Historie für Prüfungen und Audit nachvollziehbar.
+                    </p>
+                    <p className="text-gray-700 mt-2">
+                      Nutzer sehen ihre Historie auf der <strong>Wallet-Historie</strong>-Seite (Filter nach Typ, Datumsbereich; Paginierung). Darstellung: Gutschriften grün, Abbuchungen rot; jeweils mit Betrag, Guthaben danach und Beschreibung.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Anzeigen für den Nutzer</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Header:</strong> Aktuelles Guthaben (z. B. „Guthaben: 25,50 €“), klickbar zur Wallet-Übersicht.</li>
+                      <li><strong>Hinweise:</strong> Bei Guthaben unter 5 € bzw. bei 0 € erscheinen Warnhinweise („Guthaben niedrig“ / „Kein Guthaben – bitte aufladen“).</li>
+                      <li><strong>Wallet-Seite:</strong> Guthaben prominent, Status (Normal / Niedrig / Kein Guthaben), Link zur Transaktionshistorie.</li>
+                      <li><strong>Checkout:</strong> Hinweis, dass die Zahlung per Guthaben erfolgt; bei unzureichendem Guthaben wird die Bestellung abgelehnt.</li>
+                      <li><strong>Bestellbestätigung:</strong> Zeigt das neue Guthaben nach erfolgreicher Zahlung.</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3>Admin: Guthaben verwalten</h3>
+                    <p className="text-gray-700">
+                      Unter <strong>Guthaben aufladen</strong> wählt der Admin den Nutzer, gibt Betrag und ggf. Notiz ein und bucht gut. Unter <strong>Guthaben verwalten</strong> sieht er alle Nutzer mit aktuellem Guthaben, kann suchen, nach Guthaben sortieren und Filter nutzen (z. B. „niedrig“, „null“). Pro Nutzer sind Schnellaktionen wie „Aufladen“ und Zugriff auf die Transaktionshistorie möglich. Manuelle Anpassungen sind nur mit Begründung erlaubt und werden protokolliert.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Wichtige Regeln und Grenzfälle</h3>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Kein negatives Guthaben:</strong> Weder durch Bestellung noch durch Anpassung. Bei Anpassung wird geprüft, dass das Guthaben danach nicht negativ wird.</li>
+                      <li><strong>Gleichzeitige Aktionen:</strong> Mehrere Bestellungen oder Aufladungen gleichzeitig werden technisch so verarbeitet, dass keine „Race Conditions“ entstehen – jeder Vorgang sieht einen konsistenten Guthabenstand.</li>
+                      <li><strong>Fehler bei Abbuchung:</strong> Schlägt die Abbuchung oder die Bestell-Anlage fehl, wird die komplette Aktion rückgängig gemacht. Es entsteht weder eine Bestellung ohne Bezahlung noch eine Abbuchung ohne Bestellung.</li>
+                      <li><strong>Betrag 0 €:</strong> Ist der Endbetrag einer Bestellung 0 € (z. B. durch Coupon oder Arbeitgeber-Zuschuss), wird kein Guthaben abgebucht; die Bestellung wird trotzdem erfasst und per Wallet abgerechnet.</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mt-6">
+                    <h4 className="font-bold text-blue-800 mb-2">Technischer Kurzüberblick</h4>
+                    <p className="text-blue-800 text-sm">
+                      Jeder Nutzer hat genau ein Wallet (Guthabenkonto). Änderungen laufen über Transaktionen; jede Transaktion speichert Typ, Betrag, Guthaben vorher/nachher, Beschreibung und ggf. Bestell- oder Admin-Referenz. Abbuchungen bei Bestellungen sind in dieselbe Datenbank-Transaktion wie die Bestell-Anlage eingebettet (atomar). Transaktionen sind append-only (kein Update/Delete); Korrekturen nur über neue Anpassungs-Transaktionen.
+                    </p>
                   </div>
                 </div>
               </section>

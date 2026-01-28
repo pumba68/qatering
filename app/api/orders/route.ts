@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-config'
 import { prisma } from '@/lib/prisma'
 import { generatePickupCode } from '@/lib/utils'
+import { ensureWallet, chargeWithinTx } from '@/lib/wallet'
 
 // POST: Neue Bestellung erstellen
 export async function POST(request: NextRequest) {
@@ -182,6 +183,22 @@ export async function POST(request: NextRequest) {
       finalAmount = Math.max(0, baseAmount - employerSubsidyAmount)
     }
 
+    const chargeAmount = Math.round(finalAmount * 100) / 100
+
+    // Wallet-Prüfung: Guthaben muss ausreichen (außer Bestellung ist 0 €)
+    if (chargeAmount > 0) {
+      const wallet = await ensureWallet(userId)
+      const balance = Number(wallet.balance)
+      if (balance < chargeAmount) {
+        return NextResponse.json(
+          {
+            error: `Guthaben nicht ausreichend. Verfügbar: ${balance.toFixed(2)} €, Benötigt: ${chargeAmount.toFixed(2)} €`,
+          },
+          { status: 400 }
+        )
+      }
+    }
+
     // QR-Code generieren (eindeutig)
     let pickupCode: string = ''
     let codeExists = true
@@ -221,7 +238,8 @@ export async function POST(request: NextRequest) {
           pickupDate: new Date(pickupDate),
           notes,
           status: 'PENDING',
-          paymentStatus: 'PENDING', // In Phase 1 erstmal PENDING, später mit Stripe/PayPal
+          paymentStatus: 'COMPLETED',
+          paymentMethod: 'WALLET',
           items: {
             create: allMenuItems.map(({ menuItem, quantity }) => ({
               menuItemId: menuItem.id,
@@ -276,11 +294,27 @@ export async function POST(request: NextRequest) {
         })
       }
 
-      return newOrder
+      // Wallet belasten (atomar in derselben Transaktion)
+      let newBalance: number | null = null
+      if (chargeAmount > 0) {
+        const { balanceAfter } = await chargeWithinTx(tx, userId, chargeAmount, {
+          orderId: newOrder.id,
+          description: `Bestellung #${pickupCode}`,
+        })
+        newBalance = balanceAfter
+      }
+
+      return { order: newOrder, newBalance }
     })
 
-    return NextResponse.json(order, { status: 201 })
+    const result = order as { order: unknown; newBalance: number | null }
+    const out = result.order as Record<string, unknown>
+    if (result.newBalance != null) out.walletBalanceAfter = result.newBalance
+    return NextResponse.json(out, { status: 201 })
   } catch (error) {
+    if (error instanceof Error && error.message.startsWith('Guthaben nicht ausreichend')) {
+      return NextResponse.json({ error: error.message }, { status: 400 })
+    }
     console.error('Fehler beim Erstellen der Bestellung:', error)
     return NextResponse.json(
       { error: 'Interner Serverfehler' },

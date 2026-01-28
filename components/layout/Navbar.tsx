@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { WalletWidget } from '@/components/wallet/WalletWidget'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
@@ -66,6 +67,7 @@ export default function Navbar() {
                   )}
                   <span className="relative">📚 Wiki</span>
                 </Link>
+                <WalletWidget />
                 {(session.user as any)?.role === 'KITCHEN_STAFF' ||
                 (session.user as any)?.role === 'ADMIN' ? (
                   <Link

@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 
 interface MenuItem {
   id: string
+  date: string
   price: number
   available: boolean
   currentOrders: number
