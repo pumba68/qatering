@@ -9,6 +9,8 @@ import {
   Tags,
   Ticket,
   LogOut,
+  Building2,
+  Users,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -53,6 +55,16 @@ const menuItems = [
     title: 'Coupons',
     url: '/admin/coupons',
     icon: Ticket,
+  },
+  {
+    title: 'Unternehmen',
+    url: '/admin/companies',
+    icon: Building2,
+  },
+  {
+    title: 'Nutzer',
+    url: '/admin/users',
+    icon: Users,
   },
   {
     title: 'Einstellungen',

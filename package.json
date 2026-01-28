@@ -12,7 +12,8 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
-    "db:cleanup": "tsx prisma/cleanup.ts"
+    "db:cleanup": "tsx prisma/cleanup.ts",
+    "stop": "node server.stop.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.10.9",

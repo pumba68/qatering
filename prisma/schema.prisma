@@ -27,6 +27,57 @@ model Organization {
   @@map("organizations")
 }
 
+// Arbeitgeber-Unternehmen, die Verträge mit der Kantine haben
+model Company {
+  id               String      @id @default(cuid())
+  name             String
+  contractNumber   String?     // Interne Vertragsnummer
+  isActive         Boolean     @default(true)
+
+  // Zuschuss-Konfiguration
+  subsidyType      SubsidyType @default(NONE)
+  subsidyValue     Decimal?    @db.Decimal(10, 2) // Prozent- oder Fixbetrag, abhängig von subsidyType
+  subsidyMaxPerDay Decimal?    @db.Decimal(10, 2) // Optional: Max. Zuschuss pro Tag pro Mitarbeiter
+
+  validFrom        DateTime?   // Optional: Vertragsbeginn
+  validUntil       DateTime?   // Optional: Vertragsende
+
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  employees        CompanyEmployee[]
+  orders           Order[]
+
+  @@map("companies")
+}
+
+// Zuordnung: Company -> Employee (User ist Mitarbeiter eines Unternehmens)
+model CompanyEmployee {
+  id             String   @id @default(cuid())
+  companyId      String
+  userId         String
+  employeeNumber String? // Optionale Personalnummer
+  department     String? // Optionale Abteilung
+  isActive       Boolean  @default(true)
+  validFrom      DateTime? // Optional: Beginn der Zuordnung
+  validUntil     DateTime? // Optional: Ende der Zuordnung
+  createdAt      DateTime  @default(now())
+
+  company        Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, userId])
+  @@index([userId])
+  @@map("company_employees")
+}
+
+// Zuschuss-Typen für Arbeitgeber
+enum SubsidyType {
+  NONE
+  PERCENTAGE
+  FIXED
+}
+
 // Standorte (Multi-Location Support)
 model Location {
   id          String   @id @default(cuid())
@@ -64,11 +115,12 @@ model User {
 
   organization  Organization? @relation(fields: [organizationId], references: [id])
   locations     UserLocation[]
+  companyEmployees CompanyEmployee[]
   orders        Order[]
   sessions      Session[]
   accounts      Account[]
   couponRedemptions CouponRedemption[]
-  
+
   @@map("users")
 }
 
@@ -221,8 +273,12 @@ model Order {
   couponRedemptions CouponRedemption[]
   couponCode      String?     // Optional: Eingelöster Coupon-Code (für Referenz)
   discountAmount  Decimal?    @db.Decimal(10, 2) // Optional: Angewendeter Rabatt
-  finalAmount     Decimal?    @db.Decimal(10, 2) // Optional: Endbetrag nach Coupon (falls vorhanden)
-  
+  finalAmount     Decimal?    @db.Decimal(10, 2) // Optional: Endbetrag nach Coupon/Zuschuss (falls vorhanden)
+  employerSubsidyAmount Decimal? @db.Decimal(10, 2) // Optional: Arbeitgeber-Zuschuss (Company)
+  employerCompanyId     String?  // Referenz auf Company, falls Zuschuss angewendet wurde
+
+  employerCompany Company? @relation(fields: [employerCompanyId], references: [id])
+
   @@index([userId])
   @@index([locationId])
   @@index([pickupCode])

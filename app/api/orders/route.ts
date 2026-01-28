@@ -136,6 +136,52 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Arbeitgeber-Zuschuss (Company) anwenden
+    let employerSubsidyAmount = 0
+    let employerCompanyId: string | null = null
+
+    // Arbeitgeber-Beziehung laden (falls vorhanden)
+    const companyEmployee = await prisma.companyEmployee.findFirst({
+      where: {
+        userId,
+        isActive: true,
+        OR: [
+          { validFrom: null, validUntil: null },
+          {
+            AND: [
+              { validFrom: { lte: new Date() } },
+              { OR: [{ validUntil: null }, { validUntil: { gte: new Date() } }] },
+            ],
+          },
+        ],
+      },
+      include: {
+        company: true,
+      },
+    })
+
+    if (companyEmployee?.company && companyEmployee.company.isActive) {
+      const company = companyEmployee.company
+      employerCompanyId = company.id
+
+      // Basis für Zuschuss: Betrag nach Coupon
+      const baseAmount = finalAmount
+
+      if (company.subsidyType === 'PERCENTAGE' && company.subsidyValue) {
+        employerSubsidyAmount = (baseAmount * Number(company.subsidyValue)) / 100
+      } else if (company.subsidyType === 'FIXED' && company.subsidyValue) {
+        employerSubsidyAmount = Number(company.subsidyValue)
+      }
+
+      // Optional: Maximaler Zuschuss pro Tag
+      if (company.subsidyMaxPerDay && employerSubsidyAmount > Number(company.subsidyMaxPerDay)) {
+        employerSubsidyAmount = Number(company.subsidyMaxPerDay)
+      }
+
+      // Endbetrag nach Zuschuss
+      finalAmount = Math.max(0, baseAmount - employerSubsidyAmount)
+    }
+
     // QR-Code generieren (eindeutig)
     let pickupCode: string = ''
     let codeExists = true
@@ -169,6 +215,8 @@ export async function POST(request: NextRequest) {
           finalAmount: finalAmount !== totalAmount ? finalAmount : null,
           discountAmount: discountAmount > 0 ? discountAmount : null,
           couponCode: coupon?.code || null,
+          employerSubsidyAmount: employerSubsidyAmount > 0 ? employerSubsidyAmount : null,
+          employerCompanyId: employerCompanyId,
           pickupCode: pickupCode,
           pickupDate: new Date(pickupDate),
           notes,
