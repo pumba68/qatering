@@ -376,6 +376,10 @@ export default function CartSidebar({
                           : formatCurrency(totalAmount)}
                       </span>
                     </div>
+                    <p className="text-xs text-muted-foreground">
+                      Hinweis: Falls Ihr Arbeitgeber eine Bezuschussung mit der Kantine vereinbart hat,
+                      wird dieser Zuschuss bei der Bestellbestätigung automatisch vom Gesamtbetrag abgezogen.
+                    </p>
                   </div>
                 </div>
 

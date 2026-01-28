@@ -26,6 +26,12 @@ export async function GET(
             },
           },
         },
+        employerCompany: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
     })
 

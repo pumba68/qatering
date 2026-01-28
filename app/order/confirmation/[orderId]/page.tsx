@@ -21,6 +21,13 @@ interface Order {
   pickupCode: string
   status: string
   totalAmount: string
+  discountAmount?: string | null
+  finalAmount?: string | null
+  employerSubsidyAmount?: string | null
+  employerCompany?: {
+    id: string
+    name: string
+  } | null
   pickupDate: string
   createdAt: string
   items: OrderItem[]
@@ -139,9 +146,41 @@ export default function OrderConfirmationPage() {
                 </div>
               ))}
             </div>
-            <div className="flex justify-between items-center mt-4 pt-4 border-t border-border font-bold text-lg text-foreground">
-              <span>Gesamt:</span>
-              <span>{formatCurrency(order.totalAmount)}</span>
+
+            {/* Preisübersicht inkl. Coupons und Arbeitgeber-Zuschuss */}
+            <div className="mt-4 pt-4 border-t border-border space-y-1 text-sm text-foreground">
+              <div className="flex justify-between">
+                <span>Zwischensumme:</span>
+                <span>{formatCurrency(order.totalAmount)}</span>
+              </div>
+              {order.discountAmount && (
+                <div className="flex justify-between text-green-600 dark:text-green-400">
+                  <span>Gutschein-Rabatt:</span>
+                  <span>-{formatCurrency(order.discountAmount)}</span>
+                </div>
+              )}
+              {order.employerSubsidyAmount && Number(order.employerSubsidyAmount) > 0 && (
+                <div className="flex justify-between text-blue-600 dark:text-blue-400">
+                  <span>
+                    Arbeitgeber-Zuschuss
+                    {order.employerCompany?.name ? ` (${order.employerCompany.name})` : ''}:
+                  </span>
+                  <span>-{formatCurrency(order.employerSubsidyAmount)}</span>
+                </div>
+              )}
+              <div className="flex justify-between items-center mt-3 pt-3 border-t border-border font-bold text-lg text-foreground">
+                <span>Zu zahlender Betrag:</span>
+                <span>
+                  {formatCurrency(order.finalAmount && Number(order.finalAmount) > 0
+                    ? order.finalAmount
+                    : order.totalAmount)}
+                </span>
+              </div>
+              {order.employerSubsidyAmount && Number(order.employerSubsidyAmount) > 0 && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Hinweis: Ein Teil Ihres Essens wird durch Ihren Arbeitgeber bezuschusst.
+                </p>
+              )}
             </div>
           </div>
 
