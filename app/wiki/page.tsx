@@ -122,6 +122,16 @@ export default function WikiPage() {
                 >
                   💰 Guthaben &amp; Wallet
                 </button>
+                <button
+                  onClick={() => toggleSection('promotions')}
+                  className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                    activeSection === 'promotions'
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  🏷️ Promotion Features
+                </button>
               </nav>
             </div>
           </div>
@@ -820,6 +830,101 @@ NODE_ENV="development"`}</pre>
                     <p className="text-blue-800 text-sm">
                       Jeder Nutzer hat genau ein Wallet (Guthabenkonto). Änderungen laufen über Transaktionen; jede Transaktion speichert Typ, Betrag, Guthaben vorher/nachher, Beschreibung und ggf. Bestell- oder Admin-Referenz. Abbuchungen bei Bestellungen sind in dieselbe Datenbank-Transaktion wie die Bestell-Anlage eingebettet (atomar). Transaktionen sind append-only (kein Update/Delete); Korrekturen nur über neue Anpassungs-Transaktionen.
                     </p>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Promotion Features */}
+            {activeSection === 'promotions' && (
+              <section className="bg-white rounded-lg shadow-md p-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  🏷️ Promotion Features
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Dokumentation der Promotions-Funktionen: Gericht-Aktionen (Einzelgerichte bewerben) und Motto-Banner (Hero-Banner pro Woche).
+                </p>
+
+                <div className="prose max-w-none space-y-8">
+                  {/* 1. Gericht-Aktion (isPromotion) */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">1. Gericht-Aktion (Aktion pro Gericht)</h3>
+                    <p className="text-gray-700 mb-3">
+                      Einzelne Gerichte im Speiseplan können als <strong>Aktion</strong> markiert werden. Kunden sehen diese Gerichte mit einem goldenen Rahmen, einem „Aktion“-Badge und optional Sonderpreis bzw. Aktionstext (z. B. „gratis Nachtisch dazu“).
+                    </p>
+
+                    <h4 className="font-semibold text-gray-800 mt-4 mb-2">Admin: Einrichtung</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li>Im <strong>Menu-Planner</strong> (<code>/admin/menu-planner</code>) die gewünschte Woche und den Tag wählen.</li>
+                      <li>Beim jeweiligen Gericht das Dropdown öffnen und <strong>„Als Aktion bewerben“</strong> aktivieren (Checkbox).</li>
+                      <li>Optional: <strong>Sonderpreis</strong> (promotionPrice) und <strong>Aktionstext</strong> (promotionLabel, z. B. „gratis Nachtisch dazu“) eintragen und speichern.</li>
+                    </ul>
+
+                    <h4 className="font-semibold text-gray-800 mt-4 mb-2">Kunden-Anzeige</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Goldener Rahmen:</strong> Karten mit Aktion haben einen sichtbaren goldenen Rand (border + Ring) und heben sich vom Rest ab.</li>
+                      <li><strong>Badge „Aktion“:</strong> Rechts oben auf der Gerichtskarte wird „Aktion“ in Amber angezeigt.</li>
+                      <li><strong>Preis:</strong> Wenn ein Sonderpreis gesetzt ist, wird dieser angezeigt; der ursprüngliche Preis optional durchgestrichen.</li>
+                      <li><strong>Aktionstext:</strong> promotionLabel wird unter dem Gerichtsnamen dezent in Amber angezeigt (z. B. mit Sparkles-Icon).</li>
+                    </ul>
+
+                    <h4 className="font-semibold text-gray-800 mt-4 mb-2">Technik</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Datenmodell (MenuItem):</strong> <code>isPromotion</code> (Boolean), <code>promotionPrice</code> (Decimal, optional), <code>promotionLabel</code> (String, optional).</li>
+                      <li><strong>API:</strong> <code>PATCH /api/admin/menus/items/[id]</code> – Body: <code>isPromotion</code>, <code>promotionPrice</code>, <code>promotionLabel</code>.</li>
+                      <li><strong>Kunden-API:</strong> <code>GET /api/menus</code> liefert <code>menuItems</code> inkl. <code>isPromotion</code>, <code>promotionPrice</code>, <code>promotionLabel</code>.</li>
+                      <li><strong>Komponente:</strong> <code>MenuItemCard</code> wertet <code>item.isPromotion</code> aus und setzt Rahmen, Badge und Aktionstext.</li>
+                    </ul>
+                  </div>
+
+                  {/* 2. Motto-Banner */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">2. Motto-Banner (Hero-Banner pro Woche)</h3>
+                    <p className="text-gray-700 mb-3">
+                      Oberhalb des Speiseplans können <strong>Motto-Wochen-Banner</strong> angezeigt werden (z. B. „Bayerische Woche“, „Italian Week“). Banner sind wiederverwendbar, pro Kalenderwoche zuweisbar und werden als Karussell dargestellt. Es gibt keinen CTA (kein „Mehr erfahren“).
+                    </p>
+
+                    <h4 className="font-semibold text-gray-800 mt-4 mb-2">Admin: Banner-Verwaltung</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li>Unter <strong>Promotions → Motto-Banner</strong> (<code>/admin/promotions/banners</code>) können wiederverwendbare Banner angelegt werden.</li>
+                      <li>Pro Banner: <strong>Titel</strong> (Pflicht), optional <strong>Untertitel</strong>, optional <strong>Bild-URL</strong>. Kein CTA.</li>
+                      <li>Banner können bearbeitet, deaktiviert oder gelöscht werden.</li>
+                    </ul>
+
+                    <h4 className="font-semibold text-gray-800 mt-4 mb-2">Admin: Zuweisung pro Woche</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li>Im <strong>Menu-Planner</strong> gibt es den Bereich <strong>„Motto-Woche“</strong> für die ausgewählte Kalenderwoche.</li>
+                      <li>Mehrere Banner können der Woche zugewiesen werden; die <strong>Reihenfolge</strong> bestimmt die Anzeige im Karussell.</li>
+                      <li>Banner hinzufügen (Dropdown), entfernen oder per Pfeilen hoch/runter sortieren; Speicherung erfolgt pro Menü (KW + Jahr + Location).</li>
+                    </ul>
+
+                    <h4 className="font-semibold text-gray-800 mt-4 mb-2">Kunden-Anzeige</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Position:</strong> Direkt oberhalb der Speiseplan-Ansicht (oberhalb KW-Navigation und Tages-Tabs), innerhalb von <code>MenuWeek</code>.</li>
+                      <li><strong>Sichtbarkeit:</strong> Nur wenn für die angefragte KW + Jahr + Location mindestens ein Banner zugewiesen ist; sonst kein Platzhalter.</li>
+                      <li><strong>Mehrere Banner:</strong> Karussell mit Pfeilen und Dots; Reihenfolge = Zuweisungsreihenfolge. Optional Swipe auf Touch.</li>
+                      <li><strong>Schließen:</strong> Optionaler Schließen-Button (X); ausgeblendeter Zustand für die aktuelle Session (z. B. sessionStorage).</li>
+                    </ul>
+
+                    <h4 className="font-semibold text-gray-800 mt-4 mb-2">Technik</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Datenmodell:</strong> <code>PromotionBanner</code> (id, title, subtitle, imageUrl, isActive) und <code>MenuPromotionBanner</code> (menuId, promotionBannerId, sortOrder).</li>
+                      <li><strong>Admin-APIs:</strong> <code>GET/POST /api/admin/promotion-banners</code>, <code>GET/PUT/DELETE /api/admin/promotion-banners/[id]</code>; <code>GET/PUT /api/admin/menus/[menuId]/promotion-banners</code> (bannerIds + Reihenfolge).</li>
+                      <li><strong>Kunden-API:</strong> <code>GET /api/menus</code> liefert <code>promotionBanners</code> (id, title, subtitle, imageUrl) in Reihenfolge.</li>
+                      <li><strong>Komponenten:</strong> <code>PromotionBannerCarousel</code> für das Karussell; Einbindung in <code>MenuWeek</code> oberhalb des Menü-Inhalts.</li>
+                    </ul>
+                  </div>
+
+                  {/* Übersicht Sidebar */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">Sidebar: Kategorie „Promotions“</h3>
+                    <p className="text-gray-700 mb-2">
+                      Im Admin-Bereich fasst die Kategorie <strong>„Promotions“</strong> alle Promotion-relevanten Seiten zusammen:
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      <li><strong>Motto-Banner</strong> – Verwaltung der wiederverwendbaren Banner und Zuweisung pro KW (im Menu-Planner).</li>
+                      <li><strong>Coupons</strong> – bestehende Coupon-Verwaltung (nur Navigation hier eingeordnet, keine fachliche Änderung).</li>
+                    </ul>
                   </div>
                 </div>
               </section>

@@ -10,3 +10,20 @@
 {"location":"app/admin/page.tsx:render","message":"Dashboard render","data":{"layoutLen":4,"mounted":true,"width":1569,"analyticsLoading":false},"timestamp":1769720204077,"sessionId":"debug-session","runId":"run1","hypothesisId":"L2"}
 {"location":"app/admin/page.tsx:render","message":"Dashboard render","data":{"layoutLen":4,"mounted":true,"width":1569,"analyticsLoading":false},"timestamp":1769720204171,"sessionId":"debug-session","runId":"run1","hypothesisId":"L2"}
 {"location":"app/admin/page.tsx:render","message":"Dashboard render","data":{"layoutLen":4,"mounted":true,"width":1569,"analyticsLoading":false},"timestamp":1769720204172,"sessionId":"debug-session","runId":"run1","hypothesisId":"L2"}
+{"location":"app/admin/orders/page.tsx:mount","message":"AdminOrdersPage mount","data":{},"timestamp":1769721463743,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:render","message":"render branch","data":{"loading":true,"ordersLen":0,"renderBranch":"loading"},"timestamp":1769721463744,"sessionId":"debug-session","runId":"run1","hypothesisId":"H1"}
+{"location":"app/admin/orders/page.tsx:mount","message":"AdminOrdersPage mount","data":{},"timestamp":1769721463744,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:fetchOrders","message":"fetchOrders start","data":{},"timestamp":1769721463744,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:fetchOrders","message":"fetchOrders start","data":{},"timestamp":1769721463743,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:render","message":"render branch","data":{"loading":true,"ordersLen":0,"renderBranch":"loading"},"timestamp":1769721463744,"sessionId":"debug-session","runId":"run1","hypothesisId":"H1"}
+{"location":"app/api/admin/orders/route.ts:GET","message":"GET admin orders entry","data":{},"timestamp":1769721464189,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:fetchLocations","message":"fetchLocations success","data":{"count":1},"timestamp":1769721464201,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/api/admin/orders/route.ts:GET","message":"GET admin orders success","data":{"count":15},"timestamp":1769721464206,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:fetchUsers","message":"fetchUsers success","data":{"count":3},"timestamp":1769721464212,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:fetchOrders","message":"fetchOrders success","data":{"count":15},"timestamp":1769721464213,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/api/admin/orders/route.ts:GET","message":"GET admin orders entry","data":{},"timestamp":1769721464229,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/api/admin/orders/route.ts:GET","message":"GET admin orders success","data":{"count":15},"timestamp":1769721464234,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:render","message":"render branch","data":{"loading":false,"ordersLen":15,"renderBranch":"table"},"timestamp":1769721464286,"sessionId":"debug-session","runId":"run1","hypothesisId":"H1"}
+{"location":"app/admin/orders/page.tsx:fetchLocations","message":"fetchLocations success","data":{"count":1},"timestamp":1769721464287,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:fetchOrders","message":"fetchOrders success","data":{"count":15},"timestamp":1769721464287,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
+{"location":"app/admin/orders/page.tsx:fetchUsers","message":"fetchUsers success","data":{"count":3},"timestamp":1769721464287,"sessionId":"debug-session","runId":"run1","hypothesisId":"H4"}
