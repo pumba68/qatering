@@ -1,14 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { formatDate, formatDateToKey } from '@/lib/utils'
-import { getWeekNumber, getWeekStartDate, getWeekDays } from '@/lib/week-utils'
+import { getWeekNumber, getWeekStartDate } from '@/lib/week-utils'
 import MenuItemCard from './MenuItemCard'
 import { PromotionBannerCarousel } from './PromotionBannerCarousel'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
+import { ChevronLeft, ChevronRight, Utensils, Leaf, Sparkles } from 'lucide-react'
 
 interface MenuItem {
   id: string
@@ -171,188 +172,262 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
         />
       )}
 
-      {/* Header mit Navigation - HelloFresh Stil */}
-      <div className="relative">
-        {/* Wellenförmiger Hintergrund */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/20 dark:via-emerald-950/20 dark:to-teal-950/20 rounded-3xl -z-10">
-          <svg className="absolute bottom-0 w-full h-24" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,60 Q300,30 600,60 T1200,60 L1200,120 L0,120 Z" fill="currentColor" className="text-green-50 dark:text-green-950/20" />
-          </svg>
-        </div>
-        
-        <div className="relative px-6 py-8 md:py-12">
-          <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-            <div className="flex-1 min-w-[200px]">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">
-                Das Menü der Woche
-              </h1>
-              <p className="text-muted-foreground text-lg">
-                KW {selectedWeek} / {selectedYear} • {formatDate(weekStartDate)} - {formatDate(weekEndDate)}
-              </p>
-            </div>
-            
-            {/* Icon rechts oben */}
-            <div className="hidden md:flex items-center gap-2">
-              <div className="w-12 h-12 rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm flex items-center justify-center shadow-lg">
-                <span className="text-2xl">🥗</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <Button
-              onClick={() => navigateWeek('prev')}
-              variant="outline"
-              size="sm"
-              className="hover:bg-white/80 dark:hover:bg-gray-800/80"
-            >
-              <ChevronLeft className="w-4 h-4 mr-1" />
-              Vorherige Woche
-            </Button>
-            
-            {(selectedWeek !== currentWeek || selectedYear !== currentYear) && (
-              <Button
-                onClick={() => {
-                  setSelectedWeek(currentWeek)
-                  setSelectedYear(currentYear)
-                }}
-                variant="secondary"
-                size="sm"
-                className="bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800"
-              >
-                Zur aktuellen Woche
-              </Button>
-            )}
-
-            <Button
-              onClick={() => navigateWeek('next')}
-              variant="outline"
-              size="sm"
-              className="hover:bg-white/80 dark:hover:bg-gray-800/80"
-            >
-              Nächste Woche
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
       {loading ? (
-        <div className="flex justify-center items-center py-12">
-          <div className="text-muted-foreground">Menü wird geladen...</div>
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-border/50 p-4">
+            <Skeleton className="h-10 w-24 rounded-xl" />
+            <Skeleton className="h-10 flex-1 rounded-xl" />
+            <Skeleton className="h-10 w-24 rounded-xl" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="bg-card rounded-2xl overflow-hidden border border-border/50 p-0">
+                <Skeleton className="aspect-[4/3] w-full rounded-none" />
+                <div className="p-4 space-y-3">
+                  <Skeleton className="h-6 w-3/4 rounded-md" />
+                  <Skeleton className="h-4 w-full rounded-md" />
+                  <Skeleton className="h-4 w-1/2 rounded-md" />
+                  <div className="flex gap-2 pt-2">
+                    <Skeleton className="h-6 w-16 rounded-full" />
+                    <Skeleton className="h-6 w-20 rounded-full" />
+                  </div>
+                  <div className="flex justify-between pt-2">
+                    <Skeleton className="h-8 w-20 rounded-lg" />
+                    <Skeleton className="h-10 w-28 rounded-xl" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : error ? (
         <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 text-destructive">
           {error}
         </div>
       ) : !menu || menu.menuItems.length === 0 ? (
-        <div className="bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-900 rounded-xl p-6 text-yellow-700 dark:text-yellow-400 text-center">
-          <p className="text-lg font-medium">Kein Menüplan für diese Woche verfügbar.</p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-10 md:p-14 text-center shadow-lg"
+        >
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted mb-4">
+            <Utensils className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <h3 className="text-xl font-bold text-foreground mb-2">Kein Menüplan für diese Woche</h3>
+          <p className="text-muted-foreground max-w-md mx-auto">Schau nächste Woche wieder vorbei – dann gibt es wieder leckere Gerichte für dich.</p>
+        </motion.div>
       ) : sortedDates.length === 0 ? (
-        <div className="bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-900 rounded-xl p-6 text-yellow-700 dark:text-yellow-400 text-center">
-          <p className="text-lg font-medium">Keine Gerichte für diese Woche verfügbar.</p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-10 md:p-14 text-center shadow-lg"
+        >
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted mb-4">
+            <Utensils className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <h3 className="text-xl font-bold text-foreground mb-2">Keine Gerichte in dieser Woche</h3>
+          <p className="text-muted-foreground max-w-md mx-auto">Für diese Woche sind noch keine Gerichte geplant. Wechsle die Woche oder schau später nochmal.</p>
+        </motion.div>
       ) : (
-        <div className="space-y-6">
-          {/* Tabs für Wochentage */}
-          <Tabs 
-            value={selectedDate || sortedDates[0]} 
-            onValueChange={(value) => setSelectedDate(value)}
-            className="w-full"
-          >
-            <TabsList className="w-full justify-start bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-1.5 h-auto rounded-2xl border border-border/50 shadow-sm overflow-x-auto">
-              {sortedDates.map((dateKey) => {
-                // Kalenderdatum aus Key als lokales Datum parsen (vermeidet Zeitzonen-Verschiebung bei Anzeige)
-                const [y, m, d] = dateKey.split('-').map(Number)
-                const date = new Date(y, m - 1, d)
-                const dayName = date.toLocaleDateString('de-DE', { weekday: 'short' })
-                const dayNumber = date.getDate()
-                const isToday = dateKey === todayKeyLocal
-                const itemCount = itemsByDate[dateKey]?.length || 0
-                
-                return (
-                  <TabsTrigger
-                    key={dateKey}
-                    value={dateKey}
-                    className="data-[state=active]:bg-gradient-to-br data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-lg px-5 py-3 rounded-xl font-medium transition-all hover:bg-accent min-w-[80px] data-[state=active]:scale-105"
+        <Tabs
+          value={selectedDate || sortedDates[0]}
+          onValueChange={(value) => setSelectedDate(value)}
+          className="w-full"
+        >
+          {/* Eine runde Karte: Header + Tage-Switch */}
+          <div className="rounded-3xl overflow-hidden border border-border/50 bg-card shadow-lg shadow-black/5 dark:shadow-black/20">
+            <div className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/25 dark:via-emerald-950/25 dark:to-teal-950/25 px-5 py-5 md:px-6 md:py-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="hidden sm:flex w-11 h-11 rounded-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm items-center justify-center shadow-sm shrink-0">
+                    <span className="text-xl" aria-hidden>🥗</span>
+                  </div>
+                  <div className="min-w-0">
+                    <h1 className="text-2xl md:text-3xl font-bold text-foreground truncate">Menü der Woche</h1>
+                    <p className="text-sm text-muted-foreground mt-0.5">
+                      KW {selectedWeek} • {formatDate(weekStartDate)} – {formatDate(weekEndDate)}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0 flex-wrap">
+                  <Button
+                    onClick={() => navigateWeek('prev')}
+                    variant="outline"
+                    size="sm"
+                    className="rounded-xl border-border/60 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 shadow-sm"
                   >
-                    <div className="flex flex-col items-center gap-1.5">
-                      <span className="text-xs font-normal uppercase tracking-wide">{dayName}</span>
-                      <span className="text-lg font-bold">{dayNumber}</span>
-                      {itemCount > 0 && (
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                          dateKey === selectedDate 
-                            ? 'bg-white/20 text-white' 
-                            : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                        }`}>
-                          {itemCount}
-                        </span>
-                      )}
-                      {isToday && (
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                          dateKey === selectedDate 
-                            ? 'bg-white/30 text-white' 
-                            : 'text-primary'
-                        }`}>
-                          Heute
-                        </span>
-                      )}
-                    </div>
-                  </TabsTrigger>
-                )
-              })}
-            </TabsList>
+                    <ChevronLeft className="w-4 h-4" />
+                    <span className="hidden sm:inline ml-1">Vorherige</span>
+                  </Button>
+                  {(selectedWeek !== currentWeek || selectedYear !== currentYear) && (
+                    <Button
+                      onClick={() => { setSelectedWeek(currentWeek); setSelectedYear(currentYear) }}
+                      size="sm"
+                      className="rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-md"
+                    >
+                      Diese Woche
+                    </Button>
+                  )}
+                  <Button
+                    onClick={() => navigateWeek('next')}
+                    variant="outline"
+                    size="sm"
+                    className="rounded-xl border-border/60 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 shadow-sm"
+                  >
+                    <span className="hidden sm:inline mr-1">Nächste</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-border/50 bg-muted/30 dark:bg-muted/20 px-4 py-4 md:px-5 md:py-4">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3 px-1">Tag wählen</p>
+              <div className="rounded-2xl bg-background/80 dark:bg-background/60 border border-border/50 shadow-inner p-1.5 overflow-x-auto">
+                <TabsList className="w-full justify-start gap-1 h-auto p-0 bg-transparent border-0 shadow-none min-h-0">
+                  {sortedDates.map((dateKey) => {
+                    const [y, m, d] = dateKey.split('-').map(Number)
+                    const date = new Date(y, m - 1, d)
+                    const dayName = date.toLocaleDateString('de-DE', { weekday: 'short' })
+                    const dayNumber = date.getDate()
+                    const isToday = dateKey === todayKeyLocal
+                    const itemCount = itemsByDate[dateKey]?.length || 0
+                    const isActive = dateKey === (selectedDate || sortedDates[0])
+                    return (
+                      <TabsTrigger
+                        key={dateKey}
+                        value={dateKey}
+                        className="flex-1 min-w-[72px] max-w-[100px] data-[state=active]:bg-gradient-to-br data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-xl font-medium transition-all duration-200 hover:bg-muted/80 data-[state=inactive]:bg-transparent py-3 px-2 border-0"
+                      >
+                        <div className="flex flex-col items-center gap-1">
+                          <span className="text-[10px] uppercase tracking-wide opacity-80">{dayName}</span>
+                          <span className="text-base font-bold tabular-nums">{dayNumber}</span>
+                          {itemCount > 0 && (
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${isActive ? 'bg-white/25 text-white' : 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400'}`}>
+                              {itemCount}
+                            </span>
+                          )}
+                          {isToday && (
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md ${isActive ? 'bg-white/30 text-white' : 'bg-primary/15 text-primary'}`}>
+                              Heute
+                            </span>
+                          )}
+                        </div>
+                      </TabsTrigger>
+                    )
+                  })}
+                </TabsList>
+              </div>
+            </div>
+          </div>
 
-            {/* Gerichte für ausgewählten Tag */}
-            {sortedDates.map((dateKey) => {
+          {/* Gerichte für ausgewählten Tag */}
+          {sortedDates.map((dateKey) => {
               const [y, m, d] = dateKey.split('-').map(Number)
               const date = new Date(y, m - 1, d)
               const dayName = date.toLocaleDateString('de-DE', { weekday: 'long' })
               const formattedDate = formatDate(date)
               const dayItems = itemsByDate[dateKey] || []
 
-              return (
-                <TabsContent key={dateKey} value={dateKey} className="mt-6">
-                  <div className="mb-4">
-                    <h2 className="text-2xl font-bold text-foreground">
-                      {dayName}, {formattedDate}
-                    </h2>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {dayItems.length} Gericht{dayItems.length !== 1 ? 'e' : ''} verfügbar
-                    </p>
-                  </div>
+              const veganCount = dayItems.filter((i) => i.dish?.dietTags?.some((t) => t?.toLowerCase().includes('vegan'))).length
+              const veggieCount = dayItems.filter((i) => i.dish?.dietTags?.some((t) => t?.toLowerCase().includes('vegetarisch'))).length
+              const promoCount = dayItems.filter((i) => i.isPromotion).length
 
-                  {dayItems.length === 0 ? (
-                    <div className="bg-muted/50 rounded-xl p-8 text-center border border-border">
-                      <p className="text-muted-foreground">Keine Gerichte für diesen Tag verfügbar.</p>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                      {dayItems
-                        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                        .map((item) => {
-                          const cartItem = cart.find(c => c.menuItemId === item.id)
-                          return (
-                            <MenuItemCard
-                              key={item.id}
-                              item={item}
-                              quantity={cartItem?.quantity || 0}
-                              onSelect={(item, quantity) => {
-                                onSelectItem?.(item, quantity)
-                              }}
-                              onQuantityChange={onQuantityChange}
-                            />
-                          )
-                        })}
-                    </div>
-                  )}
+              return (
+                <TabsContent key={dateKey} value={dateKey} className="mt-6 focus-visible:outline-none">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={dateKey}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="space-y-4"
+                    >
+                      <div className="flex flex-wrap items-center gap-3">
+                        <h2 className="text-2xl font-bold text-foreground">
+                          {dayName}, {formattedDate}
+                        </h2>
+                        <span className="text-sm text-muted-foreground">
+                          {dayItems.length} Gericht{dayItems.length !== 1 ? 'e' : ''}
+                        </span>
+                        {(veganCount > 0 || veggieCount > 0 || promoCount > 0) && (
+                          <div className="flex items-center gap-2 flex-wrap ml-auto">
+                            {veganCount > 0 && (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 text-xs font-medium">
+                                <Leaf className="w-3 h-3" />
+                                {veganCount} vegan
+                              </span>
+                            )}
+                            {veggieCount > 0 && !veganCount && (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 text-xs font-medium">
+                                <Leaf className="w-3 h-3" />
+                                {veggieCount} vegetarisch
+                              </span>
+                            )}
+                            {promoCount > 0 && (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 text-xs font-medium">
+                                <Sparkles className="w-3 h-3" />
+                                {promoCount} Aktion
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {dayItems.length === 0 ? (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm p-10 text-center"
+                        >
+                          <Utensils className="w-12 h-12 text-muted-foreground mx-auto mb-3 opacity-60" />
+                          <p className="text-muted-foreground font-medium">Keine Gerichte für diesen Tag</p>
+                          <p className="text-sm text-muted-foreground mt-1">Wähle einen anderen Tag oder eine andere Woche.</p>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+                          initial="hidden"
+                          animate="visible"
+                          variants={{
+                            visible: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
+                            hidden: {},
+                          }}
+                        >
+                          {dayItems
+                            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                            .map((item, index) => {
+                              const cartItem = cart.find(c => c.menuItemId === item.id)
+                              return (
+                                <motion.div
+                                  key={item.id}
+                                  variants={{
+                                    hidden: { opacity: 0, y: 16 },
+                                    visible: { opacity: 1, y: 0 },
+                                  }}
+                                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                  <MenuItemCard
+                                    item={item}
+                                    quantity={cartItem?.quantity || 0}
+                                    onSelect={(item, quantity) => {
+                                      onSelectItem?.(item, quantity)
+                                    }}
+                                    onQuantityChange={onQuantityChange}
+                                  />
+                                </motion.div>
+                              )
+                            })}
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
                 </TabsContent>
               )
             })}
-          </Tabs>
-        </div>
+        </Tabs>
       )}
     </div>
   )

@@ -61,9 +61,13 @@ export async function GET(request: NextRequest) {
       },
     }
 
-    let menu: Awaited<ReturnType<typeof prisma.menu.findUnique>> & { promotionBanners?: Array<{ promotionBanner: { id: string; title: string; subtitle: string | null; imageUrl: string | null } }> } = null
+    type MenuResult = NonNullable<Awaited<ReturnType<typeof prisma.menu.findUnique>>> & {
+      menuItems: Array<{ date: Date }>
+      promotionBanners?: Array<{ promotionBanner: { id: string; title: string; subtitle: string | null; imageUrl: string | null } }>
+    }
+    let menu: MenuResult | null = null
     try {
-      menu = await prisma.menu.findUnique({
+      const result = await prisma.menu.findUnique({
         where: baseWhere,
         include: {
           ...baseInclude,
@@ -73,12 +77,14 @@ export async function GET(request: NextRequest) {
             orderBy: { sortOrder: 'asc' as const },
           },
         },
-      }) as typeof menu
+      })
+      menu = result as MenuResult | null
     } catch {
-      menu = await prisma.menu.findUnique({
+      const result = await prisma.menu.findUnique({
         where: baseWhere,
         include: baseInclude,
-      }) as typeof menu
+      })
+      menu = result as MenuResult | null
     }
 
     if (!menu || !menu.isPublished) {

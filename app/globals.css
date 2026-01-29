@@ -252,6 +252,19 @@
     }
   }
 
+  /* Speiseplan: dezentes Hintergrund-Pattern (weniger weiße Flächen, DESIGN_GUIDELINES-konform) */
+  .menu-page-pattern {
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(circle at 1px 1px, hsl(var(--border) / 0.4) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .dark .menu-page-pattern {
+    background-image:
+      radial-gradient(circle at 1px 1px, hsl(var(--border) / 0.25) 1px, transparent 0);
+  }
+
   /* Line clamp utilities */
   .line-clamp-1 {
     overflow: hidden;

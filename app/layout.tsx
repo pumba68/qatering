@@ -29,8 +29,12 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <SessionProvider>
-              <Navbar />
-              {children}
+              <div className="min-h-screen flex flex-col">
+                <Navbar />
+                <div className="flex-1 flex flex-col min-h-0">
+                  {children}
+                </div>
+              </div>
             </SessionProvider>
           </ThemeProvider>
         </ChakraProvider>

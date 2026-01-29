@@ -5,100 +5,113 @@ import { useSession, signOut } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { WalletWidget } from '@/components/wallet/WalletWidget'
+import { BookOpen, LayoutDashboard, LogOut, UtensilsCrossed } from 'lucide-react'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
   const pathname = usePathname()
 
-  // Navbar nicht auf Login/Register oder im Admin-Bereich anzeigen
-  // Im Admin-Bereich ist die Sidebar die Hauptnavigation
-  if (pathname === '/login' || pathname === '/register' || pathname.startsWith('/admin')) {
-    return null
+  const hideNav = pathname === '/login' || pathname === '/register' || pathname.startsWith('/admin')
+
+  function NavLink({
+    href,
+    label,
+    Icon,
+    active,
+  }: {
+    href: string
+    label: string
+    Icon: React.ComponentType<{ className?: string }>
+    active: boolean
+  }) {
+    return (
+      <Link
+        href={href}
+        className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+          active
+            ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-md'
+            : 'text-muted-foreground hover:text-foreground hover:bg-muted/80'
+        }`}
+      >
+        <Icon className="w-4 h-4 shrink-0" />
+        <span>{label}</span>
+      </Link>
+    )
   }
 
+  if (hideNav) return null
+
   return (
-    <nav className="sticky top-0 z-50 glass-strong border-b border-border/40 backdrop-blur-xl bg-background/80 transition-all duration-300">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link 
-            href="/" 
-            className="flex items-center space-x-3 group transition-transform hover:scale-105"
+    <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur-md shadow-sm">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="flex items-center justify-between h-14 md:h-16">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 text-foreground hover:opacity-90 transition-opacity"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary/20 rounded-xl blur-lg group-hover:bg-primary/30 transition-colors"></div>
-              <span className="relative text-3xl transform transition-transform group-hover:rotate-12">🍽️</span>
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <span className="flex w-9 h-9 items-center justify-center rounded-xl bg-muted text-lg" aria-hidden>
+              🍽️
+            </span>
+            <span className="text-lg font-bold tracking-tight">
               Kantine Platform
             </span>
           </Link>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-2 md:gap-3">
             {status === 'loading' ? (
-              <div className="flex items-center space-x-2 text-muted-foreground">
-                <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+              <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" aria-hidden />
                 <span>Lädt...</span>
               </div>
             ) : session ? (
               <>
-                <Link
-                  href="/menu"
-                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    pathname === '/menu' 
-                      ? 'text-primary bg-primary/10' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  {pathname === '/menu' && (
-                    <span className="absolute inset-0 bg-primary/5 rounded-lg blur-sm"></span>
+                <div className="hidden sm:flex items-center gap-1 p-1 rounded-2xl bg-muted/50 border border-border/50">
+                  <NavLink href="/menu" label="Menü" Icon={UtensilsCrossed} active={pathname === '/menu'} />
+                  <NavLink href="/wiki" label="Wiki" Icon={BookOpen} active={pathname === '/wiki'} />
+                  {((session.user as any)?.role === 'KITCHEN_STAFF' || (session.user as any)?.role === 'ADMIN') && (
+                    <NavLink href="/admin" label="Admin" Icon={LayoutDashboard} active={pathname.startsWith('/admin')} />
                   )}
-                  <span className="relative">Menü</span>
-                </Link>
-                <Link
-                  href="/wiki"
-                  className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    pathname === '/wiki' 
-                      ? 'text-primary bg-primary/10' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  {pathname === '/wiki' && (
-                    <span className="absolute inset-0 bg-primary/5 rounded-lg blur-sm"></span>
-                  )}
-                  <span className="relative">📚 Wiki</span>
-                </Link>
-                <WalletWidget />
-                {(session.user as any)?.role === 'KITCHEN_STAFF' ||
-                (session.user as any)?.role === 'ADMIN' ? (
-                  <Link
-                    href="/admin"
-                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      pathname.startsWith('/admin')
-                        ? 'text-primary bg-primary/10' 
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                    }`}
-                  >
-                    {pathname.startsWith('/admin') && (
-                      <span className="absolute inset-0 bg-primary/5 rounded-lg blur-sm"></span>
-                    )}
-                    <span className="relative">Admin</span>
+                </div>
+                <div className="flex sm:hidden items-center gap-1">
+                  <Link href="/menu" className="p-2 rounded-xl text-muted-foreground hover:bg-muted" aria-label="Menü">
+                    <UtensilsCrossed className="w-5 h-5" />
                   </Link>
-                ) : null}
+                  <Link href="/wiki" className="p-2 rounded-xl text-muted-foreground hover:bg-muted" aria-label="Wiki">
+                    <BookOpen className="w-5 h-5" />
+                  </Link>
+                  {((session.user as any)?.role === 'KITCHEN_STAFF' || (session.user as any)?.role === 'ADMIN') && (
+                    <Link href="/admin" className="p-2 rounded-xl text-muted-foreground hover:bg-muted" aria-label="Admin">
+                      <LayoutDashboard className="w-5 h-5" />
+                    </Link>
+                  )}
+                </div>
+                <WalletWidget />
                 <ThemeToggle />
-                <div className="flex items-center space-x-3 pl-3 border-l border-border">
-                  <div className="flex flex-col items-end">
-                    <span className="text-sm font-medium text-foreground">
+                <div className="hidden md:flex items-center gap-3 pl-3 border-l border-border/60">
+                  <div className="flex flex-col items-end min-w-0">
+                    <span className="text-sm font-medium text-foreground truncate max-w-[140px]">
                       {session.user?.name || session.user?.email?.split('@')[0]}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs text-muted-foreground truncate max-w-[140px]">
                       {session.user?.email}
                     </span>
                   </div>
                   <button
                     onClick={() => signOut({ callbackUrl: '/' })}
-                    className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all duration-200"
+                    className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors"
+                    aria-label="Abmelden"
                   >
-                    Abmelden
+                    <LogOut className="w-4 h-4" />
+                    <span className="hidden lg:inline">Abmelden</span>
+                  </button>
+                </div>
+                <div className="flex md:hidden items-center gap-1">
+                  <button
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="p-2 rounded-xl text-muted-foreground hover:bg-muted"
+                    aria-label="Abmelden"
+                  >
+                    <LogOut className="w-5 h-5" />
                   </button>
                 </div>
               </>
@@ -107,13 +120,13 @@ export default function Navbar() {
                 <ThemeToggle />
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all duration-200"
+                  className="px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors"
                 >
                   Anmelden
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl hover-lift"
+                  className="px-4 py-2.5 text-sm font-medium bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 shadow-md transition-all"
                 >
                   Registrieren
                 </Link>

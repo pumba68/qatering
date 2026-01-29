@@ -3,6 +3,7 @@
 import { formatCurrency } from '@/lib/utils'
 import { Utensils, Flame, Plus, Minus, Sparkles } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 
 interface MenuItem {
   id: string
@@ -103,12 +104,14 @@ export default function MenuItemCard({
   const promotionLabel = (item.promotionLabel ?? '').trim()
 
   return (
-    <div
+    <motion.div
+      layout
       className={`group relative bg-card rounded-2xl overflow-hidden border transition-all duration-300 ${
         isPromotion
           ? 'border-2 border-amber-400 shadow-[0_0_0_1px_rgba(251,191,36,0.5)] ring-2 ring-amber-400/30'
           : 'border border-border/50'
       } ${isAvailable ? 'hover:shadow-2xl hover:scale-[1.02] cursor-pointer' : 'opacity-60'}`}
+      whileHover={isAvailable ? { transition: { duration: 0.2 } } : undefined}
     >
       {/* Bild-Bereich mit Badges */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -297,20 +300,22 @@ export default function MenuItemCard({
                   </button>
                 </>
               ) : (
-                <button
+                <motion.button
                   onClick={(e) => {
                     e.stopPropagation()
                     handleAdd()
                   }}
                   className="px-6 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 >
                   Hinzufügen
-                </button>
+                </motion.button>
               )}
             </div>
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

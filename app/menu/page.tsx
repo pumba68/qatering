@@ -81,8 +81,8 @@ export default function MenuPage() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-green-50/30 dark:to-green-950/10">
-      <div className="container mx-auto px-4 py-8 md:py-12">
+    <div className="min-h-screen menu-page-pattern bg-gradient-to-br from-background/95 via-background/90 to-green-50/40 dark:to-green-950/15">
+      <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl">
         {/* Warenkorb Button (Floating oder in Header) */}
         {cart.length > 0 && (
           <div className="fixed bottom-6 right-6 z-40">
