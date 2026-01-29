@@ -13,6 +13,7 @@ import {
   Users,
   Wallet,
   Coins,
+  ShoppingBag,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -47,6 +48,11 @@ const menuItems = [
     title: 'Speiseplan',
     url: '/admin/menu-planner',
     icon: Calendar,
+  },
+  {
+    title: 'Bestellungen',
+    url: '/admin/orders',
+    icon: ShoppingBag,
   },
   {
     title: 'Metadaten',
