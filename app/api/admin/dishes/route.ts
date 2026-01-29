@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
           dishIdToCount.set(mi.dishId, (dishIdToCount.get(mi.dishId) ?? 0) + qty)
         }
       })
-      const sortedDishIds = [...dishIdToCount.entries()]
+      const sortedDishIds = Array.from(dishIdToCount.entries())
         .sort((a, b) => b[1] - a[1])
         .map(([id]) => id)
         .slice(0, limit)
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
         const existingIds = new Set(popularDishes.map((d) => d.id))
         const fill = await prisma.dish.findMany({
           where: {
-            id: { notIn: [...existingIds] },
+            id: { notIn: Array.from(existingIds) },
             ...(includeInactive ? {} : { isActive: true }),
           },
           orderBy: { name: 'asc' },

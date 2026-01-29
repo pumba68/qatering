@@ -25,17 +25,38 @@ const DEFAULT_LAYOUT: Layout = [
   { i: 'weekdayBar', x: 6, y: 2, w: 6, h: 2, minW: 4, minH: 1, maxW: 12, maxH: 4 },
 ]
 
+function num(v: unknown, fallback: number): number {
+  if (typeof v === 'number' && Number.isFinite(v)) return v
+  const n = Number(v)
+  return Number.isFinite(n) ? n : fallback
+}
+
 function loadLayout(): Layout {
   if (typeof window === 'undefined') return [...DEFAULT_LAYOUT]
   try {
     const raw = localStorage.getItem(DASHBOARD_LAYOUT_KEY)
     if (!raw) return [...DEFAULT_LAYOUT]
-    const parsed = JSON.parse(raw) as Layout
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed)) return [...DEFAULT_LAYOUT]
     const validSet = new Set(WIDGET_IDS)
-    const items = parsed.filter((item) => validSet.has(item.i as WidgetId))
+    const items: Layout[number][] = []
+    for (const item of parsed) {
+      if (!item || typeof item.i !== 'string' || !validSet.has(item.i as WidgetId)) continue
+      items.push({
+        i: item.i,
+        x: num(item.x, 0),
+        y: num(item.y, 0),
+        w: num(item.w, 6),
+        h: num(item.h, 2),
+        minW: num(item.minW, 4),
+        minH: num(item.minH, 1),
+        maxW: num(item.maxW, 12),
+        maxH: num(item.maxH, 4),
+      })
+    }
     const missing = WIDGET_IDS.filter((id) => !items.some((it) => it.i === id))
     if (missing.length) {
-      const maxY = items.length ? Math.max(...items.map((it) => (it.y ?? 0) + (it.h ?? 1))) : 0
+      const maxY = items.length ? Math.max(...items.map((it) => it.y + it.h)) : 0
       missing.forEach((id, idx) => {
         items.push({
           i: id,
@@ -50,9 +71,17 @@ function loadLayout(): Layout {
         })
       })
     }
-    return items.length === 4 ? items : [...DEFAULT_LAYOUT]
+    return items.length === 4 ? (items as Layout) : [...DEFAULT_LAYOUT]
   } catch {
     return [...DEFAULT_LAYOUT]
+  }
+}
+
+function resetLayout(): void {
+  try {
+    localStorage.removeItem(DASHBOARD_LAYOUT_KEY)
+  } catch {
+    // ignore
   }
 }
 
@@ -98,7 +127,13 @@ export default function AdminDashboard() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [analyticsLoading, setAnalyticsLoading] = useState(true)
   const [analyticsError, setAnalyticsError] = useState<string | null>(null)
-  const [layout, setLayout] = useState<Layout>(() => loadLayout())
+  const [layout, setLayout] = useState<Layout>(() => {
+    try {
+      return loadLayout()
+    } catch {
+      return [...DEFAULT_LAYOUT]
+    }
+  })
   const { width, containerRef, mounted } = useContainerWidth()
 
   const handleLayoutChange = useCallback((newLayout: Layout) => {
@@ -256,9 +291,23 @@ export default function AdminDashboard() {
         {/* Chart-Grid: Drag & Drop + Resize (Layout in localStorage) */}
         <section className="mb-6">
           <div ref={containerRef as React.RefObject<HTMLDivElement>}>
-          <p className="text-xs text-muted-foreground mb-3">
-            Charts anordnen und Größe anpassen: Karten ziehen oder an der Ecke zum Vergrößern/Verkleinern ziehen.
-          </p>
+          <div className="flex items-center gap-3 mb-3 flex-wrap">
+            <p className="text-xs text-muted-foreground">
+              Charts anordnen und Größe anpassen: Karten ziehen oder an der Ecke zum Vergrößern/Verkleinern ziehen.
+            </p>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="text-xs text-muted-foreground hover:text-foreground"
+              onClick={() => {
+                resetLayout()
+                setLayout([...DEFAULT_LAYOUT])
+              }}
+            >
+              Layout zurücksetzen
+            </Button>
+          </div>
           {mounted && width > 0 && (
             <ReactGridLayout
               layout={layout}

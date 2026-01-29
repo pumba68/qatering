@@ -4,17 +4,10 @@ import { prisma } from '@/lib/prisma'
 // GET: Aktuellen Essensplan für eine Location abrufen
 export async function GET(request: NextRequest) {
   try {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:6',message:'API GET /api/menus called',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-    // #endregion
     const { searchParams } = new URL(request.url)
     const locationId = searchParams.get('locationId')
     const weekParam = searchParams.get('weekNumber')
     const yearParam = searchParams.get('year')
-
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:12',message:'Location ID from request',data:{locationId,weekParam,yearParam},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-    // #endregion
 
     if (!locationId) {
       return NextResponse.json(
@@ -39,10 +32,6 @@ export async function GET(request: NextRequest) {
       weekNumber = getWeekNumber(startOfWeek)
     }
 
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:35',message:'Searching for menu',data:{locationId,weekNumber,year},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-    // #endregion
-
     // Hole Location mit workingDays
     const location = await prisma.location.findUnique({
       where: { id: locationId },
@@ -57,51 +46,47 @@ export async function GET(request: NextRequest) {
       select: { id: true, weekNumber: true, year: true, isPublished: true },
     })
 
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:36',message:'All menus found in DB',data:{allMenus:allMenus.map(m=>({weekNumber:m.weekNumber,year:m.year,isPublished:m.isPublished})),searchingFor:{weekNumber,year}},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-    // #endregion
-
-    const menu = await prisma.menu.findUnique({
-      where: {
-        locationId_weekNumber_year: {
-          locationId,
-          weekNumber,
-          year,
-        },
+    const baseWhere = {
+      locationId_weekNumber_year: {
+        locationId,
+        weekNumber,
+        year,
       },
-      include: {
-        menuItems: {
-          where: {
-            available: true,
-            // Entferne Datumsfilter für Wochen-Navigation (zeige alle Tage der Woche)
-          },
-          include: {
-            dish: true,
-          },
-          orderBy: {
-            date: 'asc',
+    }
+    const baseInclude = {
+      menuItems: {
+        where: { available: true },
+        include: { dish: true },
+        orderBy: { date: 'asc' as const },
+      },
+    }
+
+    let menu: Awaited<ReturnType<typeof prisma.menu.findUnique>> & { promotionBanners?: Array<{ promotionBanner: { id: string; title: string; subtitle: string | null; imageUrl: string | null } }> } = null
+    try {
+      menu = await prisma.menu.findUnique({
+        where: baseWhere,
+        include: {
+          ...baseInclude,
+          promotionBanners: {
+            where: { promotionBanner: { isActive: true } },
+            include: { promotionBanner: true },
+            orderBy: { sortOrder: 'asc' as const },
           },
         },
-      },
-    })
-
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:51',message:'Menu query result',data:{menuFound:!!menu,isPublished:menu?.isPublished,menuItemsCount:menu?.menuItems?.length||0,menuId:menu?.id},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
+      }) as typeof menu
+    } catch {
+      menu = await prisma.menu.findUnique({
+        where: baseWhere,
+        include: baseInclude,
+      }) as typeof menu
+    }
 
     if (!menu || !menu.isPublished) {
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:54',message:'Menu not found or not published',data:{menuExists:!!menu,isPublished:menu?.isPublished},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
       return NextResponse.json(
         { error: 'Kein veröffentlichter Menüplan gefunden' },
         { status: 404 }
       )
     }
-
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:60',message:'Menu found and published, returning',data:{menuItemsCount:menu.menuItems.length,menuItemDates:menu.menuItems.map(mi=>mi.date)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-    // #endregion
 
     // Filtere MenuItems basierend auf workingDays (UTC-Wochentag, da Datum als 12:00 UTC gespeichert)
     const filteredMenuItems = menu.menuItems.filter((item) => {
@@ -110,9 +95,20 @@ export async function GET(request: NextRequest) {
       return workingDays.includes(dayOfWeek)
     })
 
+    // Promotion-Banner für Kunden-Ansicht (bereits nach sortOrder sortiert, nur aktive)
+    const promotionBanners = (menu.promotionBanners || []).map(
+      (a: { promotionBanner: { id: string; title: string; subtitle: string | null; imageUrl: string | null } }) => ({
+        id: a.promotionBanner.id,
+        title: a.promotionBanner.title,
+        subtitle: a.promotionBanner.subtitle,
+        imageUrl: a.promotionBanner.imageUrl,
+      })
+    )
+
     return NextResponse.json({
       ...menu,
       menuItems: filteredMenuItems,
+      promotionBanners,
     })
   } catch (error) {
     console.error('Fehler beim Abrufen des Menüs:', error)

@@ -1,7 +1,7 @@
 'use client'
 
 import { formatCurrency } from '@/lib/utils'
-import { Utensils, Flame, Plus, Minus } from 'lucide-react'
+import { Utensils, Flame, Plus, Minus, Sparkles } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 interface MenuItem {
@@ -11,6 +11,9 @@ interface MenuItem {
   available: boolean
   currentOrders: number
   maxOrders: number | null
+  isPromotion?: boolean
+  promotionPrice?: number | string | null
+  promotionLabel?: string | null
   dish: {
     id: string
     name: string
@@ -87,13 +90,23 @@ export default function MenuItemCard({
   const hasVegan = dietTags.some(t => t && t.toLowerCase().includes('vegan'))
   const hasVegetarian = dietTags.some(t => t && t.toLowerCase().includes('vegetarisch'))
 
+  const isPromotion = item.isPromotion === true
+  const promotionPrice =
+    item.promotionPrice != null && item.promotionPrice !== ''
+      ? typeof item.promotionPrice === 'string'
+        ? parseFloat(item.promotionPrice)
+        : item.promotionPrice
+      : null
+  const hasPromotionPrice = promotionPrice != null && Number.isFinite(promotionPrice)
+  const displayPrice = hasPromotionPrice ? promotionPrice : (typeof item.price === 'string' ? parseFloat(item.price) : item.price)
+  const originalPrice = hasPromotionPrice ? (typeof item.price === 'string' ? parseFloat(item.price) : item.price) : null
+  const promotionLabel = (item.promotionLabel ?? '').trim()
+
   return (
     <div
       className={`group relative bg-card rounded-2xl overflow-hidden border border-border/50 transition-all duration-300 ${
-        isAvailable
-          ? 'hover:shadow-2xl hover:scale-[1.02] cursor-pointer'
-          : 'opacity-60'
-      }`}
+        isPromotion ? 'border-l-4 border-amber-400' : ''
+      } ${isAvailable ? 'hover:shadow-2xl hover:scale-[1.02] cursor-pointer' : 'opacity-60'}`}
     >
       {/* Bild-Bereich mit Badges */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -123,8 +136,15 @@ export default function MenuItemCard({
           )}
         </div>
 
-        {/* Anpassbar Badge (rechts oben) */}
-        {isAvailable && (
+        {/* Aktion / Anpassbar Badge (rechts oben, DESIGN_GUIDELINES: Status-Badge) */}
+        {isPromotion && (
+          <div className="absolute top-3 right-3">
+            <span className="px-2.5 py-1 bg-amber-500 text-white text-xs font-bold rounded-md shadow-md">
+              Aktion
+            </span>
+          </div>
+        )}
+        {!isPromotion && isAvailable && (
           <div className="absolute top-3 right-3">
             <span className="px-2 py-1 bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-medium rounded-md shadow-sm">
               Anpassbar
@@ -152,6 +172,13 @@ export default function MenuItemCard({
           {item.dish.description && (
             <p className="text-sm text-muted-foreground line-clamp-2 mt-0.5">
               {item.dish.description}
+            </p>
+          )}
+          {/* Special Offer Text (promotionLabel) – auffällig aber dezent (DESIGN_GUIDELINES: Amber) */}
+          {isPromotion && promotionLabel && (
+            <p className="text-sm text-amber-700 dark:text-amber-400 font-medium mt-2 flex items-center gap-1.5 line-clamp-1">
+              <Sparkles className="w-3.5 h-3.5 shrink-0 text-amber-500" />
+              {promotionLabel}
             </p>
           )}
         </div>
@@ -221,8 +248,15 @@ export default function MenuItemCard({
         {/* Preis und Mengenauswahl */}
         <div className="flex items-center justify-between pt-2 border-t border-border/50 mt-2">
           <div>
-            <div className="text-2xl font-bold text-foreground">
-              {formatCurrency(typeof item.price === 'string' ? parseFloat(item.price) : item.price)}
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <span className="text-2xl font-bold text-foreground">
+                {formatCurrency(displayPrice)}
+              </span>
+              {originalPrice != null && originalPrice !== displayPrice && (
+                <span className="text-sm text-muted-foreground line-through">
+                  {formatCurrency(originalPrice)}
+                </span>
+              )}
             </div>
             {item.maxOrders && !isSoldOut && (
               <div className="text-xs text-muted-foreground mt-0.5">

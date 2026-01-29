@@ -14,6 +14,15 @@ interface CartItem {
   price: number
 }
 
+/** Preis pro Einheit für Warenkorb & Abrechnung: Aktion = promotionPrice, sonst Normalpreis. */
+function getEffectivePrice(item: { price: number | string; isPromotion?: boolean; promotionPrice?: number | string | null }): number {
+  if (item.isPromotion && item.promotionPrice != null && item.promotionPrice !== '') {
+    const p = typeof item.promotionPrice === 'string' ? parseFloat(item.promotionPrice) : item.promotionPrice
+    if (Number.isFinite(p) && p >= 0) return p
+  }
+  return typeof item.price === 'string' ? parseFloat(item.price) : item.price
+}
+
 export default function MenuPage() {
   const locationId = 'demo-location-1'
   const [cart, setCart] = useState<CartItem[]>([])
@@ -36,13 +45,14 @@ export default function MenuPage() {
         )
       }
     } else if (quantity > 0) {
+      const effectivePrice = getEffectivePrice(item)
       setCart([
         ...cart,
         {
           menuItemId: item.id,
           quantity: quantity,
           dishName: item.dish.name,
-          price: item.price,
+          price: effectivePrice,
         },
       ])
     }

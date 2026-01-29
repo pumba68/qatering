@@ -36,7 +36,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ChevronLeft, ChevronRight, Utensils, Calendar, Plus, Search, Trophy } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Utensils, Calendar, Plus, Search, Trophy, Megaphone, X } from 'lucide-react'
 import { useToast } from '@chakra-ui/react'
 
 interface Dish {
@@ -68,6 +68,15 @@ interface Menu {
   menuItems: MenuItem[]
 }
 
+interface PromotionBanner {
+  id: string
+  title: string
+  subtitle: string | null
+  imageUrl: string | null
+  isActive: boolean
+  sortOrder?: number
+}
+
 export default function MenuPlannerPage() {
   const locationId = 'demo-location-1'
   const today = new Date()
@@ -90,6 +99,9 @@ export default function MenuPlannerPage() {
   const [draggedDish, setDraggedDish] = useState<Dish | null>(null)
   const [dragOverDayKey, setDragOverDayKey] = useState<string | null>(null)
   const [weekPickerOpen, setWeekPickerOpen] = useState(false)
+  const [promotionBannersList, setPromotionBannersList] = useState<PromotionBanner[]>([])
+  const [menuPromotionBanners, setMenuPromotionBanners] = useState<PromotionBanner[]>([])
+  const [promotionBannerDropdownOpen, setPromotionBannerDropdownOpen] = useState(false)
   const toast = useToast()
 
   const sensors = useSensors(
@@ -119,7 +131,16 @@ export default function MenuPlannerPage() {
     loadMenu()
     loadDishes()
     loadTop5Dishes()
+    loadPromotionBanners()
   }, [selectedWeek, selectedYear, locationId])
+
+  useEffect(() => {
+    if (menu?.id) {
+      loadMenuPromotionBanners(menu.id)
+    } else {
+      setMenuPromotionBanners([])
+    }
+  }, [menu?.id])
 
   async function loadSettings() {
     try {
@@ -218,6 +239,85 @@ export default function MenuPlannerPage() {
       console.error('Fehler beim Laden der Top-5-Gerichte:', error)
       setTop5Dishes([])
     }
+  }
+
+  async function loadPromotionBanners() {
+    try {
+      const response = await fetch('/api/admin/promotion-banners?includeInactive=true')
+      if (!response.ok) return
+      const data = await response.json()
+      setPromotionBannersList(Array.isArray(data) ? data : [])
+    } catch (error) {
+      console.error('Fehler beim Laden der Motto-Banner:', error)
+      setPromotionBannersList([])
+    }
+  }
+
+  async function loadMenuPromotionBanners(menuId: string) {
+    try {
+      const response = await fetch(`/api/admin/menus/${menuId}/promotion-banners`)
+      if (!response.ok) return
+      const data = await response.json()
+      setMenuPromotionBanners(Array.isArray(data) ? data : [])
+    } catch (error) {
+      console.error('Fehler beim Laden der zugewiesenen Banner:', error)
+      setMenuPromotionBanners([])
+    }
+  }
+
+  async function saveMenuPromotionBanners(bannerIds: string[]) {
+    if (!menu?.id) return
+    try {
+      const response = await fetch(`/api/admin/menus/${menu.id}/promotion-banners`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bannerIds }),
+      })
+      if (!response.ok) throw new Error('Fehler beim Speichern')
+      const data = await response.json()
+      setMenuPromotionBanners(Array.isArray(data) ? data : [])
+      toast({
+        title: 'Motto-Woche gespeichert',
+        description: bannerIds.length ? `${bannerIds.length} Banner zugewiesen (Karussell-Reihenfolge).` : 'Keine Banner zugewiesen.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+    } catch (error) {
+      toast({
+        title: 'Fehler',
+        description: 'Motto-Banner konnten nicht gespeichert werden.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }
+
+  function addBannerToWeek(bannerId: string) {
+    const currentIds = menuPromotionBanners.map((b) => b.id)
+    if (currentIds.includes(bannerId)) return
+    saveMenuPromotionBanners([...currentIds, bannerId])
+    setPromotionBannerDropdownOpen(false)
+  }
+
+  function removeBannerFromWeek(bannerId: string) {
+    const currentIds = menuPromotionBanners.map((b) => b.id).filter((id) => id !== bannerId)
+    saveMenuPromotionBanners(currentIds)
+  }
+
+  function moveBannerUp(index: number) {
+    if (index <= 0) return
+    const ids = [...menuPromotionBanners.map((b) => b.id)]
+    ;[ids[index - 1], ids[index]] = [ids[index], ids[index - 1]]
+    saveMenuPromotionBanners(ids)
+  }
+
+  function moveBannerDown(index: number) {
+    if (index >= menuPromotionBanners.length - 1) return
+    const ids = [...menuPromotionBanners.map((b) => b.id)]
+    ;[ids[index], ids[index + 1]] = [ids[index + 1], ids[index]]
+    saveMenuPromotionBanners(ids)
   }
 
   async function addDishToDay(dishId: string, dayDate: Date) {
@@ -787,6 +887,91 @@ export default function MenuPlannerPage() {
           })()}
         </div>
       </div>
+
+      {/* Motto-Woche: Banner für diese KW zuweisen (Karussell-Reihenfolge) */}
+      {menu && (
+        <div className="rounded-2xl border border-border/50 bg-muted/20 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+            <div className="flex items-center gap-2">
+              <Megaphone className="w-5 h-5 text-primary" />
+              <h2 className="text-base font-semibold">Motto-Woche (Promotion-Banner)</h2>
+            </div>
+            <DropdownMenu open={promotionBannerDropdownOpen} onOpenChange={setPromotionBannerDropdownOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Plus className="w-4 h-4" />
+                  Banner hinzufügen
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64 max-h-[300px] overflow-y-auto">
+                {promotionBannersList
+                  .filter((b) => b.isActive && !menuPromotionBanners.some((a) => a.id === b.id))
+                  .map((banner) => (
+                    <button
+                      key={banner.id}
+                      type="button"
+                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-muted text-sm font-medium"
+                      onClick={() => addBannerToWeek(banner.id)}
+                    >
+                      {banner.title}
+                    </button>
+                  ))}
+                {promotionBannersList.filter((b) => b.isActive && !menuPromotionBanners.some((a) => a.id === b.id)).length === 0 && (
+                  <p className="px-3 py-2 text-sm text-muted-foreground">Keine weiteren Banner verfügbar. Legen Sie unter Promotions → Motto-Banner neue an.</p>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {menuPromotionBanners.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Keine Banner für diese Woche. Kunden sehen keinen Motto-Bereich.</p>
+            ) : (
+              menuPromotionBanners.map((banner, index) => (
+                <div
+                  key={banner.id}
+                  className="flex items-center gap-1 rounded-lg border border-border/50 bg-card px-3 py-2 text-sm"
+                >
+                  <span className="font-medium">{banner.title}</span>
+                  <div className="flex items-center gap-0.5">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6"
+                      onClick={() => moveBannerUp(index)}
+                      disabled={index === 0}
+                      aria-label="Banner nach oben"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5 rotate-[-90deg]" />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6"
+                      onClick={() => moveBannerDown(index)}
+                      disabled={index === menuPromotionBanners.length - 1}
+                      aria-label="Banner nach unten"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5 rotate-[-90deg]" />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 text-muted-foreground hover:text-destructive"
+                      onClick={() => removeBannerFromWeek(banner.id)}
+                      aria-label="Banner entfernen"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
 
       {loading ? (
         <div className="flex justify-center items-center py-12">

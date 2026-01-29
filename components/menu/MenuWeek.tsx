@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { formatDate, formatDateToKey } from '@/lib/utils'
 import { getWeekNumber, getWeekStartDate, getWeekDays } from '@/lib/week-utils'
 import MenuItemCard from './MenuItemCard'
+import { PromotionBannerCarousel } from './PromotionBannerCarousel'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
@@ -16,6 +17,9 @@ interface MenuItem {
   available: boolean
   currentOrders: number
   maxOrders: number | null
+  isPromotion?: boolean
+  promotionPrice?: number | string | null
+  promotionLabel?: string | null
   dish: {
     id: string
     name: string
@@ -28,6 +32,13 @@ interface MenuItem {
   }
 }
 
+interface PromotionBannerItem {
+  id: string
+  title: string
+  subtitle: string | null
+  imageUrl: string | null
+}
+
 interface Menu {
   id: string
   weekNumber: number
@@ -35,6 +46,7 @@ interface Menu {
   startDate: string
   endDate: string
   menuItems: MenuItem[]
+  promotionBanners?: PromotionBannerItem[]
 }
 
 interface CartItem {
@@ -68,24 +80,12 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
   async function fetchMenu() {
     try {
       setLoading(true)
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/menu/MenuWeek.tsx:58',message:'Fetching menu from API',data:{locationId,selectedWeek,selectedYear},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-      // #endregion
       const response = await fetch(`/api/menus?locationId=${locationId}&weekNumber=${selectedWeek}&year=${selectedYear}`)
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/menu/MenuWeek.tsx:49',message:'API response status',data:{status:response.status,ok:response.ok},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-      // #endregion
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/menu/MenuWeek.tsx:52',message:'API error response',data:{status:response.status,error:errorData.error},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
         throw new Error(errorData.error || 'Menü nicht gefunden')
       }
       const data = await response.json()
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/menu/MenuWeek.tsx:56',message:'Menu data received',data:{menuId:data.id,weekNumber:data.weekNumber,isPublished:data.isPublished,menuItemsCount:data.menuItems?.length||0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-      // #endregion
       setMenu(data)
       setError(null) // Reset error state on successful load
       
@@ -107,9 +107,6 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
         }
       }
     } catch (err) {
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/menu/MenuWeek.tsx:59',message:'Error in fetchMenu',data:{error:err instanceof Error ? err.message : String(err)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-      // #endregion
       setError(err instanceof Error ? err.message : 'Fehler beim Laden')
       setMenu(null) // Clear menu state on error
     } finally {
@@ -164,6 +161,16 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
 
   return (
     <div className="space-y-8">
+      {/* Promotion-Banner (Motto-Woche) oberhalb des Speiseplans – Karussell bei mehreren */}
+      {menu?.promotionBanners && menu.promotionBanners.length > 0 && (
+        <PromotionBannerCarousel
+          banners={menu.promotionBanners}
+          weekNumber={selectedWeek}
+          year={selectedYear}
+          locationId={locationId}
+        />
+      )}
+
       {/* Header mit Navigation - HelloFresh Stil */}
       <div className="relative">
         {/* Wellenförmiger Hintergrund */}

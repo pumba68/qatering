@@ -5,6 +5,29 @@ import { prisma } from '@/lib/prisma'
 import { generatePickupCode } from '@/lib/utils'
 import { ensureWallet, chargeWithinTx } from '@/lib/wallet'
 
+/** Wandelt Preis (Prisma Decimal, string, number) in number um. */
+function toPriceNumber(value: unknown): number {
+  if (value == null) return NaN
+  if (typeof value === 'number' && Number.isFinite(value)) return value
+  if (typeof value === 'string') return parseFloat(value)
+  // Prisma Decimal (decimal.js) hat .toNumber()
+  if (typeof value === 'object' && value !== null && 'toNumber' in value && typeof (value as { toNumber: () => number }).toNumber === 'function') {
+    return (value as { toNumber: () => number }).toNumber()
+  }
+  const n = Number(value)
+  return Number.isFinite(n) ? n : NaN
+}
+
+/** Preis pro Einheit für Abrechnung: Aktion = promotionPrice, sonst Normalpreis. */
+function getEffectiveMenuItemPrice(menuItem: { price: unknown; isPromotion?: boolean; promotionPrice?: unknown }): number {
+  if (menuItem.isPromotion) {
+    const p = toPriceNumber(menuItem.promotionPrice)
+    if (!Number.isNaN(p) && p >= 0) return p
+  }
+  const base = toPriceNumber(menuItem.price)
+  return Number.isNaN(base) ? 0 : base
+}
+
 // POST: Neue Bestellung erstellen
 export async function POST(request: NextRequest) {
   try {
@@ -53,7 +76,7 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      totalAmount += Number(menuItem.price) * item.quantity
+      totalAmount += getEffectiveMenuItemPrice(menuItem) * item.quantity
       menuItems.push({ menuItem, quantity: item.quantity })
     }
 
@@ -124,12 +147,13 @@ export async function POST(request: NextRequest) {
             })
 
             if (menu && menu.menuItems.length > 0) {
+              const freeMi = menu.menuItems[0]
               freeItemToAdd = {
-                menuItemId: menu.menuItems[0].id,
+                menuItemId: freeMi.id,
                 quantity: 1,
               }
               // Für kostenlose Artikel wird kein Rabatt abgezogen, sondern das Item kostenlos hinzugefügt
-              discountAmount = Number(menu.menuItems[0].price)
+              discountAmount = getEffectiveMenuItemPrice(freeMi)
               finalAmount = totalAmount // Endbetrag bleibt gleich, da Extra kostenlos ist
             }
           }
@@ -244,7 +268,7 @@ export async function POST(request: NextRequest) {
             create: allMenuItems.map(({ menuItem, quantity }) => ({
               menuItemId: menuItem.id,
               quantity,
-              price: freeItemToAdd && menuItem.id === freeItemToAdd.menuItemId ? 0 : menuItem.price, // Kostenloses Item hat Preis 0
+              price: freeItemToAdd && menuItem.id === freeItemToAdd.menuItemId ? 0 : getEffectiveMenuItemPrice(menuItem), // Kostenloses Item = 0, sonst Sonderpreis oder Normalpreis
             })),
           },
         },

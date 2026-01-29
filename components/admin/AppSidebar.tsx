@@ -17,6 +17,7 @@ import {
   ChevronRight,
   ChevronDown,
   Pin,
+  Megaphone,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -67,6 +68,13 @@ const menuGroups = [
     items: [
       { title: 'Bestellungen', url: '/admin/orders', icon: ShoppingBag },
       { title: 'Metadaten', url: '/admin/metadata', icon: Tags },
+    ],
+  },
+  {
+    id: 'promotions',
+    label: 'Promotions',
+    items: [
+      { title: 'Motto-Banner', url: '/admin/promotions/banners', icon: Megaphone },
       { title: 'Coupons', url: '/admin/coupons', icon: Ticket },
     ],
   },
