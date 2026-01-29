@@ -17,7 +17,7 @@ const dishSchema = z.object({
   isActive: z.boolean().optional(),
 })
 
-// GET: Alle Gerichte abrufen
+// GET: Alle Gerichte abrufen; ?sort=popular&limit=5 = Top 5 nach Bestellanzahl
 export async function GET(request: NextRequest) {
   try {
     const auth = await requireAdminRole()
@@ -25,6 +25,62 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     const includeInactive = searchParams.get('includeInactive') === 'true'
+    const sort = searchParams.get('sort')
+    const limitParam = searchParams.get('limit')
+    const limit = limitParam ? Math.min(parseInt(limitParam, 10) || 5, 20) : undefined
+
+    if (sort === 'popular' && limit) {
+      const byMenuItem = await prisma.orderItem.groupBy({
+        by: ['menuItemId'],
+        _sum: { quantity: true },
+      })
+      const menuItemIds = byMenuItem.map((p) => p.menuItemId)
+      const menuItems = await prisma.menuItem.findMany({
+        where: { id: { in: menuItemIds } },
+        select: { id: true, dishId: true },
+      })
+      const menuItemToQuantity = new Map(
+        byMenuItem.map((p) => [p.menuItemId, p._sum.quantity ?? 0])
+      )
+      const dishIdToCount = new Map<string, number>()
+      menuItems.forEach((mi) => {
+        const qty = menuItemToQuantity.get(mi.id) ?? 0
+        if (mi.dishId) {
+          dishIdToCount.set(mi.dishId, (dishIdToCount.get(mi.dishId) ?? 0) + qty)
+        }
+      })
+      const sortedDishIds = [...dishIdToCount.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .map(([id]) => id)
+        .slice(0, limit)
+
+      const popularDishes = await prisma.dish.findMany({
+        where: {
+          id: { in: sortedDishIds },
+          ...(includeInactive ? {} : { isActive: true }),
+        },
+      })
+      const orderByPopular = new Map(
+        sortedDishIds.map((id, i) => [id, i])
+      )
+      popularDishes.sort(
+        (a, b) => (orderByPopular.get(a.id) ?? 99) - (orderByPopular.get(b.id) ?? 99)
+      )
+
+      if (popularDishes.length < limit) {
+        const existingIds = new Set(popularDishes.map((d) => d.id))
+        const fill = await prisma.dish.findMany({
+          where: {
+            id: { notIn: [...existingIds] },
+            ...(includeInactive ? {} : { isActive: true }),
+          },
+          orderBy: { name: 'asc' },
+          take: limit - popularDishes.length,
+        })
+        return NextResponse.json([...popularDishes, ...fill])
+      }
+      return NextResponse.json(popularDishes)
+    }
 
     const dishes = await prisma.dish.findMany({
       where: includeInactive ? {} : { isActive: true },

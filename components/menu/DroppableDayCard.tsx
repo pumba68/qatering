@@ -42,6 +42,10 @@ interface DroppableDayCardProps {
   onDishSelect?: (dishId: string, day: Date) => void
   draggedDishId?: string | null
   isDragOver?: boolean
+  /** Wenn true: Button „Hier einfügen“ anzeigen (Sheet offen, Gericht gewählt, Tag auswählen). */
+  insertDishMode?: boolean
+  /** Klick auf „Hier einfügen“ – Gericht in diesen Tag einfügen. */
+  onInsertDishClick?: () => void
 }
 
 export function DroppableDayCard({
@@ -56,6 +60,8 @@ export function DroppableDayCard({
   onDishSelect,
   draggedDishId,
   isDragOver,
+  insertDishMode,
+  onInsertDishClick,
 }: DroppableDayCardProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: `day-${dayKey}`,
@@ -129,6 +135,17 @@ export function DroppableDayCard({
             </div>
           )}
         </div>
+
+        {insertDishMode && onInsertDishClick && (
+          <Button
+            onClick={onInsertDishClick}
+            size="sm"
+            className="w-full bg-green-600 hover:bg-green-700 text-white"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Hier einfügen
+          </Button>
+        )}
 
         <Button
           onClick={onAddDishClick}

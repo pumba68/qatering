@@ -23,7 +23,13 @@ import { DraggableMenuItem } from '@/components/menu/DraggableMenuItem'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { ChevronLeft, ChevronRight, Utensils, Calendar } from 'lucide-react'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet'
+import { ChevronLeft, ChevronRight, Utensils, Calendar, Plus, Search } from 'lucide-react'
 import { useToast } from '@chakra-ui/react'
 
 interface Dish {
@@ -62,8 +68,13 @@ export default function MenuPlannerPage() {
   const [selectedYear, setSelectedYear] = useState(currentYear)
   const [menu, setMenu] = useState<Menu | null>(null)
   const [dishes, setDishes] = useState<Dish[]>([])
+  const [top5Dishes, setTop5Dishes] = useState<Dish[]>([])
   const [loading, setLoading] = useState(true)
   const [showDishSelector, setShowDishSelector] = useState<string | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
+  const [sheetTargetDayKey, setSheetTargetDayKey] = useState<string | null>(null)
+  const [selectedDishIdForDay, setSelectedDishIdForDay] = useState<string | null>(null)
+  const [dishSearch, setDishSearch] = useState('')
   const [workingDays, setWorkingDays] = useState<number[]>([1, 2, 3, 4, 5])
   const [activeId, setActiveId] = useState<string | null>(null)
   const [draggedDish, setDraggedDish] = useState<Dish | null>(null)
@@ -85,6 +96,7 @@ export default function MenuPlannerPage() {
     loadSettings()
     loadMenu()
     loadDishes()
+    loadTop5Dishes()
   }, [selectedWeek, selectedYear, locationId])
 
   async function loadSettings() {
@@ -175,6 +187,17 @@ export default function MenuPlannerPage() {
     }
   }
 
+  async function loadTop5Dishes() {
+    try {
+      const response = await fetch('/api/admin/dishes?sort=popular&limit=5')
+      const data = await response.json()
+      setTop5Dishes(Array.isArray(data) ? data : [])
+    } catch (error) {
+      console.error('Fehler beim Laden der Top-5-Gerichte:', error)
+      setTop5Dishes([])
+    }
+  }
+
   async function addDishToDay(dishId: string, dayDate: Date) {
     if (!menu) {
       const loadedMenu = await loadMenu()
@@ -219,6 +242,9 @@ export default function MenuPlannerPage() {
       
       loadMenu()
       setShowDishSelector(null)
+      setSheetOpen(false)
+      setSheetTargetDayKey(null)
+      setSelectedDishIdForDay(null)
       return
     }
 
@@ -290,6 +316,9 @@ export default function MenuPlannerPage() {
       
       await loadMenu()
       setShowDishSelector(null)
+      setSheetOpen(false)
+      setSheetTargetDayKey(null)
+      setSelectedDishIdForDay(null)
       toast({
         title: 'Erfolg',
         description: 'Gericht erfolgreich hinzugefügt',
@@ -392,7 +421,8 @@ export default function MenuPlannerPage() {
   function handleDragStart(event: DragStartEvent) {
     const { active } = event
     setActiveId(active.id as string)
-    
+    setSheetOpen(false)
+
     const activeIdStr = active.id as string
     const dishId = activeIdStr.replace('dish-', '')
     const dish = dishes.find(d => d.id === dishId)
@@ -667,141 +697,236 @@ export default function MenuPlannerPage() {
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-            {/* Gerichte-Liste (Drag Source) */}
-            <Card className="sticky top-4 h-fit min-h-[400px]">
+          <div className="space-y-6">
+            {/* Schnellzugriff: Top 5 + Alle Gerichte (DESIGN_GUIDELINES: gap-6) */}
+            <Card className="bg-card rounded-2xl border border-border/50 overflow-hidden">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Utensils className="w-5 h-5" />
-                  Gerichte
+                <CardTitle className="text-lg font-bold text-foreground flex items-center gap-2">
+                  <Utensils className="w-5 h-5 text-primary" />
+                  Schnellzugriff
                 </CardTitle>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Ziehen Sie Gerichte zu den Tagen
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  Beliebte Gerichte in einen Tag ziehen oder alle Gerichte durchsuchen
                 </p>
               </CardHeader>
-              <CardContent>
-                <div className="max-h-[500px] overflow-y-auto p-2 bg-muted/50 rounded-lg space-y-1">
-                  {dishes.length === 0 ? (
-                    <div className="text-sm text-muted-foreground text-center py-4">
-                      Keine Gerichte verfügbar
-                    </div>
-                  ) : (
-                    dishes.map((dish) => (
-                      <DraggableDish key={dish.id} dish={dish} />
-                    ))
-                  )}
-                </div>
+              <CardContent className="flex flex-wrap items-center gap-4 overflow-x-auto py-2">
+                {(top5Dishes.length > 0 ? top5Dishes : dishes.slice(0, 5)).map((dish) => (
+                  <div
+                    key={dish.id}
+                    className="flex-shrink-0 w-[140px] rounded-xl border border-border/50 overflow-hidden bg-card hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+                  >
+                    <DraggableDish dish={dish} />
+                  </div>
+                ))}
+                <Button
+                  onClick={() => {
+                    setSheetTargetDayKey(null)
+                    setSelectedDishIdForDay(null)
+                    setSheetOpen(true)
+                  }}
+                  size="sm"
+                  className="flex-shrink-0 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Alle Gerichte
+                </Button>
               </CardContent>
             </Card>
 
-            {/* Tage mit Dropzones */}
-            {workingWeekDays.map((day) => {
-              const dayKey = formatDateToKey(day)
-              const dayItems = itemsByDay[dayKey] || []
-              const isDragOver = dragOverDayKey === dayKey
-              const draggedDishId = draggedDish?.id || null
+            {/* Swimlanes: Tage horizontal (min-width 220px, gap-6) */}
+            <div className="overflow-x-auto pb-2">
+              <div className="flex gap-6 min-w-0" style={{ minWidth: 'min-content' }}>
+                {workingWeekDays.map((day) => {
+                  const dayKey = formatDateToKey(day)
+                  const dayItems = itemsByDay[dayKey] || []
+                  const isDragOver = dragOverDayKey === dayKey
+                  const draggedDishId = draggedDish?.id || null
 
-              return (
-                <DroppableDayCard
-                  key={dayKey}
-                  day={day}
-                  dayKey={dayKey}
-                  items={dayItems}
-                  onRemoveItem={removeMenuItem}
-                  onUpdatePrice={updateMenuItemPrice}
-                  onAddDishClick={() =>
-                    setShowDishSelector(showDishSelector === dayKey ? null : dayKey)
-                  }
-                  showDishSelector={showDishSelector === dayKey}
-                  dishes={dishes}
-                  onDishSelect={(dishId, dayDate) => {
-                    const dayItems = itemsByDay[formatDateToKey(dayDate)] || []
-                    const dishAlreadyExists = dayItems.some(item => item.dishId === dishId)
-                    
-                    if (dishAlreadyExists) {
-                      toast({
-                        title: 'Hinweis',
-                        description: 'Dieses Gericht ist bereits an diesem Tag vorhanden',
-                        variant: 'default',
-                      })
-                      return
-                    }
-                    
-                    addDishToDay(dishId, dayDate).catch((error) => {
-                      console.error('Fehler in addDishToDay:', error)
-                    })
-                  }}
-                  draggedDishId={draggedDishId}
-                  isDragOver={isDragOver}
-                />
-              )
-            })}
+                  return (
+                    <div
+                      key={dayKey}
+                      className="flex-shrink-0 w-[220px] rounded-2xl overflow-hidden border border-border/50 bg-muted/30 transition-all"
+                    >
+                      <DroppableDayCard
+                        day={day}
+                        dayKey={dayKey}
+                        items={dayItems}
+                        onRemoveItem={removeMenuItem}
+                        onUpdatePrice={updateMenuItemPrice}
+                        onAddDishClick={() => {
+                          setSheetTargetDayKey(dayKey)
+                          setSelectedDishIdForDay(null)
+                          setSheetOpen(true)
+                        }}
+                        showDishSelector={false}
+                        dishes={dishes}
+                        onDishSelect={(dishId, dayDate) => {
+                          const dk = formatDateToKey(dayDate)
+                          const existing = itemsByDay[dk] || []
+                          if (existing.some((item) => item.dishId === dishId)) {
+                            toast({
+                              title: 'Hinweis',
+                              description: 'Dieses Gericht ist bereits an diesem Tag vorhanden',
+                              status: 'warning',
+                              duration: 3000,
+                              isClosable: true,
+                            })
+                            return
+                          }
+                          addDishToDay(dishId, dayDate).catch(console.error)
+                        }}
+                        draggedDishId={draggedDishId}
+                        isDragOver={isDragOver}
+                        insertDishMode={!!selectedDishIdForDay}
+                        onInsertDishClick={
+                          selectedDishIdForDay
+                            ? () => {
+                                const existing = itemsByDay[dayKey] || []
+                                if (existing.some((item) => item.dishId === selectedDishIdForDay)) {
+                                  toast({
+                                    title: 'Hinweis',
+                                    description: 'Dieses Gericht ist bereits an diesem Tag vorhanden',
+                                    status: 'warning',
+                                    duration: 3000,
+                                    isClosable: true,
+                                  })
+                                  return
+                                }
+                                addDishToDay(selectedDishIdForDay, day).catch(console.error)
+                              }
+                            : undefined
+                        }
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
           </div>
 
           {/* Drag Overlay */}
           <DragOverlay>
             {activeId && draggedDish ? (
-              <Card className="opacity-80 shadow-lg">
+              <Card className="opacity-90 shadow-xl rounded-2xl border border-border/50">
                 <CardContent className="p-3">
-                  <p className="font-medium text-sm">{draggedDish.name}</p>
+                  <p className="font-medium text-sm text-foreground">{draggedDish.name}</p>
                 </CardContent>
               </Card>
             ) : activeId && menu ? (
               (() => {
-                const menuItem = menu.menuItems.find(item => item.id === activeId)
+                const menuItem = menu.menuItems.find((item) => item.id === activeId)
                 return menuItem ? (
-                  <Card className="opacity-80 shadow-lg">
+                  <Card className="opacity-90 shadow-xl rounded-2xl border border-border/50">
                     <CardContent className="p-3">
-                      <p className="font-medium text-sm">{menuItem.dish.name}</p>
+                      <p className="font-medium text-sm text-foreground">{menuItem.dish.name}</p>
                     </CardContent>
                   </Card>
                 ) : null
               })()
             ) : null}
           </DragOverlay>
-        </DndContext>
-      )}
 
-      {/* Dish Selector Modal */}
-      {showDishSelector && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <Card className="max-w-md w-[90%] max-h-[80vh] overflow-y-auto">
-            <CardHeader>
-              <CardTitle className="text-lg">Gericht hinzufügen</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {dishes.map((dish) => (
-                <Button
-                  key={dish.id}
-                  variant="ghost"
-                  size="sm"
-                  className="w-full justify-start"
-                  onClick={() => {
-                    const dayKey = showDishSelector
-                    const day = workingWeekDays.find(
-                      d => formatDateToKey(d) === dayKey
+          {/* Sheet: Alle Gerichte – innerhalb DndContext, damit Drag aus dem Sheet funktioniert */}
+          <Sheet
+            open={sheetOpen}
+            onOpenChange={(open) => {
+              setSheetOpen(open)
+              if (!open) {
+                setSheetTargetDayKey(null)
+                setSelectedDishIdForDay(null)
+                setDishSearch('')
+              }
+            }}
+          >
+            <SheetContent side="right" className="w-full sm:max-w-md flex flex-col">
+              <SheetHeader>
+                <SheetTitle className="text-lg font-bold text-foreground">
+                  Gericht aus Katalog wählen
+                </SheetTitle>
+                {sheetTargetDayKey ? (
+                  <p className="text-sm text-muted-foreground">
+                    Klicken oder in einen Tag ziehen.
+                  </p>
+                ) : selectedDishIdForDay ? (
+                  <p className="text-sm text-green-600 dark:text-green-400 font-medium">
+                    Klicken Sie auf einen Tag im Plan: „Hier einfügen“
+                  </p>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Gericht wählen, dann Tag anklicken – oder in einen Tag ziehen.
+                  </p>
+                )}
+              </SheetHeader>
+              <div className="mt-4 flex flex-col flex-1 min-h-0">
+                <div className="relative flex-shrink-0">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Gerichte durchsuchen..."
+                    value={dishSearch}
+                    onChange={(e) => setDishSearch(e.target.value)}
+                    className="pl-9 rounded-lg border-border/50"
+                  />
+                </div>
+                <div className="mt-4 flex-1 overflow-y-auto rounded-lg border border-border/50 bg-muted/30 p-2 space-y-1">
+                  {dishes
+                    .filter(
+                      (d) =>
+                        !dishSearch.trim() ||
+                        d.name.toLowerCase().includes(dishSearch.trim().toLowerCase())
                     )
-                    if (day) {
-                      addDishToDay(dish.id, day).catch((error) => {
-                        console.error('Fehler in addDishToDay:', error)
-                      })
-                    }
-                  }}
-                >
-                  {dish.name}
-                </Button>
-              ))}
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full mt-4"
-                onClick={() => setShowDishSelector(null)}
-              >
-                Schließen
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+                    .map((dish) => (
+                      <div
+                        key={dish.id}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => {
+                          if (sheetTargetDayKey) {
+                            const day = workingWeekDays.find(
+                              (d) => formatDateToKey(d) === sheetTargetDayKey
+                            )
+                            if (day) {
+                              const existing = itemsByDay[sheetTargetDayKey] || []
+                              if (existing.some((item) => item.dishId === dish.id)) {
+                                toast({
+                                  title: 'Hinweis',
+                                  description: 'Dieses Gericht ist bereits an diesem Tag vorhanden',
+                                  status: 'warning',
+                                  duration: 3000,
+                                  isClosable: true,
+                                })
+                                return
+                              }
+                              addDishToDay(dish.id, day).catch(console.error)
+                            }
+                          } else {
+                            setSelectedDishIdForDay(dish.id)
+                          }
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            ;(e.currentTarget as HTMLDivElement).click()
+                          }
+                        }}
+                        className="cursor-grab active:cursor-grabbing"
+                      >
+                        <DraggableDish dish={dish} />
+                      </div>
+                    ))}
+                  {dishes.filter(
+                    (d) =>
+                      !dishSearch.trim() ||
+                      d.name.toLowerCase().includes(dishSearch.trim().toLowerCase())
+                  ).length === 0 && (
+                    <div className="text-sm text-muted-foreground text-center py-6">
+                      Keine Gerichte gefunden
+                    </div>
+                  )}
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </DndContext>
       )}
     </div>
   )
