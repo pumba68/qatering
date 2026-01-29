@@ -34,9 +34,9 @@ export function OrdersAreaChart({ data }: OrdersAreaChartProps) {
   return (
     <Card className="border-border/50 shadow-sm">
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg">Visit And Sales Statistics</CardTitle>
-        <CardDescription className="text-sm">
-          Vergleich: Aktueller Monat vs. Vormonat
+        <CardTitle className="text-lg font-bold text-foreground">Bestellverlauf</CardTitle>
+        <CardDescription className="text-sm text-muted-foreground">
+          Bestellungen pro Tag (Zeitraum vs. Vormonat bei Monatsansicht)
         </CardDescription>
       </CardHeader>
       <CardContent className="h-[300px]">
@@ -55,7 +55,7 @@ export function OrdersAreaChart({ data }: OrdersAreaChartProps) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.split(' ')[1]}
+              tickFormatter={(value) => (typeof value === 'string' && value.startsWith('Tag ') ? value.split(' ')[1] : value)}
             />
             <ChartTooltip
               cursor={false}

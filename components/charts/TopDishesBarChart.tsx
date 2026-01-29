@@ -1,6 +1,4 @@
 'use client'
-
-import { TrendingUp } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 import {
   ChartContainer,
@@ -8,7 +6,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface TopDish {
   dish: string
@@ -93,14 +91,6 @@ export function TopDishesBarChart({ data }: TopDishesBarChartProps) {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Top {chartData.length} Gerichte diesen Monat <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Sortiert nach Anzahl der Bestellungen
-        </div>
-      </CardFooter>
     </Card>
   )
 }
