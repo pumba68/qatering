@@ -104,8 +104,10 @@ export default function MenuItemCard({
 
   return (
     <div
-      className={`group relative bg-card rounded-2xl overflow-hidden border border-border/50 transition-all duration-300 ${
-        isPromotion ? 'border-l-4 border-amber-400' : ''
+      className={`group relative bg-card rounded-2xl overflow-hidden border transition-all duration-300 ${
+        isPromotion
+          ? 'border-2 border-amber-400 shadow-[0_0_0_1px_rgba(251,191,36,0.5)] ring-2 ring-amber-400/30'
+          : 'border border-border/50'
       } ${isAvailable ? 'hover:shadow-2xl hover:scale-[1.02] cursor-pointer' : 'opacity-60'}`}
     >
       {/* Bild-Bereich mit Badges */}
