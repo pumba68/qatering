@@ -6,6 +6,7 @@ import {
   DndContext,
   DragOverlay,
   closestCenter,
+  pointerWithin,
   KeyboardSensor,
   PointerSensor,
   useSensor,
@@ -13,6 +14,7 @@ import {
   DragEndEvent,
   DragStartEvent,
   DragOverEvent,
+  type CollisionDetection,
 } from '@dnd-kit/core'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { getWeekNumber, getWeekDays, formatDayName, formatShortDate } from '@/lib/week-utils'
@@ -29,7 +31,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet'
-import { ChevronLeft, ChevronRight, Utensils, Calendar, Plus, Search } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { ChevronLeft, ChevronRight, Utensils, Calendar, Plus, Search, Trophy } from 'lucide-react'
 import { useToast } from '@chakra-ui/react'
 
 interface Dish {
@@ -79,6 +86,7 @@ export default function MenuPlannerPage() {
   const [activeId, setActiveId] = useState<string | null>(null)
   const [draggedDish, setDraggedDish] = useState<Dish | null>(null)
   const [dragOverDayKey, setDragOverDayKey] = useState<string | null>(null)
+  const [weekPickerOpen, setWeekPickerOpen] = useState(false)
   const toast = useToast()
 
   const sensors = useSensors(
@@ -91,6 +99,17 @@ export default function MenuPlannerPage() {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
+
+  /** Beim Ziehen eines Gerichts (dish-*) zählt die ganze Tag-Spalte: Tag-Droppable hat Vorrang vor Sortable-Items. */
+  const collisionDetection: CollisionDetection = (args) => {
+    const activeId = String(args.active.id)
+    if (activeId.startsWith('dish-')) {
+      const underPointer = pointerWithin(args)
+      const dayId = underPointer.find(({ id }) => String(id).startsWith('day-'))
+      if (dayId) return [dayId]
+    }
+    return closestCenter(args)
+  }
 
   useEffect(() => {
     loadSettings()
@@ -583,8 +602,8 @@ export default function MenuPlannerPage() {
     <div className="space-y-6">
       {/* Header mit Navigation - ähnlich MenuWeek, aber komprimierter */}
       <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/20 dark:via-emerald-950/20 dark:to-teal-950/20 rounded-2xl -z-10">
-          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/20 dark:via-emerald-950/20 dark:to-teal-950/20 rounded-3xl -z-10">
+          <svg className="absolute bottom-0 w-full h-24" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,60 Q300,30 600,60 T1200,60 L1200,120 L0,120 Z" fill="currentColor" className="text-green-50 dark:text-green-950/20" />
           </svg>
         </div>
@@ -621,66 +640,99 @@ export default function MenuPlannerPage() {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <Button
-              onClick={() => navigateWeek('prev')}
-              variant="outline"
-              size="sm"
-              className="hover:bg-white/80 dark:hover:bg-gray-800/80"
-            >
-              <ChevronLeft className="w-4 h-4 mr-1" />
-              Vorherige Woche
-            </Button>
-            
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <label className="text-sm font-medium text-muted-foreground">KW:</label>
-                <Input
-                  type="number"
-                  min={1}
-                  max={53}
-                  value={selectedWeek}
-                  onChange={(e) => setSelectedWeek(parseInt(e.target.value) || 1)}
-                  className="w-20 h-8"
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <label className="text-sm font-medium text-muted-foreground">Jahr:</label>
-                <Input
-                  type="number"
-                  min={2020}
-                  max={2100}
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(parseInt(e.target.value) || currentYear)}
-                  className="w-24 h-8"
-                />
-              </div>
-              {(selectedWeek !== currentWeek || selectedYear !== currentYear) && (
+          {/* Wochen-Navigation: kompakt, lesbar, mit direktem KW-Sprung (DESIGN_GUIDELINES) */}
+          {(() => {
+            const sameMonth = weekStartDate.getMonth() === weekEndDate.getMonth()
+            const weekRangeLabel = sameMonth
+              ? `${weekStartDate.getDate()}.–${weekEndDate.getDate()}. ${new Intl.DateTimeFormat('de-DE', { month: 'short' }).format(weekStartDate)} ${selectedYear}`
+              : `${weekStartDate.getDate()}. ${new Intl.DateTimeFormat('de-DE', { month: 'short' }).format(weekStartDate)} – ${weekEndDate.getDate()}. ${new Intl.DateTimeFormat('de-DE', { month: 'short' }).format(weekEndDate)} ${selectedYear}`
+            const isCurrentWeek = selectedWeek === currentWeek && selectedYear === currentYear
+            return (
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                 <Button
-                  onClick={() => {
-                    setSelectedWeek(currentWeek)
-                    setSelectedYear(currentYear)
-                  }}
-                  variant="secondary"
-                  size="sm"
-                  className="bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800"
+                  onClick={() => navigateWeek('prev')}
+                  variant="outline"
+                  size="icon"
+                  className="h-10 w-10 rounded-xl border-border/60 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 hover:scale-105 active:scale-95 transition-transform shrink-0"
+                  aria-label="Vorherige Woche"
                 >
-                  Aktuelle Woche
+                  <ChevronLeft className="w-5 h-5" />
                 </Button>
-              )}
-            </div>
 
-            <Button
-              onClick={() => navigateWeek('next')}
-              variant="outline"
-              size="sm"
-              className="hover:bg-white/80 dark:hover:bg-gray-800/80"
-            >
-              Nächste Woche
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
+                <DropdownMenu open={weekPickerOpen} onOpenChange={setWeekPickerOpen}>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-2 px-4 py-2.5 rounded-xl border border-border/50 bg-white/90 dark:bg-gray-800/90 shadow-sm hover:shadow-md hover:bg-white dark:hover:bg-gray-800 transition-all min-w-[180px] sm:min-w-[220px] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2"
+                      aria-label="Kalenderwoche wählen"
+                    >
+                      <span className="text-base font-bold text-foreground">KW {selectedWeek}</span>
+                      <span className="text-sm text-muted-foreground">{weekRangeLabel}</span>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="center" className="w-64 p-4 rounded-xl border-border/50 shadow-lg">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between gap-2">
+                        <label htmlFor="nav-kw" className="text-sm font-medium text-foreground">KW</label>
+                        <Input
+                          id="nav-kw"
+                          type="number"
+                          min={1}
+                          max={53}
+                          value={selectedWeek}
+                          onChange={(e) => setSelectedWeek(Math.min(53, Math.max(1, parseInt(e.target.value) || 1)))}
+                          className="w-20 h-9 rounded-lg"
+                        />
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <label htmlFor="nav-year" className="text-sm font-medium text-foreground">Jahr</label>
+                        <Input
+                          id="nav-year"
+                          type="number"
+                          min={2020}
+                          max={2100}
+                          value={selectedYear}
+                          onChange={(e) => setSelectedYear(Math.min(2100, Math.max(2020, parseInt(e.target.value) || currentYear)))}
+                          className="w-24 h-9 rounded-lg"
+                        />
+                      </div>
+                      <Button
+                        size="sm"
+                        className="w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-md"
+                        onClick={() => setWeekPickerOpen(false)}
+                      >
+                        Übernehmen
+                      </Button>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <Button
+                  onClick={() => navigateWeek('next')}
+                  variant="outline"
+                  size="icon"
+                  className="h-10 w-10 rounded-xl border-border/60 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 hover:scale-105 active:scale-95 transition-transform shrink-0"
+                  aria-label="Nächste Woche"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+
+                {!isCurrentWeek && (
+                  <Button
+                    onClick={() => {
+                      setSelectedWeek(currentWeek)
+                      setSelectedYear(currentYear)
+                    }}
+                    variant="secondary"
+                    size="sm"
+                    className="rounded-xl bg-white/90 dark:bg-gray-800/90 border border-border/50 shadow-sm hover:shadow-md font-medium shrink-0"
+                  >
+                    Aktuelle Woche
+                  </Button>
+                )}
+              </div>
+            )
+          })()}
         </div>
       </div>
 
@@ -691,51 +743,82 @@ export default function MenuPlannerPage() {
       ) : (
         <DndContext
           sensors={sensors}
-          collisionDetection={closestCenter}
+          collisionDetection={collisionDetection}
           onDragStart={handleDragStart}
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}
         >
           <div className="space-y-6">
-            {/* Schnellzugriff: Top 5 + Alle Gerichte (DESIGN_GUIDELINES: gap-6) */}
-            <Card className="bg-card rounded-2xl border border-border/50 overflow-hidden">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-bold text-foreground flex items-center gap-2">
-                  <Utensils className="w-5 h-5 text-primary" />
-                  Schnellzugriff
-                </CardTitle>
-                <p className="text-sm text-muted-foreground mt-0.5">
-                  Beliebte Gerichte in einen Tag ziehen oder alle Gerichte durchsuchen
-                </p>
-              </CardHeader>
-              <CardContent className="flex flex-wrap items-center gap-4 overflow-x-auto py-2">
-                {(top5Dishes.length > 0 ? top5Dishes : dishes.slice(0, 5)).map((dish) => (
-                  <div
-                    key={dish.id}
-                    className="flex-shrink-0 w-[140px] rounded-xl border border-border/50 overflow-hidden bg-card hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
-                  >
-                    <DraggableDish dish={dish} />
+            {/* Schnellzugriff: Top-5-Ranking (DESIGN_GUIDELINES: Sektion abgehoben, Gamification) */}
+            <div className="relative rounded-2xl overflow-hidden border border-border/50 bg-gradient-to-br from-amber-50/90 via-orange-50/60 to-yellow-50/90 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-yellow-950/40 shadow-lg">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 dark:from-amber-600 dark:via-orange-500 dark:to-amber-600" />
+              <div className="relative p-4">
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400">
+                      <Trophy className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-foreground">
+                        Top 5 – Beliebteste Gerichte
+                      </h2>
+                      <p className="text-sm text-muted-foreground mt-0.5">
+                        Ziehen Sie einen Favoriten in einen Wochentag
+                      </p>
+                    </div>
                   </div>
-                ))}
-                <Button
-                  onClick={() => {
-                    setSheetTargetDayKey(null)
-                    setSelectedDishIdForDay(null)
-                    setSheetOpen(true)
-                  }}
-                  size="sm"
-                  className="flex-shrink-0 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Alle Gerichte
-                </Button>
-              </CardContent>
-            </Card>
+                  <Button
+                    onClick={() => {
+                      setSheetTargetDayKey(null)
+                      setSelectedDishIdForDay(null)
+                      setSheetOpen(true)
+                    }}
+                    size="sm"
+                    className="flex-shrink-0 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Alle Gerichte
+                  </Button>
+                </div>
+                <div className="flex flex-wrap items-stretch gap-4 overflow-x-auto pb-1">
+                  {(top5Dishes.length > 0 ? top5Dishes : dishes.slice(0, 5)).map((dish, index) => {
+                    const rank = index + 1
+                    const rankStyles = rank === 1
+                      ? 'bg-amber-400 text-amber-950 shadow-md ring-2 ring-amber-500/50'
+                      : rank === 2
+                        ? 'bg-slate-300 text-slate-800 dark:bg-slate-500 dark:text-slate-100 shadow-md'
+                        : rank === 3
+                          ? 'bg-amber-700 text-amber-100 shadow-md'
+                          : 'bg-muted text-muted-foreground'
+                    return (
+                      <div
+                        key={dish.id}
+                        className="group flex-shrink-0 w-[150px] rounded-2xl overflow-hidden border border-border/50 bg-card transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] cursor-grab active:cursor-grabbing"
+                      >
+                        <div className="relative flex flex-col h-full p-4 space-y-3">
+                          <div className={`absolute top-3 left-3 z-10 flex items-center justify-center w-7 h-7 rounded-full font-bold text-sm ${rankStyles}`}>
+                            {rank}
+                          </div>
+                          <div className="pt-6 flex-1 min-h-0">
+                            <DraggableDish dish={dish} />
+                          </div>
+                          <div className="flex justify-center border-t border-border/50 pt-2">
+                            <span className="text-xs font-medium text-muted-foreground">
+                              Platz {rank}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
 
-            {/* Swimlanes: Tage horizontal (min-width 220px, gap-6) */}
+            {/* Swimlanes: Tage horizontal – Breite dynamisch je nach Anzahl Werktage */}
             <div className="overflow-x-auto pb-2">
-              <div className="flex gap-6 min-w-0" style={{ minWidth: 'min-content' }}>
+              <div className="flex gap-6 min-w-0 w-full">
                 {workingWeekDays.map((day) => {
                   const dayKey = formatDateToKey(day)
                   const dayItems = itemsByDay[dayKey] || []
@@ -745,7 +828,7 @@ export default function MenuPlannerPage() {
                   return (
                     <div
                       key={dayKey}
-                      className="flex-shrink-0 w-[220px] rounded-2xl overflow-hidden border border-border/50 bg-muted/30 transition-all"
+                      className="flex-1 min-w-[180px] rounded-2xl overflow-hidden border border-border/50 bg-muted/30 transition-all"
                     >
                       <DroppableDayCard
                         day={day}

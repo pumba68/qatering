@@ -45,10 +45,10 @@ export function DraggableDish({ dish }: DraggableDishProps) {
       <Button
         variant="ghost"
         size="sm"
-        className="w-full justify-start"
+        className="w-full min-w-0 justify-start text-left h-auto min-h-9 py-2 whitespace-normal"
         disabled={isDragging}
       >
-        <span className="text-sm">{dish.name}</span>
+        <span className="text-sm line-clamp-2 break-words block w-full min-w-0">{dish.name}</span>
       </Button>
     </div>
   )
