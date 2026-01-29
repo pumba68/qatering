@@ -258,6 +258,10 @@ model MenuItem {
   price       Decimal  @db.Decimal(10, 2)
   maxOrders   Int?     // Max. Bestellungen (z.B. 50 Portionen)
   currentOrders Int    @default(0) // Aktuelle Bestellungen
+  // Promotion/Aktion (situative Bewerbung pro Tag)
+  isPromotion   Boolean  @default(false)
+  promotionPrice Decimal? @db.Decimal(10, 2) // Optionaler Sonderpreis
+  promotionLabel String?  @db.VarChar(200)    // z.B. "gratis Nachtisch dazu"
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

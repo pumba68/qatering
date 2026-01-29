@@ -103,10 +103,10 @@ export async function GET(request: NextRequest) {
     fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/api/menus/route.ts:60',message:'Menu found and published, returning',data:{menuItemsCount:menu.menuItems.length,menuItemDates:menu.menuItems.map(mi=>mi.date)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
     // #endregion
 
-    // Filtere MenuItems basierend auf workingDays
+    // Filtere MenuItems basierend auf workingDays (UTC-Wochentag, da Datum als 12:00 UTC gespeichert)
     const filteredMenuItems = menu.menuItems.filter((item) => {
       const itemDate = new Date(item.date)
-      const dayOfWeek = itemDate.getDay() // 0=Sonntag, 1=Montag, ..., 6=Samstag
+      const dayOfWeek = itemDate.getUTCDay() // 0=Sonntag, 1=Montag, ..., 5=Freitag, 6=Samstag
       return workingDays.includes(dayOfWeek)
     })
 

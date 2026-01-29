@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { formatDate } from '@/lib/utils'
+import { formatDate, formatDateToKey } from '@/lib/utils'
 import { getWeekNumber, getWeekStartDate, getWeekDays } from '@/lib/week-utils'
 import MenuItemCard from './MenuItemCard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -89,16 +89,16 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
       setMenu(data)
       setError(null) // Reset error state on successful load
       
-      // Setze Standard-Tag: Heute, wenn verfügbar, sonst ersten verfügbaren Tag
+      // Setze Standard-Tag: Heute (lokal), wenn verfügbar, sonst ersten verfügbaren Tag
       if (data.menuItems && data.menuItems.length > 0) {
-        const todayKey = new Date().toISOString().split('T')[0]
+        const todayLocal = formatDateToKey(new Date())
         const todayItem = data.menuItems.find((item: { date: string }) => {
           const itemDate = new Date(item.date)
-          return itemDate.toISOString().split('T')[0] === todayKey
+          return itemDate.toISOString().split('T')[0] === todayLocal
         })
         
         if (todayItem) {
-          setSelectedDate(todayKey)
+          setSelectedDate(todayLocal)
         } else {
           // Ersten verfügbaren Tag nehmen
           const firstItem = data.menuItems[0]
@@ -140,7 +140,7 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
   const weekEndDate = new Date(weekStartDate)
   weekEndDate.setDate(weekStartDate.getDate() + 6)
 
-  // Gruppiere MenuItems nach Datum
+  // Gruppiere MenuItems nach Datum (UTC-Kalendertag, da Speicherung 12:00 UTC)
   const itemsByDate = (menu?.menuItems || []).reduce((acc, item) => {
     const itemDate = new Date(item.date)
     const dateKey = itemDate.toISOString().split('T')[0]
@@ -150,6 +150,9 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
     acc[dateKey].push(item)
     return acc
   }, {} as Record<string, MenuItem[]>)
+
+  // Heute in lokaler Zeitzone (für „Heute“-Markierung und initialen Tab)
+  const todayKeyLocal = formatDateToKey(new Date())
 
   // Sortiere die Tage chronologisch
   const sortedDates = Object.keys(itemsByDate).sort((a, b) => a.localeCompare(b))
@@ -254,10 +257,12 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
           >
             <TabsList className="w-full justify-start bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-1.5 h-auto rounded-2xl border border-border/50 shadow-sm overflow-x-auto">
               {sortedDates.map((dateKey) => {
-                const date = new Date(dateKey)
+                // Kalenderdatum aus Key als lokales Datum parsen (vermeidet Zeitzonen-Verschiebung bei Anzeige)
+                const [y, m, d] = dateKey.split('-').map(Number)
+                const date = new Date(y, m - 1, d)
                 const dayName = date.toLocaleDateString('de-DE', { weekday: 'short' })
                 const dayNumber = date.getDate()
-                const isToday = dateKey === new Date().toISOString().split('T')[0]
+                const isToday = dateKey === todayKeyLocal
                 const itemCount = itemsByDate[dateKey]?.length || 0
                 
                 return (
@@ -295,7 +300,8 @@ export default function MenuWeek({ locationId, onSelectItem, cart = [], onQuanti
 
             {/* Gerichte für ausgewählten Tag */}
             {sortedDates.map((dateKey) => {
-              const date = new Date(dateKey)
+              const [y, m, d] = dateKey.split('-').map(Number)
+              const date = new Date(y, m - 1, d)
               const dayName = date.toLocaleDateString('de-DE', { weekday: 'long' })
               const formattedDate = formatDate(date)
               const dayItems = itemsByDate[dateKey] || []

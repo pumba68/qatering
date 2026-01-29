@@ -3,33 +3,18 @@
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { formatDayName, formatShortDate } from '@/lib/week-utils'
-import { DraggableMenuItem } from './DraggableMenuItem'
+import { DraggableMenuItem, type MenuItemForPlanner, type PromotionUpdatePayload } from './DraggableMenuItem'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 
-interface MenuItem {
-  id: string
-  dishId: string
-  date: string
-  price: string
-  maxOrders: number | null
-  available: boolean
-  dish: {
-    id: string
-    name: string
-    description: string | null
-    imageUrl: string | null
-    dietTags: string[]
-  }
-}
-
 interface DroppableDayCardProps {
   day: Date
   dayKey: string
-  items: MenuItem[]
+  items: MenuItemForPlanner[]
   onRemoveItem: (itemId: string) => void
   onUpdatePrice: (itemId: string, price: number) => void
+  onPromotionUpdate?: (itemId: string, payload: PromotionUpdatePayload) => void
   onAddDishClick: () => void
   showDishSelector: boolean
   dishes?: Array<{
@@ -54,6 +39,7 @@ export function DroppableDayCard({
   items,
   onRemoveItem,
   onUpdatePrice,
+  onPromotionUpdate,
   onAddDishClick,
   showDishSelector,
   dishes,
@@ -123,6 +109,7 @@ export function DroppableDayCard({
                   item={item}
                   onRemove={onRemoveItem}
                   onPriceUpdate={onUpdatePrice}
+                  onPromotionUpdate={onPromotionUpdate}
                 />
               ))}
             </SortableContext>

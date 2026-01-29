@@ -54,6 +54,9 @@ interface MenuItem {
   price: string
   maxOrders: number | null
   available: boolean
+  isPromotion?: boolean
+  promotionPrice?: string | number | null
+  promotionLabel?: string | null
   dish: Dish
 }
 
@@ -218,6 +221,8 @@ export default function MenuPlannerPage() {
   }
 
   async function addDishToDay(dishId: string, dayDate: Date) {
+    // Kalenderdatum als YYYY-MM-DD senden, damit die API unabhängig von Zeitzone denselben Tag speichert
+    const dateKey = formatDateToKey(dayDate)
     if (!menu) {
       const loadedMenu = await loadMenu()
       if (!loadedMenu || !loadedMenu.id) {
@@ -242,7 +247,7 @@ export default function MenuPlannerPage() {
       const requestBody = {
         menuId: menuId,
         dishId,
-        date: dayDate.toISOString(),
+        date: dateKey,
         price: defaultPrice,
         maxOrders: 50,
         available: true,
@@ -311,7 +316,7 @@ export default function MenuPlannerPage() {
       const requestBody = {
         menuId: menuId,
         dishId,
-        date: dayDate.toISOString(),
+        date: dateKey,
         price: defaultPrice,
         maxOrders: 50,
         available: true,
@@ -365,8 +370,19 @@ export default function MenuPlannerPage() {
         method: 'DELETE',
       })
 
-      if (!response.ok) throw new Error('Fehler beim Entfernen')
-      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        const message = errorData?.error || 'Fehler beim Entfernen'
+        toast({
+          title: 'Entfernen nicht möglich',
+          description: message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+        return
+      }
+
       loadMenu()
       toast({
         title: 'Erfolg',
@@ -378,9 +394,9 @@ export default function MenuPlannerPage() {
     } catch (error) {
       toast({
         title: 'Fehler',
-        description: 'Fehler beim Entfernen',
+        description: error instanceof Error ? error.message : 'Fehler beim Entfernen',
         status: 'error',
-        duration: 3000,
+        duration: 5000,
         isClosable: true,
       })
     }
@@ -401,6 +417,42 @@ export default function MenuPlannerPage() {
       toast({
         title: 'Fehler',
         description: 'Fehler beim Aktualisieren des Preises',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }
+
+  async function updateMenuItemPromotion(
+    itemId: string,
+    payload: { isPromotion: boolean; promotionPrice: number | null; promotionLabel: string | null }
+  ) {
+    try {
+      const response = await fetch(`/api/admin/menus/items/${itemId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          isPromotion: payload.isPromotion,
+          promotionPrice: payload.promotionPrice,
+          promotionLabel: payload.promotionLabel,
+        }),
+      })
+
+      if (!response.ok) throw new Error('Fehler beim Aktualisieren')
+      
+      loadMenu()
+      toast({
+        title: 'Aktion gespeichert',
+        description: payload.isPromotion ? 'Gericht wird als Aktion beworben.' : 'Aktion entfernt.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+    } catch (error) {
+      toast({
+        title: 'Fehler',
+        description: 'Aktion konnte nicht gespeichert werden.',
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -836,6 +888,7 @@ export default function MenuPlannerPage() {
                         items={dayItems}
                         onRemoveItem={removeMenuItem}
                         onUpdatePrice={updateMenuItemPrice}
+                        onPromotionUpdate={updateMenuItemPromotion}
                         onAddDishClick={() => {
                           setSheetTargetDayKey(dayKey)
                           setSelectedDishIdForDay(null)

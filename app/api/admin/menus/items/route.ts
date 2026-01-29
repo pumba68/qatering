@@ -3,10 +3,11 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminRole } from '@/lib/admin-helpers'
 import { z } from 'zod'
 
+const dateOnlyRegex = /^\d{4}-\d{2}-\d{2}$/
 const menuItemSchema = z.object({
   menuId: z.string(),
   dishId: z.string(),
-  date: z.string().datetime(),
+  date: z.string().min(1),
   price: z.number().positive(),
   maxOrders: z.number().int().positive().optional().nullable(),
   available: z.boolean().optional(),
@@ -21,10 +22,19 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const validatedData = menuItemSchema.parse(body)
 
-    // Stelle sicher, dass das Datum korrekt gesetzt wird (lokale Mitternacht)
-    const dateObj = new Date(validatedData.date)
-    // Normalisiere auf Mitternacht in lokaler Zeitzone
-    dateObj.setHours(0, 0, 0, 0)
+    // Kalendertag eindeutig speichern: YYYY-MM-DD = genau dieser Tag 12:00 UTC; ISO = UTC-Datum daraus, 12:00 UTC
+    // (vermeidet Zeitzonen-Verschiebung bei Kunde und in Filtern)
+    let dateObj: Date
+    if (dateOnlyRegex.test(validatedData.date)) {
+      const [y, m, d] = validatedData.date.split('-').map(Number)
+      dateObj = new Date(Date.UTC(y, m - 1, d, 12, 0, 0, 0))
+    } else {
+      const parsed = new Date(validatedData.date)
+      const y = parsed.getUTCFullYear()
+      const m = parsed.getUTCMonth()
+      const d = parsed.getUTCDate()
+      dateObj = new Date(Date.UTC(y, m, d, 12, 0, 0, 0))
+    }
 
     console.log('Creating MenuItem:', {
       menuId: validatedData.menuId,
