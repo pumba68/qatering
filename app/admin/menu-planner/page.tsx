@@ -36,8 +36,9 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ChevronLeft, ChevronRight, Utensils, Calendar, Plus, Search, Trophy, Megaphone, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Utensils, Calendar, Plus, Search, Trophy, Megaphone, X, MapPin } from 'lucide-react'
 import { useToast } from '@chakra-ui/react'
+import { useAdminLocation } from '@/components/admin/LocationContext'
 
 interface Dish {
   id: string
@@ -78,7 +79,8 @@ interface PromotionBanner {
 }
 
 export default function MenuPlannerPage() {
-  const locationId = 'demo-location-1'
+  const { effectiveLocationId, locations, loading: locationsLoading } = useAdminLocation()
+  const locationId = effectiveLocationId ?? ''
   const today = new Date()
   const currentWeek = getWeekNumber(today)
   const currentYear = today.getFullYear()
@@ -127,6 +129,7 @@ export default function MenuPlannerPage() {
   }
 
   useEffect(() => {
+    if (!locationId) return
     loadSettings()
     loadMenu()
     loadDishes()
@@ -748,6 +751,23 @@ export default function MenuPlannerPage() {
         setSelectedWeek(selectedWeek + 1)
       }
     }
+  }
+
+  if (!locationId) {
+    return (
+      <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20">
+        <CardContent className="pt-6">
+          <p className="flex items-center gap-2 text-foreground">
+            <MapPin className="h-5 w-5 text-amber-600" />
+            {locationsLoading
+              ? 'Standorte werden geladen…'
+              : locations.length === 0
+                ? 'Keine Standorte vorhanden. Bitte zuerst unter „Standorte“ eine Location anlegen.'
+                : 'Bitte im Header oben rechts einen Standort wählen, um den Speiseplan zu bearbeiten.'}
+          </p>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (

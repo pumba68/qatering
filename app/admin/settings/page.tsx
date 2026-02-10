@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
+import { useAdminLocation } from '@/components/admin/LocationContext'
+import { MapPin } from 'lucide-react'
 
 const DAYS = [
   { value: 0, label: 'Sonntag', short: 'So' },
@@ -16,22 +18,27 @@ const DAYS = [
 ]
 
 export default function SettingsPage() {
-  const locationId = 'demo-location-1'
+  const { effectiveLocationId, locations, loading: locationsLoading } = useAdminLocation()
+  const locationId = effectiveLocationId ?? ''
   const [workingDays, setWorkingDays] = useState<number[]>([1, 2, 3, 4, 5])
+  const [locationName, setLocationName] = useState<string>('')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
+    if (!locationId) return
     fetchSettings()
-  }, [])
+  }, [locationId])
 
   async function fetchSettings() {
+    if (!locationId) return
     try {
       setLoading(true)
       const response = await fetch(`/api/admin/settings?locationId=${locationId}`)
       if (!response.ok) throw new Error('Fehler beim Laden der Settings')
       const data = await response.json()
       setWorkingDays(data.workingDays || [1, 2, 3, 4, 5])
+      setLocationName(data.name || '')
     } catch (error) {
       console.error('Fehler:', error)
     } finally {
@@ -72,6 +79,25 @@ export default function SettingsPage() {
     )
   }
 
+  if (!locationId) {
+    return (
+      <div className="min-h-screen bg-background p-6">
+        <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20">
+          <CardContent className="pt-6">
+            <p className="flex items-center gap-2 text-foreground">
+              <MapPin className="h-5 w-5 text-amber-600" />
+              {locationsLoading
+                ? 'Standorte werden geladen…'
+                : locations.length === 0
+                  ? 'Keine Standorte vorhanden. Bitte zuerst unter „Standorte“ eine Location anlegen.'
+                  : 'Bitte im Header oben rechts einen Standort wählen, um die Einstellungen zu bearbeiten.'}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background p-6">
@@ -86,7 +112,7 @@ export default function SettingsPage() {
         <div>
           <h1 className="text-3xl font-bold text-foreground mb-2">Einstellungen</h1>
           <p className="text-muted-foreground">
-            Konfigurieren Sie die Werktage für Ihr Menü
+            {locationName ? `Werktage für ${locationName}` : 'Konfigurieren Sie die Werktage für Ihr Menü'}
           </p>
         </div>
 

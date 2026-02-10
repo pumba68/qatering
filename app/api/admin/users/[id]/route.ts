@@ -41,6 +41,9 @@ export async function GET(
             },
           },
         },
+        locations: {
+          select: { locationId: true, location: { select: { id: true, name: true } } },
+        },
       },
     })
 

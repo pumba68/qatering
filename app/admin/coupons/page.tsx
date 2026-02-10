@@ -33,6 +33,7 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react'
 import { Plus, Trash2, Edit2, Tag } from 'lucide-react'
+import { useAdminLocation } from '@/components/admin/LocationContext'
 
 type CouponType = 'DISCOUNT_PERCENTAGE' | 'DISCOUNT_FIXED' | 'FREE_ITEM'
 
@@ -70,30 +71,30 @@ interface Dish {
   name: string
 }
 
-interface Location {
-  id: string
-  name: string
-}
-
 export default function CouponsPage() {
+  const { selectedId, locations } = useAdminLocation()
   const [coupons, setCoupons] = useState<Coupon[]>([])
   const [loading, setLoading] = useState(true)
   const [dishes, setDishes] = useState<Dish[]>([])
-  const [locations, setLocations] = useState<Location[]>([])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [editingCoupon, setEditingCoupon] = useState<Coupon | null>(null)
   const toast = useToast()
 
   useEffect(() => {
-    fetchCoupons()
     fetchDishes()
-    fetchLocations()
   }, [])
+
+  useEffect(() => {
+    fetchCoupons()
+  }, [selectedId])
 
   async function fetchCoupons() {
     try {
       setLoading(true)
-      const response = await fetch('/api/admin/coupons?includeInactive=true')
+      const params = new URLSearchParams()
+      params.set('includeInactive', 'true')
+      if (selectedId !== 'all') params.set('locationId', selectedId)
+      const response = await fetch(`/api/admin/coupons?${params.toString()}`)
       if (!response.ok) throw new Error('Fehler beim Laden')
       const data = await response.json()
       setCoupons(data)
@@ -119,15 +120,6 @@ export default function CouponsPage() {
       }
     } catch (error) {
       console.error('Fehler beim Laden der Gerichte:', error)
-    }
-  }
-
-  async function fetchLocations() {
-    try {
-      // TODO: Location-API erstellen oder aus Settings holen
-      setLocations([{ id: 'demo-location-1', name: 'Hauptstandort Berlin' }])
-    } catch (error) {
-      console.error('Fehler beim Laden der Locations:', error)
     }
   }
 
@@ -340,6 +332,7 @@ export default function CouponsPage() {
           coupon={editingCoupon}
           dishes={dishes}
           locations={locations}
+          defaultLocationId={selectedId === 'all' ? '' : selectedId}
           toast={toast}
         />
       </Container>
@@ -354,6 +347,7 @@ function CouponFormModal({
   coupon,
   dishes,
   locations,
+  defaultLocationId = '',
   toast,
 }: {
   isOpen: boolean
@@ -361,7 +355,8 @@ function CouponFormModal({
   onSave: () => void
   coupon: Coupon | null
   dishes: Dish[]
-  locations: Location[]
+  locations: { id: string; name: string }[]
+  defaultLocationId?: string
   toast: any
 }) {
   const [formData, setFormData] = useState({
@@ -371,7 +366,7 @@ function CouponFormModal({
     type: (coupon?.type || 'DISCOUNT_PERCENTAGE') as CouponType,
     discountValue: coupon?.discountValue?.toString() || '',
     freeItemDishId: coupon?.freeItemDishId || '',
-    locationId: coupon?.locationId || '',
+    locationId: coupon?.locationId || defaultLocationId || '',
     startDate: coupon?.startDate ? new Date(coupon.startDate).toISOString().split('T')[0] : '',
     endDate: coupon?.endDate ? new Date(coupon.endDate).toISOString().split('T')[0] : '',
     maxUses: coupon?.maxUses?.toString() || '',
@@ -380,6 +375,12 @@ function CouponFormModal({
     isActive: coupon?.isActive ?? true,
   })
   const [isSaving, setIsSaving] = useState(false)
+
+  useEffect(() => {
+    if (isOpen && !coupon) {
+      setFormData((prev) => ({ ...prev, locationId: defaultLocationId || '' }))
+    }
+  }, [isOpen, coupon, defaultLocationId])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

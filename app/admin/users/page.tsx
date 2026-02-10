@@ -38,7 +38,8 @@ import {
   InputGroup,
   InputLeftElement,
 } from '@chakra-ui/react'
-import { Edit2, Search, User } from 'lucide-react'
+import { Edit2, Search, User, MapPin, Plus, X } from 'lucide-react'
+import { useAdminLocation } from '@/components/admin/LocationContext'
 
 type UserRole = 'CUSTOMER' | 'KITCHEN_STAFF' | 'ADMIN' | 'SUPER_ADMIN'
 
@@ -54,6 +55,7 @@ interface UserWithRelations {
     id: string
     company: { id: string; name: string }
   }>
+  locations?: Array<{ locationId: string; location: { id: string; name: string } }>
 }
 
 interface Organization {
@@ -272,12 +274,15 @@ function UserEditModal({
   organizations: Organization[]
   toast: ReturnType<typeof useToast>
 }) {
+  const { locations: availableLocations } = useAdminLocation()
   const [formData, setFormData] = useState({
     name: user?.name || '',
     role: (user?.role || 'CUSTOMER') as UserRole,
     organizationId: user?.organizationId || '',
   })
+  const [assignedLocationIds, setAssignedLocationIds] = useState<string[]>([])
   const [isSaving, setIsSaving] = useState(false)
+  const [addLocationId, setAddLocationId] = useState('')
 
   useEffect(() => {
     if (user) {
@@ -286,6 +291,8 @@ function UserEditModal({
         role: user.role,
         organizationId: user.organizationId || '',
       })
+      setAssignedLocationIds(user.locations?.map((ul) => ul.location.id) ?? [])
+      setAddLocationId('')
     }
   }, [user, isOpen])
 
@@ -307,6 +314,17 @@ function UserEditModal({
         const err = await response.json().catch(() => ({}))
         throw new Error(err.error || 'Fehler beim Speichern')
       }
+      if (formData.role === 'ADMIN' || formData.role === 'KITCHEN_STAFF') {
+        const locRes = await fetch(`/api/admin/users/${user.id}/locations`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ locationIds: assignedLocationIds }),
+        })
+        if (!locRes.ok) {
+          const err = await locRes.json().catch(() => ({}))
+          throw new Error(err.error || 'Standort-Zuordnung konnte nicht gespeichert werden.')
+        }
+      }
       toast({ title: 'Erfolg', description: 'Nutzer aktualisiert', status: 'success', duration: 2000, isClosable: true })
       onSave()
     } catch (error) {
@@ -321,6 +339,9 @@ function UserEditModal({
       setIsSaving(false)
     }
   }
+
+  const showLocationSection = user?.role === 'ADMIN' || user?.role === 'KITCHEN_STAFF'
+  const assignableLocations = availableLocations.filter((loc) => !assignedLocationIds.includes(loc.id))
 
   if (!user) return null
 
@@ -370,6 +391,72 @@ function UserEditModal({
                     ))}
                   </Select>
                 </FormControl>
+              )}
+              {showLocationSection && (
+                <FormControl>
+                  <FormLabel>Standort-Zuordnung</FormLabel>
+                  <VStack align="stretch" spacing={2}>
+                    {assignedLocationIds.length === 0 ? (
+                      <Text fontSize="sm" color="gray.600">Keine Standorte zugewiesen.</Text>
+                    ) : (
+                      assignedLocationIds.map((locId) => {
+                        const loc = availableLocations.find((l) => l.id === locId) ?? user.locations?.find((ul) => ul.location.id === locId)?.location
+                        const name = loc?.name ?? locId
+                        return (
+                          <HStack key={locId} justify="space-between" p={2} bg="gray.50" _dark={{ bg: 'gray.700' }} rounded="md">
+                            <HStack><MapPin size={14} /><Text fontSize="sm">{name}</Text></HStack>
+                            <Button
+                              size="xs"
+                              variant="ghost"
+                              colorScheme="red"
+                              leftIcon={<X size={12} />}
+                              onClick={() => setAssignedLocationIds((prev) => prev.filter((id) => id !== locId))}
+                            >
+                              Entfernen
+                            </Button>
+                          </HStack>
+                        )
+                      })
+                    )}
+                    {assignableLocations.length > 0 && (
+                      <HStack>
+                        <Select
+                          size="sm"
+                          placeholder="Standort hinzufügen"
+                          value={addLocationId}
+                          onChange={(e) => {
+                            const id = e.target.value
+                            if (id) {
+                              setAssignedLocationIds((prev) => [...prev, id])
+                              setAddLocationId('')
+                            }
+                          }}
+                        >
+                          {assignableLocations.map((loc) => (
+                            <option key={loc.id} value={loc.id}>{loc.name}</option>
+                          ))}
+                        </Select>
+                        <Button
+                          size="sm"
+                          leftIcon={<Plus size={14} />}
+                          onClick={() => {
+                            if (addLocationId) {
+                              setAssignedLocationIds((prev) => [...prev, addLocationId])
+                              setAddLocationId('')
+                            }
+                          }}
+                        >
+                          Hinzufügen
+                        </Button>
+                      </HStack>
+                    )}
+                  </VStack>
+                </FormControl>
+              )}
+              {user.role === 'CUSTOMER' && (
+                <Box width="100%">
+                  <Text fontSize="sm" color="gray.600">Standort-Zuordnung ist nur für Admin/Küche relevant. Kunden benötigen keine Zuordnung.</Text>
+                </Box>
               )}
               <Box width="100%" pt={2}>
                 <Text fontSize="sm" color="gray.600">

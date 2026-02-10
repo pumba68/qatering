@@ -242,7 +242,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                 <h2 className="text-2xl font-bold text-foreground mb-4">👤 Nutzer & Abläufe</h2>
                 <div className="prose prose-neutral dark:prose-invert max-w-none space-y-4">
                   <p className="text-muted-foreground">
-                    <strong className="text-foreground">Rollen:</strong> CUSTOMER (Kunde), KITCHEN_STAFF (Küche), ADMIN (Kantinen-Admin), SUPER_ADMIN (Plattform). Geschützte Routen per Middleware; Admin-Layout prüft requireRole(['ADMIN','KITCHEN_STAFF','SUPER_ADMIN']) und leitet bei fehlender Berechtigung auf /unauthorized um.
+                    <strong className="text-foreground">Rollen:</strong> CUSTOMER (Kunde), KITCHEN_STAFF (Küche), ADMIN (Kantinen-Admin), SUPER_ADMIN (Plattform). Geschützte Routen per Middleware; Admin-Layout prüft requireRole([&apos;ADMIN&apos;, &apos;KITCHEN_STAFF&apos;, &apos;SUPER_ADMIN&apos;]) und leitet bei fehlender Berechtigung auf /unauthorized um.
                   </p>
                   <p className="text-muted-foreground">
                     <strong className="text-foreground">Kunde:</strong> /menu → Gerichte wählen → Warenkorb → Abholdatum, ggf. Coupon → Bezahlung per Guthaben → Bestätigung + QR. Guthaben unter /wallet und /wallet/history.

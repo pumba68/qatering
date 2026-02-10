@@ -16,6 +16,8 @@ interface TopDish {
 
 interface TopDishesBarChartProps {
   data: TopDish[]
+  /** Im Dashboard-Grid: Karte und Chart füllen die Zelle (responsive Höhe) */
+  fillContainer?: boolean
 }
 
 const chartConfig = {
@@ -28,7 +30,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function TopDishesBarChart({ data }: TopDishesBarChartProps) {
+export function TopDishesBarChart({ data, fillContainer }: TopDishesBarChartProps) {
   // Bereite Daten für Chart vor (Top 5)
   const chartData = data.slice(0, 5).map((item) => ({
     dish: item.dish,
@@ -37,13 +39,13 @@ export function TopDishesBarChart({ data }: TopDishesBarChartProps) {
   }))
 
   return (
-    <Card className="border-border/50 shadow-sm">
-      <CardHeader className="pb-3">
+    <Card className={fillContainer ? 'border-border/50 shadow-sm rounded-2xl h-full flex flex-col min-h-0' : 'border-border/50 shadow-sm rounded-2xl'}>
+      <CardHeader className="pb-3 shrink-0">
         <CardTitle className="text-lg">Top Gerichte</CardTitle>
         <CardDescription className="text-sm">Beliebteste Gerichte diesen Monat</CardDescription>
       </CardHeader>
-      <CardContent className="h-[300px]">
-        <ChartContainer config={chartConfig} className="h-full">
+      <CardContent className={fillContainer ? 'flex-1 min-h-0' : 'h-[300px]'}>
+        <ChartContainer config={chartConfig} className="h-full min-h-0">
           <BarChart
             accessibilityLayer
             data={chartData}

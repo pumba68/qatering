@@ -42,6 +42,9 @@ export async function GET(request: NextRequest) {
             },
           },
         },
+        locations: {
+          select: { locationId: true, location: { select: { id: true, name: true } } },
+        },
       },
       orderBy: { createdAt: 'desc' },
     })

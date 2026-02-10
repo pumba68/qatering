@@ -16,7 +16,7 @@ import {
   ShoppingBag,
   ChevronRight,
   ChevronDown,
-  Pin,
+  MapPin as Pin,
   Megaphone,
 } from 'lucide-react'
 import Link from 'next/link'
@@ -82,6 +82,7 @@ const menuGroups = [
     id: 'verwaltung',
     label: 'Verwaltung',
     items: [
+      { title: 'Standorte', url: '/admin/locations', icon: Pin },
       { title: 'Unternehmen', url: '/admin/companies', icon: Building2 },
       { title: 'Nutzer', url: '/admin/users', icon: Users },
       { title: 'Guthaben aufladen', url: '/admin/wallet/top-up', icon: Coins },

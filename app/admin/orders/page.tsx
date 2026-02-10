@@ -27,14 +27,10 @@ import {
 import { ShoppingBag, ChevronUp, ChevronDown, ExternalLink } from 'lucide-react'
 import { formatCurrency, formatDate, formatTime } from '@/lib/utils'
 import NextLink from 'next/link'
+import { useAdminLocation } from '@/components/admin/LocationContext'
 
 type SortBy = 'createdAt' | 'pickupDate' | 'totalAmount' | 'status' | 'pickupCode'
 type SortOrder = 'asc' | 'desc'
-
-interface Location {
-  id: string
-  name: string
-}
 
 interface User {
   id: string
@@ -82,8 +78,8 @@ const PAYMENT_LABELS: Record<string, string> = {
 }
 
 export default function AdminOrdersPage() {
+  const { selectedId, locations } = useAdminLocation()
   const [orders, setOrders] = useState<Order[]>([])
-  const [locations, setLocations] = useState<Location[]>([])
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [dateFrom, setDateFrom] = useState('')
@@ -96,7 +92,10 @@ export default function AdminOrdersPage() {
   const toast = useToast()
 
   useEffect(() => {
-    fetchLocations()
+    setLocationId(selectedId === 'all' ? '' : selectedId)
+  }, [selectedId])
+
+  useEffect(() => {
     fetchUsers()
     // #region agent log
     fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/admin/orders/page.tsx:mount',message:'AdminOrdersPage mount',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
@@ -106,25 +105,6 @@ export default function AdminOrdersPage() {
   useEffect(() => {
     fetchOrders()
   }, [dateFrom, dateTo, locationId, userId, status, sortBy, sortOrder])
-
-  async function fetchLocations() {
-    try {
-      const res = await fetch('/api/admin/locations')
-      if (res.ok) {
-        const data = await res.json()
-        const list = Array.isArray(data) ? data : []
-        setLocations(list)
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/admin/orders/page.tsx:fetchLocations',message:'fetchLocations success',data:{count:list.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
-        // #endregion
-      }
-    } catch (e) {
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/667b66fd-0ed1-442c-a749-9c4a5c9994ef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app/admin/orders/page.tsx:fetchLocations',message:'fetchLocations error',data:{err:String(e)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
-      // #endregion
-      console.error('Fehler beim Laden der Standorte:', e)
-    }
-  }
 
   async function fetchUsers() {
     try {

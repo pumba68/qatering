@@ -6,6 +6,15 @@
 @import 'react-grid-layout/css/styles.css';
 @import 'react-resizable/css/styles.css';
 
+/* Schaltzentrale: Grid-Items und Inhalt skalieren mit Zellengröße */
+.dashboard-grid.react-grid-layout {
+  width: 100% !important;
+}
+.dashboard-grid .react-grid-item > div {
+  height: 100%;
+  min-height: 0;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

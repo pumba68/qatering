@@ -36,6 +36,8 @@ export interface StatusDistributionItem {
 
 interface StatusPieChartProps {
   data: StatusDistributionItem[]
+  /** Im Dashboard-Grid: Karte und Chart füllen die Zelle (responsive Höhe) */
+  fillContainer?: boolean
 }
 
 function buildChartConfig(data: StatusDistributionItem[]): ChartConfig {
@@ -49,7 +51,7 @@ function buildChartConfig(data: StatusDistributionItem[]): ChartConfig {
   return config
 }
 
-export function StatusPieChart({ data }: StatusPieChartProps) {
+export function StatusPieChart({ data, fillContainer }: StatusPieChartProps) {
   const chartData = data.map((item) => ({
     name: item.status,
     value: item.count,
@@ -58,17 +60,20 @@ export function StatusPieChart({ data }: StatusPieChartProps) {
 
   const total = chartData.reduce((sum, d) => sum + d.value, 0)
   const config = buildChartConfig(data)
+  const cardClass = fillContainer ? 'border-border/50 shadow-sm rounded-2xl h-full flex flex-col min-h-0' : 'border-border/50 shadow-sm rounded-2xl'
+  const contentClass = fillContainer ? 'flex-1 min-h-0 pb-4' : ''
+  const chartClass = fillContainer ? 'h-full min-h-0 w-full' : 'h-[240px]'
 
   if (chartData.length === 0 || total === 0) {
     return (
-      <Card className="border-border/50 shadow-sm rounded-2xl">
-        <CardHeader className="pb-3">
+      <Card className={cardClass}>
+        <CardHeader className="pb-3 shrink-0">
           <CardTitle className="text-lg font-bold text-foreground">Bestellstatus</CardTitle>
           <CardDescription className="text-sm text-muted-foreground">
             Verteilung der Bestellungen nach Status
           </CardDescription>
         </CardHeader>
-        <CardContent className="h-[280px] flex items-center justify-center">
+        <CardContent className={fillContainer ? 'flex-1 min-h-0 flex items-center justify-center' : 'h-[280px] flex items-center justify-center'}>
           <p className="text-sm text-muted-foreground">Keine Bestellungen im Zeitraum</p>
         </CardContent>
       </Card>
@@ -76,15 +81,15 @@ export function StatusPieChart({ data }: StatusPieChartProps) {
   }
 
   return (
-    <Card className="border-border/50 shadow-sm rounded-2xl">
-      <CardHeader className="pb-3">
+    <Card className={cardClass}>
+      <CardHeader className="pb-3 shrink-0">
         <CardTitle className="text-lg font-bold text-foreground">Bestellstatus</CardTitle>
         <CardDescription className="text-sm text-muted-foreground">
           Verteilung der Bestellungen nach Status
         </CardDescription>
       </CardHeader>
-      <CardContent className="pb-4">
-        <ChartContainer config={config} className="h-[240px]">
+      <CardContent className={contentClass || 'pb-4'}>
+        <ChartContainer config={config} className={chartClass}>
           <PieChart>
             <ChartTooltip
               cursor={false}

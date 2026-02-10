@@ -17,6 +17,8 @@ interface OrderTrendData {
 
 interface OrdersAreaChartProps {
   data: OrderTrendData[]
+  /** Im Dashboard-Grid: Karte und Chart füllen die Zelle (responsive Höhe) */
+  fillContainer?: boolean
 }
 
 const chartConfig = {
@@ -30,17 +32,17 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function OrdersAreaChart({ data }: OrdersAreaChartProps) {
+export function OrdersAreaChart({ data, fillContainer }: OrdersAreaChartProps) {
   return (
-    <Card className="border-border/50 shadow-sm">
-      <CardHeader className="pb-3">
+    <Card className={fillContainer ? 'border-border/50 shadow-sm rounded-2xl h-full flex flex-col min-h-0' : 'border-border/50 shadow-sm rounded-2xl'}>
+      <CardHeader className="pb-3 shrink-0">
         <CardTitle className="text-lg font-bold text-foreground">Bestellverlauf</CardTitle>
         <CardDescription className="text-sm text-muted-foreground">
           Bestellungen pro Tag (Zeitraum vs. Vormonat bei Monatsansicht)
         </CardDescription>
       </CardHeader>
-      <CardContent className="h-[300px]">
-        <ChartContainer config={chartConfig} className="h-full">
+      <CardContent className={fillContainer ? 'flex-1 min-h-0' : 'h-[300px]'}>
+        <ChartContainer config={chartConfig} className="h-full min-h-0">
           <AreaChart
             accessibilityLayer
             data={data}

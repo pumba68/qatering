@@ -9,7 +9,13 @@ export async function GET(request: NextRequest) {
     if (auth.error) return auth.error
 
     const { searchParams } = new URL(request.url)
-    const locationId = searchParams.get('locationId') || 'demo-location-1'
+    const locationId = searchParams.get('locationId')
+    if (!locationId) {
+      return NextResponse.json(
+        { error: 'locationId ist erforderlich' },
+        { status: 400 }
+      )
+    }
 
     const location = await prisma.location.findUnique({
       where: { id: locationId },

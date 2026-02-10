@@ -35,15 +35,22 @@ export default function LoginPage() {
         redirect: false,
       })
 
-      if (result?.error) {
-        setError(result.error)
-      } else if (result?.ok) {
+      if (result?.ok) {
         const redirect = searchParams.get('redirect') || '/menu'
         router.push(redirect)
         router.refresh()
+      } else {
+        const message =
+          typeof result?.error === 'string' && result.error
+            ? result.error
+            : result?.status === 500
+              ? 'Serverfehler beim Anmelden. Prüfen Sie .env: NEXTAUTH_SECRET und NEXTAUTH_URL müssen gesetzt sein.'
+              : 'Anmeldung fehlgeschlagen. E-Mail und Passwort prüfen.'
+        setError(message)
       }
     } catch (err) {
-      setError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.')
+      const msg = err instanceof Error ? err.message : null
+      setError(msg && msg.length > 0 ? msg : 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.')
     } finally {
       setIsLoading(false)
     }
@@ -89,7 +96,7 @@ export default function LoginPage() {
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                {error}
+                {error || 'Anmeldung fehlgeschlagen'}
               </div>
             )}
 

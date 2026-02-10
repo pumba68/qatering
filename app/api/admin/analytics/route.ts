@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAdminRole } from '@/lib/admin-helpers'
+import { getAdminContext } from '@/lib/admin-helpers'
 
 const ORDER_STATUSES = ['PENDING', 'CONFIRMED', 'PREPARING', 'READY', 'PICKED_UP', 'CANCELLED'] as const
 const WEEKDAY_LABELS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] as const
@@ -52,21 +52,39 @@ function getDateRange(period: Period): { dateFrom: Date; dateTo: Date } {
   }
 }
 
-// GET: Analytics-Daten für Schaltzentrale (KPIs + Charts)
+// GET: Analytics-Daten für Schaltzentrale (KPIs + Charts). locationId=all | locationId=id | locationIds=id1,id2
 export async function GET(request: NextRequest) {
   try {
-    const auth = await requireAdminRole()
-    if (auth.error) return auth.error
+    const ctx = await getAdminContext()
+    if (ctx.error) return ctx.error
 
     const { searchParams } = new URL(request.url)
     const locationIdParam = searchParams.get('locationId')
-    const locationId = locationIdParam && locationIdParam !== 'all' ? locationIdParam : undefined
+    const locationIdsParam = searchParams.get('locationIds')
     const period = (searchParams.get('period') as Period) || 'month'
+
+    let locationFilter: { locationId: string } | { locationId: { in: string[] } } | undefined
+    if (locationIdsParam && locationIdsParam !== 'all') {
+      const ids = locationIdsParam.split(',').map((s) => s.trim()).filter(Boolean)
+      if (ids.length > 0) {
+        const allowed = ctx.allowedLocationIds
+        const valid = allowed === null ? ids : ids.filter((id) => allowed.includes(id))
+        if (valid.length > 0) locationFilter = { locationId: { in: valid } }
+      }
+    } else if (locationIdParam && locationIdParam !== 'all') {
+      const allowed = ctx.allowedLocationIds
+      if (allowed === null || allowed.includes(locationIdParam)) {
+        locationFilter = { locationId: locationIdParam }
+      }
+    }
+    if (locationFilter === undefined && ctx.allowedLocationIds !== null && ctx.allowedLocationIds.length > 0) {
+      locationFilter = { locationId: { in: ctx.allowedLocationIds } }
+    }
 
     const { dateFrom, dateTo } = getDateRange(period)
 
     const whereBase = {
-      ...(locationId ? { locationId } : {}),
+      ...(locationFilter ? locationFilter : {}),
       createdAt: { gte: dateFrom, lte: dateTo },
     }
 
@@ -130,7 +148,7 @@ export async function GET(request: NextRequest) {
             const lastMonthEnd = new Date(currentYear, currentMonth, 0, 23, 59, 59)
             return prisma.order.findMany({
               where: {
-                ...(locationId ? { locationId } : {}),
+                ...(locationFilter ? locationFilter : {}),
                 createdAt: { gte: lastMonthStart, lte: lastMonthEnd },
                 status: { not: 'CANCELLED' },
               },

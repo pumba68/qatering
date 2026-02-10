@@ -253,6 +253,21 @@ async function main() {
   })
   console.log('✅ Kunde erstellt:', customer.email, '(Passwort: demo123)')
 
+  // Admin (Organisation zugeordnet – kann Standorte anlegen/verwalten)
+  const adminPasswordHash = await hashPassword('admin123')
+  const adminUser = await prisma.user.upsert({
+    where: { email: 'admin@demo.de' },
+    update: { passwordHash: adminPasswordHash },
+    create: {
+      email: 'admin@demo.de',
+      name: 'Admin Demo',
+      passwordHash: adminPasswordHash,
+      role: 'ADMIN',
+      organizationId: organization.id,
+    },
+  })
+  console.log('✅ Admin erstellt:', adminUser.email, '(Passwort: admin123)')
+
   // 5. Beispiel-User erstellen (Küchenpersonal)
   const kitchenPasswordHash = await hashPassword('kueche123')
   const kitchenStaff = await prisma.user.upsert({
