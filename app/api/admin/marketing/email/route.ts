@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { z } from 'zod'
@@ -65,7 +66,7 @@ export async function POST(request: NextRequest) {
       where: {
         id: { in: userIds },
         marketingEmailConsent: true,
-        email: { not: null },
+        email: { not: null } as Prisma.UserWhereInput['email'],
       },
       select: { id: true, email: true },
     })
