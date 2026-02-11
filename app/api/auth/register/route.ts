@@ -60,8 +60,13 @@ export async function POST(request: NextRequest) {
     }
 
     console.error('Fehler bei Registrierung:', error)
+    const message = error instanceof Error ? error.message : 'Unbekannter Fehler'
+    const cause = error instanceof Error && error.cause ? String(error.cause) : null
     return NextResponse.json(
-      { error: 'Interner Serverfehler' },
+      {
+        error: 'Interner Serverfehler',
+        ...(process.env.NODE_ENV === 'development' && { details: message, cause }),
+      },
       { status: 500 }
     )
   }
