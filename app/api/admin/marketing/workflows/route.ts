@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { z } from 'zod'
@@ -92,9 +93,9 @@ export async function POST(request: NextRequest) {
         segmentId: validated.segmentId,
         name: validated.name,
         triggerType: validated.triggerType,
-        triggerConfig: validated.triggerConfig ?? {},
+        triggerConfig: (validated.triggerConfig ?? {}) as Prisma.InputJsonValue,
         actionType: validated.actionType,
-        actionConfig: validated.actionConfig ?? {},
+        actionConfig: (validated.actionConfig ?? {}) as Prisma.InputJsonValue,
         isActive: validated.isActive ?? true,
       },
       include: {

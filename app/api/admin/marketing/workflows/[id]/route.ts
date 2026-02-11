@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { z } from 'zod'
@@ -97,21 +98,13 @@ export async function PATCH(
       }
     }
 
-    const updateData: {
-      name?: string
-      segmentId?: string
-      triggerType?: string
-      triggerConfig?: object
-      actionType?: string
-      actionConfig?: object
-      isActive?: boolean
-    } = {}
+    const updateData: Prisma.MarketingWorkflowUpdateInput = {}
     if (validated.name !== undefined) updateData.name = validated.name
     if (validated.segmentId !== undefined) updateData.segmentId = validated.segmentId
     if (validated.triggerType !== undefined) updateData.triggerType = validated.triggerType
-    if (validated.triggerConfig !== undefined) updateData.triggerConfig = validated.triggerConfig
+    if (validated.triggerConfig !== undefined) updateData.triggerConfig = validated.triggerConfig as Prisma.InputJsonValue
     if (validated.actionType !== undefined) updateData.actionType = validated.actionType
-    if (validated.actionConfig !== undefined) updateData.actionConfig = validated.actionConfig
+    if (validated.actionConfig !== undefined) updateData.actionConfig = validated.actionConfig as Prisma.InputJsonValue
     if (validated.isActive !== undefined) updateData.isActive = validated.isActive
 
     const workflow = await prisma.marketingWorkflow.update({
