@@ -36,7 +36,7 @@ export function AdminLocationProvider({ children }: { children: React.ReactNode 
     if (typeof window === 'undefined') return 'all'
     try {
       const s = localStorage.getItem(STORAGE_KEY)
-      return s === 'all' || s === '' ? 'all' : s
+      return s === 'all' || s === '' || s == null ? 'all' : s
     } catch {
       return 'all'
     }
