@@ -11,6 +11,7 @@ import {
   LogOut,
   Building2,
   Users,
+  Users2,
   Wallet,
   Coins,
   ShoppingBag,
@@ -18,6 +19,8 @@ import {
   ChevronDown,
   MapPin as Pin,
   Megaphone,
+  Mail,
+  Zap,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -76,6 +79,15 @@ const menuGroups = [
     items: [
       { title: 'Motto-Banner', url: '/admin/promotions/banners', icon: Megaphone },
       { title: 'Coupons', url: '/admin/coupons', icon: Ticket },
+    ],
+  },
+  {
+    id: 'marketing',
+    label: 'Marketing',
+    items: [
+      { title: 'Kundensegmente', url: '/admin/marketing/segments', icon: Users2 },
+      { title: 'Kampagnen', url: '/admin/marketing/campaigns', icon: Mail },
+      { title: 'Automation', url: '/admin/marketing/automation', icon: Zap },
     ],
   },
   {

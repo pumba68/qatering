@@ -23,7 +23,10 @@ model Organization {
 
   locations   Location[]
   users       User[]
-  
+  segments    CustomerSegment[]
+  inAppMessages InAppMessage[]
+  workflows   MarketingWorkflow[]
+
   @@map("organizations")
 }
 
@@ -110,6 +113,7 @@ model User {
   role          UserRole @default(CUSTOMER)
   image         String?
   organizationId String?
+  marketingEmailConsent Boolean @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -476,4 +480,104 @@ model Metadata {
   @@unique([type, name]) // Verhindert Duplikate pro Typ
   @@index([type, isActive])
   @@map("metadata")
+}
+
+// PROJ-4: Kundensegmente & Marketing-Automation
+// Segment: Zielgruppe pro Organisation, definiert durch Regeln (JSON)
+model CustomerSegment {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  description    String?  @db.Text
+  rulesCombination String @default("AND") // AND | OR
+  rules          Json     @default("[]")  // [{ attribute, operator, value }, ...]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  inAppMessages InAppMessage[]
+  workflows      MarketingWorkflow[]
+
+  @@unique([organizationId, name])
+  @@index([organizationId])
+  @@map("customer_segments")
+}
+
+// In-App-Nachricht: segmentbezogen, Zeitraum, Anzeigeort
+model InAppMessage {
+  id             String    @id @default(cuid())
+  organizationId String
+  segmentId      String
+  title          String?   @db.VarChar(200)
+  body           String    @db.Text
+  linkUrl        String?   @db.Text
+  displayPlace   String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard
+  startDate      DateTime  @default(now())
+  endDate        DateTime?
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment        CustomerSegment @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  readBy         InAppMessageRead[]
+
+  @@index([organizationId])
+  @@index([segmentId])
+  @@index([isActive, startDate, endDate])
+  @@map("in_app_messages")
+}
+
+// Welcher User welche In-App-Nachricht gelesen hat (optional)
+model InAppMessageRead {
+  id         String   @id @default(cuid())
+  messageId String
+  userId     String
+  readAt     DateTime @default(now())
+
+  message    InAppMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId])
+  @@index([userId])
+  @@map("in_app_message_reads")
+}
+
+// Workflow: Trigger + Aktion, segmentbezogen
+model MarketingWorkflow {
+  id             String   @id @default(cuid())
+  organizationId String
+  segmentId      String
+  name           String   @db.VarChar(200)
+  triggerType    String   @db.VarChar(50)   // SCHEDULED | EVENT
+  triggerConfig  Json     @default("{}")    // { cron, weekday, hour } or { eventType }
+  actionType     String   @db.VarChar(50)   // SEND_EMAIL | SHOW_IN_APP | GRANT_INCENTIVE
+  actionConfig   Json     @default("{}")    // { subject, body } | { messageId } | { couponId }
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment        CustomerSegment @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  executionLogs  WorkflowExecutionLog[]
+
+  @@index([organizationId])
+  @@index([segmentId])
+  @@index([isActive])
+  @@map("marketing_workflows")
+}
+
+// Protokoll der Workflow-Ausführungen
+model WorkflowExecutionLog {
+  id         String   @id @default(cuid())
+  workflowId String
+  executedAt DateTime @default(now())
+  status    String   @db.VarChar(20)  // SUCCESS | PARTIAL | FAILED
+  message   String?  @db.Text         // Kurzergebnis (z. B. "45 E-Mails versendet")
+  details   Json?    // Optionale Fehlerdetails
+
+  workflow  MarketingWorkflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
+  @@index([executedAt])
+  @@map("workflow_execution_logs")
 }
