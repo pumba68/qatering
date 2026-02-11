@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
+import type { Prisma } from '@prisma/client'
 import { authOptions } from '@/lib/auth-config'
 import { prisma } from '@/lib/prisma'
 import { generatePickupCode } from '@/lib/utils'
@@ -166,20 +167,21 @@ export async function POST(request: NextRequest) {
     let employerCompanyId: string | null = null
 
     // Arbeitgeber-Beziehung laden (falls vorhanden)
+    const companyEmployeeWhere: Prisma.CompanyEmployeeWhereInput = {
+      userId,
+      isActive: true,
+      OR: [
+        { validFrom: null, validUntil: null },
+        {
+          AND: [
+            { validFrom: { lte: new Date() } },
+            { OR: [{ validUntil: null }, { validUntil: { gte: new Date() } }] },
+          ],
+        },
+      ],
+    }
     const companyEmployee = await prisma.companyEmployee.findFirst({
-      where: {
-        userId,
-        isActive: true,
-        OR: [
-          { validFrom: null, validUntil: null },
-          {
-            AND: [
-              { validFrom: { lte: new Date() } },
-              { OR: [{ validUntil: null }, { validUntil: { gte: new Date() } }] },
-            ],
-          },
-        ],
-      },
+      where: companyEmployeeWhere,
       include: {
         company: true,
       },

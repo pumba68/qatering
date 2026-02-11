@@ -236,7 +236,7 @@ export async function loadAudienceData(
     },
   })
 
-  const userIds = [...new Set(orders.map((o) => o.userId))]
+  const userIds = Array.from(new Set(orders.map((o) => o.userId)))
   if (userIds.length === 0) return []
 
   const users = await prisma.user.findMany({
@@ -293,7 +293,7 @@ export async function loadAudienceData(
       orderCount: stats?.count ?? 0,
       lastOrderDays,
       totalSpent: stats?.total ?? 0,
-      locationIds: [...(stats?.locationIds ?? [])],
+      locationIds: Array.from(stats?.locationIds ?? []),
       companyIds: companiesByUser.get(u.id) ?? [],
       registeredAt: u.createdAt,
       role: (u.role as string) || 'CUSTOMER',

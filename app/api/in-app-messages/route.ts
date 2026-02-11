@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
+import type { Prisma } from '@prisma/client'
 import { authOptions } from '@/lib/auth-config'
 import { prisma } from '@/lib/prisma'
 import {
@@ -43,20 +44,14 @@ export async function GET(request: NextRequest) {
     const displayPlace = searchParams.get('displayPlace')
 
     const now = new Date()
-    const where: {
-      organizationId: string
-      isActive: boolean
-      startDate: { lte: Date }
-      OR: { endDate: null }[] | { endDate: { gte: Date } }[]
-      displayPlace?: string
-    } = {
+    const where: Prisma.InAppMessageWhereInput = {
       organizationId: user.organizationId,
       isActive: true,
       startDate: { lte: now },
       OR: [{ endDate: null }, { endDate: { gte: now } }],
     }
     if (displayPlace === 'menu' || displayPlace === 'wallet' || displayPlace === 'dashboard') {
-      where.displayPlace = displayPlace
+      where.displayPlace = displayPlace as 'menu' | 'wallet' | 'dashboard'
     }
 
     const messages = await prisma.inAppMessage.findMany({
@@ -67,7 +62,7 @@ export async function GET(request: NextRequest) {
     if (messages.length === 0) return NextResponse.json([])
 
     const audienceData = await loadAudienceData(user.organizationId, null)
-    const segmentIds = [...new Set(messages.map((m) => m.segmentId))]
+    const segmentIds = Array.from(new Set(messages.map((m) => m.segmentId)))
     const userIdsBySegment = new Map<string, string[]>()
     for (const segId of segmentIds) {
       const segment = await prisma.customerSegment.findUnique({
