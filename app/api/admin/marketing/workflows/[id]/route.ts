@@ -100,7 +100,7 @@ export async function PATCH(
 
     const updateData: Prisma.MarketingWorkflowUpdateInput = {}
     if (validated.name !== undefined) updateData.name = validated.name
-    if (validated.segmentId !== undefined) updateData.segmentId = validated.segmentId
+    if (validated.segmentId !== undefined) updateData.segment = { connect: { id: validated.segmentId } }
     if (validated.triggerType !== undefined) updateData.triggerType = validated.triggerType
     if (validated.triggerConfig !== undefined) updateData.triggerConfig = validated.triggerConfig as Prisma.InputJsonValue
     if (validated.actionType !== undefined) updateData.actionType = validated.actionType
