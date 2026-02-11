@@ -4,7 +4,7 @@
  */
 
 import { prisma } from '@/lib/prisma'
-import { Decimal } from '@prisma/client/runtime/library'
+import { Decimal } from '@/src/generated/prisma/runtime/library'
 
 export type SegmentRule = {
   attribute: string

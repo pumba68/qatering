@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminRole } from '@/lib/admin-helpers'
 import { z } from 'zod'
-import { Decimal } from '@prisma/client/runtime/library'
+import { Decimal } from '@/src/generated/prisma/runtime/library'
 
 const subsidyTypeEnum = z.enum(['NONE', 'PERCENTAGE', 'FIXED'])
 

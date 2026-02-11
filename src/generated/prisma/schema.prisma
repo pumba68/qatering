@@ -1,0 +1,585 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Multi-Tenant: Organisationen/Locations (White-Label Support)
+model Organization {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique // Für White-Label URLs: kantine-platform.com/organization-slug
+  logoUrl        String?
+  primaryColor   String?  @default("#3b82f6")
+  secondaryColor String?  @default("#1e40af")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  locations     Location[]
+  users         User[]
+  segments      CustomerSegment[]
+  inAppMessages InAppMessage[]
+  workflows     MarketingWorkflow[]
+
+  @@map("organizations")
+}
+
+// Arbeitgeber-Unternehmen, die Verträge mit der Kantine haben
+model Company {
+  id             String  @id @default(cuid())
+  name           String
+  contractNumber String? // Interne Vertragsnummer
+  isActive       Boolean @default(true)
+
+  // Zuschuss-Konfiguration
+  subsidyType      SubsidyType @default(NONE)
+  subsidyValue     Decimal?    @db.Decimal(10, 2) // Prozent- oder Fixbetrag, abhängig von subsidyType
+  subsidyMaxPerDay Decimal?    @db.Decimal(10, 2) // Optional: Max. Zuschuss pro Tag pro Mitarbeiter
+
+  validFrom  DateTime? // Optional: Vertragsbeginn
+  validUntil DateTime? // Optional: Vertragsende
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  employees CompanyEmployee[]
+  orders    Order[]
+
+  @@map("companies")
+}
+
+// Zuordnung: Company -> Employee (User ist Mitarbeiter eines Unternehmens)
+model CompanyEmployee {
+  id             String    @id @default(cuid())
+  companyId      String
+  userId         String
+  employeeNumber String? // Optionale Personalnummer
+  department     String? // Optionale Abteilung
+  isActive       Boolean   @default(true)
+  validFrom      DateTime? // Optional: Beginn der Zuordnung
+  validUntil     DateTime? // Optional: Ende der Zuordnung
+  createdAt      DateTime  @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, userId])
+  @@index([userId])
+  @@map("company_employees")
+}
+
+// Zuschuss-Typen für Arbeitgeber
+enum SubsidyType {
+  NONE
+  PERCENTAGE
+  FIXED
+}
+
+// Standorte (Multi-Location Support)
+model Location {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  address        String?
+  phone          String?
+  email          String?
+  openingHours   Json? // { monday: "11:00-14:00", ... }
+  workingDays    Int[]    @default([1, 2, 3, 4, 5]) // 0=Sonntag, 1=Montag, ..., 6=Samstag
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  menus        Menu[]
+  orders       Order[]
+  users        UserLocation[]
+  coupons      Coupon[]
+
+  @@map("locations")
+}
+
+// Benutzer (Kunden, Küchenpersonal, Admins)
+model User {
+  id                    String   @id @default(cuid())
+  email                 String   @unique
+  name                  String?
+  passwordHash          String? // Für Credentials Provider
+  role                  UserRole @default(CUSTOMER)
+  image                 String?
+  organizationId        String?
+  marketingEmailConsent Boolean  @default(false)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  organization           Organization?       @relation(fields: [organizationId], references: [id])
+  locations              UserLocation[]
+  companyEmployees       CompanyEmployee[]
+  orders                 Order[]
+  sessions               Session[]
+  accounts               Account[]
+  couponRedemptions      CouponRedemption[]
+  wallet                 Wallet?
+  walletTransactions     WalletTransaction[]
+  performedWalletActions WalletTransaction[] @relation("WalletAudit")
+
+  @@map("users")
+}
+
+// Guthaben-System (Wallet)
+model Wallet {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  balance   Decimal  @default(0) @db.Decimal(10, 2) // Nie negativ (app-seitig + CHECK)
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("wallets")
+}
+
+enum WalletTransactionType {
+  TOP_UP // Aufladung
+  ORDER_PAYMENT // Bestellzahlung
+  REFUND // Erstattung (Stornierung)
+  ADJUSTMENT // Admin-Anpassung
+}
+
+model WalletTransaction {
+  id            String                @id @default(cuid())
+  userId        String
+  type          WalletTransactionType
+  amount        Decimal               @db.Decimal(10, 2) // + Gutschrift, - Abbuchung
+  balanceBefore Decimal               @db.Decimal(10, 2)
+  balanceAfter  Decimal               @db.Decimal(10, 2)
+  description   String?               @db.Text
+  orderId       String?
+  performedById String? // Admin bei TOP_UP/ADJUSTMENT
+  createdAt     DateTime              @default(now())
+
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order       Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  performedBy User?  @relation("WalletAudit", fields: [performedById], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([orderId])
+  @@index([createdAt])
+  @@map("wallet_transactions")
+}
+
+enum UserRole {
+  CUSTOMER // Kunde
+  KITCHEN_STAFF // Küchenpersonal
+  ADMIN // Organisation Admin
+  SUPER_ADMIN // Platform Admin
+}
+
+// Many-to-Many: User <-> Location (für Multi-Location Zugriff)
+model UserLocation {
+  id         String   @id @default(cuid())
+  userId     String
+  locationId String
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, locationId])
+  @@map("user_locations")
+}
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Wöchentliche Essenspläne
+model Menu {
+  id          String   @id @default(cuid())
+  locationId  String
+  weekNumber  Int // Kalenderwoche
+  year        Int
+  startDate   DateTime // Startdatum der Woche (Montag)
+  endDate     DateTime // Enddatum der Woche (Sonntag)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  location         Location              @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  menuItems        MenuItem[]
+  promotionBanners MenuPromotionBanner[]
+
+  @@unique([locationId, weekNumber, year])
+  @@map("menus")
+}
+
+// Wiederverwendbare Motto-/Promotion-Banner (z. B. "Bayerische Woche", "Italian Week")
+model PromotionBanner {
+  id        String   @id @default(cuid())
+  title     String   @db.VarChar(200)
+  subtitle  String?  @db.VarChar(500)
+  imageUrl  String?  @db.Text
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menuAssignments MenuPromotionBanner[]
+
+  @@map("promotion_banners")
+}
+
+// Zuordnung: Menu (KW) <-> PromotionBanner, mit Reihenfolge für Karussell
+model MenuPromotionBanner {
+  id                String @id @default(cuid())
+  menuId            String
+  promotionBannerId String
+  sortOrder         Int    @default(0) // Reihenfolge im Karussell
+
+  menu            Menu            @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  promotionBanner PromotionBanner @relation(fields: [promotionBannerId], references: [id], onDelete: Cascade)
+
+  @@unique([menuId, promotionBannerId])
+  @@index([menuId])
+  @@map("menu_promotion_banners")
+}
+
+// Gerichte auf einem Menü-Tag
+model MenuItem {
+  id             String   @id @default(cuid())
+  menuId         String
+  dishId         String
+  date           DateTime // Für welchen Tag (Montag-Sonntag)
+  available      Boolean  @default(true)
+  price          Decimal  @db.Decimal(10, 2)
+  maxOrders      Int? // Max. Bestellungen (z.B. 50 Portionen)
+  currentOrders  Int      @default(0) // Aktuelle Bestellungen
+  // Promotion/Aktion (situative Bewerbung pro Tag)
+  isPromotion    Boolean  @default(false)
+  promotionPrice Decimal? @db.Decimal(10, 2) // Optionaler Sonderpreis
+  promotionLabel String?  @db.VarChar(200) // z.B. "gratis Nachtisch dazu"
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  menu       Menu        @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  dish       Dish        @relation(fields: [dishId], references: [id])
+  orderItems OrderItem[]
+
+  @@map("menu_items")
+}
+
+// Gerichte (Master-Daten)
+model Dish {
+  id          String   @id @default(cuid())
+  name        String
+  description String?  @db.Text
+  imageUrl    String?
+  category    String? // "Hauptgericht", "Dessert", "Salat", etc.
+  // Nährwerte (für Phase 2 vorbereitet)
+  calories    Int?
+  protein     Decimal? @db.Decimal(5, 2)
+  carbs       Decimal? @db.Decimal(5, 2)
+  fat         Decimal? @db.Decimal(5, 2)
+  // Allergene & Diäten (für Phase 2 vorbereitet)
+  allergens   String[] // ["Nüsse", "Gluten", "Laktose"]
+  dietTags    String[] // ["vegetarisch", "vegan", "low-carb"]
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  menuItems MenuItem[]
+  coupons   Coupon[] // Für FREE_ITEM Coupons
+
+  @@map("dishes")
+}
+
+// Bestellungen
+model Order {
+  id              String        @id @default(cuid())
+  userId          String
+  locationId      String
+  status          OrderStatus   @default(PENDING)
+  totalAmount     Decimal       @db.Decimal(10, 2)
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentMethod   String? // "card", "paypal", "payroll", etc.
+  paymentIntentId String? // Für Stripe/PayPal
+  pickupCode      String        @unique // QR-Code zur Abholung
+  pickupDate      DateTime // Für welchen Tag
+  pickupTimeSlot  String? // "12:00-12:15", "12:15-12:30", etc.
+  notes           String?       @db.Text
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  pickedUpAt      DateTime?
+
+  user                  User               @relation(fields: [userId], references: [id])
+  location              Location           @relation(fields: [locationId], references: [id])
+  items                 OrderItem[]
+  couponRedemptions     CouponRedemption[]
+  couponCode            String? // Optional: Eingelöster Coupon-Code (für Referenz)
+  discountAmount        Decimal?           @db.Decimal(10, 2) // Optional: Angewendeter Rabatt
+  finalAmount           Decimal?           @db.Decimal(10, 2) // Optional: Endbetrag nach Coupon/Zuschuss (falls vorhanden)
+  employerSubsidyAmount Decimal?           @db.Decimal(10, 2) // Optional: Arbeitgeber-Zuschuss (Company)
+  employerCompanyId     String? // Referenz auf Company, falls Zuschuss angewendet wurde
+
+  employerCompany    Company?            @relation(fields: [employerCompanyId], references: [id])
+  walletTransactions WalletTransaction[]
+
+  @@index([userId])
+  @@index([locationId])
+  @@index([pickupCode])
+  @@index([pickupDate])
+  @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING // Bestellt, nicht zubereitet
+  CONFIRMED // Bestätigt von Küche
+  PREPARING // In Zubereitung
+  READY // Fertig zur Abholung
+  PICKED_UP // Abgeholt
+  CANCELLED // Storniert
+}
+
+enum PaymentStatus {
+  PENDING // Zahlung ausstehend
+  PROCESSING // In Bearbeitung
+  COMPLETED // Bezahlt
+  FAILED // Fehlgeschlagen
+  REFUNDED // Rückerstattet
+}
+
+// Coupon-Typen
+enum CouponType {
+  DISCOUNT_PERCENTAGE // Rabatt in Prozent (z.B. 10% Rabatt)
+  DISCOUNT_FIXED // Fixer Rabatt (z.B. 5€ Rabatt)
+  FREE_ITEM // Kostenloses Extra (z.B. kostenloser Nachtisch)
+}
+
+// Coupons/Gutscheine
+model Coupon {
+  id             String     @id @default(cuid())
+  code           String     @unique // Coupon-Code (z.B. "SUMMER2024")
+  name           String // Name der Aktion
+  description    String?    @db.Text // Beschreibung der Aktion
+  type           CouponType // Typ des Coupons
+  discountValue  Decimal?   @db.Decimal(10, 2) // Rabattwert (Prozent oder fixer Betrag)
+  freeItemDishId String? // Für FREE_ITEM: ID des kostenlosen Gerichts
+  locationId     String? // Optional: Nur für bestimmte Location
+  startDate      DateTime? // Optional: Startdatum
+  endDate        DateTime? // Optional: Enddatum
+  maxUses        Int? // Optional: Maximale Gesamt-Nutzungen (z.B. 100x)
+  maxUsesPerUser Int        @default(1) // Maximale Nutzungen pro User (1 = einmalig, null = unbegrenzt)
+  currentUses    Int        @default(0) // Aktuelle Anzahl der Nutzungen
+  minOrderAmount Decimal?   @db.Decimal(10, 2) // Optional: Mindestbestellwert
+  isActive       Boolean    @default(true) // Aktiv/Inaktiv
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  location     Location?          @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  freeItemDish Dish?              @relation(fields: [freeItemDishId], references: [id])
+  redemptions  CouponRedemption[]
+
+  @@index([code, isActive])
+  @@index([locationId])
+  @@map("coupons")
+}
+
+// Coupon-Einlösungen (Tracking)
+model CouponRedemption {
+  id         String   @id @default(cuid())
+  couponId   String
+  userId     String
+  orderId    String
+  redeemedAt DateTime @default(now())
+
+  coupon Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order  Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@unique([couponId, userId, orderId]) // Verhindert doppelte Einlösung
+  @@index([couponId])
+  @@index([userId])
+  @@index([orderId])
+  @@map("coupon_redemptions")
+}
+
+// Metadaten-Typen
+enum MetadataType {
+  DIET_CATEGORY // Diät-Kategorien (vegan, vegetarisch, etc.)
+  ALLERGEN // Allergene (Nüsse, Gluten, etc.)
+  DISH_CATEGORY // Speise-Kategorien (Hauptgericht, Dessert, etc.)
+}
+
+// Bestellte Gerichte
+model OrderItem {
+  id         String   @id @default(cuid())
+  orderId    String
+  menuItemId String
+  quantity   Int      @default(1)
+  price      Decimal  @db.Decimal(10, 2) // Preis zum Zeitpunkt der Bestellung
+  createdAt  DateTime @default(now())
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@map("order_items")
+}
+
+// Metadaten-Verwaltung (Diät-Kategorien, Allergene, Speise-Kategorien)
+model Metadata {
+  id          String       @id @default(cuid())
+  type        MetadataType // Typ der Metadaten
+  name        String // Name des Wertes (z.B. "vegan", "Gluten")
+  description String? // Optionale Beschreibung
+  icon        String? // Optional: Icon-Name oder Emoji
+  color       String? // Optional: Farbe für UI (z.B. "#22c55e" für grün)
+  isActive    Boolean      @default(true) // Soft-Delete
+  sortOrder   Int          @default(0) // Sortierreihenfolge
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([type, name]) // Verhindert Duplikate pro Typ
+  @@index([type, isActive])
+  @@map("metadata")
+}
+
+// PROJ-4: Kundensegmente & Marketing-Automation
+// Segment: Zielgruppe pro Organisation, definiert durch Regeln (JSON)
+model CustomerSegment {
+  id               String   @id @default(cuid())
+  organizationId   String
+  name             String
+  description      String?  @db.Text
+  rulesCombination String   @default("AND") // AND | OR
+  rules            Json     @default("[]") // [{ attribute, operator, value }, ...]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  organization  Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  inAppMessages InAppMessage[]
+  workflows     MarketingWorkflow[]
+
+  @@unique([organizationId, name])
+  @@index([organizationId])
+  @@map("customer_segments")
+}
+
+// In-App-Nachricht: segmentbezogen, Zeitraum, Anzeigeort
+model InAppMessage {
+  id             String    @id @default(cuid())
+  organizationId String
+  segmentId      String
+  title          String?   @db.VarChar(200)
+  body           String    @db.Text
+  linkUrl        String?   @db.Text
+  displayPlace   String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard
+  startDate      DateTime  @default(now())
+  endDate        DateTime?
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment      CustomerSegment    @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  readBy       InAppMessageRead[]
+
+  @@index([organizationId])
+  @@index([segmentId])
+  @@index([isActive, startDate, endDate])
+  @@map("in_app_messages")
+}
+
+// Welcher User welche In-App-Nachricht gelesen hat (optional)
+model InAppMessageRead {
+  id        String   @id @default(cuid())
+  messageId String
+  userId    String
+  readAt    DateTime @default(now())
+
+  message InAppMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId])
+  @@index([userId])
+  @@map("in_app_message_reads")
+}
+
+// Workflow: Trigger + Aktion, segmentbezogen
+model MarketingWorkflow {
+  id             String   @id @default(cuid())
+  organizationId String
+  segmentId      String
+  name           String   @db.VarChar(200)
+  triggerType    String   @db.VarChar(50) // SCHEDULED | EVENT
+  triggerConfig  Json     @default("{}") // { cron, weekday, hour } or { eventType }
+  actionType     String   @db.VarChar(50) // SEND_EMAIL | SHOW_IN_APP | GRANT_INCENTIVE
+  actionConfig   Json     @default("{}") // { subject, body } | { messageId } | { couponId }
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization  Organization           @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment       CustomerSegment        @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  executionLogs WorkflowExecutionLog[]
+
+  @@index([organizationId])
+  @@index([segmentId])
+  @@index([isActive])
+  @@map("marketing_workflows")
+}
+
+// Protokoll der Workflow-Ausführungen
+model WorkflowExecutionLog {
+  id         String   @id @default(cuid())
+  workflowId String
+  executedAt DateTime @default(now())
+  status     String   @db.VarChar(20) // SUCCESS | PARTIAL | FAILED
+  message    String?  @db.Text // Kurzergebnis (z. B. "45 E-Mails versendet")
+  details    Json? // Optionale Fehlerdetails
+
+  workflow MarketingWorkflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
+  @@index([executedAt])
+  @@map("workflow_execution_logs")
+}

@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/src/generated/prisma'
 
 const MIN_TOP_UP = 5
 const MAX_TOP_UP = 200
