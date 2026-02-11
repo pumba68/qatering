@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { z } from 'zod'
@@ -62,14 +61,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const usersWithConsent = await prisma.user.findMany({
+    const users = await prisma.user.findMany({
       where: {
         id: { in: userIds },
         marketingEmailConsent: true,
-        email: { not: null } as Prisma.UserWhereInput['email'],
       },
       select: { id: true, email: true },
     })
+    const usersWithConsent = users.filter((u): u is typeof u & { email: string } => u.email != null)
 
     const recipientCount = usersWithConsent.length
     if (recipientCount === 0) {
