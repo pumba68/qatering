@@ -1,9 +1,11 @@
 import 'dotenv/config'
-import { neon } from '@neondatabase/serverless'
-import { PrismaNeonHTTP } from '@prisma/adapter-neon'
+import { Pool, neonConfig } from '@neondatabase/serverless'
+import { PrismaNeon } from '@prisma/adapter-neon'
 import { PrismaClient } from './generated/prisma'
+import ws from 'ws'
 
-// HTTP-Adapter für Vercel/Serverless (kein WebSocket/ws nötig)
-const sql = neon(process.env.DATABASE_URL!)
-const adapter = new PrismaNeonHTTP(sql)
+// WebSocket-Adapter (PrismaNeonHTTP hat DateTime-Bug bei createdAt/updatedAt)
+neonConfig.webSocketConstructor = ws
+const pool = new Pool({ connectionString: process.env.DATABASE_URL! })
+const adapter = new PrismaNeon(pool)
 export const prisma = new PrismaClient({ adapter })
