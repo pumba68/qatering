@@ -14,32 +14,37 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error('Bitte Email und Passwort eingeben')
+          return null // Return null statt throw – sonst redirectet NextAuth zur Fehlerseite
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        })
+        try {
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          })
 
-        if (!user || !user.passwordHash) {
-          throw new Error('Ungültige Anmeldedaten')
-        }
+          if (!user || !user.passwordHash) {
+            return null
+          }
 
-        const isValid = await verifyPassword(
-          credentials.password,
-          user.passwordHash
-        )
+          const isValid = await verifyPassword(
+            credentials.password,
+            user.passwordHash
+          )
 
-        if (!isValid) {
-          throw new Error('Ungültige Anmeldedaten')
-        }
+          if (!isValid) {
+            return null
+          }
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-          image: user.image,
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            image: user.image,
+          }
+        } catch (err) {
+          console.error('[NextAuth authorize] Fehler:', err)
+          return null
         }
       },
     }),
@@ -68,4 +73,5 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true, // Wichtig für Vercel/Serverless
 }

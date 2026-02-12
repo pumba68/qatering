@@ -16,10 +16,11 @@ export default function LoginPage() {
   useEffect(() => {
     const registered = searchParams.get('registered')
     if (registered === 'true') {
-      // Zeige Erfolgsmeldung für kurze Zeit
-      setTimeout(() => {
-        // Erfolgsmeldung wird automatisch entfernt
-      }, 3000)
+      // Erfolgsmeldung wird automatisch angezeigt
+    }
+    const err = searchParams.get('error')
+    if (err === 'CredentialsSignin') {
+      setError('Anmeldung fehlgeschlagen. E-Mail und Passwort prüfen.')
     }
   }, [searchParams])
 
@@ -41,10 +42,10 @@ export default function LoginPage() {
         router.refresh()
       } else {
         const message =
-          typeof result?.error === 'string' && result.error
-            ? result.error
-            : result?.status === 500
-              ? 'Serverfehler beim Anmelden. Prüfen Sie .env: NEXTAUTH_SECRET und NEXTAUTH_URL müssen gesetzt sein.'
+          result?.status === 500
+            ? 'Serverfehler beim Anmelden. Prüfen Sie NEXTAUTH_SECRET und NEXTAUTH_URL in den Vercel-Umgebungsvariablen.'
+            : typeof result?.error === 'string' && result.error && result.error !== 'CredentialsSignin'
+              ? result.error
               : 'Anmeldung fehlgeschlagen. E-Mail und Passwort prüfen.'
         setError(message)
       }
