@@ -22,6 +22,14 @@ export default function LoginPage() {
     if (err === 'CredentialsSignin') {
       setError('Anmeldung fehlgeschlagen. E-Mail und Passwort prüfen.')
     }
+    const emailFromUrl = searchParams.get('email')
+    if (emailFromUrl) {
+      try {
+        setEmail(decodeURIComponent(emailFromUrl))
+      } catch {
+        // ungültige URL
+      }
+    }
   }, [searchParams])
 
   const handleSubmit = async (e: React.FormEvent) => {

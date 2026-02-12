@@ -59,8 +59,9 @@ export default function RegisterPage() {
         return
       }
 
-      // Weiterleitung zum Login
-      router.push('/login?registered=true')
+      // Weiterleitung zum Login – E-Mail mitgeben für einfacheres Einloggen
+      const emailParam = encodeURIComponent(formData.email)
+      router.push(`/login?registered=true&email=${emailParam}`)
     } catch (err) {
       setError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.')
     } finally {

@@ -17,9 +17,14 @@ export const authOptions: NextAuthOptions = {
           return null // Return null statt throw – sonst redirectet NextAuth zur Fehlerseite
         }
 
+        const email = credentials.email.trim().toLowerCase()
+        if (!email) return null
+
         try {
-          const user = await prisma.user.findUnique({
-            where: { email: credentials.email },
+          const user = await prisma.user.findFirst({
+            where: {
+              email: { equals: email, mode: 'insensitive' },
+            },
           })
 
           if (!user || !user.passwordHash) {
