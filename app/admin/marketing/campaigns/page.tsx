@@ -17,6 +17,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet'
+import { MARKETING_SLOT_IDS, DISPLAY_TYPE_LABELS } from '@/lib/marketing-slots'
 
 type Segment = { id: string; name: string }
 type InAppMessage = {
@@ -25,6 +26,8 @@ type InAppMessage = {
   body: string
   linkUrl: string | null
   displayPlace: string
+  displayType?: string
+  slotId?: string | null
   startDate: string
   endDate: string | null
   isActive: boolean
@@ -52,6 +55,8 @@ export default function CampaignsPage() {
     body: '',
     linkUrl: '',
     displayPlace: 'menu' as 'menu' | 'wallet' | 'dashboard',
+    displayType: 'BANNER' as 'POPUP' | 'BANNER' | 'SLOT',
+    slotId: '',
     startDate: '',
     endDate: '',
     isActive: true,
@@ -129,6 +134,8 @@ export default function CampaignsPage() {
       body: '',
       linkUrl: '',
       displayPlace: 'menu',
+      displayType: 'BANNER',
+      slotId: '',
       startDate: new Date().toISOString().slice(0, 16),
       endDate: '',
       isActive: true,
@@ -145,6 +152,8 @@ export default function CampaignsPage() {
       body: m.body,
       linkUrl: m.linkUrl ?? '',
       displayPlace: (m.displayPlace as 'menu' | 'wallet' | 'dashboard') || 'menu',
+      displayType: (m.displayType as 'POPUP' | 'BANNER' | 'SLOT') || 'BANNER',
+      slotId: m.slotId ?? '',
       startDate: m.startDate ? new Date(m.startDate).toISOString().slice(0, 16) : '',
       endDate: m.endDate ? new Date(m.endDate).toISOString().slice(0, 16) : '',
       isActive: m.isActive,
@@ -175,6 +184,8 @@ export default function CampaignsPage() {
             body,
             linkUrl: messageForm.linkUrl.trim() || null,
             displayPlace: messageForm.displayPlace,
+            displayType: messageForm.displayType,
+            slotId: messageForm.slotId.trim() || null,
             startDate: messageForm.startDate ? new Date(messageForm.startDate).toISOString() : undefined,
             endDate: messageForm.endDate ? new Date(messageForm.endDate).toISOString() : null,
             isActive: messageForm.isActive,
@@ -192,6 +203,8 @@ export default function CampaignsPage() {
             body,
             linkUrl: messageForm.linkUrl.trim() || null,
             displayPlace: messageForm.displayPlace,
+            displayType: messageForm.displayType,
+            slotId: messageForm.slotId.trim() || null,
             startDate: messageForm.startDate ? new Date(messageForm.startDate).toISOString() : undefined,
             endDate: messageForm.endDate ? new Date(messageForm.endDate).toISOString() : null,
             isActive: messageForm.isActive,
@@ -325,7 +338,7 @@ export default function CampaignsPage() {
                       </Badge>
                     </div>
                     <CardDescription>
-                      Segment: {m.segment.name} · {displayPlaceLabels[m.displayPlace] ?? m.displayPlace}
+                      Segment: {m.segment.name} · {DISPLAY_TYPE_LABELS[m.displayType ?? 'BANNER'] ?? m.displayType} {m.slotId ? `· ${MARKETING_SLOT_IDS.find((s) => s.id === m.slotId)?.label ?? m.slotId}` : ''} · {displayPlaceLabels[m.displayPlace] ?? m.displayPlace}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
@@ -403,7 +416,33 @@ export default function CampaignsPage() {
               />
             </div>
             <div className="grid gap-2">
-              <Label>Anzeigeort</Label>
+              <Label>Darstellungstyp</Label>
+              <select
+                value={messageForm.displayType}
+                onChange={(e) => setMessageForm((f) => ({ ...f, displayType: e.target.value as 'POPUP' | 'BANNER' | 'SLOT' }))}
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+              >
+                <option value="POPUP">{DISPLAY_TYPE_LABELS.POPUP}</option>
+                <option value="BANNER">{DISPLAY_TYPE_LABELS.BANNER}</option>
+                <option value="SLOT">{DISPLAY_TYPE_LABELS.SLOT}</option>
+              </select>
+            </div>
+            <div className="grid gap-2">
+              <Label>Platzierung / Slot</Label>
+              <select
+                value={messageForm.slotId}
+                onChange={(e) => setMessageForm((f) => ({ ...f, slotId: e.target.value }))}
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+              >
+                <option value="">— Kein Slot / Seite wählen —</option>
+                {MARKETING_SLOT_IDS.map((s) => (
+                  <option key={s.id} value={s.id}>{s.label}</option>
+                ))}
+              </select>
+              <p className="text-xs text-muted-foreground">Bei Popup: z. B. &quot;Popup nach Login&quot;. Bei Slot: gewünschten Platz wählen.</p>
+            </div>
+            <div className="grid gap-2">
+              <Label>Seite (für Banner)</Label>
               <select
                 value={messageForm.displayPlace}
                 onChange={(e) => setMessageForm((f) => ({ ...f, displayPlace: e.target.value as 'menu' | 'wallet' | 'dashboard' }))}

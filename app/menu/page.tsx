@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import MenuWeek from '@/components/menu/MenuWeek'
 import CartSidebar from '@/components/order/CartSidebar'
+import { MarketingSlotArea } from '@/components/marketing/MarketingSlotArea'
+import { MarketingBannerArea } from '@/components/marketing/MarketingBannerArea'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart, MapPin, ChevronDown } from 'lucide-react'
 import { formatCurrency } from '@/lib/utils'
@@ -166,6 +168,11 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen menu-page-pattern bg-gradient-to-br from-background/95 via-background/90 to-green-50/40 dark:to-green-950/15">
       <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl">
+        {/* Marketing: Slot menu_top + Banner für Menü-Seite */}
+        <div className="space-y-4 mb-6">
+          <MarketingSlotArea slotId="menu_top" />
+          <MarketingBannerArea displayPlace="menu" />
+        </div>
         {/* Standort-Switcher (nur wenn mehrere Locations) */}
         {locations.length > 1 && (
           <div className="flex justify-end mb-4">

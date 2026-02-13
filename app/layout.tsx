@@ -5,6 +5,7 @@ import SessionProvider from '@/components/auth/SessionProvider'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { ChakraProvider } from '@/components/providers/ChakraProvider'
 import Navbar from '@/components/layout/Navbar'
+import { MarketingPopupWrapper } from '@/components/marketing/MarketingPopupWrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -34,6 +35,7 @@ export default function RootLayout({
                 <div className="flex-1 flex flex-col min-h-0">
                   {children}
                 </div>
+                <MarketingPopupWrapper />
               </div>
             </SessionProvider>
           </ThemeProvider>

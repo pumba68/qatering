@@ -8,6 +8,8 @@ const updateInAppMessageSchema = z.object({
   body: z.string().min(1).optional(),
   linkUrl: z.string().url().optional().nullable().or(z.literal('')),
   displayPlace: z.enum(['menu', 'wallet', 'dashboard']).optional(),
+  displayType: z.enum(['POPUP', 'BANNER', 'SLOT']).optional(),
+  slotId: z.string().max(80).optional().nullable().or(z.literal('')),
   startDate: z.string().optional(),
   endDate: z.string().optional().nullable(),
   isActive: z.boolean().optional(),
@@ -85,6 +87,8 @@ export async function PATCH(
       body?: string
       linkUrl?: string | null
       displayPlace?: string
+      displayType?: string
+      slotId?: string | null
       startDate?: Date
       endDate?: Date | null
       isActive?: boolean
@@ -93,6 +97,8 @@ export async function PATCH(
     if (validated.body !== undefined) updateData.body = validated.body
     if (validated.linkUrl !== undefined) updateData.linkUrl = validated.linkUrl === '' ? null : validated.linkUrl
     if (validated.displayPlace !== undefined) updateData.displayPlace = validated.displayPlace
+    if (validated.displayType !== undefined) updateData.displayType = validated.displayType
+    if (validated.slotId !== undefined) updateData.slotId = validated.slotId === '' ? null : validated.slotId
     if (validated.startDate !== undefined) updateData.startDate = new Date(validated.startDate)
     if (validated.endDate !== undefined) updateData.endDate = validated.endDate ? new Date(validated.endDate) : null
     if (validated.isActive !== undefined) updateData.isActive = validated.isActive

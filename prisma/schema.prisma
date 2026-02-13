@@ -505,6 +505,8 @@ model CustomerSegment {
 }
 
 // In-App-Nachricht: segmentbezogen, Zeitraum, Anzeigeort
+// displayType: POPUP = Modal/Overlay, BANNER = Karte auf Seite, SLOT = dynamischer Platz (slotId)
+// slotId: z.B. menu_top, menu_sidebar, dashboard_hero, wallet_top, popup_after_login
 model InAppMessage {
   id             String    @id @default(cuid())
   organizationId String
@@ -512,7 +514,9 @@ model InAppMessage {
   title          String?   @db.VarChar(200)
   body           String    @db.Text
   linkUrl        String?   @db.Text
-  displayPlace   String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard
+  displayPlace   String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard (Seite für BANNER)
+  displayType    String    @default("BANNER") @db.VarChar(20) // POPUP | BANNER | SLOT
+  slotId         String?   @db.VarChar(80) // z.B. menu_top, popup_after_login (bei SLOT oder POPUP)
   startDate      DateTime  @default(now())
   endDate        DateTime?
   isActive       Boolean   @default(true)
@@ -526,6 +530,7 @@ model InAppMessage {
   @@index([organizationId])
   @@index([segmentId])
   @@index([isActive, startDate, endDate])
+  @@index([displayType, slotId])
   @@map("in_app_messages")
 }
 

@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { formatCurrency } from '@/lib/utils'
 import { Wallet, History, AlertCircle, ArrowRight } from 'lucide-react'
+import { MarketingSlotArea } from '@/components/marketing/MarketingSlotArea'
+import { MarketingBannerArea } from '@/components/marketing/MarketingBannerArea'
 
 interface WalletData {
   balance: number
@@ -65,6 +67,11 @@ export default function WalletPage() {
     <div className="min-h-screen bg-background">
       <div className="container max-w-2xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-foreground mb-6">Guthaben</h1>
+
+        <div className="space-y-4 mb-6">
+          <MarketingSlotArea slotId="wallet_top" />
+          <MarketingBannerArea displayPlace="wallet" />
+        </div>
 
         <div className="bg-card rounded-xl border border-border p-6 shadow-sm mb-6">
           <div className="flex items-center gap-3 text-muted-foreground mb-2">

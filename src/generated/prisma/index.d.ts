@@ -26577,6 +26577,8 @@ export namespace Prisma {
     body: string | null
     linkUrl: string | null
     displayPlace: string | null
+    displayType: string | null
+    slotId: string | null
     startDate: Date | null
     endDate: Date | null
     isActive: boolean | null
@@ -26592,6 +26594,8 @@ export namespace Prisma {
     body: string | null
     linkUrl: string | null
     displayPlace: string | null
+    displayType: string | null
+    slotId: string | null
     startDate: Date | null
     endDate: Date | null
     isActive: boolean | null
@@ -26607,6 +26611,8 @@ export namespace Prisma {
     body: number
     linkUrl: number
     displayPlace: number
+    displayType: number
+    slotId: number
     startDate: number
     endDate: number
     isActive: number
@@ -26624,6 +26630,8 @@ export namespace Prisma {
     body?: true
     linkUrl?: true
     displayPlace?: true
+    displayType?: true
+    slotId?: true
     startDate?: true
     endDate?: true
     isActive?: true
@@ -26639,6 +26647,8 @@ export namespace Prisma {
     body?: true
     linkUrl?: true
     displayPlace?: true
+    displayType?: true
+    slotId?: true
     startDate?: true
     endDate?: true
     isActive?: true
@@ -26654,6 +26664,8 @@ export namespace Prisma {
     body?: true
     linkUrl?: true
     displayPlace?: true
+    displayType?: true
+    slotId?: true
     startDate?: true
     endDate?: true
     isActive?: true
@@ -26742,6 +26754,8 @@ export namespace Prisma {
     body: string
     linkUrl: string | null
     displayPlace: string
+    displayType: string
+    slotId: string | null
     startDate: Date
     endDate: Date | null
     isActive: boolean
@@ -26774,6 +26788,8 @@ export namespace Prisma {
     body?: boolean
     linkUrl?: boolean
     displayPlace?: boolean
+    displayType?: boolean
+    slotId?: boolean
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
@@ -26793,6 +26809,8 @@ export namespace Prisma {
     body?: boolean
     linkUrl?: boolean
     displayPlace?: boolean
+    displayType?: boolean
+    slotId?: boolean
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
@@ -26810,6 +26828,8 @@ export namespace Prisma {
     body?: boolean
     linkUrl?: boolean
     displayPlace?: boolean
+    displayType?: boolean
+    slotId?: boolean
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
@@ -26843,6 +26863,8 @@ export namespace Prisma {
       body: string
       linkUrl: string | null
       displayPlace: string
+      displayType: string
+      slotId: string | null
       startDate: Date
       endDate: Date | null
       isActive: boolean
@@ -27251,6 +27273,8 @@ export namespace Prisma {
     readonly body: FieldRef<"InAppMessage", 'String'>
     readonly linkUrl: FieldRef<"InAppMessage", 'String'>
     readonly displayPlace: FieldRef<"InAppMessage", 'String'>
+    readonly displayType: FieldRef<"InAppMessage", 'String'>
+    readonly slotId: FieldRef<"InAppMessage", 'String'>
     readonly startDate: FieldRef<"InAppMessage", 'DateTime'>
     readonly endDate: FieldRef<"InAppMessage", 'DateTime'>
     readonly isActive: FieldRef<"InAppMessage", 'Boolean'>
@@ -30852,6 +30876,8 @@ export namespace Prisma {
     body: 'body',
     linkUrl: 'linkUrl',
     displayPlace: 'displayPlace',
+    displayType: 'displayType',
+    slotId: 'slotId',
     startDate: 'startDate',
     endDate: 'endDate',
     isActive: 'isActive',
@@ -32954,6 +32980,8 @@ export namespace Prisma {
     body?: StringFilter<"InAppMessage"> | string
     linkUrl?: StringNullableFilter<"InAppMessage"> | string | null
     displayPlace?: StringFilter<"InAppMessage"> | string
+    displayType?: StringFilter<"InAppMessage"> | string
+    slotId?: StringNullableFilter<"InAppMessage"> | string | null
     startDate?: DateTimeFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolFilter<"InAppMessage"> | boolean
@@ -32972,6 +33000,8 @@ export namespace Prisma {
     body?: SortOrder
     linkUrl?: SortOrderInput | SortOrder
     displayPlace?: SortOrder
+    displayType?: SortOrder
+    slotId?: SortOrderInput | SortOrder
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
     isActive?: SortOrder
@@ -32993,6 +33023,8 @@ export namespace Prisma {
     body?: StringFilter<"InAppMessage"> | string
     linkUrl?: StringNullableFilter<"InAppMessage"> | string | null
     displayPlace?: StringFilter<"InAppMessage"> | string
+    displayType?: StringFilter<"InAppMessage"> | string
+    slotId?: StringNullableFilter<"InAppMessage"> | string | null
     startDate?: DateTimeFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolFilter<"InAppMessage"> | boolean
@@ -33011,6 +33043,8 @@ export namespace Prisma {
     body?: SortOrder
     linkUrl?: SortOrderInput | SortOrder
     displayPlace?: SortOrder
+    displayType?: SortOrder
+    slotId?: SortOrderInput | SortOrder
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
     isActive?: SortOrder
@@ -33032,6 +33066,8 @@ export namespace Prisma {
     body?: StringWithAggregatesFilter<"InAppMessage"> | string
     linkUrl?: StringNullableWithAggregatesFilter<"InAppMessage"> | string | null
     displayPlace?: StringWithAggregatesFilter<"InAppMessage"> | string
+    displayType?: StringWithAggregatesFilter<"InAppMessage"> | string
+    slotId?: StringNullableWithAggregatesFilter<"InAppMessage"> | string | null
     startDate?: DateTimeWithAggregatesFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableWithAggregatesFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolWithAggregatesFilter<"InAppMessage"> | boolean
@@ -35202,6 +35238,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -35220,6 +35258,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -35234,6 +35274,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -35252,6 +35294,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -35268,6 +35312,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -35281,6 +35327,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -35296,6 +35344,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -37234,6 +37284,8 @@ export namespace Prisma {
     body?: SortOrder
     linkUrl?: SortOrder
     displayPlace?: SortOrder
+    displayType?: SortOrder
+    slotId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
@@ -37249,6 +37301,8 @@ export namespace Prisma {
     body?: SortOrder
     linkUrl?: SortOrder
     displayPlace?: SortOrder
+    displayType?: SortOrder
+    slotId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
@@ -37264,6 +37318,8 @@ export namespace Prisma {
     body?: SortOrder
     linkUrl?: SortOrder
     displayPlace?: SortOrder
+    displayType?: SortOrder
+    slotId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
@@ -39947,6 +40003,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -39963,6 +40021,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -40141,6 +40201,8 @@ export namespace Prisma {
     body?: StringFilter<"InAppMessage"> | string
     linkUrl?: StringNullableFilter<"InAppMessage"> | string | null
     displayPlace?: StringFilter<"InAppMessage"> | string
+    displayType?: StringFilter<"InAppMessage"> | string
+    slotId?: StringNullableFilter<"InAppMessage"> | string | null
     startDate?: DateTimeFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolFilter<"InAppMessage"> | boolean
@@ -44101,6 +44163,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -44117,6 +44181,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -44440,6 +44506,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -44457,6 +44525,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -44486,6 +44556,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -44503,6 +44575,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -44818,6 +44892,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -44979,6 +45055,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -44995,6 +45073,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -45010,6 +45090,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -46231,6 +46313,8 @@ export namespace Prisma {
     body: string
     linkUrl?: string | null
     displayPlace?: string
+    displayType?: string
+    slotId?: string | null
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
@@ -46257,6 +46341,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -46273,6 +46359,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -46288,6 +46376,8 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean

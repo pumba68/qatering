@@ -12,7 +12,7 @@ import {
 /**
  * GET: In-App-Nachrichten für den eingeloggten User.
  * Nur aktive Nachrichten, deren Segment den User enthält.
- * Query: displayPlace=menu|wallet|dashboard (optional, filtert nach Anzeigeort).
+ * Query: displayPlace=menu|wallet|dashboard (optional), displayType=POPUP|BANNER|SLOT (optional), slotId=… (optional).
  */
 export async function GET(request: NextRequest) {
   try {
@@ -42,6 +42,8 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     const displayPlace = searchParams.get('displayPlace')
+    const displayType = searchParams.get('displayType')
+    const slotId = searchParams.get('slotId')
 
     const now = new Date()
     const where: Prisma.InAppMessageWhereInput = {
@@ -51,12 +53,21 @@ export async function GET(request: NextRequest) {
       OR: [{ endDate: null }, { endDate: { gte: now } }],
     }
     if (displayPlace === 'menu' || displayPlace === 'wallet' || displayPlace === 'dashboard') {
-      where.displayPlace = displayPlace as 'menu' | 'wallet' | 'dashboard'
+      where.displayPlace = displayPlace
+    }
+    if (displayType === 'POPUP' || displayType === 'BANNER' || displayType === 'SLOT') {
+      where.displayType = displayType
+    }
+    if (slotId != null && slotId !== '') {
+      where.slotId = slotId
     }
 
     const messages = await prisma.inAppMessage.findMany({
       where,
-      include: { segment: { select: { id: true, name: true } } },
+      include: {
+        segment: { select: { id: true, name: true } },
+        readBy: { where: { userId }, select: { readAt: true }, take: 1 },
+      },
       orderBy: { startDate: 'desc' },
     })
     if (messages.length === 0) return NextResponse.json([])
@@ -78,17 +89,23 @@ export async function GET(request: NextRequest) {
       userIdsBySegment.set(segId, ids)
     }
 
-    const forUser = messages.filter((m) => {
-      const ids = userIdsBySegment.get(m.segmentId)
-      return ids?.includes(userId)
-    })
+    const forUser = messages
+      .filter((m) => {
+        const ids = userIdsBySegment.get(m.segmentId)
+        return ids?.includes(userId)
+      })
+      .map((m) => {
+        const { readBy, ...msg } = m
+        return {
+          ...msg,
+          read: Array.isArray(readBy) && readBy.length > 0,
+        }
+      })
 
     return NextResponse.json(forUser)
   } catch (error) {
     console.error('Fehler beim Abrufen der In-App-Nachrichten:', error)
-    return NextResponse.json(
-      { error: 'Interner Serverfehler' },
-      { status: 500 }
-    )
+    // Bei Fehler leeres Array zurückgeben, damit die Seite weiter rendert
+    return NextResponse.json([])
   }
 }

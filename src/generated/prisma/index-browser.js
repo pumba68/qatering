@@ -395,6 +395,8 @@ exports.Prisma.InAppMessageScalarFieldEnum = {
   body: 'body',
   linkUrl: 'linkUrl',
   displayPlace: 'displayPlace',
+  displayType: 'displayType',
+  slotId: 'slotId',
   startDate: 'startDate',
   endDate: 'endDate',
   isActive: 'isActive',

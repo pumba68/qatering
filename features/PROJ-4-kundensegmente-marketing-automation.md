@@ -142,6 +142,45 @@ Die konkrete Auswahl der **implementierten Attribute** und **Operatoren** (gleic
 
 ---
 
+# PROJ-4c-Erweiterung: Aktive Kundenausspielung (Popup, In-App, dynamische Slots)
+
+## Konzept
+
+Kampagnen und Marketing-Aktionen sollen **aktiv vor dem Kunden ausgeliefert** werden – nicht nur konfiguriert, sondern sichtbar und steuerbar. Drei Darstellungsformen:
+
+- **Popup/Modal:** Nachricht erscheint als Overlay (z. B. nach Login oder beim ersten Besuch einer Seite), schließbar; optional „nicht wieder anzeigen“.
+- **In-App-Nachricht (Banner/Card):** Klassische Einblendung als Banner oder Karte an fester Stelle auf der Seite (z. B. oberhalb des Speiseplans).
+- **Banner an dynamischen Plätzen (Slots):** Der Admin wählt einen **Platz** (Slot) aus einer definierbaren Liste – z. B. „Menü oben“, „Menü Sidebar“, „Dashboard Hero“, „Wallet oben“, „Popup nach Login“. Neue Slots können ergänzt werden, sodass die Platzierung flexibel bleibt.
+
+## User Stories
+
+- Als Kantinenmanager möchte ich **festlegen, ob eine Nachricht als Popup, als Banner oder in einem bestimmten Slot** erscheint, um die Sichtbarkeit zu steuern.
+- Als Kantinenmanager möchte ich **Platzierungen (Slots) dynamisch definieren** können (z. B. neue Slots anlegen oder vordefinierte nutzen), um Kampagnen an passenden Stellen zu platzieren.
+- Als Kunde möchte ich **relevante Kampagnen** als Popup, Banner oder an der konfigurierten Stelle sehen (nur wenn ich zum Segment gehöre und eingeloggt bin).
+- Als Kunde möchte ich Popups **schließen** können und optional **nicht erneut anzeigen** lassen.
+
+## Acceptance Criteria
+
+- [ ] Pro In-App-Nachricht/Kampagne ist ein **Darstellungstyp** wählbar: **Popup**, **Banner/Card**, oder **Slot** (Platzierung).
+- [ ] Bei **Slot**: Admin wählt einen **Platz** aus einer Liste (vordefinierte Slots wie „Menü oben“, „Menü Sidebar“, „Dashboard Hero“, „Wallet oben“, „Popup nach Login“; optional erweiterbar durch Konfiguration oder Admin-Pflege).
+- [ ] **Popup:** Wird zentral (z. B. nach Login oder beim ersten Aufruf einer relevanten Seite) als Modal/Overlay angezeigt; schließbar; optional „als gelesen“ speichern, damit es nicht erneut erscheint.
+- [ ] **Banner/Card:** Wie bisher als Einblendung oberhalb/neben dem Hauptinhalt der gewählten Seite (Menü, Wallet, Dashboard).
+- [ ] **Kunden-Frontend:** Auf den relevanten Seiten (Menü, Wallet, Dashboard) sowie global für Popups wird eine **Komponente** eingebunden, die die API für „Nachrichten für mich“ aufruft und die Nachrichten je nach Typ (Popup / Banner / Slot) an der richtigen Stelle rendert.
+- [ ] Mehrere Nachrichten pro Slot/Seite: Reihenfolge (z. B. Priorität oder Startdatum); bei Popup ggf. nacheinander oder nur eine pro Besuch.
+
+## Edge Cases
+
+- Popup und Slot „Popup nach Login“: Klarheit, ob dasselbe Konzept oder zwei getrennte Slots.
+- Keine Nachrichten für den User: Keine leeren Platzhalter anzeigen.
+- Slot existiert im Frontend nicht (z. B. alter Slot gelöscht): Nachricht wird nicht angezeigt oder auf Fallback-Slot mappen.
+
+## Abhängigkeiten
+
+- Baut auf PROJ-4c (In-App-Nachrichten, Segment-Zuordnung) und bestehender Kunden-API für „Nachrichten für aktuellen User“ auf.
+- Frontend: Einbindung der Ausspiel-Komponenten in Menü-, Wallet- und Dashboard-Seiten sowie ein globaler Provider/Container für Popups.
+
+---
+
 # PROJ-4d: Marketing-Automation (Workflows)
 
 ## Konzept
@@ -275,8 +314,8 @@ Admin: Kampagnen oder integriert in Segmente
 │   └── Button "Senden" (mit Bestätigung)
 │
 ├── In-App-Nachrichten verwalten
-│   ├── Liste: Nachricht, Segment, Anzeigeort, Zeitraum (von–bis)
-│   ├── "Neue In-App-Nachricht": Segment, Text, Link, Anzeigeort (z. B. Menü-Seite), Start/Ende
+│   ├── Liste: Nachricht, Segment, Darstellungstyp (Popup/Banner/Slot), Platzierung/Slot, Zeitraum (von–bis)
+│   ├── "Neue In-App-Nachricht": Segment, Text, Link, **Darstellungstyp** (Popup | Banner/Card | Slot), **Platzierung/Slot** (bei Slot: Auswahl aus definierbaren Slots, z. B. menu_top, dashboard_hero, popup_after_login), Start/Ende
 │   └── Optional: "Als gelesen markieren" pro User (später)
 │
 └── Incentives zuweisen
@@ -301,16 +340,36 @@ Admin: Automation (/admin/automation oder /admin/workflows)
     └── Bereich "Protokoll": letzte Ausführungen (Datum, Ergebnis, ggf. Fehler)
 ```
 
-### Kunden-Seite (In-App-Nachrichten & Incentives)
+### Kunden-Seite: Aktive Ausspielung (Popup, In-App, Slots)
 
 ```
-Menü-Seite (oder Dashboard/Wallet)
-└── Bereich für In-App-Nachrichten (nur wenn eingeloggt)
-    ├── Banner oder Hinweis-Karte (wenn User in mindestens einem Segment mit aktiver Nachricht)
-    └── Optional: Anzeige von Incentives (z. B. "Ihr persönlicher Gutschein", "Bonus-Guthaben")
+App-Layout (global, nur wenn eingeloggt)
+└── Marketing-Popup-Container (global)
+    └── Popup/Modal für Nachrichten mit Darstellungstyp "Popup" (z. B. nach Login oder erstem Seitenbesuch)
+        └── Schließen-Button, optional "Nicht wieder anzeigen"
+
+Menü-Seite (/menu)
+├── Slot-Bereiche (dynamisch nach konfigurierten Slots, z. B. "menu_top", "menu_sidebar")
+│   └── Pro Slot: Liste der Nachrichten für diesen Slot (Banner/Card oder Slot-Inhalt)
+└── Bestehender Inhalt (Speiseplan, Warenkorb)
+
+Wallet-Seite (/wallet)
+├── Slot-Bereiche (z. B. "wallet_top")
+│   └── Pro Slot: Nachrichten für diesen Slot
+└── Bestehender Inhalt
+
+Dashboard-Seite (/dashboard)
+├── Slot-Bereiche (z. B. "dashboard_hero", "dashboard_sidebar")
+│   └── Pro Slot: Nachrichten für diesen Slot
+└── Bestehender Inhalt
+
+Gemeinsam für alle Seiten
+├── Eine Kunden-API-Abfrage: "Nachrichten für mich" (nach displayPlace/Slot + Segment + Zeitraum)
+├── Darstellung je nach Typ: Popup → Modal; Banner/Card → Karte oberhalb/neben Inhalt; Slot → Inhalt im jeweiligen Slot-Bereich
+└── Optional: "Als gelesen" markieren (Backend + Frontend)
 ```
 
-Keine neuen Seiten für den Kunden nötig: Nachrichten und Incentives werden in **bestehende** Seiten (Menü, Wallet, ggf. Dashboard) eingeblendet.
+**Slot-Konzept:** Slots sind **Platzierungs-IDs** (z. B. `menu_top`, `menu_sidebar`, `dashboard_hero`, `wallet_top`, `popup_after_login`). Das Frontend reserviert pro Seite feste Bereiche für diese Slot-IDs; der Admin wählt beim Anlegen einer Nachricht einen Slot. Vordefinierte Slots können in Konfiguration oder Admin-UI gepflegt und erweiterbar gehalten werden.
 
 ---
 
@@ -331,10 +390,13 @@ Beschreibung in **Fachsprache**, ohne Datenbank-Syntax.
 - **Verknüpfung:** Mehrere Regeln pro Segment, Kombination UND oder ODER.
 - Die **Zielgruppen-Berechnung** („welche User erfüllen die Regeln?“) wird bei Bedarf ausgeführt (beim Speichern, bei Kampagne, bei Workflow); Ergebnis kann zwischengespeichert werden (z. B. Anzahl, optional Liste der User-IDs für Ausspielung).
 
-### Ausspielung (PROJ-4c)
+### Ausspielung (PROJ-4c) inkl. Aktive Kundenausspielung
 
 - **E-Mail-Versand:** Pro Versand: welches Segment, Betreff, Inhalt (oder Vorlagen-ID), Zeitpunkt, Status (z. B. geplant/versendet/teilweise fehlgeschlagen), optional Kurz-Log (Anzahl versendet, Fehler).
-- **In-App-Nachricht:** ID, Segment, Text, optional Link, Anzeigeort (z. B. „Menü-Seite“), Start- und Enddatum, aktiv ja/nein. Welcher User welche Nachricht wann gesehen hat, optional speicherbar („gelesen“).
+- **In-App-Nachricht:** ID, Segment, Text, optional Link, Start- und Enddatum, aktiv ja/nein. **Erweiterung für aktive Ausspielung:**
+  - **Darstellungstyp (displayType):** „Popup“, „Banner/Card“ oder „Slot“ – steuert, ob als Modal, als klassischer Banner oder in einem dynamischen Platz (Slot) gerendert wird.
+  - **Platzierung (placement/slotId):** Bei Typ „Banner/Card“: Anzeigeort wie bisher (z. B. Menü, Wallet, Dashboard). Bei Typ „Slot“: **Slot-ID** (z. B. `menu_top`, `menu_sidebar`, `dashboard_hero`, `wallet_top`, `popup_after_login`). Slot-Liste kann vordefiniert und erweiterbar sein (Konfiguration oder Admin-Pflege).
+- **Gelesen-Status:** Welcher User welche Nachricht wann gesehen hat, optional speicherbar („gelesen“), damit Popup/Banner nicht erneut angezeigt wird.
 - **Incentive-Zuweisung:** Verknüpfung Segment ↔ Incentive (z. B. Coupon, Guthaben-Aktion); Ausspielung „nur E-Mail“, „nur In-App“ oder beides. Einlösung über bestehendes Coupon-/Wallet-System.
 - **Marketing-Einwilligung:** Pro User ein Merkmal (z. B. „Marketing-E-Mails erlaubt“); nur bei Ja werden Marketing-Mails an diesen User gesendet.
 
@@ -354,7 +416,7 @@ Kunden bekommen **keine** neuen eigenen Entitäten; sie werden über bestehende 
 - **Segmente:** Anlegen, Lesen, Aktualisieren, Löschen (nur eigene Organisation); vor Löschen prüfen, ob Workflows das Segment nutzen.
 - **Regeln & Zielgruppe:** Regeln speichern; Service/Funktion „Zielgruppe berechnen“ (Eingabe: Segment-ID → Ausgabe: Liste User-IDs oder nur Anzahl); optional mit Timeout/Limit bei sehr großen Organisationen.
 - **E-Mail:** Versand an eine Liste von E-Mail-Adressen (aus Segment + Marketing-Einwilligung); Nutzung eines E-Mail-Dienstes (SMTP oder Provider); Fehler protokollieren, ggf. Queue für Retry.
-- **In-App-Nachrichten:** CRUD für Nachrichten (Segment, Text, Zeitraum, Anzeigeort); API für Kunden-App: „Nachrichten für aktuellen User abrufen“ (nur eingeloggt, nur aktive Nachrichten für Segmente, in denen der User ist).
+- **In-App-Nachrichten:** CRUD für Nachrichten (Segment, Text, Zeitraum, **Darstellungstyp**, **Platzierung/Slot**); API für Kunden-App: „Nachrichten für aktuellen User abrufen“ (nur eingeloggt, nur aktive Nachrichten für Segmente, in denen der User ist), Filter nach displayPlace/Slot und ggf. displayType, damit das Frontend Popup-, Banner- und Slot-Nachrichten getrennt rendern kann.
 - **Incentives:** Zuweisung Segment ↔ Coupon/Guthaben-Aktion; Kunden-API prüft bei Anzeige/Einlösung, ob User im Segment ist (über bestehende Coupon-/Wallet-Logik erweitern).
 - **Workflows:** CRUD für Workflows; **Scheduler:** zeitgesteuerte Workflows in definierten Intervallen ausführen (z. B. Cron-Job oder geplanter Task); **Ereignis-Hooks:** bei definierten Ereignissen (z. B. „User registriert“, „User erstmals in Segment“) Aktion auslösen; Idempotenz bei Zeit-Trigger (pro Tag/Woche/Monat nur einmal).
 - **Logging:** Workflow-Ausführungen und E-Mail-Fehler protokollieren, für Admin-Protokoll abrufbar.
@@ -369,6 +431,8 @@ Kunden bekommen **keine** neuen eigenen Entitäten; sie werden über bestehende 
 | **Zielgruppen on-demand oder per Job berechnen** | Echtzeit bei jeder Seitenaufruf wäre bei vielen Usern teuer; Berechnung beim Speichern/Kampagne/Workflow oder per geplantem Job reicht fachlich und skaliert besser. |
 | **E-Mail über externen Dienst (SMTP/Provider)** | Zuverlässiger Versand, Bounce-Handling und Reputation; keine eigene Mail-Infrastruktur nötig. |
 | **In-App-Nachrichten über bestehende Seiten** | Kein neues „Nachrichten-Center“ nötig; Nutzer sehen Hinweise dort, wo sie ohnehin sind (Menü, Wallet), geringerer Aufwand, höhere Sichtbarkeit. |
+| **Popup, Banner und Slots als Darstellungstypen** | Popup für hohe Aufmerksamkeit (z. B. nach Login); Banner für klassische Einblendung; Slots ermöglichen dynamisch definierbare Platzierungen, die der Admin wählt, ohne Code-Änderung. |
+| **Slot-IDs als Platzierungsliste** | Vordefinierte und erweiterbare Slot-IDs (z. B. menu_top, popup_after_login) geben dem Admin Kontrolle über „wo“ die Nachricht erscheint; Frontend rendert pro Slot einen Bereich und füllt ihn mit den passenden Nachrichten. |
 | **Incentives über bestehendes Coupon-/Wallet-System** | Weniger Duplikate, einheitliche Einlösung und Buchhaltung; Segment nur als zusätzliche „Zielgruppen-Filter“-Logik. |
 | **Workflow-Ausführung über Scheduler/Cron** | Einfach zu betreiben, gut vorhersehbar; zeitgesteuerte Trigger sind Standard. Ereignisgesteuerte Trigger über Aufrufe aus der App (z. B. nach Registrierung, nach Segment-Berechnung). |
 | **Zeitzone für Zeit-Trigger** | Eine Zeitzone pro Organisation oder System-weit (z. B. Europe/Berlin) dokumentieren und konfigurierbar machen, damit „täglich 8:00“ eindeutig ist. |
@@ -488,8 +552,8 @@ An einem Ort E-Mails versenden, In-App-Nachrichten verwalten und Incentives zuwe
   - Bereich „E-Mail an Segment senden“: Segment-Dropdown, Betreff, Inhalt (Textarea oder Vorlagen-Dropdown), Hinweis „X Empfänger (mit Marketing-Einwilligung)“.
   - Button „Senden“ mit Bestätigung (Modal: „An X Empfänger senden?“).
 - **In-App-Tab:**
-  - Liste der In-App-Nachrichten (Card oder Tabelle): Segment, Text (gekürzt), Anzeigeort, Zeitraum (von–bis), Aktiv; Aktionen Bearbeiten, Deaktivieren.
-  - Button „Neue In-App-Nachricht“; Formular: Segment, Text, optional Link, Anzeigeort, Start-/Enddatum.
+  - Liste der In-App-Nachrichten (Card oder Tabelle): Segment, Text (gekürzt), **Darstellungstyp** (Popup/Banner/Slot), **Platzierung/Slot**, Zeitraum (von–bis), Aktiv; Aktionen Bearbeiten, Deaktivieren.
+  - Button „Neue In-App-Nachricht“; Formular: Segment, Text, optional Link, **Darstellungstyp** (Popup | Banner/Card | Slot), **Platzierung/Slot** (Dropdown mit definierbaren Slots, z. B. Menü oben, Sidebar, Dashboard Hero, Popup nach Login), Start-/Enddatum.
 - **Incentives-Tab:**
   - Übersicht: Segment ↔ Incentive (Coupon/Guthaben); „Incentive zuweisen“: Segment wählen, Typ (Coupon/Guthaben), Verknüpfung zu bestehendem Coupon oder Aktion.
 
