@@ -104,7 +104,7 @@ export async function POST(
 
     const filename = `Rechnung_${invoice.company.name.replace(/[^a-zA-Z0-9]/g, '_')}_${invoice.year}_${String(invoice.month).padStart(2, '0')}.pdf`
 
-    return new NextResponse(pdfBytes, {
+    return new NextResponse(Buffer.from(pdfBytes), {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
