@@ -147,6 +147,28 @@ exports.Prisma.CompanyScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CompanyInvoiceScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  year: 'year',
+  month: 'month',
+  status: 'status',
+  totalAmount: 'totalAmount',
+  invoicedAt: 'invoicedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompanyInvoiceItemScalarFieldEnum = {
+  id: 'id',
+  companyInvoiceId: 'companyInvoiceId',
+  orderId: 'orderId',
+  orderNumber: 'orderNumber',
+  orderDate: 'orderDate',
+  employeeName: 'employeeName',
+  amount: 'amount'
+};
+
 exports.Prisma.CompanyEmployeeScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -515,6 +537,8 @@ exports.MetadataType = exports.$Enums.MetadataType = {
 exports.Prisma.ModelName = {
   Organization: 'Organization',
   Company: 'Company',
+  CompanyInvoice: 'CompanyInvoice',
+  CompanyInvoiceItem: 'CompanyInvoiceItem',
   CompanyEmployee: 'CompanyEmployee',
   Location: 'Location',
   User: 'User',

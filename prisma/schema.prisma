@@ -51,8 +51,46 @@ model Company {
 
   employees        CompanyEmployee[]
   orders           Order[]
+  invoices        CompanyInvoice[]
 
   @@map("companies")
+}
+
+// Monatsrechnung pro Vertragspartner (Zuschusskosten)
+model CompanyInvoice {
+  id              String    @id @default(cuid())
+  companyId       String
+  year            Int       // Abrechnungsjahr
+  month           Int       // Abrechnungsmonat 1–12
+  status          String    @default("DRAFT") @db.VarChar(20) // DRAFT | INVOICED | PAID
+  totalAmount     Decimal   @db.Decimal(10, 2) // Summe Zuschusskosten
+  invoicedAt      DateTime? // Zeitpunkt PDF-Export / „Rechnung gestellt“
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  company         Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  items           CompanyInvoiceItem[]
+
+  @@unique([companyId, year, month])
+  @@index([companyId])
+  @@index([status])
+  @@map("company_invoices")
+}
+
+// Einzelposten der Monatsrechnung (Bestellnummer, Datum, Mitarbeiter, Summe)
+model CompanyInvoiceItem {
+  id              String    @id @default(cuid())
+  companyInvoiceId String
+  orderId         String    @unique // Jede Bestellung nur auf einer Rechnung
+  orderNumber     String    @db.VarChar(50) // z. B. pickupCode für Anzeige
+  orderDate       DateTime  // Bestelldatum
+  employeeName    String    @db.VarChar(200) // Name des bestellenden Mitarbeiters
+  amount          Decimal   @db.Decimal(10, 2) // Zuschussbetrag
+
+  companyInvoice  CompanyInvoice @relation(fields: [companyInvoiceId], references: [id], onDelete: Cascade)
+
+  @@index([companyInvoiceId])
+  @@map("company_invoice_items")
 }
 
 // Zuordnung: Company -> Employee (User ist Mitarbeiter eines Unternehmens)
@@ -368,6 +406,7 @@ model Order {
   @@index([locationId])
   @@index([pickupCode])
   @@index([pickupDate])
+  @@index([employerCompanyId, createdAt])
   @@map("orders")
 }
 

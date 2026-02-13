@@ -21,6 +21,7 @@ import {
   Megaphone,
   Mail,
   Zap,
+  Receipt,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -96,6 +97,7 @@ const menuGroups = [
     items: [
       { title: 'Standorte', url: '/admin/locations', icon: Pin },
       { title: 'Unternehmen', url: '/admin/companies', icon: Building2 },
+      { title: 'Vertragspartner-Abrechnung', url: '/admin/billing', icon: Receipt },
       { title: 'Nutzer', url: '/admin/users', icon: Users },
       { title: 'Guthaben aufladen', url: '/admin/wallet/top-up', icon: Coins },
       { title: 'Guthaben verwalten', url: '/admin/wallet/balances', icon: Wallet },
