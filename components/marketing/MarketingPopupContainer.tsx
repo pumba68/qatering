@@ -7,7 +7,8 @@ import { useState } from 'react'
 
 /**
  * Zeigt die erste ungelesene Popup-Nachricht als Modal.
- * Nur für eingeloggte Nutzer; ruft Mark-as-read beim Schließen auf.
+ * Nur für eingeloggte Kunden (Rolle CUSTOMER); ruft Mark-as-read beim Schließen auf.
+ * Wird nur auf der Menü-Seite gerendert (Kunden-Einstieg nach Login).
  */
 export function MarketingPopupContainer() {
   const { data: session, status } = useSession()
@@ -23,7 +24,8 @@ export function MarketingPopupContainer() {
     await markRead(messageId)
   }
 
-  if (status !== 'authenticated' || !session?.user) return null
+  const role = (session?.user as { role?: string } | undefined)?.role
+  if (status !== 'authenticated' || !session?.user || role !== 'CUSTOMER') return null
   if (!current) return null
 
   return (

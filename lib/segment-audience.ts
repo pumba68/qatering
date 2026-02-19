@@ -206,8 +206,10 @@ export function computeSegmentAudienceWithRuleMatch(
 }
 
 /**
- * Lädt alle Kunden-Daten für eine Organisation (User mit Bestellungen an erlaubten Locations).
- * Optional: allowedLocationIds = null => alle Locations der Org.
+ * Lädt alle Kunden-Daten für eine Organisation.
+ * Inkludiert auch Nutzer ohne Bestellungen, damit Segmente wie „Rolle = CUSTOMER“
+ * oder „Registriert in letzten X Tagen“ funktionieren.
+ * allowedLocationIds = null => alle Locations der Org (für order-basierte Metriken).
  */
 export async function loadAudienceData(
   organizationId: string,
@@ -236,18 +238,18 @@ export async function loadAudienceData(
     },
   })
 
-  const userIds = Array.from(new Set(orders.map((o) => o.userId)))
-  if (userIds.length === 0) return []
-
+  // Alle Nutzer der Organisation (inkl. ohne Bestellungen) für Segment-Regeln wie Rolle, Registrierung
   const users = await prisma.user.findMany({
-    where: { id: { in: userIds } },
+    where: { organizationId },
     select: {
       id: true,
       createdAt: true,
       role: true,
     },
   })
+  if (users.length === 0) return []
 
+  const userIds = users.map((u) => u.id)
   const companyEmployees = await prisma.companyEmployee.findMany({
     where: { userId: { in: userIds }, isActive: true },
     select: { userId: true, companyId: true },
