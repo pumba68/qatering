@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { prisma } from '@/lib/prisma'
+import { Decimal } from '@/src/generated/prisma/runtime/library'
 import { z } from 'zod'
 
 const createSchema = z.object({
