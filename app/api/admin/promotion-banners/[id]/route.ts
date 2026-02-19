@@ -14,13 +14,13 @@ const updateSchema = z.object({
 // GET: Einzelnes Promotion-Banner
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const auth = await requireAdminRole()
     if (auth.error) return auth.error
 
-    const { id } = params
+    const { id } = await params
     const banner = await prisma.promotionBanner.findUnique({
       where: { id },
     })
@@ -45,13 +45,13 @@ export async function GET(
 // PATCH: Promotion-Banner aktualisieren
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const auth = await requireAdminRole()
     if (auth.error) return auth.error
 
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
     const validated = updateSchema.parse(body)
 
@@ -86,13 +86,13 @@ export async function PATCH(
 // DELETE: Promotion-Banner löschen
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const auth = await requireAdminRole()
     if (auth.error) return auth.error
 
-    const { id } = params
+    const { id } = await params
 
     await prisma.promotionBanner.delete({
       where: { id },

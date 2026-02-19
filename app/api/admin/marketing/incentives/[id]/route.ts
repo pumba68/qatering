@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { prisma } from '@/lib/prisma'
+import { Decimal } from '@/src/generated/prisma/runtime/library'
 import { z } from 'zod'
 
 const updateSchema = z.object({
@@ -76,7 +77,7 @@ export async function PATCH(
     if (validated.couponId !== undefined) updateData.couponId = validated.couponId || null
     if (validated.personaliseCoupon !== undefined) updateData.personaliseCoupon = validated.personaliseCoupon
     if (validated.walletAmount !== undefined) {
-      updateData.walletAmount = validated.walletAmount != null ? validated.walletAmount : null
+      updateData.walletAmount = validated.walletAmount != null ? new Decimal(validated.walletAmount) : null
     }
     if (validated.startDate !== undefined) {
       updateData.startDate = validated.startDate ? new Date(validated.startDate) : new Date()

@@ -29,6 +29,7 @@ export async function GET() {
         segmentIncentive: {
           select: {
             name: true,
+            endDate: true,
             coupon: { select: { name: true, discountValue: true, type: true } },
           },
         },

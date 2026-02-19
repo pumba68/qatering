@@ -559,7 +559,7 @@ export default function CampaignsPage() {
                       ) : (
                         <>
                           <Wallet className="h-3.5 w-3.5" />
-                          {i.walletAmount} €
+                          {i.walletAmount != null ? Number(i.walletAmount).toFixed(2) : '0'} €
                         </>
                       )}
                       <span>·</span>
