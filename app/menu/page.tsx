@@ -5,6 +5,7 @@ import MenuWeek from '@/components/menu/MenuWeek'
 import CartSidebar from '@/components/order/CartSidebar'
 import { MarketingSlotArea } from '@/components/marketing/MarketingSlotArea'
 import { MarketingBannerArea } from '@/components/marketing/MarketingBannerArea'
+import { IncentiveCodesWidget } from '@/components/marketing/IncentiveCodesWidget'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart, MapPin, ChevronDown } from 'lucide-react'
 import { formatCurrency } from '@/lib/utils'
@@ -172,6 +173,7 @@ export default function MenuPage() {
         <div className="space-y-4 mb-6">
           <MarketingSlotArea slotId="menu_top" />
           <MarketingBannerArea displayPlace="menu" />
+          <IncentiveCodesWidget />
         </div>
         {/* Standort-Switcher (nur wenn mehrere Locations) */}
         {locations.length > 1 && (

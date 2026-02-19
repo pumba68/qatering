@@ -153,6 +153,16 @@ export type MarketingWorkflow = $Result.DefaultSelection<Prisma.$MarketingWorkfl
  * 
  */
 export type WorkflowExecutionLog = $Result.DefaultSelection<Prisma.$WorkflowExecutionLogPayload>
+/**
+ * Model SegmentIncentive
+ * 
+ */
+export type SegmentIncentive = $Result.DefaultSelection<Prisma.$SegmentIncentivePayload>
+/**
+ * Model IncentiveGrant
+ * 
+ */
+export type IncentiveGrant = $Result.DefaultSelection<Prisma.$IncentiveGrantPayload>
 
 /**
  * Enums
@@ -181,7 +191,8 @@ export const WalletTransactionType: {
   TOP_UP: 'TOP_UP',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
   REFUND: 'REFUND',
-  ADJUSTMENT: 'ADJUSTMENT'
+  ADJUSTMENT: 'ADJUSTMENT',
+  INCENTIVE: 'INCENTIVE'
 };
 
 export type WalletTransactionType = (typeof WalletTransactionType)[keyof typeof WalletTransactionType]
@@ -659,6 +670,26 @@ export class PrismaClient<
     * ```
     */
   get workflowExecutionLog(): Prisma.WorkflowExecutionLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.segmentIncentive`: Exposes CRUD operations for the **SegmentIncentive** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SegmentIncentives
+    * const segmentIncentives = await prisma.segmentIncentive.findMany()
+    * ```
+    */
+  get segmentIncentive(): Prisma.SegmentIncentiveDelegate<ExtArgs>;
+
+  /**
+   * `prisma.incentiveGrant`: Exposes CRUD operations for the **IncentiveGrant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IncentiveGrants
+    * const incentiveGrants = await prisma.incentiveGrant.findMany()
+    * ```
+    */
+  get incentiveGrant(): Prisma.IncentiveGrantDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1127,7 +1158,9 @@ export namespace Prisma {
     InAppMessage: 'InAppMessage',
     InAppMessageRead: 'InAppMessageRead',
     MarketingWorkflow: 'MarketingWorkflow',
-    WorkflowExecutionLog: 'WorkflowExecutionLog'
+    WorkflowExecutionLog: 'WorkflowExecutionLog',
+    SegmentIncentive: 'SegmentIncentive',
+    IncentiveGrant: 'IncentiveGrant'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1143,7 +1176,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog"
+      modelProps: "organization" | "company" | "companyInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "incentiveGrant"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3107,6 +3140,146 @@ export namespace Prisma {
           }
         }
       }
+      SegmentIncentive: {
+        payload: Prisma.$SegmentIncentivePayload<ExtArgs>
+        fields: Prisma.SegmentIncentiveFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SegmentIncentiveFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SegmentIncentiveFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>
+          }
+          findFirst: {
+            args: Prisma.SegmentIncentiveFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SegmentIncentiveFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>
+          }
+          findMany: {
+            args: Prisma.SegmentIncentiveFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>[]
+          }
+          create: {
+            args: Prisma.SegmentIncentiveCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>
+          }
+          createMany: {
+            args: Prisma.SegmentIncentiveCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SegmentIncentiveCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>[]
+          }
+          delete: {
+            args: Prisma.SegmentIncentiveDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>
+          }
+          update: {
+            args: Prisma.SegmentIncentiveUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>
+          }
+          deleteMany: {
+            args: Prisma.SegmentIncentiveDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SegmentIncentiveUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SegmentIncentiveUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SegmentIncentivePayload>
+          }
+          aggregate: {
+            args: Prisma.SegmentIncentiveAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSegmentIncentive>
+          }
+          groupBy: {
+            args: Prisma.SegmentIncentiveGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SegmentIncentiveGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SegmentIncentiveCountArgs<ExtArgs>
+            result: $Utils.Optional<SegmentIncentiveCountAggregateOutputType> | number
+          }
+        }
+      }
+      IncentiveGrant: {
+        payload: Prisma.$IncentiveGrantPayload<ExtArgs>
+        fields: Prisma.IncentiveGrantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IncentiveGrantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IncentiveGrantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>
+          }
+          findFirst: {
+            args: Prisma.IncentiveGrantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IncentiveGrantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>
+          }
+          findMany: {
+            args: Prisma.IncentiveGrantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>[]
+          }
+          create: {
+            args: Prisma.IncentiveGrantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>
+          }
+          createMany: {
+            args: Prisma.IncentiveGrantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IncentiveGrantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>[]
+          }
+          delete: {
+            args: Prisma.IncentiveGrantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>
+          }
+          update: {
+            args: Prisma.IncentiveGrantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>
+          }
+          deleteMany: {
+            args: Prisma.IncentiveGrantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IncentiveGrantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.IncentiveGrantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IncentiveGrantPayload>
+          }
+          aggregate: {
+            args: Prisma.IncentiveGrantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIncentiveGrant>
+          }
+          groupBy: {
+            args: Prisma.IncentiveGrantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IncentiveGrantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IncentiveGrantCountArgs<ExtArgs>
+            result: $Utils.Optional<IncentiveGrantCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3273,6 +3446,7 @@ export namespace Prisma {
     segments: number
     inAppMessages: number
     workflows: number
+    segmentIncentives: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3281,6 +3455,7 @@ export namespace Prisma {
     segments?: boolean | OrganizationCountOutputTypeCountSegmentsArgs
     inAppMessages?: boolean | OrganizationCountOutputTypeCountInAppMessagesArgs
     workflows?: boolean | OrganizationCountOutputTypeCountWorkflowsArgs
+    segmentIncentives?: boolean | OrganizationCountOutputTypeCountSegmentIncentivesArgs
   }
 
   // Custom InputTypes
@@ -3327,6 +3502,13 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountWorkflowsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MarketingWorkflowWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountSegmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SegmentIncentiveWhereInput
   }
 
 
@@ -3479,6 +3661,7 @@ export namespace Prisma {
     sessions: number
     accounts: number
     couponRedemptions: number
+    incentiveGrants: number
     walletTransactions: number
     performedWalletActions: number
   }
@@ -3490,6 +3673,7 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     couponRedemptions?: boolean | UserCountOutputTypeCountCouponRedemptionsArgs
+    incentiveGrants?: boolean | UserCountOutputTypeCountIncentiveGrantsArgs
     walletTransactions?: boolean | UserCountOutputTypeCountWalletTransactionsArgs
     performedWalletActions?: boolean | UserCountOutputTypeCountPerformedWalletActionsArgs
   }
@@ -3545,6 +3729,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCouponRedemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CouponRedemptionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountIncentiveGrantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IncentiveGrantWhereInput
   }
 
   /**
@@ -3759,10 +3950,16 @@ export namespace Prisma {
 
   export type CouponCountOutputType = {
     redemptions: number
+    incentiveGrants: number
+    segmentIncentives: number
+    promotionBanners: number
   }
 
   export type CouponCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     redemptions?: boolean | CouponCountOutputTypeCountRedemptionsArgs
+    incentiveGrants?: boolean | CouponCountOutputTypeCountIncentiveGrantsArgs
+    segmentIncentives?: boolean | CouponCountOutputTypeCountSegmentIncentivesArgs
+    promotionBanners?: boolean | CouponCountOutputTypeCountPromotionBannersArgs
   }
 
   // Custom InputTypes
@@ -3783,6 +3980,27 @@ export namespace Prisma {
     where?: CouponRedemptionWhereInput
   }
 
+  /**
+   * CouponCountOutputType without action
+   */
+  export type CouponCountOutputTypeCountIncentiveGrantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IncentiveGrantWhereInput
+  }
+
+  /**
+   * CouponCountOutputType without action
+   */
+  export type CouponCountOutputTypeCountSegmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SegmentIncentiveWhereInput
+  }
+
+  /**
+   * CouponCountOutputType without action
+   */
+  export type CouponCountOutputTypeCountPromotionBannersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PromotionBannerWhereInput
+  }
+
 
   /**
    * Count Type CustomerSegmentCountOutputType
@@ -3791,11 +4009,13 @@ export namespace Prisma {
   export type CustomerSegmentCountOutputType = {
     inAppMessages: number
     workflows: number
+    segmentIncentives: number
   }
 
   export type CustomerSegmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     inAppMessages?: boolean | CustomerSegmentCountOutputTypeCountInAppMessagesArgs
     workflows?: boolean | CustomerSegmentCountOutputTypeCountWorkflowsArgs
+    segmentIncentives?: boolean | CustomerSegmentCountOutputTypeCountSegmentIncentivesArgs
   }
 
   // Custom InputTypes
@@ -3821,6 +4041,13 @@ export namespace Prisma {
    */
   export type CustomerSegmentCountOutputTypeCountWorkflowsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MarketingWorkflowWhereInput
+  }
+
+  /**
+   * CustomerSegmentCountOutputType without action
+   */
+  export type CustomerSegmentCountOutputTypeCountSegmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SegmentIncentiveWhereInput
   }
 
 
@@ -3883,6 +4110,37 @@ export namespace Prisma {
    */
   export type MarketingWorkflowCountOutputTypeCountExecutionLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WorkflowExecutionLogWhereInput
+  }
+
+
+  /**
+   * Count Type SegmentIncentiveCountOutputType
+   */
+
+  export type SegmentIncentiveCountOutputType = {
+    grants: number
+  }
+
+  export type SegmentIncentiveCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    grants?: boolean | SegmentIncentiveCountOutputTypeCountGrantsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SegmentIncentiveCountOutputType without action
+   */
+  export type SegmentIncentiveCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentiveCountOutputType
+     */
+    select?: SegmentIncentiveCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SegmentIncentiveCountOutputType without action
+   */
+  export type SegmentIncentiveCountOutputTypeCountGrantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IncentiveGrantWhereInput
   }
 
 
@@ -4083,6 +4341,7 @@ export namespace Prisma {
     segments?: boolean | Organization$segmentsArgs<ExtArgs>
     inAppMessages?: boolean | Organization$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | Organization$workflowsArgs<ExtArgs>
+    segmentIncentives?: boolean | Organization$segmentIncentivesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -4114,6 +4373,7 @@ export namespace Prisma {
     segments?: boolean | Organization$segmentsArgs<ExtArgs>
     inAppMessages?: boolean | Organization$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | Organization$workflowsArgs<ExtArgs>
+    segmentIncentives?: boolean | Organization$segmentIncentivesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4126,6 +4386,7 @@ export namespace Prisma {
       segments: Prisma.$CustomerSegmentPayload<ExtArgs>[]
       inAppMessages: Prisma.$InAppMessagePayload<ExtArgs>[]
       workflows: Prisma.$MarketingWorkflowPayload<ExtArgs>[]
+      segmentIncentives: Prisma.$SegmentIncentivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4505,6 +4766,7 @@ export namespace Prisma {
     segments<T extends Organization$segmentsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$segmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerSegmentPayload<ExtArgs>, T, "findMany"> | Null>
     inAppMessages<T extends Organization$inAppMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$inAppMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InAppMessagePayload<ExtArgs>, T, "findMany"> | Null>
     workflows<T extends Organization$workflowsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$workflowsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingWorkflowPayload<ExtArgs>, T, "findMany"> | Null>
+    segmentIncentives<T extends Organization$segmentIncentivesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$segmentIncentivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4953,6 +5215,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MarketingWorkflowScalarFieldEnum | MarketingWorkflowScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.segmentIncentives
+   */
+  export type Organization$segmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    where?: SegmentIncentiveWhereInput
+    orderBy?: SegmentIncentiveOrderByWithRelationInput | SegmentIncentiveOrderByWithRelationInput[]
+    cursor?: SegmentIncentiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SegmentIncentiveScalarFieldEnum | SegmentIncentiveScalarFieldEnum[]
   }
 
   /**
@@ -10443,6 +10725,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     couponRedemptions?: boolean | User$couponRedemptionsArgs<ExtArgs>
+    incentiveGrants?: boolean | User$incentiveGrantsArgs<ExtArgs>
     wallet?: boolean | User$walletArgs<ExtArgs>
     walletTransactions?: boolean | User$walletTransactionsArgs<ExtArgs>
     performedWalletActions?: boolean | User$performedWalletActionsArgs<ExtArgs>
@@ -10484,6 +10767,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     couponRedemptions?: boolean | User$couponRedemptionsArgs<ExtArgs>
+    incentiveGrants?: boolean | User$incentiveGrantsArgs<ExtArgs>
     wallet?: boolean | User$walletArgs<ExtArgs>
     walletTransactions?: boolean | User$walletTransactionsArgs<ExtArgs>
     performedWalletActions?: boolean | User$performedWalletActionsArgs<ExtArgs>
@@ -10503,6 +10787,7 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       couponRedemptions: Prisma.$CouponRedemptionPayload<ExtArgs>[]
+      incentiveGrants: Prisma.$IncentiveGrantPayload<ExtArgs>[]
       wallet: Prisma.$WalletPayload<ExtArgs> | null
       walletTransactions: Prisma.$WalletTransactionPayload<ExtArgs>[]
       performedWalletActions: Prisma.$WalletTransactionPayload<ExtArgs>[]
@@ -10889,6 +11174,7 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany"> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany"> | Null>
     couponRedemptions<T extends User$couponRedemptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$couponRedemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouponRedemptionPayload<ExtArgs>, T, "findMany"> | Null>
+    incentiveGrants<T extends User$incentiveGrantsArgs<ExtArgs> = {}>(args?: Subset<T, User$incentiveGrantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findMany"> | Null>
     wallet<T extends User$walletArgs<ExtArgs> = {}>(args?: Subset<T, User$walletArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     walletTransactions<T extends User$walletTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$walletTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     performedWalletActions<T extends User$performedWalletActionsArgs<ExtArgs> = {}>(args?: Subset<T, User$performedWalletActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletTransactionPayload<ExtArgs>, T, "findMany"> | Null>
@@ -11381,6 +11667,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CouponRedemptionScalarFieldEnum | CouponRedemptionScalarFieldEnum[]
+  }
+
+  /**
+   * User.incentiveGrants
+   */
+  export type User$incentiveGrantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    where?: IncentiveGrantWhereInput
+    orderBy?: IncentiveGrantOrderByWithRelationInput | IncentiveGrantOrderByWithRelationInput[]
+    cursor?: IncentiveGrantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IncentiveGrantScalarFieldEnum | IncentiveGrantScalarFieldEnum[]
   }
 
   /**
@@ -12442,6 +12748,7 @@ export namespace Prisma {
     description: string | null
     orderId: string | null
     performedById: string | null
+    incentiveGrantId: string | null
     createdAt: Date | null
   }
 
@@ -12455,6 +12762,7 @@ export namespace Prisma {
     description: string | null
     orderId: string | null
     performedById: string | null
+    incentiveGrantId: string | null
     createdAt: Date | null
   }
 
@@ -12468,6 +12776,7 @@ export namespace Prisma {
     description: number
     orderId: number
     performedById: number
+    incentiveGrantId: number
     createdAt: number
     _all: number
   }
@@ -12495,6 +12804,7 @@ export namespace Prisma {
     description?: true
     orderId?: true
     performedById?: true
+    incentiveGrantId?: true
     createdAt?: true
   }
 
@@ -12508,6 +12818,7 @@ export namespace Prisma {
     description?: true
     orderId?: true
     performedById?: true
+    incentiveGrantId?: true
     createdAt?: true
   }
 
@@ -12521,6 +12832,7 @@ export namespace Prisma {
     description?: true
     orderId?: true
     performedById?: true
+    incentiveGrantId?: true
     createdAt?: true
     _all?: true
   }
@@ -12621,6 +12933,7 @@ export namespace Prisma {
     description: string | null
     orderId: string | null
     performedById: string | null
+    incentiveGrantId: string | null
     createdAt: Date
     _count: WalletTransactionCountAggregateOutputType | null
     _avg: WalletTransactionAvgAggregateOutputType | null
@@ -12653,10 +12966,12 @@ export namespace Prisma {
     description?: boolean
     orderId?: boolean
     performedById?: boolean
+    incentiveGrantId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     order?: boolean | WalletTransaction$orderArgs<ExtArgs>
     performedBy?: boolean | WalletTransaction$performedByArgs<ExtArgs>
+    incentiveGrant?: boolean | WalletTransaction$incentiveGrantArgs<ExtArgs>
   }, ExtArgs["result"]["walletTransaction"]>
 
   export type WalletTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12669,10 +12984,12 @@ export namespace Prisma {
     description?: boolean
     orderId?: boolean
     performedById?: boolean
+    incentiveGrantId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     order?: boolean | WalletTransaction$orderArgs<ExtArgs>
     performedBy?: boolean | WalletTransaction$performedByArgs<ExtArgs>
+    incentiveGrant?: boolean | WalletTransaction$incentiveGrantArgs<ExtArgs>
   }, ExtArgs["result"]["walletTransaction"]>
 
   export type WalletTransactionSelectScalar = {
@@ -12685,6 +13002,7 @@ export namespace Prisma {
     description?: boolean
     orderId?: boolean
     performedById?: boolean
+    incentiveGrantId?: boolean
     createdAt?: boolean
   }
 
@@ -12692,11 +13010,13 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     order?: boolean | WalletTransaction$orderArgs<ExtArgs>
     performedBy?: boolean | WalletTransaction$performedByArgs<ExtArgs>
+    incentiveGrant?: boolean | WalletTransaction$incentiveGrantArgs<ExtArgs>
   }
   export type WalletTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     order?: boolean | WalletTransaction$orderArgs<ExtArgs>
     performedBy?: boolean | WalletTransaction$performedByArgs<ExtArgs>
+    incentiveGrant?: boolean | WalletTransaction$incentiveGrantArgs<ExtArgs>
   }
 
   export type $WalletTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12705,6 +13025,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       order: Prisma.$OrderPayload<ExtArgs> | null
       performedBy: Prisma.$UserPayload<ExtArgs> | null
+      incentiveGrant: Prisma.$IncentiveGrantPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12716,6 +13037,7 @@ export namespace Prisma {
       description: string | null
       orderId: string | null
       performedById: string | null
+      incentiveGrantId: string | null
       createdAt: Date
     }, ExtArgs["result"]["walletTransaction"]>
     composites: {}
@@ -13084,6 +13406,7 @@ export namespace Prisma {
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     order<T extends WalletTransaction$orderArgs<ExtArgs> = {}>(args?: Subset<T, WalletTransaction$orderArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     performedBy<T extends WalletTransaction$performedByArgs<ExtArgs> = {}>(args?: Subset<T, WalletTransaction$performedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    incentiveGrant<T extends WalletTransaction$incentiveGrantArgs<ExtArgs> = {}>(args?: Subset<T, WalletTransaction$incentiveGrantArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13122,6 +13445,7 @@ export namespace Prisma {
     readonly description: FieldRef<"WalletTransaction", 'String'>
     readonly orderId: FieldRef<"WalletTransaction", 'String'>
     readonly performedById: FieldRef<"WalletTransaction", 'String'>
+    readonly incentiveGrantId: FieldRef<"WalletTransaction", 'String'>
     readonly createdAt: FieldRef<"WalletTransaction", 'DateTime'>
   }
     
@@ -13468,6 +13792,21 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * WalletTransaction.incentiveGrant
+   */
+  export type WalletTransaction$incentiveGrantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    where?: IncentiveGrantWhereInput
   }
 
   /**
@@ -18322,6 +18661,7 @@ export namespace Prisma {
     title: string | null
     subtitle: string | null
     imageUrl: string | null
+    couponId: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -18332,6 +18672,7 @@ export namespace Prisma {
     title: string | null
     subtitle: string | null
     imageUrl: string | null
+    couponId: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -18342,6 +18683,7 @@ export namespace Prisma {
     title: number
     subtitle: number
     imageUrl: number
+    couponId: number
     isActive: number
     createdAt: number
     updatedAt: number
@@ -18354,6 +18696,7 @@ export namespace Prisma {
     title?: true
     subtitle?: true
     imageUrl?: true
+    couponId?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -18364,6 +18707,7 @@ export namespace Prisma {
     title?: true
     subtitle?: true
     imageUrl?: true
+    couponId?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -18374,6 +18718,7 @@ export namespace Prisma {
     title?: true
     subtitle?: true
     imageUrl?: true
+    couponId?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -18457,6 +18802,7 @@ export namespace Prisma {
     title: string
     subtitle: string | null
     imageUrl: string | null
+    couponId: string | null
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -18484,9 +18830,11 @@ export namespace Prisma {
     title?: boolean
     subtitle?: boolean
     imageUrl?: boolean
+    couponId?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
     menuAssignments?: boolean | PromotionBanner$menuAssignmentsArgs<ExtArgs>
     _count?: boolean | PromotionBannerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["promotionBanner"]>
@@ -18496,9 +18844,11 @@ export namespace Prisma {
     title?: boolean
     subtitle?: boolean
     imageUrl?: boolean
+    couponId?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
   }, ExtArgs["result"]["promotionBanner"]>
 
   export type PromotionBannerSelectScalar = {
@@ -18506,20 +18856,25 @@ export namespace Prisma {
     title?: boolean
     subtitle?: boolean
     imageUrl?: boolean
+    couponId?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type PromotionBannerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
     menuAssignments?: boolean | PromotionBanner$menuAssignmentsArgs<ExtArgs>
     _count?: boolean | PromotionBannerCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type PromotionBannerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type PromotionBannerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
+  }
 
   export type $PromotionBannerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PromotionBanner"
     objects: {
+      coupon: Prisma.$CouponPayload<ExtArgs> | null
       menuAssignments: Prisma.$MenuPromotionBannerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -18527,6 +18882,7 @@ export namespace Prisma {
       title: string
       subtitle: string | null
       imageUrl: string | null
+      couponId: string | null
       isActive: boolean
       createdAt: Date
       updatedAt: Date
@@ -18894,6 +19250,7 @@ export namespace Prisma {
    */
   export interface Prisma__PromotionBannerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    coupon<T extends PromotionBanner$couponArgs<ExtArgs> = {}>(args?: Subset<T, PromotionBanner$couponArgs<ExtArgs>>): Prisma__CouponClient<$Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     menuAssignments<T extends PromotionBanner$menuAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, PromotionBanner$menuAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MenuPromotionBannerPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -18928,6 +19285,7 @@ export namespace Prisma {
     readonly title: FieldRef<"PromotionBanner", 'String'>
     readonly subtitle: FieldRef<"PromotionBanner", 'String'>
     readonly imageUrl: FieldRef<"PromotionBanner", 'String'>
+    readonly couponId: FieldRef<"PromotionBanner", 'String'>
     readonly isActive: FieldRef<"PromotionBanner", 'Boolean'>
     readonly createdAt: FieldRef<"PromotionBanner", 'DateTime'>
     readonly updatedAt: FieldRef<"PromotionBanner", 'DateTime'>
@@ -19152,6 +19510,10 @@ export namespace Prisma {
      */
     data: PromotionBannerCreateManyInput | PromotionBannerCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromotionBannerIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -19242,6 +19604,21 @@ export namespace Prisma {
      * Filter which PromotionBanners to delete
      */
     where?: PromotionBannerWhereInput
+  }
+
+  /**
+   * PromotionBanner.coupon
+   */
+  export type PromotionBanner$couponArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Coupon
+     */
+    select?: CouponSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CouponInclude<ExtArgs> | null
+    where?: CouponWhereInput
   }
 
   /**
@@ -24038,6 +24415,9 @@ export namespace Prisma {
     location?: boolean | Coupon$locationArgs<ExtArgs>
     freeItemDish?: boolean | Coupon$freeItemDishArgs<ExtArgs>
     redemptions?: boolean | Coupon$redemptionsArgs<ExtArgs>
+    incentiveGrants?: boolean | Coupon$incentiveGrantsArgs<ExtArgs>
+    segmentIncentives?: boolean | Coupon$segmentIncentivesArgs<ExtArgs>
+    promotionBanners?: boolean | Coupon$promotionBannersArgs<ExtArgs>
     _count?: boolean | CouponCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["coupon"]>
 
@@ -24087,6 +24467,9 @@ export namespace Prisma {
     location?: boolean | Coupon$locationArgs<ExtArgs>
     freeItemDish?: boolean | Coupon$freeItemDishArgs<ExtArgs>
     redemptions?: boolean | Coupon$redemptionsArgs<ExtArgs>
+    incentiveGrants?: boolean | Coupon$incentiveGrantsArgs<ExtArgs>
+    segmentIncentives?: boolean | Coupon$segmentIncentivesArgs<ExtArgs>
+    promotionBanners?: boolean | Coupon$promotionBannersArgs<ExtArgs>
     _count?: boolean | CouponCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CouponIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24100,6 +24483,9 @@ export namespace Prisma {
       location: Prisma.$LocationPayload<ExtArgs> | null
       freeItemDish: Prisma.$DishPayload<ExtArgs> | null
       redemptions: Prisma.$CouponRedemptionPayload<ExtArgs>[]
+      incentiveGrants: Prisma.$IncentiveGrantPayload<ExtArgs>[]
+      segmentIncentives: Prisma.$SegmentIncentivePayload<ExtArgs>[]
+      promotionBanners: Prisma.$PromotionBannerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -24486,6 +24872,9 @@ export namespace Prisma {
     location<T extends Coupon$locationArgs<ExtArgs> = {}>(args?: Subset<T, Coupon$locationArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     freeItemDish<T extends Coupon$freeItemDishArgs<ExtArgs> = {}>(args?: Subset<T, Coupon$freeItemDishArgs<ExtArgs>>): Prisma__DishClient<$Result.GetResult<Prisma.$DishPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     redemptions<T extends Coupon$redemptionsArgs<ExtArgs> = {}>(args?: Subset<T, Coupon$redemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouponRedemptionPayload<ExtArgs>, T, "findMany"> | Null>
+    incentiveGrants<T extends Coupon$incentiveGrantsArgs<ExtArgs> = {}>(args?: Subset<T, Coupon$incentiveGrantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findMany"> | Null>
+    segmentIncentives<T extends Coupon$segmentIncentivesArgs<ExtArgs> = {}>(args?: Subset<T, Coupon$segmentIncentivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findMany"> | Null>
+    promotionBanners<T extends Coupon$promotionBannersArgs<ExtArgs> = {}>(args?: Subset<T, Coupon$promotionBannersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionBannerPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24897,6 +25286,66 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CouponRedemptionScalarFieldEnum | CouponRedemptionScalarFieldEnum[]
+  }
+
+  /**
+   * Coupon.incentiveGrants
+   */
+  export type Coupon$incentiveGrantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    where?: IncentiveGrantWhereInput
+    orderBy?: IncentiveGrantOrderByWithRelationInput | IncentiveGrantOrderByWithRelationInput[]
+    cursor?: IncentiveGrantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IncentiveGrantScalarFieldEnum | IncentiveGrantScalarFieldEnum[]
+  }
+
+  /**
+   * Coupon.segmentIncentives
+   */
+  export type Coupon$segmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    where?: SegmentIncentiveWhereInput
+    orderBy?: SegmentIncentiveOrderByWithRelationInput | SegmentIncentiveOrderByWithRelationInput[]
+    cursor?: SegmentIncentiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SegmentIncentiveScalarFieldEnum | SegmentIncentiveScalarFieldEnum[]
+  }
+
+  /**
+   * Coupon.promotionBanners
+   */
+  export type Coupon$promotionBannersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromotionBanner
+     */
+    select?: PromotionBannerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromotionBannerInclude<ExtArgs> | null
+    where?: PromotionBannerWhereInput
+    orderBy?: PromotionBannerOrderByWithRelationInput | PromotionBannerOrderByWithRelationInput[]
+    cursor?: PromotionBannerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PromotionBannerScalarFieldEnum | PromotionBannerScalarFieldEnum[]
   }
 
   /**
@@ -28007,6 +28456,7 @@ export namespace Prisma {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     inAppMessages?: boolean | CustomerSegment$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | CustomerSegment$workflowsArgs<ExtArgs>
+    segmentIncentives?: boolean | CustomerSegment$segmentIncentivesArgs<ExtArgs>
     _count?: boolean | CustomerSegmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customerSegment"]>
 
@@ -28037,6 +28487,7 @@ export namespace Prisma {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     inAppMessages?: boolean | CustomerSegment$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | CustomerSegment$workflowsArgs<ExtArgs>
+    segmentIncentives?: boolean | CustomerSegment$segmentIncentivesArgs<ExtArgs>
     _count?: boolean | CustomerSegmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerSegmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28049,6 +28500,7 @@ export namespace Prisma {
       organization: Prisma.$OrganizationPayload<ExtArgs>
       inAppMessages: Prisma.$InAppMessagePayload<ExtArgs>[]
       workflows: Prisma.$MarketingWorkflowPayload<ExtArgs>[]
+      segmentIncentives: Prisma.$SegmentIncentivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -28426,6 +28878,7 @@ export namespace Prisma {
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     inAppMessages<T extends CustomerSegment$inAppMessagesArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegment$inAppMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InAppMessagePayload<ExtArgs>, T, "findMany"> | Null>
     workflows<T extends CustomerSegment$workflowsArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegment$workflowsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingWorkflowPayload<ExtArgs>, T, "findMany"> | Null>
+    segmentIncentives<T extends CustomerSegment$segmentIncentivesArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegment$segmentIncentivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28818,6 +29271,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MarketingWorkflowScalarFieldEnum | MarketingWorkflowScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerSegment.segmentIncentives
+   */
+  export type CustomerSegment$segmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    where?: SegmentIncentiveWhereInput
+    orderBy?: SegmentIncentiveOrderByWithRelationInput | SegmentIncentiveOrderByWithRelationInput[]
+    cursor?: SegmentIncentiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SegmentIncentiveScalarFieldEnum | SegmentIncentiveScalarFieldEnum[]
   }
 
   /**
@@ -32800,6 +33273,2177 @@ export namespace Prisma {
 
 
   /**
+   * Model SegmentIncentive
+   */
+
+  export type AggregateSegmentIncentive = {
+    _count: SegmentIncentiveCountAggregateOutputType | null
+    _avg: SegmentIncentiveAvgAggregateOutputType | null
+    _sum: SegmentIncentiveSumAggregateOutputType | null
+    _min: SegmentIncentiveMinAggregateOutputType | null
+    _max: SegmentIncentiveMaxAggregateOutputType | null
+  }
+
+  export type SegmentIncentiveAvgAggregateOutputType = {
+    walletAmount: Decimal | null
+    maxGrantsPerUser: number | null
+  }
+
+  export type SegmentIncentiveSumAggregateOutputType = {
+    walletAmount: Decimal | null
+    maxGrantsPerUser: number | null
+  }
+
+  export type SegmentIncentiveMinAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    segmentId: string | null
+    name: string | null
+    incentiveType: string | null
+    couponId: string | null
+    personaliseCoupon: boolean | null
+    walletAmount: Decimal | null
+    startDate: Date | null
+    endDate: Date | null
+    maxGrantsPerUser: number | null
+    displayChannel: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SegmentIncentiveMaxAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    segmentId: string | null
+    name: string | null
+    incentiveType: string | null
+    couponId: string | null
+    personaliseCoupon: boolean | null
+    walletAmount: Decimal | null
+    startDate: Date | null
+    endDate: Date | null
+    maxGrantsPerUser: number | null
+    displayChannel: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SegmentIncentiveCountAggregateOutputType = {
+    id: number
+    organizationId: number
+    segmentId: number
+    name: number
+    incentiveType: number
+    couponId: number
+    personaliseCoupon: number
+    walletAmount: number
+    startDate: number
+    endDate: number
+    maxGrantsPerUser: number
+    displayChannel: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SegmentIncentiveAvgAggregateInputType = {
+    walletAmount?: true
+    maxGrantsPerUser?: true
+  }
+
+  export type SegmentIncentiveSumAggregateInputType = {
+    walletAmount?: true
+    maxGrantsPerUser?: true
+  }
+
+  export type SegmentIncentiveMinAggregateInputType = {
+    id?: true
+    organizationId?: true
+    segmentId?: true
+    name?: true
+    incentiveType?: true
+    couponId?: true
+    personaliseCoupon?: true
+    walletAmount?: true
+    startDate?: true
+    endDate?: true
+    maxGrantsPerUser?: true
+    displayChannel?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SegmentIncentiveMaxAggregateInputType = {
+    id?: true
+    organizationId?: true
+    segmentId?: true
+    name?: true
+    incentiveType?: true
+    couponId?: true
+    personaliseCoupon?: true
+    walletAmount?: true
+    startDate?: true
+    endDate?: true
+    maxGrantsPerUser?: true
+    displayChannel?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SegmentIncentiveCountAggregateInputType = {
+    id?: true
+    organizationId?: true
+    segmentId?: true
+    name?: true
+    incentiveType?: true
+    couponId?: true
+    personaliseCoupon?: true
+    walletAmount?: true
+    startDate?: true
+    endDate?: true
+    maxGrantsPerUser?: true
+    displayChannel?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SegmentIncentiveAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SegmentIncentive to aggregate.
+     */
+    where?: SegmentIncentiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SegmentIncentives to fetch.
+     */
+    orderBy?: SegmentIncentiveOrderByWithRelationInput | SegmentIncentiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SegmentIncentiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SegmentIncentives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SegmentIncentives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SegmentIncentives
+    **/
+    _count?: true | SegmentIncentiveCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SegmentIncentiveAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SegmentIncentiveSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SegmentIncentiveMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SegmentIncentiveMaxAggregateInputType
+  }
+
+  export type GetSegmentIncentiveAggregateType<T extends SegmentIncentiveAggregateArgs> = {
+        [P in keyof T & keyof AggregateSegmentIncentive]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSegmentIncentive[P]>
+      : GetScalarType<T[P], AggregateSegmentIncentive[P]>
+  }
+
+
+
+
+  export type SegmentIncentiveGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SegmentIncentiveWhereInput
+    orderBy?: SegmentIncentiveOrderByWithAggregationInput | SegmentIncentiveOrderByWithAggregationInput[]
+    by: SegmentIncentiveScalarFieldEnum[] | SegmentIncentiveScalarFieldEnum
+    having?: SegmentIncentiveScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SegmentIncentiveCountAggregateInputType | true
+    _avg?: SegmentIncentiveAvgAggregateInputType
+    _sum?: SegmentIncentiveSumAggregateInputType
+    _min?: SegmentIncentiveMinAggregateInputType
+    _max?: SegmentIncentiveMaxAggregateInputType
+  }
+
+  export type SegmentIncentiveGroupByOutputType = {
+    id: string
+    organizationId: string
+    segmentId: string
+    name: string | null
+    incentiveType: string
+    couponId: string | null
+    personaliseCoupon: boolean
+    walletAmount: Decimal | null
+    startDate: Date
+    endDate: Date | null
+    maxGrantsPerUser: number
+    displayChannel: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SegmentIncentiveCountAggregateOutputType | null
+    _avg: SegmentIncentiveAvgAggregateOutputType | null
+    _sum: SegmentIncentiveSumAggregateOutputType | null
+    _min: SegmentIncentiveMinAggregateOutputType | null
+    _max: SegmentIncentiveMaxAggregateOutputType | null
+  }
+
+  type GetSegmentIncentiveGroupByPayload<T extends SegmentIncentiveGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SegmentIncentiveGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SegmentIncentiveGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SegmentIncentiveGroupByOutputType[P]>
+            : GetScalarType<T[P], SegmentIncentiveGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SegmentIncentiveSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    segmentId?: boolean
+    name?: boolean
+    incentiveType?: boolean
+    couponId?: boolean
+    personaliseCoupon?: boolean
+    walletAmount?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    maxGrantsPerUser?: boolean
+    displayChannel?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    coupon?: boolean | SegmentIncentive$couponArgs<ExtArgs>
+    grants?: boolean | SegmentIncentive$grantsArgs<ExtArgs>
+    _count?: boolean | SegmentIncentiveCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["segmentIncentive"]>
+
+  export type SegmentIncentiveSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    segmentId?: boolean
+    name?: boolean
+    incentiveType?: boolean
+    couponId?: boolean
+    personaliseCoupon?: boolean
+    walletAmount?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    maxGrantsPerUser?: boolean
+    displayChannel?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    coupon?: boolean | SegmentIncentive$couponArgs<ExtArgs>
+  }, ExtArgs["result"]["segmentIncentive"]>
+
+  export type SegmentIncentiveSelectScalar = {
+    id?: boolean
+    organizationId?: boolean
+    segmentId?: boolean
+    name?: boolean
+    incentiveType?: boolean
+    couponId?: boolean
+    personaliseCoupon?: boolean
+    walletAmount?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    maxGrantsPerUser?: boolean
+    displayChannel?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SegmentIncentiveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    coupon?: boolean | SegmentIncentive$couponArgs<ExtArgs>
+    grants?: boolean | SegmentIncentive$grantsArgs<ExtArgs>
+    _count?: boolean | SegmentIncentiveCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SegmentIncentiveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    coupon?: boolean | SegmentIncentive$couponArgs<ExtArgs>
+  }
+
+  export type $SegmentIncentivePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SegmentIncentive"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      segment: Prisma.$CustomerSegmentPayload<ExtArgs>
+      coupon: Prisma.$CouponPayload<ExtArgs> | null
+      grants: Prisma.$IncentiveGrantPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationId: string
+      segmentId: string
+      name: string | null
+      incentiveType: string
+      couponId: string | null
+      personaliseCoupon: boolean
+      walletAmount: Prisma.Decimal | null
+      startDate: Date
+      endDate: Date | null
+      maxGrantsPerUser: number
+      displayChannel: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["segmentIncentive"]>
+    composites: {}
+  }
+
+  type SegmentIncentiveGetPayload<S extends boolean | null | undefined | SegmentIncentiveDefaultArgs> = $Result.GetResult<Prisma.$SegmentIncentivePayload, S>
+
+  type SegmentIncentiveCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SegmentIncentiveFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SegmentIncentiveCountAggregateInputType | true
+    }
+
+  export interface SegmentIncentiveDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SegmentIncentive'], meta: { name: 'SegmentIncentive' } }
+    /**
+     * Find zero or one SegmentIncentive that matches the filter.
+     * @param {SegmentIncentiveFindUniqueArgs} args - Arguments to find a SegmentIncentive
+     * @example
+     * // Get one SegmentIncentive
+     * const segmentIncentive = await prisma.segmentIncentive.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SegmentIncentiveFindUniqueArgs>(args: SelectSubset<T, SegmentIncentiveFindUniqueArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SegmentIncentive that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SegmentIncentiveFindUniqueOrThrowArgs} args - Arguments to find a SegmentIncentive
+     * @example
+     * // Get one SegmentIncentive
+     * const segmentIncentive = await prisma.segmentIncentive.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SegmentIncentiveFindUniqueOrThrowArgs>(args: SelectSubset<T, SegmentIncentiveFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SegmentIncentive that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SegmentIncentiveFindFirstArgs} args - Arguments to find a SegmentIncentive
+     * @example
+     * // Get one SegmentIncentive
+     * const segmentIncentive = await prisma.segmentIncentive.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SegmentIncentiveFindFirstArgs>(args?: SelectSubset<T, SegmentIncentiveFindFirstArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SegmentIncentive that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SegmentIncentiveFindFirstOrThrowArgs} args - Arguments to find a SegmentIncentive
+     * @example
+     * // Get one SegmentIncentive
+     * const segmentIncentive = await prisma.segmentIncentive.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SegmentIncentiveFindFirstOrThrowArgs>(args?: SelectSubset<T, SegmentIncentiveFindFirstOrThrowArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SegmentIncentives that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SegmentIncentiveFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SegmentIncentives
+     * const segmentIncentives = await prisma.segmentIncentive.findMany()
+     * 
+     * // Get first 10 SegmentIncentives
+     * const segmentIncentives = await prisma.segmentIncentive.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const segmentIncentiveWithIdOnly = await prisma.segmentIncentive.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SegmentIncentiveFindManyArgs>(args?: SelectSubset<T, SegmentIncentiveFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SegmentIncentive.
+     * @param {SegmentIncentiveCreateArgs} args - Arguments to create a SegmentIncentive.
+     * @example
+     * // Create one SegmentIncentive
+     * const SegmentIncentive = await prisma.segmentIncentive.create({
+     *   data: {
+     *     // ... data to create a SegmentIncentive
+     *   }
+     * })
+     * 
+     */
+    create<T extends SegmentIncentiveCreateArgs>(args: SelectSubset<T, SegmentIncentiveCreateArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SegmentIncentives.
+     * @param {SegmentIncentiveCreateManyArgs} args - Arguments to create many SegmentIncentives.
+     * @example
+     * // Create many SegmentIncentives
+     * const segmentIncentive = await prisma.segmentIncentive.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SegmentIncentiveCreateManyArgs>(args?: SelectSubset<T, SegmentIncentiveCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SegmentIncentives and returns the data saved in the database.
+     * @param {SegmentIncentiveCreateManyAndReturnArgs} args - Arguments to create many SegmentIncentives.
+     * @example
+     * // Create many SegmentIncentives
+     * const segmentIncentive = await prisma.segmentIncentive.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SegmentIncentives and only return the `id`
+     * const segmentIncentiveWithIdOnly = await prisma.segmentIncentive.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SegmentIncentiveCreateManyAndReturnArgs>(args?: SelectSubset<T, SegmentIncentiveCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SegmentIncentive.
+     * @param {SegmentIncentiveDeleteArgs} args - Arguments to delete one SegmentIncentive.
+     * @example
+     * // Delete one SegmentIncentive
+     * const SegmentIncentive = await prisma.segmentIncentive.delete({
+     *   where: {
+     *     // ... filter to delete one SegmentIncentive
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SegmentIncentiveDeleteArgs>(args: SelectSubset<T, SegmentIncentiveDeleteArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SegmentIncentive.
+     * @param {SegmentIncentiveUpdateArgs} args - Arguments to update one SegmentIncentive.
+     * @example
+     * // Update one SegmentIncentive
+     * const segmentIncentive = await prisma.segmentIncentive.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SegmentIncentiveUpdateArgs>(args: SelectSubset<T, SegmentIncentiveUpdateArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SegmentIncentives.
+     * @param {SegmentIncentiveDeleteManyArgs} args - Arguments to filter SegmentIncentives to delete.
+     * @example
+     * // Delete a few SegmentIncentives
+     * const { count } = await prisma.segmentIncentive.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SegmentIncentiveDeleteManyArgs>(args?: SelectSubset<T, SegmentIncentiveDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SegmentIncentives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SegmentIncentiveUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SegmentIncentives
+     * const segmentIncentive = await prisma.segmentIncentive.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SegmentIncentiveUpdateManyArgs>(args: SelectSubset<T, SegmentIncentiveUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SegmentIncentive.
+     * @param {SegmentIncentiveUpsertArgs} args - Arguments to update or create a SegmentIncentive.
+     * @example
+     * // Update or create a SegmentIncentive
+     * const segmentIncentive = await prisma.segmentIncentive.upsert({
+     *   create: {
+     *     // ... data to create a SegmentIncentive
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SegmentIncentive we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SegmentIncentiveUpsertArgs>(args: SelectSubset<T, SegmentIncentiveUpsertArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SegmentIncentives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SegmentIncentiveCountArgs} args - Arguments to filter SegmentIncentives to count.
+     * @example
+     * // Count the number of SegmentIncentives
+     * const count = await prisma.segmentIncentive.count({
+     *   where: {
+     *     // ... the filter for the SegmentIncentives we want to count
+     *   }
+     * })
+    **/
+    count<T extends SegmentIncentiveCountArgs>(
+      args?: Subset<T, SegmentIncentiveCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SegmentIncentiveCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SegmentIncentive.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SegmentIncentiveAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SegmentIncentiveAggregateArgs>(args: Subset<T, SegmentIncentiveAggregateArgs>): Prisma.PrismaPromise<GetSegmentIncentiveAggregateType<T>>
+
+    /**
+     * Group by SegmentIncentive.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SegmentIncentiveGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SegmentIncentiveGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SegmentIncentiveGroupByArgs['orderBy'] }
+        : { orderBy?: SegmentIncentiveGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SegmentIncentiveGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSegmentIncentiveGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SegmentIncentive model
+   */
+  readonly fields: SegmentIncentiveFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SegmentIncentive.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SegmentIncentiveClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    segment<T extends CustomerSegmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegmentDefaultArgs<ExtArgs>>): Prisma__CustomerSegmentClient<$Result.GetResult<Prisma.$CustomerSegmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    coupon<T extends SegmentIncentive$couponArgs<ExtArgs> = {}>(args?: Subset<T, SegmentIncentive$couponArgs<ExtArgs>>): Prisma__CouponClient<$Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    grants<T extends SegmentIncentive$grantsArgs<ExtArgs> = {}>(args?: Subset<T, SegmentIncentive$grantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SegmentIncentive model
+   */ 
+  interface SegmentIncentiveFieldRefs {
+    readonly id: FieldRef<"SegmentIncentive", 'String'>
+    readonly organizationId: FieldRef<"SegmentIncentive", 'String'>
+    readonly segmentId: FieldRef<"SegmentIncentive", 'String'>
+    readonly name: FieldRef<"SegmentIncentive", 'String'>
+    readonly incentiveType: FieldRef<"SegmentIncentive", 'String'>
+    readonly couponId: FieldRef<"SegmentIncentive", 'String'>
+    readonly personaliseCoupon: FieldRef<"SegmentIncentive", 'Boolean'>
+    readonly walletAmount: FieldRef<"SegmentIncentive", 'Decimal'>
+    readonly startDate: FieldRef<"SegmentIncentive", 'DateTime'>
+    readonly endDate: FieldRef<"SegmentIncentive", 'DateTime'>
+    readonly maxGrantsPerUser: FieldRef<"SegmentIncentive", 'Int'>
+    readonly displayChannel: FieldRef<"SegmentIncentive", 'String'>
+    readonly isActive: FieldRef<"SegmentIncentive", 'Boolean'>
+    readonly createdAt: FieldRef<"SegmentIncentive", 'DateTime'>
+    readonly updatedAt: FieldRef<"SegmentIncentive", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SegmentIncentive findUnique
+   */
+  export type SegmentIncentiveFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * Filter, which SegmentIncentive to fetch.
+     */
+    where: SegmentIncentiveWhereUniqueInput
+  }
+
+  /**
+   * SegmentIncentive findUniqueOrThrow
+   */
+  export type SegmentIncentiveFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * Filter, which SegmentIncentive to fetch.
+     */
+    where: SegmentIncentiveWhereUniqueInput
+  }
+
+  /**
+   * SegmentIncentive findFirst
+   */
+  export type SegmentIncentiveFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * Filter, which SegmentIncentive to fetch.
+     */
+    where?: SegmentIncentiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SegmentIncentives to fetch.
+     */
+    orderBy?: SegmentIncentiveOrderByWithRelationInput | SegmentIncentiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SegmentIncentives.
+     */
+    cursor?: SegmentIncentiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SegmentIncentives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SegmentIncentives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SegmentIncentives.
+     */
+    distinct?: SegmentIncentiveScalarFieldEnum | SegmentIncentiveScalarFieldEnum[]
+  }
+
+  /**
+   * SegmentIncentive findFirstOrThrow
+   */
+  export type SegmentIncentiveFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * Filter, which SegmentIncentive to fetch.
+     */
+    where?: SegmentIncentiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SegmentIncentives to fetch.
+     */
+    orderBy?: SegmentIncentiveOrderByWithRelationInput | SegmentIncentiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SegmentIncentives.
+     */
+    cursor?: SegmentIncentiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SegmentIncentives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SegmentIncentives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SegmentIncentives.
+     */
+    distinct?: SegmentIncentiveScalarFieldEnum | SegmentIncentiveScalarFieldEnum[]
+  }
+
+  /**
+   * SegmentIncentive findMany
+   */
+  export type SegmentIncentiveFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * Filter, which SegmentIncentives to fetch.
+     */
+    where?: SegmentIncentiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SegmentIncentives to fetch.
+     */
+    orderBy?: SegmentIncentiveOrderByWithRelationInput | SegmentIncentiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SegmentIncentives.
+     */
+    cursor?: SegmentIncentiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SegmentIncentives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SegmentIncentives.
+     */
+    skip?: number
+    distinct?: SegmentIncentiveScalarFieldEnum | SegmentIncentiveScalarFieldEnum[]
+  }
+
+  /**
+   * SegmentIncentive create
+   */
+  export type SegmentIncentiveCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SegmentIncentive.
+     */
+    data: XOR<SegmentIncentiveCreateInput, SegmentIncentiveUncheckedCreateInput>
+  }
+
+  /**
+   * SegmentIncentive createMany
+   */
+  export type SegmentIncentiveCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SegmentIncentives.
+     */
+    data: SegmentIncentiveCreateManyInput | SegmentIncentiveCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SegmentIncentive createManyAndReturn
+   */
+  export type SegmentIncentiveCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SegmentIncentives.
+     */
+    data: SegmentIncentiveCreateManyInput | SegmentIncentiveCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SegmentIncentive update
+   */
+  export type SegmentIncentiveUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SegmentIncentive.
+     */
+    data: XOR<SegmentIncentiveUpdateInput, SegmentIncentiveUncheckedUpdateInput>
+    /**
+     * Choose, which SegmentIncentive to update.
+     */
+    where: SegmentIncentiveWhereUniqueInput
+  }
+
+  /**
+   * SegmentIncentive updateMany
+   */
+  export type SegmentIncentiveUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SegmentIncentives.
+     */
+    data: XOR<SegmentIncentiveUpdateManyMutationInput, SegmentIncentiveUncheckedUpdateManyInput>
+    /**
+     * Filter which SegmentIncentives to update
+     */
+    where?: SegmentIncentiveWhereInput
+  }
+
+  /**
+   * SegmentIncentive upsert
+   */
+  export type SegmentIncentiveUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SegmentIncentive to update in case it exists.
+     */
+    where: SegmentIncentiveWhereUniqueInput
+    /**
+     * In case the SegmentIncentive found by the `where` argument doesn't exist, create a new SegmentIncentive with this data.
+     */
+    create: XOR<SegmentIncentiveCreateInput, SegmentIncentiveUncheckedCreateInput>
+    /**
+     * In case the SegmentIncentive was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SegmentIncentiveUpdateInput, SegmentIncentiveUncheckedUpdateInput>
+  }
+
+  /**
+   * SegmentIncentive delete
+   */
+  export type SegmentIncentiveDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+    /**
+     * Filter which SegmentIncentive to delete.
+     */
+    where: SegmentIncentiveWhereUniqueInput
+  }
+
+  /**
+   * SegmentIncentive deleteMany
+   */
+  export type SegmentIncentiveDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SegmentIncentives to delete
+     */
+    where?: SegmentIncentiveWhereInput
+  }
+
+  /**
+   * SegmentIncentive.coupon
+   */
+  export type SegmentIncentive$couponArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Coupon
+     */
+    select?: CouponSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CouponInclude<ExtArgs> | null
+    where?: CouponWhereInput
+  }
+
+  /**
+   * SegmentIncentive.grants
+   */
+  export type SegmentIncentive$grantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    where?: IncentiveGrantWhereInput
+    orderBy?: IncentiveGrantOrderByWithRelationInput | IncentiveGrantOrderByWithRelationInput[]
+    cursor?: IncentiveGrantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IncentiveGrantScalarFieldEnum | IncentiveGrantScalarFieldEnum[]
+  }
+
+  /**
+   * SegmentIncentive without action
+   */
+  export type SegmentIncentiveDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SegmentIncentive
+     */
+    select?: SegmentIncentiveSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SegmentIncentiveInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model IncentiveGrant
+   */
+
+  export type AggregateIncentiveGrant = {
+    _count: IncentiveGrantCountAggregateOutputType | null
+    _min: IncentiveGrantMinAggregateOutputType | null
+    _max: IncentiveGrantMaxAggregateOutputType | null
+  }
+
+  export type IncentiveGrantMinAggregateOutputType = {
+    id: string | null
+    segmentIncentiveId: string | null
+    userId: string | null
+    grantedAt: Date | null
+    couponCode: string | null
+    couponId: string | null
+    walletTransactionId: string | null
+    redeemedAt: Date | null
+    redeemedOrderId: string | null
+  }
+
+  export type IncentiveGrantMaxAggregateOutputType = {
+    id: string | null
+    segmentIncentiveId: string | null
+    userId: string | null
+    grantedAt: Date | null
+    couponCode: string | null
+    couponId: string | null
+    walletTransactionId: string | null
+    redeemedAt: Date | null
+    redeemedOrderId: string | null
+  }
+
+  export type IncentiveGrantCountAggregateOutputType = {
+    id: number
+    segmentIncentiveId: number
+    userId: number
+    grantedAt: number
+    couponCode: number
+    couponId: number
+    walletTransactionId: number
+    redeemedAt: number
+    redeemedOrderId: number
+    _all: number
+  }
+
+
+  export type IncentiveGrantMinAggregateInputType = {
+    id?: true
+    segmentIncentiveId?: true
+    userId?: true
+    grantedAt?: true
+    couponCode?: true
+    couponId?: true
+    walletTransactionId?: true
+    redeemedAt?: true
+    redeemedOrderId?: true
+  }
+
+  export type IncentiveGrantMaxAggregateInputType = {
+    id?: true
+    segmentIncentiveId?: true
+    userId?: true
+    grantedAt?: true
+    couponCode?: true
+    couponId?: true
+    walletTransactionId?: true
+    redeemedAt?: true
+    redeemedOrderId?: true
+  }
+
+  export type IncentiveGrantCountAggregateInputType = {
+    id?: true
+    segmentIncentiveId?: true
+    userId?: true
+    grantedAt?: true
+    couponCode?: true
+    couponId?: true
+    walletTransactionId?: true
+    redeemedAt?: true
+    redeemedOrderId?: true
+    _all?: true
+  }
+
+  export type IncentiveGrantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IncentiveGrant to aggregate.
+     */
+    where?: IncentiveGrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IncentiveGrants to fetch.
+     */
+    orderBy?: IncentiveGrantOrderByWithRelationInput | IncentiveGrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IncentiveGrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IncentiveGrants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IncentiveGrants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IncentiveGrants
+    **/
+    _count?: true | IncentiveGrantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IncentiveGrantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IncentiveGrantMaxAggregateInputType
+  }
+
+  export type GetIncentiveGrantAggregateType<T extends IncentiveGrantAggregateArgs> = {
+        [P in keyof T & keyof AggregateIncentiveGrant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIncentiveGrant[P]>
+      : GetScalarType<T[P], AggregateIncentiveGrant[P]>
+  }
+
+
+
+
+  export type IncentiveGrantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IncentiveGrantWhereInput
+    orderBy?: IncentiveGrantOrderByWithAggregationInput | IncentiveGrantOrderByWithAggregationInput[]
+    by: IncentiveGrantScalarFieldEnum[] | IncentiveGrantScalarFieldEnum
+    having?: IncentiveGrantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IncentiveGrantCountAggregateInputType | true
+    _min?: IncentiveGrantMinAggregateInputType
+    _max?: IncentiveGrantMaxAggregateInputType
+  }
+
+  export type IncentiveGrantGroupByOutputType = {
+    id: string
+    segmentIncentiveId: string
+    userId: string
+    grantedAt: Date
+    couponCode: string | null
+    couponId: string | null
+    walletTransactionId: string | null
+    redeemedAt: Date | null
+    redeemedOrderId: string | null
+    _count: IncentiveGrantCountAggregateOutputType | null
+    _min: IncentiveGrantMinAggregateOutputType | null
+    _max: IncentiveGrantMaxAggregateOutputType | null
+  }
+
+  type GetIncentiveGrantGroupByPayload<T extends IncentiveGrantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IncentiveGrantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IncentiveGrantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IncentiveGrantGroupByOutputType[P]>
+            : GetScalarType<T[P], IncentiveGrantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IncentiveGrantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    segmentIncentiveId?: boolean
+    userId?: boolean
+    grantedAt?: boolean
+    couponCode?: boolean
+    couponId?: boolean
+    walletTransactionId?: boolean
+    redeemedAt?: boolean
+    redeemedOrderId?: boolean
+    segmentIncentive?: boolean | SegmentIncentiveDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    coupon?: boolean | IncentiveGrant$couponArgs<ExtArgs>
+    walletTransaction?: boolean | IncentiveGrant$walletTransactionArgs<ExtArgs>
+  }, ExtArgs["result"]["incentiveGrant"]>
+
+  export type IncentiveGrantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    segmentIncentiveId?: boolean
+    userId?: boolean
+    grantedAt?: boolean
+    couponCode?: boolean
+    couponId?: boolean
+    walletTransactionId?: boolean
+    redeemedAt?: boolean
+    redeemedOrderId?: boolean
+    segmentIncentive?: boolean | SegmentIncentiveDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    coupon?: boolean | IncentiveGrant$couponArgs<ExtArgs>
+  }, ExtArgs["result"]["incentiveGrant"]>
+
+  export type IncentiveGrantSelectScalar = {
+    id?: boolean
+    segmentIncentiveId?: boolean
+    userId?: boolean
+    grantedAt?: boolean
+    couponCode?: boolean
+    couponId?: boolean
+    walletTransactionId?: boolean
+    redeemedAt?: boolean
+    redeemedOrderId?: boolean
+  }
+
+  export type IncentiveGrantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    segmentIncentive?: boolean | SegmentIncentiveDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    coupon?: boolean | IncentiveGrant$couponArgs<ExtArgs>
+    walletTransaction?: boolean | IncentiveGrant$walletTransactionArgs<ExtArgs>
+  }
+  export type IncentiveGrantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    segmentIncentive?: boolean | SegmentIncentiveDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    coupon?: boolean | IncentiveGrant$couponArgs<ExtArgs>
+  }
+
+  export type $IncentiveGrantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IncentiveGrant"
+    objects: {
+      segmentIncentive: Prisma.$SegmentIncentivePayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+      coupon: Prisma.$CouponPayload<ExtArgs> | null
+      walletTransaction: Prisma.$WalletTransactionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      segmentIncentiveId: string
+      userId: string
+      grantedAt: Date
+      couponCode: string | null
+      couponId: string | null
+      walletTransactionId: string | null
+      redeemedAt: Date | null
+      redeemedOrderId: string | null
+    }, ExtArgs["result"]["incentiveGrant"]>
+    composites: {}
+  }
+
+  type IncentiveGrantGetPayload<S extends boolean | null | undefined | IncentiveGrantDefaultArgs> = $Result.GetResult<Prisma.$IncentiveGrantPayload, S>
+
+  type IncentiveGrantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<IncentiveGrantFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: IncentiveGrantCountAggregateInputType | true
+    }
+
+  export interface IncentiveGrantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IncentiveGrant'], meta: { name: 'IncentiveGrant' } }
+    /**
+     * Find zero or one IncentiveGrant that matches the filter.
+     * @param {IncentiveGrantFindUniqueArgs} args - Arguments to find a IncentiveGrant
+     * @example
+     * // Get one IncentiveGrant
+     * const incentiveGrant = await prisma.incentiveGrant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IncentiveGrantFindUniqueArgs>(args: SelectSubset<T, IncentiveGrantFindUniqueArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one IncentiveGrant that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {IncentiveGrantFindUniqueOrThrowArgs} args - Arguments to find a IncentiveGrant
+     * @example
+     * // Get one IncentiveGrant
+     * const incentiveGrant = await prisma.incentiveGrant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IncentiveGrantFindUniqueOrThrowArgs>(args: SelectSubset<T, IncentiveGrantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first IncentiveGrant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IncentiveGrantFindFirstArgs} args - Arguments to find a IncentiveGrant
+     * @example
+     * // Get one IncentiveGrant
+     * const incentiveGrant = await prisma.incentiveGrant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IncentiveGrantFindFirstArgs>(args?: SelectSubset<T, IncentiveGrantFindFirstArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first IncentiveGrant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IncentiveGrantFindFirstOrThrowArgs} args - Arguments to find a IncentiveGrant
+     * @example
+     * // Get one IncentiveGrant
+     * const incentiveGrant = await prisma.incentiveGrant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IncentiveGrantFindFirstOrThrowArgs>(args?: SelectSubset<T, IncentiveGrantFindFirstOrThrowArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more IncentiveGrants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IncentiveGrantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IncentiveGrants
+     * const incentiveGrants = await prisma.incentiveGrant.findMany()
+     * 
+     * // Get first 10 IncentiveGrants
+     * const incentiveGrants = await prisma.incentiveGrant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const incentiveGrantWithIdOnly = await prisma.incentiveGrant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IncentiveGrantFindManyArgs>(args?: SelectSubset<T, IncentiveGrantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a IncentiveGrant.
+     * @param {IncentiveGrantCreateArgs} args - Arguments to create a IncentiveGrant.
+     * @example
+     * // Create one IncentiveGrant
+     * const IncentiveGrant = await prisma.incentiveGrant.create({
+     *   data: {
+     *     // ... data to create a IncentiveGrant
+     *   }
+     * })
+     * 
+     */
+    create<T extends IncentiveGrantCreateArgs>(args: SelectSubset<T, IncentiveGrantCreateArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many IncentiveGrants.
+     * @param {IncentiveGrantCreateManyArgs} args - Arguments to create many IncentiveGrants.
+     * @example
+     * // Create many IncentiveGrants
+     * const incentiveGrant = await prisma.incentiveGrant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IncentiveGrantCreateManyArgs>(args?: SelectSubset<T, IncentiveGrantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IncentiveGrants and returns the data saved in the database.
+     * @param {IncentiveGrantCreateManyAndReturnArgs} args - Arguments to create many IncentiveGrants.
+     * @example
+     * // Create many IncentiveGrants
+     * const incentiveGrant = await prisma.incentiveGrant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IncentiveGrants and only return the `id`
+     * const incentiveGrantWithIdOnly = await prisma.incentiveGrant.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IncentiveGrantCreateManyAndReturnArgs>(args?: SelectSubset<T, IncentiveGrantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a IncentiveGrant.
+     * @param {IncentiveGrantDeleteArgs} args - Arguments to delete one IncentiveGrant.
+     * @example
+     * // Delete one IncentiveGrant
+     * const IncentiveGrant = await prisma.incentiveGrant.delete({
+     *   where: {
+     *     // ... filter to delete one IncentiveGrant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IncentiveGrantDeleteArgs>(args: SelectSubset<T, IncentiveGrantDeleteArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one IncentiveGrant.
+     * @param {IncentiveGrantUpdateArgs} args - Arguments to update one IncentiveGrant.
+     * @example
+     * // Update one IncentiveGrant
+     * const incentiveGrant = await prisma.incentiveGrant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IncentiveGrantUpdateArgs>(args: SelectSubset<T, IncentiveGrantUpdateArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more IncentiveGrants.
+     * @param {IncentiveGrantDeleteManyArgs} args - Arguments to filter IncentiveGrants to delete.
+     * @example
+     * // Delete a few IncentiveGrants
+     * const { count } = await prisma.incentiveGrant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IncentiveGrantDeleteManyArgs>(args?: SelectSubset<T, IncentiveGrantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IncentiveGrants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IncentiveGrantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IncentiveGrants
+     * const incentiveGrant = await prisma.incentiveGrant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IncentiveGrantUpdateManyArgs>(args: SelectSubset<T, IncentiveGrantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one IncentiveGrant.
+     * @param {IncentiveGrantUpsertArgs} args - Arguments to update or create a IncentiveGrant.
+     * @example
+     * // Update or create a IncentiveGrant
+     * const incentiveGrant = await prisma.incentiveGrant.upsert({
+     *   create: {
+     *     // ... data to create a IncentiveGrant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IncentiveGrant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IncentiveGrantUpsertArgs>(args: SelectSubset<T, IncentiveGrantUpsertArgs<ExtArgs>>): Prisma__IncentiveGrantClient<$Result.GetResult<Prisma.$IncentiveGrantPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of IncentiveGrants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IncentiveGrantCountArgs} args - Arguments to filter IncentiveGrants to count.
+     * @example
+     * // Count the number of IncentiveGrants
+     * const count = await prisma.incentiveGrant.count({
+     *   where: {
+     *     // ... the filter for the IncentiveGrants we want to count
+     *   }
+     * })
+    **/
+    count<T extends IncentiveGrantCountArgs>(
+      args?: Subset<T, IncentiveGrantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IncentiveGrantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IncentiveGrant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IncentiveGrantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IncentiveGrantAggregateArgs>(args: Subset<T, IncentiveGrantAggregateArgs>): Prisma.PrismaPromise<GetIncentiveGrantAggregateType<T>>
+
+    /**
+     * Group by IncentiveGrant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IncentiveGrantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IncentiveGrantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IncentiveGrantGroupByArgs['orderBy'] }
+        : { orderBy?: IncentiveGrantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IncentiveGrantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIncentiveGrantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IncentiveGrant model
+   */
+  readonly fields: IncentiveGrantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IncentiveGrant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IncentiveGrantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    segmentIncentive<T extends SegmentIncentiveDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SegmentIncentiveDefaultArgs<ExtArgs>>): Prisma__SegmentIncentiveClient<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    coupon<T extends IncentiveGrant$couponArgs<ExtArgs> = {}>(args?: Subset<T, IncentiveGrant$couponArgs<ExtArgs>>): Prisma__CouponClient<$Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    walletTransaction<T extends IncentiveGrant$walletTransactionArgs<ExtArgs> = {}>(args?: Subset<T, IncentiveGrant$walletTransactionArgs<ExtArgs>>): Prisma__WalletTransactionClient<$Result.GetResult<Prisma.$WalletTransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IncentiveGrant model
+   */ 
+  interface IncentiveGrantFieldRefs {
+    readonly id: FieldRef<"IncentiveGrant", 'String'>
+    readonly segmentIncentiveId: FieldRef<"IncentiveGrant", 'String'>
+    readonly userId: FieldRef<"IncentiveGrant", 'String'>
+    readonly grantedAt: FieldRef<"IncentiveGrant", 'DateTime'>
+    readonly couponCode: FieldRef<"IncentiveGrant", 'String'>
+    readonly couponId: FieldRef<"IncentiveGrant", 'String'>
+    readonly walletTransactionId: FieldRef<"IncentiveGrant", 'String'>
+    readonly redeemedAt: FieldRef<"IncentiveGrant", 'DateTime'>
+    readonly redeemedOrderId: FieldRef<"IncentiveGrant", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IncentiveGrant findUnique
+   */
+  export type IncentiveGrantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * Filter, which IncentiveGrant to fetch.
+     */
+    where: IncentiveGrantWhereUniqueInput
+  }
+
+  /**
+   * IncentiveGrant findUniqueOrThrow
+   */
+  export type IncentiveGrantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * Filter, which IncentiveGrant to fetch.
+     */
+    where: IncentiveGrantWhereUniqueInput
+  }
+
+  /**
+   * IncentiveGrant findFirst
+   */
+  export type IncentiveGrantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * Filter, which IncentiveGrant to fetch.
+     */
+    where?: IncentiveGrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IncentiveGrants to fetch.
+     */
+    orderBy?: IncentiveGrantOrderByWithRelationInput | IncentiveGrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IncentiveGrants.
+     */
+    cursor?: IncentiveGrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IncentiveGrants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IncentiveGrants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IncentiveGrants.
+     */
+    distinct?: IncentiveGrantScalarFieldEnum | IncentiveGrantScalarFieldEnum[]
+  }
+
+  /**
+   * IncentiveGrant findFirstOrThrow
+   */
+  export type IncentiveGrantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * Filter, which IncentiveGrant to fetch.
+     */
+    where?: IncentiveGrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IncentiveGrants to fetch.
+     */
+    orderBy?: IncentiveGrantOrderByWithRelationInput | IncentiveGrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IncentiveGrants.
+     */
+    cursor?: IncentiveGrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IncentiveGrants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IncentiveGrants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IncentiveGrants.
+     */
+    distinct?: IncentiveGrantScalarFieldEnum | IncentiveGrantScalarFieldEnum[]
+  }
+
+  /**
+   * IncentiveGrant findMany
+   */
+  export type IncentiveGrantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * Filter, which IncentiveGrants to fetch.
+     */
+    where?: IncentiveGrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IncentiveGrants to fetch.
+     */
+    orderBy?: IncentiveGrantOrderByWithRelationInput | IncentiveGrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IncentiveGrants.
+     */
+    cursor?: IncentiveGrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IncentiveGrants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IncentiveGrants.
+     */
+    skip?: number
+    distinct?: IncentiveGrantScalarFieldEnum | IncentiveGrantScalarFieldEnum[]
+  }
+
+  /**
+   * IncentiveGrant create
+   */
+  export type IncentiveGrantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IncentiveGrant.
+     */
+    data: XOR<IncentiveGrantCreateInput, IncentiveGrantUncheckedCreateInput>
+  }
+
+  /**
+   * IncentiveGrant createMany
+   */
+  export type IncentiveGrantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IncentiveGrants.
+     */
+    data: IncentiveGrantCreateManyInput | IncentiveGrantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IncentiveGrant createManyAndReturn
+   */
+  export type IncentiveGrantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many IncentiveGrants.
+     */
+    data: IncentiveGrantCreateManyInput | IncentiveGrantCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IncentiveGrant update
+   */
+  export type IncentiveGrantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IncentiveGrant.
+     */
+    data: XOR<IncentiveGrantUpdateInput, IncentiveGrantUncheckedUpdateInput>
+    /**
+     * Choose, which IncentiveGrant to update.
+     */
+    where: IncentiveGrantWhereUniqueInput
+  }
+
+  /**
+   * IncentiveGrant updateMany
+   */
+  export type IncentiveGrantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IncentiveGrants.
+     */
+    data: XOR<IncentiveGrantUpdateManyMutationInput, IncentiveGrantUncheckedUpdateManyInput>
+    /**
+     * Filter which IncentiveGrants to update
+     */
+    where?: IncentiveGrantWhereInput
+  }
+
+  /**
+   * IncentiveGrant upsert
+   */
+  export type IncentiveGrantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IncentiveGrant to update in case it exists.
+     */
+    where: IncentiveGrantWhereUniqueInput
+    /**
+     * In case the IncentiveGrant found by the `where` argument doesn't exist, create a new IncentiveGrant with this data.
+     */
+    create: XOR<IncentiveGrantCreateInput, IncentiveGrantUncheckedCreateInput>
+    /**
+     * In case the IncentiveGrant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IncentiveGrantUpdateInput, IncentiveGrantUncheckedUpdateInput>
+  }
+
+  /**
+   * IncentiveGrant delete
+   */
+  export type IncentiveGrantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+    /**
+     * Filter which IncentiveGrant to delete.
+     */
+    where: IncentiveGrantWhereUniqueInput
+  }
+
+  /**
+   * IncentiveGrant deleteMany
+   */
+  export type IncentiveGrantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IncentiveGrants to delete
+     */
+    where?: IncentiveGrantWhereInput
+  }
+
+  /**
+   * IncentiveGrant.coupon
+   */
+  export type IncentiveGrant$couponArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Coupon
+     */
+    select?: CouponSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CouponInclude<ExtArgs> | null
+    where?: CouponWhereInput
+  }
+
+  /**
+   * IncentiveGrant.walletTransaction
+   */
+  export type IncentiveGrant$walletTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletTransaction
+     */
+    select?: WalletTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WalletTransactionInclude<ExtArgs> | null
+    where?: WalletTransactionWhereInput
+  }
+
+  /**
+   * IncentiveGrant without action
+   */
+  export type IncentiveGrantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IncentiveGrant
+     */
+    select?: IncentiveGrantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IncentiveGrantInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -32940,6 +35584,7 @@ export namespace Prisma {
     description: 'description',
     orderId: 'orderId',
     performedById: 'performedById',
+    incentiveGrantId: 'incentiveGrantId',
     createdAt: 'createdAt'
   };
 
@@ -33013,6 +35658,7 @@ export namespace Prisma {
     title: 'title',
     subtitle: 'subtitle',
     imageUrl: 'imageUrl',
+    couponId: 'couponId',
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -33229,6 +35875,42 @@ export namespace Prisma {
   };
 
   export type WorkflowExecutionLogScalarFieldEnum = (typeof WorkflowExecutionLogScalarFieldEnum)[keyof typeof WorkflowExecutionLogScalarFieldEnum]
+
+
+  export const SegmentIncentiveScalarFieldEnum: {
+    id: 'id',
+    organizationId: 'organizationId',
+    segmentId: 'segmentId',
+    name: 'name',
+    incentiveType: 'incentiveType',
+    couponId: 'couponId',
+    personaliseCoupon: 'personaliseCoupon',
+    walletAmount: 'walletAmount',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    maxGrantsPerUser: 'maxGrantsPerUser',
+    displayChannel: 'displayChannel',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SegmentIncentiveScalarFieldEnum = (typeof SegmentIncentiveScalarFieldEnum)[keyof typeof SegmentIncentiveScalarFieldEnum]
+
+
+  export const IncentiveGrantScalarFieldEnum: {
+    id: 'id',
+    segmentIncentiveId: 'segmentIncentiveId',
+    userId: 'userId',
+    grantedAt: 'grantedAt',
+    couponCode: 'couponCode',
+    couponId: 'couponId',
+    walletTransactionId: 'walletTransactionId',
+    redeemedAt: 'redeemedAt',
+    redeemedOrderId: 'redeemedOrderId'
+  };
+
+  export type IncentiveGrantScalarFieldEnum = (typeof IncentiveGrantScalarFieldEnum)[keyof typeof IncentiveGrantScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -33486,6 +36168,7 @@ export namespace Prisma {
     segments?: CustomerSegmentListRelationFilter
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
+    segmentIncentives?: SegmentIncentiveListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -33502,6 +36185,7 @@ export namespace Prisma {
     segments?: CustomerSegmentOrderByRelationAggregateInput
     inAppMessages?: InAppMessageOrderByRelationAggregateInput
     workflows?: MarketingWorkflowOrderByRelationAggregateInput
+    segmentIncentives?: SegmentIncentiveOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -33521,6 +36205,7 @@ export namespace Prisma {
     segments?: CustomerSegmentListRelationFilter
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
+    segmentIncentives?: SegmentIncentiveListRelationFilter
   }, "id" | "slug">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -33991,6 +36676,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     couponRedemptions?: CouponRedemptionListRelationFilter
+    incentiveGrants?: IncentiveGrantListRelationFilter
     wallet?: XOR<WalletNullableRelationFilter, WalletWhereInput> | null
     walletTransactions?: WalletTransactionListRelationFilter
     performedWalletActions?: WalletTransactionListRelationFilter
@@ -34014,6 +36700,7 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     couponRedemptions?: CouponRedemptionOrderByRelationAggregateInput
+    incentiveGrants?: IncentiveGrantOrderByRelationAggregateInput
     wallet?: WalletOrderByWithRelationInput
     walletTransactions?: WalletTransactionOrderByRelationAggregateInput
     performedWalletActions?: WalletTransactionOrderByRelationAggregateInput
@@ -34040,6 +36727,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     couponRedemptions?: CouponRedemptionListRelationFilter
+    incentiveGrants?: IncentiveGrantListRelationFilter
     wallet?: XOR<WalletNullableRelationFilter, WalletWhereInput> | null
     walletTransactions?: WalletTransactionListRelationFilter
     performedWalletActions?: WalletTransactionListRelationFilter
@@ -34142,10 +36830,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"WalletTransaction"> | string | null
     orderId?: StringNullableFilter<"WalletTransaction"> | string | null
     performedById?: StringNullableFilter<"WalletTransaction"> | string | null
+    incentiveGrantId?: StringNullableFilter<"WalletTransaction"> | string | null
     createdAt?: DateTimeFilter<"WalletTransaction"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     order?: XOR<OrderNullableRelationFilter, OrderWhereInput> | null
     performedBy?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    incentiveGrant?: XOR<IncentiveGrantNullableRelationFilter, IncentiveGrantWhereInput> | null
   }
 
   export type WalletTransactionOrderByWithRelationInput = {
@@ -34158,14 +36848,17 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     orderId?: SortOrderInput | SortOrder
     performedById?: SortOrderInput | SortOrder
+    incentiveGrantId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     order?: OrderOrderByWithRelationInput
     performedBy?: UserOrderByWithRelationInput
+    incentiveGrant?: IncentiveGrantOrderByWithRelationInput
   }
 
   export type WalletTransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    incentiveGrantId?: string
     AND?: WalletTransactionWhereInput | WalletTransactionWhereInput[]
     OR?: WalletTransactionWhereInput[]
     NOT?: WalletTransactionWhereInput | WalletTransactionWhereInput[]
@@ -34181,7 +36874,8 @@ export namespace Prisma {
     user?: XOR<UserRelationFilter, UserWhereInput>
     order?: XOR<OrderNullableRelationFilter, OrderWhereInput> | null
     performedBy?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-  }, "id">
+    incentiveGrant?: XOR<IncentiveGrantNullableRelationFilter, IncentiveGrantWhereInput> | null
+  }, "id" | "incentiveGrantId">
 
   export type WalletTransactionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -34193,6 +36887,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     orderId?: SortOrderInput | SortOrder
     performedById?: SortOrderInput | SortOrder
+    incentiveGrantId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: WalletTransactionCountOrderByAggregateInput
     _avg?: WalletTransactionAvgOrderByAggregateInput
@@ -34214,6 +36909,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     orderId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     performedById?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
+    incentiveGrantId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"WalletTransaction"> | Date | string
   }
 
@@ -34549,9 +37245,11 @@ export namespace Prisma {
     title?: StringFilter<"PromotionBanner"> | string
     subtitle?: StringNullableFilter<"PromotionBanner"> | string | null
     imageUrl?: StringNullableFilter<"PromotionBanner"> | string | null
+    couponId?: StringNullableFilter<"PromotionBanner"> | string | null
     isActive?: BoolFilter<"PromotionBanner"> | boolean
     createdAt?: DateTimeFilter<"PromotionBanner"> | Date | string
     updatedAt?: DateTimeFilter<"PromotionBanner"> | Date | string
+    coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
     menuAssignments?: MenuPromotionBannerListRelationFilter
   }
 
@@ -34560,9 +37258,11 @@ export namespace Prisma {
     title?: SortOrder
     subtitle?: SortOrderInput | SortOrder
     imageUrl?: SortOrderInput | SortOrder
+    couponId?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    coupon?: CouponOrderByWithRelationInput
     menuAssignments?: MenuPromotionBannerOrderByRelationAggregateInput
   }
 
@@ -34574,9 +37274,11 @@ export namespace Prisma {
     title?: StringFilter<"PromotionBanner"> | string
     subtitle?: StringNullableFilter<"PromotionBanner"> | string | null
     imageUrl?: StringNullableFilter<"PromotionBanner"> | string | null
+    couponId?: StringNullableFilter<"PromotionBanner"> | string | null
     isActive?: BoolFilter<"PromotionBanner"> | boolean
     createdAt?: DateTimeFilter<"PromotionBanner"> | Date | string
     updatedAt?: DateTimeFilter<"PromotionBanner"> | Date | string
+    coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
     menuAssignments?: MenuPromotionBannerListRelationFilter
   }, "id">
 
@@ -34585,6 +37287,7 @@ export namespace Prisma {
     title?: SortOrder
     subtitle?: SortOrderInput | SortOrder
     imageUrl?: SortOrderInput | SortOrder
+    couponId?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -34601,6 +37304,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"PromotionBanner"> | string
     subtitle?: StringNullableWithAggregatesFilter<"PromotionBanner"> | string | null
     imageUrl?: StringNullableWithAggregatesFilter<"PromotionBanner"> | string | null
+    couponId?: StringNullableWithAggregatesFilter<"PromotionBanner"> | string | null
     isActive?: BoolWithAggregatesFilter<"PromotionBanner"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"PromotionBanner"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PromotionBanner"> | Date | string
@@ -35041,6 +37745,9 @@ export namespace Prisma {
     location?: XOR<LocationNullableRelationFilter, LocationWhereInput> | null
     freeItemDish?: XOR<DishNullableRelationFilter, DishWhereInput> | null
     redemptions?: CouponRedemptionListRelationFilter
+    incentiveGrants?: IncentiveGrantListRelationFilter
+    segmentIncentives?: SegmentIncentiveListRelationFilter
+    promotionBanners?: PromotionBannerListRelationFilter
   }
 
   export type CouponOrderByWithRelationInput = {
@@ -35064,6 +37771,9 @@ export namespace Prisma {
     location?: LocationOrderByWithRelationInput
     freeItemDish?: DishOrderByWithRelationInput
     redemptions?: CouponRedemptionOrderByRelationAggregateInput
+    incentiveGrants?: IncentiveGrantOrderByRelationAggregateInput
+    segmentIncentives?: SegmentIncentiveOrderByRelationAggregateInput
+    promotionBanners?: PromotionBannerOrderByRelationAggregateInput
   }
 
   export type CouponWhereUniqueInput = Prisma.AtLeast<{
@@ -35090,6 +37800,9 @@ export namespace Prisma {
     location?: XOR<LocationNullableRelationFilter, LocationWhereInput> | null
     freeItemDish?: XOR<DishNullableRelationFilter, DishWhereInput> | null
     redemptions?: CouponRedemptionListRelationFilter
+    incentiveGrants?: IncentiveGrantListRelationFilter
+    segmentIncentives?: SegmentIncentiveListRelationFilter
+    promotionBanners?: PromotionBannerListRelationFilter
   }, "id" | "code">
 
   export type CouponOrderByWithAggregationInput = {
@@ -35362,6 +38075,7 @@ export namespace Prisma {
     organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
+    segmentIncentives?: SegmentIncentiveListRelationFilter
   }
 
   export type CustomerSegmentOrderByWithRelationInput = {
@@ -35376,6 +38090,7 @@ export namespace Prisma {
     organization?: OrganizationOrderByWithRelationInput
     inAppMessages?: InAppMessageOrderByRelationAggregateInput
     workflows?: MarketingWorkflowOrderByRelationAggregateInput
+    segmentIncentives?: SegmentIncentiveOrderByRelationAggregateInput
   }
 
   export type CustomerSegmentWhereUniqueInput = Prisma.AtLeast<{
@@ -35394,6 +38109,7 @@ export namespace Prisma {
     organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
+    segmentIncentives?: SegmentIncentiveListRelationFilter
   }, "id" | "organizationId_name">
 
   export type CustomerSegmentOrderByWithAggregationInput = {
@@ -35732,6 +38448,207 @@ export namespace Prisma {
     details?: JsonNullableWithAggregatesFilter<"WorkflowExecutionLog">
   }
 
+  export type SegmentIncentiveWhereInput = {
+    AND?: SegmentIncentiveWhereInput | SegmentIncentiveWhereInput[]
+    OR?: SegmentIncentiveWhereInput[]
+    NOT?: SegmentIncentiveWhereInput | SegmentIncentiveWhereInput[]
+    id?: StringFilter<"SegmentIncentive"> | string
+    organizationId?: StringFilter<"SegmentIncentive"> | string
+    segmentId?: StringFilter<"SegmentIncentive"> | string
+    name?: StringNullableFilter<"SegmentIncentive"> | string | null
+    incentiveType?: StringFilter<"SegmentIncentive"> | string
+    couponId?: StringNullableFilter<"SegmentIncentive"> | string | null
+    personaliseCoupon?: BoolFilter<"SegmentIncentive"> | boolean
+    walletAmount?: DecimalNullableFilter<"SegmentIncentive"> | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    endDate?: DateTimeNullableFilter<"SegmentIncentive"> | Date | string | null
+    maxGrantsPerUser?: IntFilter<"SegmentIncentive"> | number
+    displayChannel?: StringFilter<"SegmentIncentive"> | string
+    isActive?: BoolFilter<"SegmentIncentive"> | boolean
+    createdAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    updatedAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    segment?: XOR<CustomerSegmentRelationFilter, CustomerSegmentWhereInput>
+    coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
+    grants?: IncentiveGrantListRelationFilter
+  }
+
+  export type SegmentIncentiveOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    name?: SortOrderInput | SortOrder
+    incentiveType?: SortOrder
+    couponId?: SortOrderInput | SortOrder
+    personaliseCoupon?: SortOrder
+    walletAmount?: SortOrderInput | SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    maxGrantsPerUser?: SortOrder
+    displayChannel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    segment?: CustomerSegmentOrderByWithRelationInput
+    coupon?: CouponOrderByWithRelationInput
+    grants?: IncentiveGrantOrderByRelationAggregateInput
+  }
+
+  export type SegmentIncentiveWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SegmentIncentiveWhereInput | SegmentIncentiveWhereInput[]
+    OR?: SegmentIncentiveWhereInput[]
+    NOT?: SegmentIncentiveWhereInput | SegmentIncentiveWhereInput[]
+    organizationId?: StringFilter<"SegmentIncentive"> | string
+    segmentId?: StringFilter<"SegmentIncentive"> | string
+    name?: StringNullableFilter<"SegmentIncentive"> | string | null
+    incentiveType?: StringFilter<"SegmentIncentive"> | string
+    couponId?: StringNullableFilter<"SegmentIncentive"> | string | null
+    personaliseCoupon?: BoolFilter<"SegmentIncentive"> | boolean
+    walletAmount?: DecimalNullableFilter<"SegmentIncentive"> | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    endDate?: DateTimeNullableFilter<"SegmentIncentive"> | Date | string | null
+    maxGrantsPerUser?: IntFilter<"SegmentIncentive"> | number
+    displayChannel?: StringFilter<"SegmentIncentive"> | string
+    isActive?: BoolFilter<"SegmentIncentive"> | boolean
+    createdAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    updatedAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    segment?: XOR<CustomerSegmentRelationFilter, CustomerSegmentWhereInput>
+    coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
+    grants?: IncentiveGrantListRelationFilter
+  }, "id">
+
+  export type SegmentIncentiveOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    name?: SortOrderInput | SortOrder
+    incentiveType?: SortOrder
+    couponId?: SortOrderInput | SortOrder
+    personaliseCoupon?: SortOrder
+    walletAmount?: SortOrderInput | SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    maxGrantsPerUser?: SortOrder
+    displayChannel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SegmentIncentiveCountOrderByAggregateInput
+    _avg?: SegmentIncentiveAvgOrderByAggregateInput
+    _max?: SegmentIncentiveMaxOrderByAggregateInput
+    _min?: SegmentIncentiveMinOrderByAggregateInput
+    _sum?: SegmentIncentiveSumOrderByAggregateInput
+  }
+
+  export type SegmentIncentiveScalarWhereWithAggregatesInput = {
+    AND?: SegmentIncentiveScalarWhereWithAggregatesInput | SegmentIncentiveScalarWhereWithAggregatesInput[]
+    OR?: SegmentIncentiveScalarWhereWithAggregatesInput[]
+    NOT?: SegmentIncentiveScalarWhereWithAggregatesInput | SegmentIncentiveScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SegmentIncentive"> | string
+    organizationId?: StringWithAggregatesFilter<"SegmentIncentive"> | string
+    segmentId?: StringWithAggregatesFilter<"SegmentIncentive"> | string
+    name?: StringNullableWithAggregatesFilter<"SegmentIncentive"> | string | null
+    incentiveType?: StringWithAggregatesFilter<"SegmentIncentive"> | string
+    couponId?: StringNullableWithAggregatesFilter<"SegmentIncentive"> | string | null
+    personaliseCoupon?: BoolWithAggregatesFilter<"SegmentIncentive"> | boolean
+    walletAmount?: DecimalNullableWithAggregatesFilter<"SegmentIncentive"> | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeWithAggregatesFilter<"SegmentIncentive"> | Date | string
+    endDate?: DateTimeNullableWithAggregatesFilter<"SegmentIncentive"> | Date | string | null
+    maxGrantsPerUser?: IntWithAggregatesFilter<"SegmentIncentive"> | number
+    displayChannel?: StringWithAggregatesFilter<"SegmentIncentive"> | string
+    isActive?: BoolWithAggregatesFilter<"SegmentIncentive"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SegmentIncentive"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SegmentIncentive"> | Date | string
+  }
+
+  export type IncentiveGrantWhereInput = {
+    AND?: IncentiveGrantWhereInput | IncentiveGrantWhereInput[]
+    OR?: IncentiveGrantWhereInput[]
+    NOT?: IncentiveGrantWhereInput | IncentiveGrantWhereInput[]
+    id?: StringFilter<"IncentiveGrant"> | string
+    segmentIncentiveId?: StringFilter<"IncentiveGrant"> | string
+    userId?: StringFilter<"IncentiveGrant"> | string
+    grantedAt?: DateTimeFilter<"IncentiveGrant"> | Date | string
+    couponCode?: StringNullableFilter<"IncentiveGrant"> | string | null
+    couponId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    walletTransactionId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    redeemedAt?: DateTimeNullableFilter<"IncentiveGrant"> | Date | string | null
+    redeemedOrderId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    segmentIncentive?: XOR<SegmentIncentiveRelationFilter, SegmentIncentiveWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
+    walletTransaction?: XOR<WalletTransactionNullableRelationFilter, WalletTransactionWhereInput> | null
+  }
+
+  export type IncentiveGrantOrderByWithRelationInput = {
+    id?: SortOrder
+    segmentIncentiveId?: SortOrder
+    userId?: SortOrder
+    grantedAt?: SortOrder
+    couponCode?: SortOrderInput | SortOrder
+    couponId?: SortOrderInput | SortOrder
+    walletTransactionId?: SortOrderInput | SortOrder
+    redeemedAt?: SortOrderInput | SortOrder
+    redeemedOrderId?: SortOrderInput | SortOrder
+    segmentIncentive?: SegmentIncentiveOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    coupon?: CouponOrderByWithRelationInput
+    walletTransaction?: WalletTransactionOrderByWithRelationInput
+  }
+
+  export type IncentiveGrantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    segmentIncentiveId_userId?: IncentiveGrantSegmentIncentiveIdUserIdCompoundUniqueInput
+    AND?: IncentiveGrantWhereInput | IncentiveGrantWhereInput[]
+    OR?: IncentiveGrantWhereInput[]
+    NOT?: IncentiveGrantWhereInput | IncentiveGrantWhereInput[]
+    segmentIncentiveId?: StringFilter<"IncentiveGrant"> | string
+    userId?: StringFilter<"IncentiveGrant"> | string
+    grantedAt?: DateTimeFilter<"IncentiveGrant"> | Date | string
+    couponCode?: StringNullableFilter<"IncentiveGrant"> | string | null
+    couponId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    walletTransactionId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    redeemedAt?: DateTimeNullableFilter<"IncentiveGrant"> | Date | string | null
+    redeemedOrderId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    segmentIncentive?: XOR<SegmentIncentiveRelationFilter, SegmentIncentiveWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
+    walletTransaction?: XOR<WalletTransactionNullableRelationFilter, WalletTransactionWhereInput> | null
+  }, "id" | "segmentIncentiveId_userId">
+
+  export type IncentiveGrantOrderByWithAggregationInput = {
+    id?: SortOrder
+    segmentIncentiveId?: SortOrder
+    userId?: SortOrder
+    grantedAt?: SortOrder
+    couponCode?: SortOrderInput | SortOrder
+    couponId?: SortOrderInput | SortOrder
+    walletTransactionId?: SortOrderInput | SortOrder
+    redeemedAt?: SortOrderInput | SortOrder
+    redeemedOrderId?: SortOrderInput | SortOrder
+    _count?: IncentiveGrantCountOrderByAggregateInput
+    _max?: IncentiveGrantMaxOrderByAggregateInput
+    _min?: IncentiveGrantMinOrderByAggregateInput
+  }
+
+  export type IncentiveGrantScalarWhereWithAggregatesInput = {
+    AND?: IncentiveGrantScalarWhereWithAggregatesInput | IncentiveGrantScalarWhereWithAggregatesInput[]
+    OR?: IncentiveGrantScalarWhereWithAggregatesInput[]
+    NOT?: IncentiveGrantScalarWhereWithAggregatesInput | IncentiveGrantScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IncentiveGrant"> | string
+    segmentIncentiveId?: StringWithAggregatesFilter<"IncentiveGrant"> | string
+    userId?: StringWithAggregatesFilter<"IncentiveGrant"> | string
+    grantedAt?: DateTimeWithAggregatesFilter<"IncentiveGrant"> | Date | string
+    couponCode?: StringNullableWithAggregatesFilter<"IncentiveGrant"> | string | null
+    couponId?: StringNullableWithAggregatesFilter<"IncentiveGrant"> | string | null
+    walletTransactionId?: StringNullableWithAggregatesFilter<"IncentiveGrant"> | string | null
+    redeemedAt?: DateTimeNullableWithAggregatesFilter<"IncentiveGrant"> | Date | string | null
+    redeemedOrderId?: StringNullableWithAggregatesFilter<"IncentiveGrant"> | string | null
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     name: string
@@ -35746,6 +38663,7 @@ export namespace Prisma {
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -35762,6 +38680,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -35778,6 +38697,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -35794,6 +38714,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -36307,6 +39228,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -36329,6 +39251,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -36351,6 +39274,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -36373,6 +39297,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -36475,6 +39400,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutWalletTransactionsInput
     order?: OrderCreateNestedOneWithoutWalletTransactionsInput
     performedBy?: UserCreateNestedOneWithoutPerformedWalletActionsInput
+    incentiveGrant?: IncentiveGrantCreateNestedOneWithoutWalletTransactionInput
   }
 
   export type WalletTransactionUncheckedCreateInput = {
@@ -36487,6 +39413,7 @@ export namespace Prisma {
     description?: string | null
     orderId?: string | null
     performedById?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -36501,6 +39428,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
     order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
     performedBy?: UserUpdateOneWithoutPerformedWalletActionsNestedInput
+    incentiveGrant?: IncentiveGrantUpdateOneWithoutWalletTransactionNestedInput
   }
 
   export type WalletTransactionUncheckedUpdateInput = {
@@ -36513,6 +39441,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -36526,6 +39455,7 @@ export namespace Prisma {
     description?: string | null
     orderId?: string | null
     performedById?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -36549,6 +39479,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -36892,6 +39823,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    coupon?: CouponCreateNestedOneWithoutPromotionBannersInput
     menuAssignments?: MenuPromotionBannerCreateNestedManyWithoutPromotionBannerInput
   }
 
@@ -36900,6 +39832,7 @@ export namespace Prisma {
     title: string
     subtitle?: string | null
     imageUrl?: string | null
+    couponId?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36914,6 +39847,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coupon?: CouponUpdateOneWithoutPromotionBannersNestedInput
     menuAssignments?: MenuPromotionBannerUpdateManyWithoutPromotionBannerNestedInput
   }
 
@@ -36922,6 +39856,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36933,6 +39868,7 @@ export namespace Prisma {
     title: string
     subtitle?: string | null
     imageUrl?: string | null
+    couponId?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36953,6 +39889,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37435,6 +40372,9 @@ export namespace Prisma {
     location?: LocationCreateNestedOneWithoutCouponsInput
     freeItemDish?: DishCreateNestedOneWithoutCouponsInput
     redemptions?: CouponRedemptionCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutCouponInput
   }
 
   export type CouponUncheckedCreateInput = {
@@ -37456,6 +40396,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     redemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutCouponInput
   }
 
   export type CouponUpdateInput = {
@@ -37477,6 +40420,9 @@ export namespace Prisma {
     location?: LocationUpdateOneWithoutCouponsNestedInput
     freeItemDish?: DishUpdateOneWithoutCouponsNestedInput
     redemptions?: CouponRedemptionUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutCouponNestedInput
   }
 
   export type CouponUncheckedUpdateInput = {
@@ -37498,6 +40444,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     redemptions?: CouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutCouponNestedInput
   }
 
   export type CouponCreateManyInput = {
@@ -37774,6 +40723,7 @@ export namespace Prisma {
     organization: OrganizationCreateNestedOneWithoutSegmentsInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateInput = {
@@ -37787,6 +40737,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUpdateInput = {
@@ -37800,6 +40751,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateInput = {
@@ -37813,6 +40765,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentCreateManyInput = {
@@ -38178,6 +41131,218 @@ export namespace Prisma {
     details?: NullableJsonNullValueInput | InputJsonValue
   }
 
+  export type SegmentIncentiveCreateInput = {
+    id?: string
+    name?: string | null
+    incentiveType: string
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutSegmentIncentivesInput
+    segment: CustomerSegmentCreateNestedOneWithoutSegmentIncentivesInput
+    coupon?: CouponCreateNestedOneWithoutSegmentIncentivesInput
+    grants?: IncentiveGrantCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveUncheckedCreateInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    name?: string | null
+    incentiveType: string
+    couponId?: string | null
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    grants?: IncentiveGrantUncheckedCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    segment?: CustomerSegmentUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    coupon?: CouponUpdateOneWithoutSegmentIncentivesNestedInput
+    grants?: IncentiveGrantUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grants?: IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveCreateManyInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    name?: string | null
+    incentiveType: string
+    couponId?: string | null
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SegmentIncentiveUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SegmentIncentiveUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IncentiveGrantCreateInput = {
+    id?: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    segmentIncentive: SegmentIncentiveCreateNestedOneWithoutGrantsInput
+    user: UserCreateNestedOneWithoutIncentiveGrantsInput
+    coupon?: CouponCreateNestedOneWithoutIncentiveGrantsInput
+    walletTransaction?: WalletTransactionCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantUncheckedCreateInput = {
+    id?: string
+    segmentIncentiveId: string
+    userId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    couponId?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    walletTransaction?: WalletTransactionUncheckedCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    segmentIncentive?: SegmentIncentiveUpdateOneRequiredWithoutGrantsNestedInput
+    user?: UserUpdateOneRequiredWithoutIncentiveGrantsNestedInput
+    coupon?: CouponUpdateOneWithoutIncentiveGrantsNestedInput
+    walletTransaction?: WalletTransactionUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentIncentiveId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransaction?: WalletTransactionUncheckedUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantCreateManyInput = {
+    id?: string
+    segmentIncentiveId: string
+    userId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    couponId?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+  }
+
+  export type IncentiveGrantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type IncentiveGrantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentIncentiveId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -38249,6 +41414,12 @@ export namespace Prisma {
     none?: MarketingWorkflowWhereInput
   }
 
+  export type SegmentIncentiveListRelationFilter = {
+    every?: SegmentIncentiveWhereInput
+    some?: SegmentIncentiveWhereInput
+    none?: SegmentIncentiveWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -38271,6 +41442,10 @@ export namespace Prisma {
   }
 
   export type MarketingWorkflowOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SegmentIncentiveOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -38899,6 +42074,12 @@ export namespace Prisma {
     none?: CouponRedemptionWhereInput
   }
 
+  export type IncentiveGrantListRelationFilter = {
+    every?: IncentiveGrantWhereInput
+    some?: IncentiveGrantWhereInput
+    none?: IncentiveGrantWhereInput
+  }
+
   export type WalletNullableRelationFilter = {
     is?: WalletWhereInput | null
     isNot?: WalletWhereInput | null
@@ -38919,6 +42100,10 @@ export namespace Prisma {
   }
 
   export type CouponRedemptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IncentiveGrantOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -39021,6 +42206,11 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type IncentiveGrantNullableRelationFilter = {
+    is?: IncentiveGrantWhereInput | null
+    isNot?: IncentiveGrantWhereInput | null
+  }
+
   export type WalletTransactionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -39031,6 +42221,7 @@ export namespace Prisma {
     description?: SortOrder
     orderId?: SortOrder
     performedById?: SortOrder
+    incentiveGrantId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -39050,6 +42241,7 @@ export namespace Prisma {
     description?: SortOrder
     orderId?: SortOrder
     performedById?: SortOrder
+    incentiveGrantId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -39063,6 +42255,7 @@ export namespace Prisma {
     description?: SortOrder
     orderId?: SortOrder
     performedById?: SortOrder
+    incentiveGrantId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -39314,11 +42507,17 @@ export namespace Prisma {
     year?: SortOrder
   }
 
+  export type CouponNullableRelationFilter = {
+    is?: CouponWhereInput | null
+    isNot?: CouponWhereInput | null
+  }
+
   export type PromotionBannerCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     subtitle?: SortOrder
     imageUrl?: SortOrder
+    couponId?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -39329,6 +42528,7 @@ export namespace Prisma {
     title?: SortOrder
     subtitle?: SortOrder
     imageUrl?: SortOrder
+    couponId?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -39339,6 +42539,7 @@ export namespace Prisma {
     title?: SortOrder
     subtitle?: SortOrder
     imageUrl?: SortOrder
+    couponId?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -39671,6 +42872,16 @@ export namespace Prisma {
   export type DishNullableRelationFilter = {
     is?: DishWhereInput | null
     isNot?: DishWhereInput | null
+  }
+
+  export type PromotionBannerListRelationFilter = {
+    every?: PromotionBannerWhereInput
+    some?: PromotionBannerWhereInput
+    none?: PromotionBannerWhereInput
+  }
+
+  export type PromotionBannerOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CouponCountOrderByAggregateInput = {
@@ -40168,6 +43379,121 @@ export namespace Prisma {
     message?: SortOrder
   }
 
+  export type SegmentIncentiveCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    name?: SortOrder
+    incentiveType?: SortOrder
+    couponId?: SortOrder
+    personaliseCoupon?: SortOrder
+    walletAmount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    maxGrantsPerUser?: SortOrder
+    displayChannel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SegmentIncentiveAvgOrderByAggregateInput = {
+    walletAmount?: SortOrder
+    maxGrantsPerUser?: SortOrder
+  }
+
+  export type SegmentIncentiveMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    name?: SortOrder
+    incentiveType?: SortOrder
+    couponId?: SortOrder
+    personaliseCoupon?: SortOrder
+    walletAmount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    maxGrantsPerUser?: SortOrder
+    displayChannel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SegmentIncentiveMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    name?: SortOrder
+    incentiveType?: SortOrder
+    couponId?: SortOrder
+    personaliseCoupon?: SortOrder
+    walletAmount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    maxGrantsPerUser?: SortOrder
+    displayChannel?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SegmentIncentiveSumOrderByAggregateInput = {
+    walletAmount?: SortOrder
+    maxGrantsPerUser?: SortOrder
+  }
+
+  export type SegmentIncentiveRelationFilter = {
+    is?: SegmentIncentiveWhereInput
+    isNot?: SegmentIncentiveWhereInput
+  }
+
+  export type WalletTransactionNullableRelationFilter = {
+    is?: WalletTransactionWhereInput | null
+    isNot?: WalletTransactionWhereInput | null
+  }
+
+  export type IncentiveGrantSegmentIncentiveIdUserIdCompoundUniqueInput = {
+    segmentIncentiveId: string
+    userId: string
+  }
+
+  export type IncentiveGrantCountOrderByAggregateInput = {
+    id?: SortOrder
+    segmentIncentiveId?: SortOrder
+    userId?: SortOrder
+    grantedAt?: SortOrder
+    couponCode?: SortOrder
+    couponId?: SortOrder
+    walletTransactionId?: SortOrder
+    redeemedAt?: SortOrder
+    redeemedOrderId?: SortOrder
+  }
+
+  export type IncentiveGrantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    segmentIncentiveId?: SortOrder
+    userId?: SortOrder
+    grantedAt?: SortOrder
+    couponCode?: SortOrder
+    couponId?: SortOrder
+    walletTransactionId?: SortOrder
+    redeemedAt?: SortOrder
+    redeemedOrderId?: SortOrder
+  }
+
+  export type IncentiveGrantMinOrderByAggregateInput = {
+    id?: SortOrder
+    segmentIncentiveId?: SortOrder
+    userId?: SortOrder
+    grantedAt?: SortOrder
+    couponCode?: SortOrder
+    couponId?: SortOrder
+    walletTransactionId?: SortOrder
+    redeemedAt?: SortOrder
+    redeemedOrderId?: SortOrder
+  }
+
   export type LocationCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -40203,6 +43529,13 @@ export namespace Prisma {
     connect?: MarketingWorkflowWhereUniqueInput | MarketingWorkflowWhereUniqueInput[]
   }
 
+  export type SegmentIncentiveCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutOrganizationInput, SegmentIncentiveUncheckedCreateWithoutOrganizationInput> | SegmentIncentiveCreateWithoutOrganizationInput[] | SegmentIncentiveUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutOrganizationInput | SegmentIncentiveCreateOrConnectWithoutOrganizationInput[]
+    createMany?: SegmentIncentiveCreateManyOrganizationInputEnvelope
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+  }
+
   export type LocationUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -40236,6 +43569,13 @@ export namespace Prisma {
     connectOrCreate?: MarketingWorkflowCreateOrConnectWithoutOrganizationInput | MarketingWorkflowCreateOrConnectWithoutOrganizationInput[]
     createMany?: MarketingWorkflowCreateManyOrganizationInputEnvelope
     connect?: MarketingWorkflowWhereUniqueInput | MarketingWorkflowWhereUniqueInput[]
+  }
+
+  export type SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutOrganizationInput, SegmentIncentiveUncheckedCreateWithoutOrganizationInput> | SegmentIncentiveCreateWithoutOrganizationInput[] | SegmentIncentiveUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutOrganizationInput | SegmentIncentiveCreateOrConnectWithoutOrganizationInput[]
+    createMany?: SegmentIncentiveCreateManyOrganizationInputEnvelope
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -40320,6 +43660,20 @@ export namespace Prisma {
     deleteMany?: MarketingWorkflowScalarWhereInput | MarketingWorkflowScalarWhereInput[]
   }
 
+  export type SegmentIncentiveUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutOrganizationInput, SegmentIncentiveUncheckedCreateWithoutOrganizationInput> | SegmentIncentiveCreateWithoutOrganizationInput[] | SegmentIncentiveUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutOrganizationInput | SegmentIncentiveCreateOrConnectWithoutOrganizationInput[]
+    upsert?: SegmentIncentiveUpsertWithWhereUniqueWithoutOrganizationInput | SegmentIncentiveUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: SegmentIncentiveCreateManyOrganizationInputEnvelope
+    set?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    disconnect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    delete?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    update?: SegmentIncentiveUpdateWithWhereUniqueWithoutOrganizationInput | SegmentIncentiveUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: SegmentIncentiveUpdateManyWithWhereWithoutOrganizationInput | SegmentIncentiveUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
+  }
+
   export type LocationUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -40388,6 +43742,20 @@ export namespace Prisma {
     update?: MarketingWorkflowUpdateWithWhereUniqueWithoutOrganizationInput | MarketingWorkflowUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: MarketingWorkflowUpdateManyWithWhereWithoutOrganizationInput | MarketingWorkflowUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: MarketingWorkflowScalarWhereInput | MarketingWorkflowScalarWhereInput[]
+  }
+
+  export type SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutOrganizationInput, SegmentIncentiveUncheckedCreateWithoutOrganizationInput> | SegmentIncentiveCreateWithoutOrganizationInput[] | SegmentIncentiveUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutOrganizationInput | SegmentIncentiveCreateOrConnectWithoutOrganizationInput[]
+    upsert?: SegmentIncentiveUpsertWithWhereUniqueWithoutOrganizationInput | SegmentIncentiveUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: SegmentIncentiveCreateManyOrganizationInputEnvelope
+    set?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    disconnect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    delete?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    update?: SegmentIncentiveUpdateWithWhereUniqueWithoutOrganizationInput | SegmentIncentiveUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: SegmentIncentiveUpdateManyWithWhereWithoutOrganizationInput | SegmentIncentiveUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
   }
 
   export type CompanyEmployeeCreateNestedManyWithoutCompanyInput = {
@@ -40889,6 +44257,13 @@ export namespace Prisma {
     connect?: CouponRedemptionWhereUniqueInput | CouponRedemptionWhereUniqueInput[]
   }
 
+  export type IncentiveGrantCreateNestedManyWithoutUserInput = {
+    create?: XOR<IncentiveGrantCreateWithoutUserInput, IncentiveGrantUncheckedCreateWithoutUserInput> | IncentiveGrantCreateWithoutUserInput[] | IncentiveGrantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutUserInput | IncentiveGrantCreateOrConnectWithoutUserInput[]
+    createMany?: IncentiveGrantCreateManyUserInputEnvelope
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+  }
+
   export type WalletCreateNestedOneWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput
@@ -40949,6 +44324,13 @@ export namespace Prisma {
     connectOrCreate?: CouponRedemptionCreateOrConnectWithoutUserInput | CouponRedemptionCreateOrConnectWithoutUserInput[]
     createMany?: CouponRedemptionCreateManyUserInputEnvelope
     connect?: CouponRedemptionWhereUniqueInput | CouponRedemptionWhereUniqueInput[]
+  }
+
+  export type IncentiveGrantUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<IncentiveGrantCreateWithoutUserInput, IncentiveGrantUncheckedCreateWithoutUserInput> | IncentiveGrantCreateWithoutUserInput[] | IncentiveGrantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutUserInput | IncentiveGrantCreateOrConnectWithoutUserInput[]
+    createMany?: IncentiveGrantCreateManyUserInputEnvelope
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
   }
 
   export type WalletUncheckedCreateNestedOneWithoutUserInput = {
@@ -41067,6 +44449,20 @@ export namespace Prisma {
     update?: CouponRedemptionUpdateWithWhereUniqueWithoutUserInput | CouponRedemptionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CouponRedemptionUpdateManyWithWhereWithoutUserInput | CouponRedemptionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CouponRedemptionScalarWhereInput | CouponRedemptionScalarWhereInput[]
+  }
+
+  export type IncentiveGrantUpdateManyWithoutUserNestedInput = {
+    create?: XOR<IncentiveGrantCreateWithoutUserInput, IncentiveGrantUncheckedCreateWithoutUserInput> | IncentiveGrantCreateWithoutUserInput[] | IncentiveGrantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutUserInput | IncentiveGrantCreateOrConnectWithoutUserInput[]
+    upsert?: IncentiveGrantUpsertWithWhereUniqueWithoutUserInput | IncentiveGrantUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: IncentiveGrantCreateManyUserInputEnvelope
+    set?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    disconnect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    delete?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    update?: IncentiveGrantUpdateWithWhereUniqueWithoutUserInput | IncentiveGrantUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: IncentiveGrantUpdateManyWithWhereWithoutUserInput | IncentiveGrantUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
   }
 
   export type WalletUpdateOneWithoutUserNestedInput = {
@@ -41191,6 +44587,20 @@ export namespace Prisma {
     deleteMany?: CouponRedemptionScalarWhereInput | CouponRedemptionScalarWhereInput[]
   }
 
+  export type IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<IncentiveGrantCreateWithoutUserInput, IncentiveGrantUncheckedCreateWithoutUserInput> | IncentiveGrantCreateWithoutUserInput[] | IncentiveGrantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutUserInput | IncentiveGrantCreateOrConnectWithoutUserInput[]
+    upsert?: IncentiveGrantUpsertWithWhereUniqueWithoutUserInput | IncentiveGrantUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: IncentiveGrantCreateManyUserInputEnvelope
+    set?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    disconnect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    delete?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    update?: IncentiveGrantUpdateWithWhereUniqueWithoutUserInput | IncentiveGrantUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: IncentiveGrantUpdateManyWithWhereWithoutUserInput | IncentiveGrantUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+  }
+
   export type WalletUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput
@@ -41261,6 +44671,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type IncentiveGrantCreateNestedOneWithoutWalletTransactionInput = {
+    create?: XOR<IncentiveGrantCreateWithoutWalletTransactionInput, IncentiveGrantUncheckedCreateWithoutWalletTransactionInput>
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutWalletTransactionInput
+    connect?: IncentiveGrantWhereUniqueInput
+  }
+
   export type EnumWalletTransactionTypeFieldUpdateOperationsInput = {
     set?: $Enums.WalletTransactionType
   }
@@ -41291,6 +44707,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPerformedWalletActionsInput, UserUpdateWithoutPerformedWalletActionsInput>, UserUncheckedUpdateWithoutPerformedWalletActionsInput>
+  }
+
+  export type IncentiveGrantUpdateOneWithoutWalletTransactionNestedInput = {
+    create?: XOR<IncentiveGrantCreateWithoutWalletTransactionInput, IncentiveGrantUncheckedCreateWithoutWalletTransactionInput>
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutWalletTransactionInput
+    upsert?: IncentiveGrantUpsertWithoutWalletTransactionInput
+    disconnect?: IncentiveGrantWhereInput | boolean
+    delete?: IncentiveGrantWhereInput | boolean
+    connect?: IncentiveGrantWhereUniqueInput
+    update?: XOR<XOR<IncentiveGrantUpdateToOneWithWhereWithoutWalletTransactionInput, IncentiveGrantUpdateWithoutWalletTransactionInput>, IncentiveGrantUncheckedUpdateWithoutWalletTransactionInput>
   }
 
   export type UserCreateNestedOneWithoutLocationsInput = {
@@ -41455,6 +44881,12 @@ export namespace Prisma {
     deleteMany?: MenuPromotionBannerScalarWhereInput | MenuPromotionBannerScalarWhereInput[]
   }
 
+  export type CouponCreateNestedOneWithoutPromotionBannersInput = {
+    create?: XOR<CouponCreateWithoutPromotionBannersInput, CouponUncheckedCreateWithoutPromotionBannersInput>
+    connectOrCreate?: CouponCreateOrConnectWithoutPromotionBannersInput
+    connect?: CouponWhereUniqueInput
+  }
+
   export type MenuPromotionBannerCreateNestedManyWithoutPromotionBannerInput = {
     create?: XOR<MenuPromotionBannerCreateWithoutPromotionBannerInput, MenuPromotionBannerUncheckedCreateWithoutPromotionBannerInput> | MenuPromotionBannerCreateWithoutPromotionBannerInput[] | MenuPromotionBannerUncheckedCreateWithoutPromotionBannerInput[]
     connectOrCreate?: MenuPromotionBannerCreateOrConnectWithoutPromotionBannerInput | MenuPromotionBannerCreateOrConnectWithoutPromotionBannerInput[]
@@ -41467,6 +44899,16 @@ export namespace Prisma {
     connectOrCreate?: MenuPromotionBannerCreateOrConnectWithoutPromotionBannerInput | MenuPromotionBannerCreateOrConnectWithoutPromotionBannerInput[]
     createMany?: MenuPromotionBannerCreateManyPromotionBannerInputEnvelope
     connect?: MenuPromotionBannerWhereUniqueInput | MenuPromotionBannerWhereUniqueInput[]
+  }
+
+  export type CouponUpdateOneWithoutPromotionBannersNestedInput = {
+    create?: XOR<CouponCreateWithoutPromotionBannersInput, CouponUncheckedCreateWithoutPromotionBannersInput>
+    connectOrCreate?: CouponCreateOrConnectWithoutPromotionBannersInput
+    upsert?: CouponUpsertWithoutPromotionBannersInput
+    disconnect?: CouponWhereInput | boolean
+    delete?: CouponWhereInput | boolean
+    connect?: CouponWhereUniqueInput
+    update?: XOR<XOR<CouponUpdateToOneWithWhereWithoutPromotionBannersInput, CouponUpdateWithoutPromotionBannersInput>, CouponUncheckedUpdateWithoutPromotionBannersInput>
   }
 
   export type MenuPromotionBannerUpdateManyWithoutPromotionBannerNestedInput = {
@@ -41894,11 +45336,53 @@ export namespace Prisma {
     connect?: CouponRedemptionWhereUniqueInput | CouponRedemptionWhereUniqueInput[]
   }
 
+  export type IncentiveGrantCreateNestedManyWithoutCouponInput = {
+    create?: XOR<IncentiveGrantCreateWithoutCouponInput, IncentiveGrantUncheckedCreateWithoutCouponInput> | IncentiveGrantCreateWithoutCouponInput[] | IncentiveGrantUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutCouponInput | IncentiveGrantCreateOrConnectWithoutCouponInput[]
+    createMany?: IncentiveGrantCreateManyCouponInputEnvelope
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+  }
+
+  export type SegmentIncentiveCreateNestedManyWithoutCouponInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutCouponInput, SegmentIncentiveUncheckedCreateWithoutCouponInput> | SegmentIncentiveCreateWithoutCouponInput[] | SegmentIncentiveUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutCouponInput | SegmentIncentiveCreateOrConnectWithoutCouponInput[]
+    createMany?: SegmentIncentiveCreateManyCouponInputEnvelope
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+  }
+
+  export type PromotionBannerCreateNestedManyWithoutCouponInput = {
+    create?: XOR<PromotionBannerCreateWithoutCouponInput, PromotionBannerUncheckedCreateWithoutCouponInput> | PromotionBannerCreateWithoutCouponInput[] | PromotionBannerUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutCouponInput | PromotionBannerCreateOrConnectWithoutCouponInput[]
+    createMany?: PromotionBannerCreateManyCouponInputEnvelope
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+  }
+
   export type CouponRedemptionUncheckedCreateNestedManyWithoutCouponInput = {
     create?: XOR<CouponRedemptionCreateWithoutCouponInput, CouponRedemptionUncheckedCreateWithoutCouponInput> | CouponRedemptionCreateWithoutCouponInput[] | CouponRedemptionUncheckedCreateWithoutCouponInput[]
     connectOrCreate?: CouponRedemptionCreateOrConnectWithoutCouponInput | CouponRedemptionCreateOrConnectWithoutCouponInput[]
     createMany?: CouponRedemptionCreateManyCouponInputEnvelope
     connect?: CouponRedemptionWhereUniqueInput | CouponRedemptionWhereUniqueInput[]
+  }
+
+  export type IncentiveGrantUncheckedCreateNestedManyWithoutCouponInput = {
+    create?: XOR<IncentiveGrantCreateWithoutCouponInput, IncentiveGrantUncheckedCreateWithoutCouponInput> | IncentiveGrantCreateWithoutCouponInput[] | IncentiveGrantUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutCouponInput | IncentiveGrantCreateOrConnectWithoutCouponInput[]
+    createMany?: IncentiveGrantCreateManyCouponInputEnvelope
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+  }
+
+  export type SegmentIncentiveUncheckedCreateNestedManyWithoutCouponInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutCouponInput, SegmentIncentiveUncheckedCreateWithoutCouponInput> | SegmentIncentiveCreateWithoutCouponInput[] | SegmentIncentiveUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutCouponInput | SegmentIncentiveCreateOrConnectWithoutCouponInput[]
+    createMany?: SegmentIncentiveCreateManyCouponInputEnvelope
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+  }
+
+  export type PromotionBannerUncheckedCreateNestedManyWithoutCouponInput = {
+    create?: XOR<PromotionBannerCreateWithoutCouponInput, PromotionBannerUncheckedCreateWithoutCouponInput> | PromotionBannerCreateWithoutCouponInput[] | PromotionBannerUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutCouponInput | PromotionBannerCreateOrConnectWithoutCouponInput[]
+    createMany?: PromotionBannerCreateManyCouponInputEnvelope
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
   }
 
   export type EnumCouponTypeFieldUpdateOperationsInput = {
@@ -41939,6 +45423,48 @@ export namespace Prisma {
     deleteMany?: CouponRedemptionScalarWhereInput | CouponRedemptionScalarWhereInput[]
   }
 
+  export type IncentiveGrantUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<IncentiveGrantCreateWithoutCouponInput, IncentiveGrantUncheckedCreateWithoutCouponInput> | IncentiveGrantCreateWithoutCouponInput[] | IncentiveGrantUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutCouponInput | IncentiveGrantCreateOrConnectWithoutCouponInput[]
+    upsert?: IncentiveGrantUpsertWithWhereUniqueWithoutCouponInput | IncentiveGrantUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: IncentiveGrantCreateManyCouponInputEnvelope
+    set?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    disconnect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    delete?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    update?: IncentiveGrantUpdateWithWhereUniqueWithoutCouponInput | IncentiveGrantUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: IncentiveGrantUpdateManyWithWhereWithoutCouponInput | IncentiveGrantUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+  }
+
+  export type SegmentIncentiveUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutCouponInput, SegmentIncentiveUncheckedCreateWithoutCouponInput> | SegmentIncentiveCreateWithoutCouponInput[] | SegmentIncentiveUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutCouponInput | SegmentIncentiveCreateOrConnectWithoutCouponInput[]
+    upsert?: SegmentIncentiveUpsertWithWhereUniqueWithoutCouponInput | SegmentIncentiveUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: SegmentIncentiveCreateManyCouponInputEnvelope
+    set?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    disconnect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    delete?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    update?: SegmentIncentiveUpdateWithWhereUniqueWithoutCouponInput | SegmentIncentiveUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: SegmentIncentiveUpdateManyWithWhereWithoutCouponInput | SegmentIncentiveUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
+  }
+
+  export type PromotionBannerUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<PromotionBannerCreateWithoutCouponInput, PromotionBannerUncheckedCreateWithoutCouponInput> | PromotionBannerCreateWithoutCouponInput[] | PromotionBannerUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutCouponInput | PromotionBannerCreateOrConnectWithoutCouponInput[]
+    upsert?: PromotionBannerUpsertWithWhereUniqueWithoutCouponInput | PromotionBannerUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: PromotionBannerCreateManyCouponInputEnvelope
+    set?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    disconnect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    delete?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    update?: PromotionBannerUpdateWithWhereUniqueWithoutCouponInput | PromotionBannerUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: PromotionBannerUpdateManyWithWhereWithoutCouponInput | PromotionBannerUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: PromotionBannerScalarWhereInput | PromotionBannerScalarWhereInput[]
+  }
+
   export type CouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput = {
     create?: XOR<CouponRedemptionCreateWithoutCouponInput, CouponRedemptionUncheckedCreateWithoutCouponInput> | CouponRedemptionCreateWithoutCouponInput[] | CouponRedemptionUncheckedCreateWithoutCouponInput[]
     connectOrCreate?: CouponRedemptionCreateOrConnectWithoutCouponInput | CouponRedemptionCreateOrConnectWithoutCouponInput[]
@@ -41951,6 +45477,48 @@ export namespace Prisma {
     update?: CouponRedemptionUpdateWithWhereUniqueWithoutCouponInput | CouponRedemptionUpdateWithWhereUniqueWithoutCouponInput[]
     updateMany?: CouponRedemptionUpdateManyWithWhereWithoutCouponInput | CouponRedemptionUpdateManyWithWhereWithoutCouponInput[]
     deleteMany?: CouponRedemptionScalarWhereInput | CouponRedemptionScalarWhereInput[]
+  }
+
+  export type IncentiveGrantUncheckedUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<IncentiveGrantCreateWithoutCouponInput, IncentiveGrantUncheckedCreateWithoutCouponInput> | IncentiveGrantCreateWithoutCouponInput[] | IncentiveGrantUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutCouponInput | IncentiveGrantCreateOrConnectWithoutCouponInput[]
+    upsert?: IncentiveGrantUpsertWithWhereUniqueWithoutCouponInput | IncentiveGrantUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: IncentiveGrantCreateManyCouponInputEnvelope
+    set?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    disconnect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    delete?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    update?: IncentiveGrantUpdateWithWhereUniqueWithoutCouponInput | IncentiveGrantUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: IncentiveGrantUpdateManyWithWhereWithoutCouponInput | IncentiveGrantUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+  }
+
+  export type SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutCouponInput, SegmentIncentiveUncheckedCreateWithoutCouponInput> | SegmentIncentiveCreateWithoutCouponInput[] | SegmentIncentiveUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutCouponInput | SegmentIncentiveCreateOrConnectWithoutCouponInput[]
+    upsert?: SegmentIncentiveUpsertWithWhereUniqueWithoutCouponInput | SegmentIncentiveUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: SegmentIncentiveCreateManyCouponInputEnvelope
+    set?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    disconnect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    delete?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    update?: SegmentIncentiveUpdateWithWhereUniqueWithoutCouponInput | SegmentIncentiveUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: SegmentIncentiveUpdateManyWithWhereWithoutCouponInput | SegmentIncentiveUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
+  }
+
+  export type PromotionBannerUncheckedUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<PromotionBannerCreateWithoutCouponInput, PromotionBannerUncheckedCreateWithoutCouponInput> | PromotionBannerCreateWithoutCouponInput[] | PromotionBannerUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutCouponInput | PromotionBannerCreateOrConnectWithoutCouponInput[]
+    upsert?: PromotionBannerUpsertWithWhereUniqueWithoutCouponInput | PromotionBannerUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: PromotionBannerCreateManyCouponInputEnvelope
+    set?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    disconnect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    delete?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    update?: PromotionBannerUpdateWithWhereUniqueWithoutCouponInput | PromotionBannerUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: PromotionBannerUpdateManyWithWhereWithoutCouponInput | PromotionBannerUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: PromotionBannerScalarWhereInput | PromotionBannerScalarWhereInput[]
   }
 
   export type CouponCreateNestedOneWithoutRedemptionsInput = {
@@ -42047,6 +45615,13 @@ export namespace Prisma {
     connect?: MarketingWorkflowWhereUniqueInput | MarketingWorkflowWhereUniqueInput[]
   }
 
+  export type SegmentIncentiveCreateNestedManyWithoutSegmentInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutSegmentInput, SegmentIncentiveUncheckedCreateWithoutSegmentInput> | SegmentIncentiveCreateWithoutSegmentInput[] | SegmentIncentiveUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutSegmentInput | SegmentIncentiveCreateOrConnectWithoutSegmentInput[]
+    createMany?: SegmentIncentiveCreateManySegmentInputEnvelope
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+  }
+
   export type InAppMessageUncheckedCreateNestedManyWithoutSegmentInput = {
     create?: XOR<InAppMessageCreateWithoutSegmentInput, InAppMessageUncheckedCreateWithoutSegmentInput> | InAppMessageCreateWithoutSegmentInput[] | InAppMessageUncheckedCreateWithoutSegmentInput[]
     connectOrCreate?: InAppMessageCreateOrConnectWithoutSegmentInput | InAppMessageCreateOrConnectWithoutSegmentInput[]
@@ -42059,6 +45634,13 @@ export namespace Prisma {
     connectOrCreate?: MarketingWorkflowCreateOrConnectWithoutSegmentInput | MarketingWorkflowCreateOrConnectWithoutSegmentInput[]
     createMany?: MarketingWorkflowCreateManySegmentInputEnvelope
     connect?: MarketingWorkflowWhereUniqueInput | MarketingWorkflowWhereUniqueInput[]
+  }
+
+  export type SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutSegmentInput, SegmentIncentiveUncheckedCreateWithoutSegmentInput> | SegmentIncentiveCreateWithoutSegmentInput[] | SegmentIncentiveUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutSegmentInput | SegmentIncentiveCreateOrConnectWithoutSegmentInput[]
+    createMany?: SegmentIncentiveCreateManySegmentInputEnvelope
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
   }
 
   export type OrganizationUpdateOneRequiredWithoutSegmentsNestedInput = {
@@ -42097,6 +45679,20 @@ export namespace Prisma {
     deleteMany?: MarketingWorkflowScalarWhereInput | MarketingWorkflowScalarWhereInput[]
   }
 
+  export type SegmentIncentiveUpdateManyWithoutSegmentNestedInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutSegmentInput, SegmentIncentiveUncheckedCreateWithoutSegmentInput> | SegmentIncentiveCreateWithoutSegmentInput[] | SegmentIncentiveUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutSegmentInput | SegmentIncentiveCreateOrConnectWithoutSegmentInput[]
+    upsert?: SegmentIncentiveUpsertWithWhereUniqueWithoutSegmentInput | SegmentIncentiveUpsertWithWhereUniqueWithoutSegmentInput[]
+    createMany?: SegmentIncentiveCreateManySegmentInputEnvelope
+    set?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    disconnect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    delete?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    update?: SegmentIncentiveUpdateWithWhereUniqueWithoutSegmentInput | SegmentIncentiveUpdateWithWhereUniqueWithoutSegmentInput[]
+    updateMany?: SegmentIncentiveUpdateManyWithWhereWithoutSegmentInput | SegmentIncentiveUpdateManyWithWhereWithoutSegmentInput[]
+    deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
+  }
+
   export type InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput = {
     create?: XOR<InAppMessageCreateWithoutSegmentInput, InAppMessageUncheckedCreateWithoutSegmentInput> | InAppMessageCreateWithoutSegmentInput[] | InAppMessageUncheckedCreateWithoutSegmentInput[]
     connectOrCreate?: InAppMessageCreateOrConnectWithoutSegmentInput | InAppMessageCreateOrConnectWithoutSegmentInput[]
@@ -42123,6 +45719,20 @@ export namespace Prisma {
     update?: MarketingWorkflowUpdateWithWhereUniqueWithoutSegmentInput | MarketingWorkflowUpdateWithWhereUniqueWithoutSegmentInput[]
     updateMany?: MarketingWorkflowUpdateManyWithWhereWithoutSegmentInput | MarketingWorkflowUpdateManyWithWhereWithoutSegmentInput[]
     deleteMany?: MarketingWorkflowScalarWhereInput | MarketingWorkflowScalarWhereInput[]
+  }
+
+  export type SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutSegmentInput, SegmentIncentiveUncheckedCreateWithoutSegmentInput> | SegmentIncentiveCreateWithoutSegmentInput[] | SegmentIncentiveUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutSegmentInput | SegmentIncentiveCreateOrConnectWithoutSegmentInput[]
+    upsert?: SegmentIncentiveUpsertWithWhereUniqueWithoutSegmentInput | SegmentIncentiveUpsertWithWhereUniqueWithoutSegmentInput[]
+    createMany?: SegmentIncentiveCreateManySegmentInputEnvelope
+    set?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    disconnect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    delete?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+    update?: SegmentIncentiveUpdateWithWhereUniqueWithoutSegmentInput | SegmentIncentiveUpdateWithWhereUniqueWithoutSegmentInput[]
+    updateMany?: SegmentIncentiveUpdateManyWithWhereWithoutSegmentInput | SegmentIncentiveUpdateManyWithWhereWithoutSegmentInput[]
+    deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
   }
 
   export type OrganizationCreateNestedOneWithoutInAppMessagesInput = {
@@ -42291,6 +45901,168 @@ export namespace Prisma {
     upsert?: MarketingWorkflowUpsertWithoutExecutionLogsInput
     connect?: MarketingWorkflowWhereUniqueInput
     update?: XOR<XOR<MarketingWorkflowUpdateToOneWithWhereWithoutExecutionLogsInput, MarketingWorkflowUpdateWithoutExecutionLogsInput>, MarketingWorkflowUncheckedUpdateWithoutExecutionLogsInput>
+  }
+
+  export type OrganizationCreateNestedOneWithoutSegmentIncentivesInput = {
+    create?: XOR<OrganizationCreateWithoutSegmentIncentivesInput, OrganizationUncheckedCreateWithoutSegmentIncentivesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutSegmentIncentivesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type CustomerSegmentCreateNestedOneWithoutSegmentIncentivesInput = {
+    create?: XOR<CustomerSegmentCreateWithoutSegmentIncentivesInput, CustomerSegmentUncheckedCreateWithoutSegmentIncentivesInput>
+    connectOrCreate?: CustomerSegmentCreateOrConnectWithoutSegmentIncentivesInput
+    connect?: CustomerSegmentWhereUniqueInput
+  }
+
+  export type CouponCreateNestedOneWithoutSegmentIncentivesInput = {
+    create?: XOR<CouponCreateWithoutSegmentIncentivesInput, CouponUncheckedCreateWithoutSegmentIncentivesInput>
+    connectOrCreate?: CouponCreateOrConnectWithoutSegmentIncentivesInput
+    connect?: CouponWhereUniqueInput
+  }
+
+  export type IncentiveGrantCreateNestedManyWithoutSegmentIncentiveInput = {
+    create?: XOR<IncentiveGrantCreateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput> | IncentiveGrantCreateWithoutSegmentIncentiveInput[] | IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput | IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput[]
+    createMany?: IncentiveGrantCreateManySegmentIncentiveInputEnvelope
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+  }
+
+  export type IncentiveGrantUncheckedCreateNestedManyWithoutSegmentIncentiveInput = {
+    create?: XOR<IncentiveGrantCreateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput> | IncentiveGrantCreateWithoutSegmentIncentiveInput[] | IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput | IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput[]
+    createMany?: IncentiveGrantCreateManySegmentIncentiveInputEnvelope
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutSegmentIncentivesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutSegmentIncentivesInput, OrganizationUncheckedCreateWithoutSegmentIncentivesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutSegmentIncentivesInput
+    upsert?: OrganizationUpsertWithoutSegmentIncentivesInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutSegmentIncentivesInput, OrganizationUpdateWithoutSegmentIncentivesInput>, OrganizationUncheckedUpdateWithoutSegmentIncentivesInput>
+  }
+
+  export type CustomerSegmentUpdateOneRequiredWithoutSegmentIncentivesNestedInput = {
+    create?: XOR<CustomerSegmentCreateWithoutSegmentIncentivesInput, CustomerSegmentUncheckedCreateWithoutSegmentIncentivesInput>
+    connectOrCreate?: CustomerSegmentCreateOrConnectWithoutSegmentIncentivesInput
+    upsert?: CustomerSegmentUpsertWithoutSegmentIncentivesInput
+    connect?: CustomerSegmentWhereUniqueInput
+    update?: XOR<XOR<CustomerSegmentUpdateToOneWithWhereWithoutSegmentIncentivesInput, CustomerSegmentUpdateWithoutSegmentIncentivesInput>, CustomerSegmentUncheckedUpdateWithoutSegmentIncentivesInput>
+  }
+
+  export type CouponUpdateOneWithoutSegmentIncentivesNestedInput = {
+    create?: XOR<CouponCreateWithoutSegmentIncentivesInput, CouponUncheckedCreateWithoutSegmentIncentivesInput>
+    connectOrCreate?: CouponCreateOrConnectWithoutSegmentIncentivesInput
+    upsert?: CouponUpsertWithoutSegmentIncentivesInput
+    disconnect?: CouponWhereInput | boolean
+    delete?: CouponWhereInput | boolean
+    connect?: CouponWhereUniqueInput
+    update?: XOR<XOR<CouponUpdateToOneWithWhereWithoutSegmentIncentivesInput, CouponUpdateWithoutSegmentIncentivesInput>, CouponUncheckedUpdateWithoutSegmentIncentivesInput>
+  }
+
+  export type IncentiveGrantUpdateManyWithoutSegmentIncentiveNestedInput = {
+    create?: XOR<IncentiveGrantCreateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput> | IncentiveGrantCreateWithoutSegmentIncentiveInput[] | IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput | IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput[]
+    upsert?: IncentiveGrantUpsertWithWhereUniqueWithoutSegmentIncentiveInput | IncentiveGrantUpsertWithWhereUniqueWithoutSegmentIncentiveInput[]
+    createMany?: IncentiveGrantCreateManySegmentIncentiveInputEnvelope
+    set?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    disconnect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    delete?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    update?: IncentiveGrantUpdateWithWhereUniqueWithoutSegmentIncentiveInput | IncentiveGrantUpdateWithWhereUniqueWithoutSegmentIncentiveInput[]
+    updateMany?: IncentiveGrantUpdateManyWithWhereWithoutSegmentIncentiveInput | IncentiveGrantUpdateManyWithWhereWithoutSegmentIncentiveInput[]
+    deleteMany?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+  }
+
+  export type IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveNestedInput = {
+    create?: XOR<IncentiveGrantCreateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput> | IncentiveGrantCreateWithoutSegmentIncentiveInput[] | IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput[]
+    connectOrCreate?: IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput | IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput[]
+    upsert?: IncentiveGrantUpsertWithWhereUniqueWithoutSegmentIncentiveInput | IncentiveGrantUpsertWithWhereUniqueWithoutSegmentIncentiveInput[]
+    createMany?: IncentiveGrantCreateManySegmentIncentiveInputEnvelope
+    set?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    disconnect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    delete?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    connect?: IncentiveGrantWhereUniqueInput | IncentiveGrantWhereUniqueInput[]
+    update?: IncentiveGrantUpdateWithWhereUniqueWithoutSegmentIncentiveInput | IncentiveGrantUpdateWithWhereUniqueWithoutSegmentIncentiveInput[]
+    updateMany?: IncentiveGrantUpdateManyWithWhereWithoutSegmentIncentiveInput | IncentiveGrantUpdateManyWithWhereWithoutSegmentIncentiveInput[]
+    deleteMany?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+  }
+
+  export type SegmentIncentiveCreateNestedOneWithoutGrantsInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutGrantsInput, SegmentIncentiveUncheckedCreateWithoutGrantsInput>
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutGrantsInput
+    connect?: SegmentIncentiveWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutIncentiveGrantsInput = {
+    create?: XOR<UserCreateWithoutIncentiveGrantsInput, UserUncheckedCreateWithoutIncentiveGrantsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutIncentiveGrantsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CouponCreateNestedOneWithoutIncentiveGrantsInput = {
+    create?: XOR<CouponCreateWithoutIncentiveGrantsInput, CouponUncheckedCreateWithoutIncentiveGrantsInput>
+    connectOrCreate?: CouponCreateOrConnectWithoutIncentiveGrantsInput
+    connect?: CouponWhereUniqueInput
+  }
+
+  export type WalletTransactionCreateNestedOneWithoutIncentiveGrantInput = {
+    create?: XOR<WalletTransactionCreateWithoutIncentiveGrantInput, WalletTransactionUncheckedCreateWithoutIncentiveGrantInput>
+    connectOrCreate?: WalletTransactionCreateOrConnectWithoutIncentiveGrantInput
+    connect?: WalletTransactionWhereUniqueInput
+  }
+
+  export type WalletTransactionUncheckedCreateNestedOneWithoutIncentiveGrantInput = {
+    create?: XOR<WalletTransactionCreateWithoutIncentiveGrantInput, WalletTransactionUncheckedCreateWithoutIncentiveGrantInput>
+    connectOrCreate?: WalletTransactionCreateOrConnectWithoutIncentiveGrantInput
+    connect?: WalletTransactionWhereUniqueInput
+  }
+
+  export type SegmentIncentiveUpdateOneRequiredWithoutGrantsNestedInput = {
+    create?: XOR<SegmentIncentiveCreateWithoutGrantsInput, SegmentIncentiveUncheckedCreateWithoutGrantsInput>
+    connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutGrantsInput
+    upsert?: SegmentIncentiveUpsertWithoutGrantsInput
+    connect?: SegmentIncentiveWhereUniqueInput
+    update?: XOR<XOR<SegmentIncentiveUpdateToOneWithWhereWithoutGrantsInput, SegmentIncentiveUpdateWithoutGrantsInput>, SegmentIncentiveUncheckedUpdateWithoutGrantsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutIncentiveGrantsNestedInput = {
+    create?: XOR<UserCreateWithoutIncentiveGrantsInput, UserUncheckedCreateWithoutIncentiveGrantsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutIncentiveGrantsInput
+    upsert?: UserUpsertWithoutIncentiveGrantsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutIncentiveGrantsInput, UserUpdateWithoutIncentiveGrantsInput>, UserUncheckedUpdateWithoutIncentiveGrantsInput>
+  }
+
+  export type CouponUpdateOneWithoutIncentiveGrantsNestedInput = {
+    create?: XOR<CouponCreateWithoutIncentiveGrantsInput, CouponUncheckedCreateWithoutIncentiveGrantsInput>
+    connectOrCreate?: CouponCreateOrConnectWithoutIncentiveGrantsInput
+    upsert?: CouponUpsertWithoutIncentiveGrantsInput
+    disconnect?: CouponWhereInput | boolean
+    delete?: CouponWhereInput | boolean
+    connect?: CouponWhereUniqueInput
+    update?: XOR<XOR<CouponUpdateToOneWithWhereWithoutIncentiveGrantsInput, CouponUpdateWithoutIncentiveGrantsInput>, CouponUncheckedUpdateWithoutIncentiveGrantsInput>
+  }
+
+  export type WalletTransactionUpdateOneWithoutIncentiveGrantNestedInput = {
+    create?: XOR<WalletTransactionCreateWithoutIncentiveGrantInput, WalletTransactionUncheckedCreateWithoutIncentiveGrantInput>
+    connectOrCreate?: WalletTransactionCreateOrConnectWithoutIncentiveGrantInput
+    upsert?: WalletTransactionUpsertWithoutIncentiveGrantInput
+    disconnect?: WalletTransactionWhereInput | boolean
+    delete?: WalletTransactionWhereInput | boolean
+    connect?: WalletTransactionWhereUniqueInput
+    update?: XOR<XOR<WalletTransactionUpdateToOneWithWhereWithoutIncentiveGrantInput, WalletTransactionUpdateWithoutIncentiveGrantInput>, WalletTransactionUncheckedUpdateWithoutIncentiveGrantInput>
+  }
+
+  export type WalletTransactionUncheckedUpdateOneWithoutIncentiveGrantNestedInput = {
+    create?: XOR<WalletTransactionCreateWithoutIncentiveGrantInput, WalletTransactionUncheckedCreateWithoutIncentiveGrantInput>
+    connectOrCreate?: WalletTransactionCreateOrConnectWithoutIncentiveGrantInput
+    upsert?: WalletTransactionUpsertWithoutIncentiveGrantInput
+    disconnect?: WalletTransactionWhereInput | boolean
+    delete?: WalletTransactionWhereInput | boolean
+    connect?: WalletTransactionWhereUniqueInput
+    update?: XOR<XOR<WalletTransactionUpdateToOneWithWhereWithoutIncentiveGrantInput, WalletTransactionUpdateWithoutIncentiveGrantInput>, WalletTransactionUncheckedUpdateWithoutIncentiveGrantInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -42771,6 +46543,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -42792,6 +46565,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -42817,6 +46591,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateWithoutOrganizationInput = {
@@ -42829,6 +46604,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentCreateOrConnectWithoutOrganizationInput = {
@@ -42920,6 +46696,52 @@ export namespace Prisma {
 
   export type MarketingWorkflowCreateManyOrganizationInputEnvelope = {
     data: MarketingWorkflowCreateManyOrganizationInput | MarketingWorkflowCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SegmentIncentiveCreateWithoutOrganizationInput = {
+    id?: string
+    name?: string | null
+    incentiveType: string
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    segment: CustomerSegmentCreateNestedOneWithoutSegmentIncentivesInput
+    coupon?: CouponCreateNestedOneWithoutSegmentIncentivesInput
+    grants?: IncentiveGrantCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    segmentId: string
+    name?: string | null
+    incentiveType: string
+    couponId?: string | null
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    grants?: IncentiveGrantUncheckedCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveCreateOrConnectWithoutOrganizationInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    create: XOR<SegmentIncentiveCreateWithoutOrganizationInput, SegmentIncentiveUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type SegmentIncentiveCreateManyOrganizationInputEnvelope = {
+    data: SegmentIncentiveCreateManyOrganizationInput | SegmentIncentiveCreateManyOrganizationInput[]
     skipDuplicates?: boolean
   }
 
@@ -43085,6 +46907,43 @@ export namespace Prisma {
     isActive?: BoolFilter<"MarketingWorkflow"> | boolean
     createdAt?: DateTimeFilter<"MarketingWorkflow"> | Date | string
     updatedAt?: DateTimeFilter<"MarketingWorkflow"> | Date | string
+  }
+
+  export type SegmentIncentiveUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    update: XOR<SegmentIncentiveUpdateWithoutOrganizationInput, SegmentIncentiveUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<SegmentIncentiveCreateWithoutOrganizationInput, SegmentIncentiveUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type SegmentIncentiveUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    data: XOR<SegmentIncentiveUpdateWithoutOrganizationInput, SegmentIncentiveUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type SegmentIncentiveUpdateManyWithWhereWithoutOrganizationInput = {
+    where: SegmentIncentiveScalarWhereInput
+    data: XOR<SegmentIncentiveUpdateManyMutationInput, SegmentIncentiveUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type SegmentIncentiveScalarWhereInput = {
+    AND?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
+    OR?: SegmentIncentiveScalarWhereInput[]
+    NOT?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
+    id?: StringFilter<"SegmentIncentive"> | string
+    organizationId?: StringFilter<"SegmentIncentive"> | string
+    segmentId?: StringFilter<"SegmentIncentive"> | string
+    name?: StringNullableFilter<"SegmentIncentive"> | string | null
+    incentiveType?: StringFilter<"SegmentIncentive"> | string
+    couponId?: StringNullableFilter<"SegmentIncentive"> | string | null
+    personaliseCoupon?: BoolFilter<"SegmentIncentive"> | boolean
+    walletAmount?: DecimalNullableFilter<"SegmentIncentive"> | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    endDate?: DateTimeNullableFilter<"SegmentIncentive"> | Date | string | null
+    maxGrantsPerUser?: IntFilter<"SegmentIncentive"> | number
+    displayChannel?: StringFilter<"SegmentIncentive"> | string
+    isActive?: BoolFilter<"SegmentIncentive"> | boolean
+    createdAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
+    updatedAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
   }
 
   export type CompanyEmployeeCreateWithoutCompanyInput = {
@@ -43571,6 +47430,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -43592,6 +47452,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -43672,6 +47533,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -43693,6 +47555,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -43711,6 +47574,7 @@ export namespace Prisma {
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutLocationsInput = {
@@ -43726,6 +47590,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutLocationsInput = {
@@ -43869,6 +47734,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     freeItemDish?: DishCreateNestedOneWithoutCouponsInput
     redemptions?: CouponRedemptionCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutCouponInput
   }
 
   export type CouponUncheckedCreateWithoutLocationInput = {
@@ -43889,6 +47757,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     redemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutCouponInput
   }
 
   export type CouponCreateOrConnectWithoutLocationInput = {
@@ -43925,6 +47796,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutLocationsInput = {
@@ -43940,6 +47812,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type MenuUpsertWithWhereUniqueWithoutLocationInput = {
@@ -44067,6 +47940,7 @@ export namespace Prisma {
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -44082,6 +47956,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -44287,6 +48162,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IncentiveGrantCreateWithoutUserInput = {
+    id?: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    segmentIncentive: SegmentIncentiveCreateNestedOneWithoutGrantsInput
+    coupon?: CouponCreateNestedOneWithoutIncentiveGrantsInput
+    walletTransaction?: WalletTransactionCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantUncheckedCreateWithoutUserInput = {
+    id?: string
+    segmentIncentiveId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    couponId?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    walletTransaction?: WalletTransactionUncheckedCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantCreateOrConnectWithoutUserInput = {
+    where: IncentiveGrantWhereUniqueInput
+    create: XOR<IncentiveGrantCreateWithoutUserInput, IncentiveGrantUncheckedCreateWithoutUserInput>
+  }
+
+  export type IncentiveGrantCreateManyUserInputEnvelope = {
+    data: IncentiveGrantCreateManyUserInput | IncentiveGrantCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WalletCreateWithoutUserInput = {
     id?: string
     balance?: Decimal | DecimalJsLike | number | string
@@ -44314,6 +48223,7 @@ export namespace Prisma {
     createdAt?: Date | string
     order?: OrderCreateNestedOneWithoutWalletTransactionsInput
     performedBy?: UserCreateNestedOneWithoutPerformedWalletActionsInput
+    incentiveGrant?: IncentiveGrantCreateNestedOneWithoutWalletTransactionInput
   }
 
   export type WalletTransactionUncheckedCreateWithoutUserInput = {
@@ -44325,6 +48235,7 @@ export namespace Prisma {
     description?: string | null
     orderId?: string | null
     performedById?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -44348,6 +48259,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutWalletTransactionsInput
     order?: OrderCreateNestedOneWithoutWalletTransactionsInput
+    incentiveGrant?: IncentiveGrantCreateNestedOneWithoutWalletTransactionInput
   }
 
   export type WalletTransactionUncheckedCreateWithoutPerformedByInput = {
@@ -44359,6 +48271,7 @@ export namespace Prisma {
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
     orderId?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -44396,6 +48309,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -44411,6 +48325,7 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserLocationUpsertWithWhereUniqueWithoutUserInput = {
@@ -44548,6 +48463,37 @@ export namespace Prisma {
     redeemedAt?: DateTimeFilter<"CouponRedemption"> | Date | string
   }
 
+  export type IncentiveGrantUpsertWithWhereUniqueWithoutUserInput = {
+    where: IncentiveGrantWhereUniqueInput
+    update: XOR<IncentiveGrantUpdateWithoutUserInput, IncentiveGrantUncheckedUpdateWithoutUserInput>
+    create: XOR<IncentiveGrantCreateWithoutUserInput, IncentiveGrantUncheckedCreateWithoutUserInput>
+  }
+
+  export type IncentiveGrantUpdateWithWhereUniqueWithoutUserInput = {
+    where: IncentiveGrantWhereUniqueInput
+    data: XOR<IncentiveGrantUpdateWithoutUserInput, IncentiveGrantUncheckedUpdateWithoutUserInput>
+  }
+
+  export type IncentiveGrantUpdateManyWithWhereWithoutUserInput = {
+    where: IncentiveGrantScalarWhereInput
+    data: XOR<IncentiveGrantUpdateManyMutationInput, IncentiveGrantUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type IncentiveGrantScalarWhereInput = {
+    AND?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+    OR?: IncentiveGrantScalarWhereInput[]
+    NOT?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+    id?: StringFilter<"IncentiveGrant"> | string
+    segmentIncentiveId?: StringFilter<"IncentiveGrant"> | string
+    userId?: StringFilter<"IncentiveGrant"> | string
+    grantedAt?: DateTimeFilter<"IncentiveGrant"> | Date | string
+    couponCode?: StringNullableFilter<"IncentiveGrant"> | string | null
+    couponId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    walletTransactionId?: StringNullableFilter<"IncentiveGrant"> | string | null
+    redeemedAt?: DateTimeNullableFilter<"IncentiveGrant"> | Date | string | null
+    redeemedOrderId?: StringNullableFilter<"IncentiveGrant"> | string | null
+  }
+
   export type WalletUpsertWithoutUserInput = {
     update: XOR<WalletUpdateWithoutUserInput, WalletUncheckedUpdateWithoutUserInput>
     create: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
@@ -44600,6 +48546,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"WalletTransaction"> | string | null
     orderId?: StringNullableFilter<"WalletTransaction"> | string | null
     performedById?: StringNullableFilter<"WalletTransaction"> | string | null
+    incentiveGrantId?: StringNullableFilter<"WalletTransaction"> | string | null
     createdAt?: DateTimeFilter<"WalletTransaction"> | Date | string
   }
 
@@ -44636,6 +48583,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
   }
@@ -44657,6 +48605,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
   }
@@ -44694,6 +48643,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
   }
@@ -44715,6 +48665,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
   }
@@ -44736,6 +48687,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
   }
@@ -44757,6 +48709,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
   }
@@ -44838,6 +48791,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
   }
@@ -44859,6 +48813,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -44866,6 +48821,35 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutPerformedWalletActionsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutPerformedWalletActionsInput, UserUncheckedCreateWithoutPerformedWalletActionsInput>
+  }
+
+  export type IncentiveGrantCreateWithoutWalletTransactionInput = {
+    id?: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    segmentIncentive: SegmentIncentiveCreateNestedOneWithoutGrantsInput
+    user: UserCreateNestedOneWithoutIncentiveGrantsInput
+    coupon?: CouponCreateNestedOneWithoutIncentiveGrantsInput
+  }
+
+  export type IncentiveGrantUncheckedCreateWithoutWalletTransactionInput = {
+    id?: string
+    segmentIncentiveId: string
+    userId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    couponId?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+  }
+
+  export type IncentiveGrantCreateOrConnectWithoutWalletTransactionInput = {
+    where: IncentiveGrantWhereUniqueInput
+    create: XOR<IncentiveGrantCreateWithoutWalletTransactionInput, IncentiveGrantUncheckedCreateWithoutWalletTransactionInput>
   }
 
   export type UserUpsertWithoutWalletTransactionsInput = {
@@ -44896,6 +48880,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
   }
@@ -44917,6 +48902,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
   }
@@ -45010,6 +48996,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
   }
@@ -45031,8 +49018,44 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type IncentiveGrantUpsertWithoutWalletTransactionInput = {
+    update: XOR<IncentiveGrantUpdateWithoutWalletTransactionInput, IncentiveGrantUncheckedUpdateWithoutWalletTransactionInput>
+    create: XOR<IncentiveGrantCreateWithoutWalletTransactionInput, IncentiveGrantUncheckedCreateWithoutWalletTransactionInput>
+    where?: IncentiveGrantWhereInput
+  }
+
+  export type IncentiveGrantUpdateToOneWithWhereWithoutWalletTransactionInput = {
+    where?: IncentiveGrantWhereInput
+    data: XOR<IncentiveGrantUpdateWithoutWalletTransactionInput, IncentiveGrantUncheckedUpdateWithoutWalletTransactionInput>
+  }
+
+  export type IncentiveGrantUpdateWithoutWalletTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    segmentIncentive?: SegmentIncentiveUpdateOneRequiredWithoutGrantsNestedInput
+    user?: UserUpdateOneRequiredWithoutIncentiveGrantsNestedInput
+    coupon?: CouponUpdateOneWithoutIncentiveGrantsNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateWithoutWalletTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentIncentiveId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateWithoutLocationsInput = {
@@ -45051,6 +49074,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -45072,6 +49096,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -45148,6 +49173,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -45169,6 +49195,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -45235,6 +49262,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -45256,6 +49284,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -45293,6 +49322,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -45314,6 +49344,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -45335,6 +49366,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -45356,6 +49388,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -45393,6 +49426,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -45414,6 +49448,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -45628,6 +49663,57 @@ export namespace Prisma {
     sortOrder?: IntFilter<"MenuPromotionBanner"> | number
   }
 
+  export type CouponCreateWithoutPromotionBannersInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    type: $Enums.CouponType
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    maxUses?: number | null
+    maxUsesPerUser?: number
+    currentUses?: number
+    minOrderAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    location?: LocationCreateNestedOneWithoutCouponsInput
+    freeItemDish?: DishCreateNestedOneWithoutCouponsInput
+    redemptions?: CouponRedemptionCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutCouponInput
+  }
+
+  export type CouponUncheckedCreateWithoutPromotionBannersInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    type: $Enums.CouponType
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    freeItemDishId?: string | null
+    locationId?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    maxUses?: number | null
+    maxUsesPerUser?: number
+    currentUses?: number
+    minOrderAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    redemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutCouponInput
+  }
+
+  export type CouponCreateOrConnectWithoutPromotionBannersInput = {
+    where: CouponWhereUniqueInput
+    create: XOR<CouponCreateWithoutPromotionBannersInput, CouponUncheckedCreateWithoutPromotionBannersInput>
+  }
+
   export type MenuPromotionBannerCreateWithoutPromotionBannerInput = {
     id?: string
     sortOrder?: number
@@ -45648,6 +49734,63 @@ export namespace Prisma {
   export type MenuPromotionBannerCreateManyPromotionBannerInputEnvelope = {
     data: MenuPromotionBannerCreateManyPromotionBannerInput | MenuPromotionBannerCreateManyPromotionBannerInput[]
     skipDuplicates?: boolean
+  }
+
+  export type CouponUpsertWithoutPromotionBannersInput = {
+    update: XOR<CouponUpdateWithoutPromotionBannersInput, CouponUncheckedUpdateWithoutPromotionBannersInput>
+    create: XOR<CouponCreateWithoutPromotionBannersInput, CouponUncheckedCreateWithoutPromotionBannersInput>
+    where?: CouponWhereInput
+  }
+
+  export type CouponUpdateToOneWithWhereWithoutPromotionBannersInput = {
+    where?: CouponWhereInput
+    data: XOR<CouponUpdateWithoutPromotionBannersInput, CouponUncheckedUpdateWithoutPromotionBannersInput>
+  }
+
+  export type CouponUpdateWithoutPromotionBannersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumCouponTypeFieldUpdateOperationsInput | $Enums.CouponType
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    maxUsesPerUser?: IntFieldUpdateOperationsInput | number
+    currentUses?: IntFieldUpdateOperationsInput | number
+    minOrderAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: LocationUpdateOneWithoutCouponsNestedInput
+    freeItemDish?: DishUpdateOneWithoutCouponsNestedInput
+    redemptions?: CouponRedemptionUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutCouponNestedInput
+  }
+
+  export type CouponUncheckedUpdateWithoutPromotionBannersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumCouponTypeFieldUpdateOperationsInput | $Enums.CouponType
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    freeItemDishId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    maxUsesPerUser?: IntFieldUpdateOperationsInput | number
+    currentUses?: IntFieldUpdateOperationsInput | number
+    minOrderAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    redemptions?: CouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput
   }
 
   export type MenuPromotionBannerUpsertWithWhereUniqueWithoutPromotionBannerInput = {
@@ -45705,6 +49848,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    coupon?: CouponCreateNestedOneWithoutPromotionBannersInput
   }
 
   export type PromotionBannerUncheckedCreateWithoutMenuAssignmentsInput = {
@@ -45712,6 +49856,7 @@ export namespace Prisma {
     title: string
     subtitle?: string | null
     imageUrl?: string | null
+    couponId?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -45778,6 +49923,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coupon?: CouponUpdateOneWithoutPromotionBannersNestedInput
   }
 
   export type PromotionBannerUncheckedUpdateWithoutMenuAssignmentsInput = {
@@ -45785,6 +49931,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46060,6 +50207,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     location?: LocationCreateNestedOneWithoutCouponsInput
     redemptions?: CouponRedemptionCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutCouponInput
   }
 
   export type CouponUncheckedCreateWithoutFreeItemDishInput = {
@@ -46080,6 +50230,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     redemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutCouponInput
   }
 
   export type CouponCreateOrConnectWithoutFreeItemDishInput = {
@@ -46140,6 +50293,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -46161,6 +50315,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -46307,6 +50462,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutWalletTransactionsInput
     performedBy?: UserCreateNestedOneWithoutPerformedWalletActionsInput
+    incentiveGrant?: IncentiveGrantCreateNestedOneWithoutWalletTransactionInput
   }
 
   export type WalletTransactionUncheckedCreateWithoutOrderInput = {
@@ -46318,6 +50474,7 @@ export namespace Prisma {
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
     performedById?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -46358,6 +50515,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -46379,6 +50537,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -46624,6 +50783,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IncentiveGrantCreateWithoutCouponInput = {
+    id?: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    segmentIncentive: SegmentIncentiveCreateNestedOneWithoutGrantsInput
+    user: UserCreateNestedOneWithoutIncentiveGrantsInput
+    walletTransaction?: WalletTransactionCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantUncheckedCreateWithoutCouponInput = {
+    id?: string
+    segmentIncentiveId: string
+    userId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    walletTransaction?: WalletTransactionUncheckedCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantCreateOrConnectWithoutCouponInput = {
+    where: IncentiveGrantWhereUniqueInput
+    create: XOR<IncentiveGrantCreateWithoutCouponInput, IncentiveGrantUncheckedCreateWithoutCouponInput>
+  }
+
+  export type IncentiveGrantCreateManyCouponInputEnvelope = {
+    data: IncentiveGrantCreateManyCouponInput | IncentiveGrantCreateManyCouponInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SegmentIncentiveCreateWithoutCouponInput = {
+    id?: string
+    name?: string | null
+    incentiveType: string
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutSegmentIncentivesInput
+    segment: CustomerSegmentCreateNestedOneWithoutSegmentIncentivesInput
+    grants?: IncentiveGrantCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveUncheckedCreateWithoutCouponInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    name?: string | null
+    incentiveType: string
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    grants?: IncentiveGrantUncheckedCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveCreateOrConnectWithoutCouponInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    create: XOR<SegmentIncentiveCreateWithoutCouponInput, SegmentIncentiveUncheckedCreateWithoutCouponInput>
+  }
+
+  export type SegmentIncentiveCreateManyCouponInputEnvelope = {
+    data: SegmentIncentiveCreateManyCouponInput | SegmentIncentiveCreateManyCouponInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PromotionBannerCreateWithoutCouponInput = {
+    id?: string
+    title: string
+    subtitle?: string | null
+    imageUrl?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    menuAssignments?: MenuPromotionBannerCreateNestedManyWithoutPromotionBannerInput
+  }
+
+  export type PromotionBannerUncheckedCreateWithoutCouponInput = {
+    id?: string
+    title: string
+    subtitle?: string | null
+    imageUrl?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    menuAssignments?: MenuPromotionBannerUncheckedCreateNestedManyWithoutPromotionBannerInput
+  }
+
+  export type PromotionBannerCreateOrConnectWithoutCouponInput = {
+    where: PromotionBannerWhereUniqueInput
+    create: XOR<PromotionBannerCreateWithoutCouponInput, PromotionBannerUncheckedCreateWithoutCouponInput>
+  }
+
+  export type PromotionBannerCreateManyCouponInputEnvelope = {
+    data: PromotionBannerCreateManyCouponInput | PromotionBannerCreateManyCouponInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LocationUpsertWithoutCouponsInput = {
     update: XOR<LocationUpdateWithoutCouponsInput, LocationUncheckedUpdateWithoutCouponsInput>
     create: XOR<LocationCreateWithoutCouponsInput, LocationUncheckedCreateWithoutCouponsInput>
@@ -46732,6 +51003,68 @@ export namespace Prisma {
     data: XOR<CouponRedemptionUpdateManyMutationInput, CouponRedemptionUncheckedUpdateManyWithoutCouponInput>
   }
 
+  export type IncentiveGrantUpsertWithWhereUniqueWithoutCouponInput = {
+    where: IncentiveGrantWhereUniqueInput
+    update: XOR<IncentiveGrantUpdateWithoutCouponInput, IncentiveGrantUncheckedUpdateWithoutCouponInput>
+    create: XOR<IncentiveGrantCreateWithoutCouponInput, IncentiveGrantUncheckedCreateWithoutCouponInput>
+  }
+
+  export type IncentiveGrantUpdateWithWhereUniqueWithoutCouponInput = {
+    where: IncentiveGrantWhereUniqueInput
+    data: XOR<IncentiveGrantUpdateWithoutCouponInput, IncentiveGrantUncheckedUpdateWithoutCouponInput>
+  }
+
+  export type IncentiveGrantUpdateManyWithWhereWithoutCouponInput = {
+    where: IncentiveGrantScalarWhereInput
+    data: XOR<IncentiveGrantUpdateManyMutationInput, IncentiveGrantUncheckedUpdateManyWithoutCouponInput>
+  }
+
+  export type SegmentIncentiveUpsertWithWhereUniqueWithoutCouponInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    update: XOR<SegmentIncentiveUpdateWithoutCouponInput, SegmentIncentiveUncheckedUpdateWithoutCouponInput>
+    create: XOR<SegmentIncentiveCreateWithoutCouponInput, SegmentIncentiveUncheckedCreateWithoutCouponInput>
+  }
+
+  export type SegmentIncentiveUpdateWithWhereUniqueWithoutCouponInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    data: XOR<SegmentIncentiveUpdateWithoutCouponInput, SegmentIncentiveUncheckedUpdateWithoutCouponInput>
+  }
+
+  export type SegmentIncentiveUpdateManyWithWhereWithoutCouponInput = {
+    where: SegmentIncentiveScalarWhereInput
+    data: XOR<SegmentIncentiveUpdateManyMutationInput, SegmentIncentiveUncheckedUpdateManyWithoutCouponInput>
+  }
+
+  export type PromotionBannerUpsertWithWhereUniqueWithoutCouponInput = {
+    where: PromotionBannerWhereUniqueInput
+    update: XOR<PromotionBannerUpdateWithoutCouponInput, PromotionBannerUncheckedUpdateWithoutCouponInput>
+    create: XOR<PromotionBannerCreateWithoutCouponInput, PromotionBannerUncheckedCreateWithoutCouponInput>
+  }
+
+  export type PromotionBannerUpdateWithWhereUniqueWithoutCouponInput = {
+    where: PromotionBannerWhereUniqueInput
+    data: XOR<PromotionBannerUpdateWithoutCouponInput, PromotionBannerUncheckedUpdateWithoutCouponInput>
+  }
+
+  export type PromotionBannerUpdateManyWithWhereWithoutCouponInput = {
+    where: PromotionBannerScalarWhereInput
+    data: XOR<PromotionBannerUpdateManyMutationInput, PromotionBannerUncheckedUpdateManyWithoutCouponInput>
+  }
+
+  export type PromotionBannerScalarWhereInput = {
+    AND?: PromotionBannerScalarWhereInput | PromotionBannerScalarWhereInput[]
+    OR?: PromotionBannerScalarWhereInput[]
+    NOT?: PromotionBannerScalarWhereInput | PromotionBannerScalarWhereInput[]
+    id?: StringFilter<"PromotionBanner"> | string
+    title?: StringFilter<"PromotionBanner"> | string
+    subtitle?: StringNullableFilter<"PromotionBanner"> | string | null
+    imageUrl?: StringNullableFilter<"PromotionBanner"> | string | null
+    couponId?: StringNullableFilter<"PromotionBanner"> | string | null
+    isActive?: BoolFilter<"PromotionBanner"> | boolean
+    createdAt?: DateTimeFilter<"PromotionBanner"> | Date | string
+    updatedAt?: DateTimeFilter<"PromotionBanner"> | Date | string
+  }
+
   export type CouponCreateWithoutRedemptionsInput = {
     id?: string
     code: string
@@ -46750,6 +51083,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     location?: LocationCreateNestedOneWithoutCouponsInput
     freeItemDish?: DishCreateNestedOneWithoutCouponsInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutCouponInput
   }
 
   export type CouponUncheckedCreateWithoutRedemptionsInput = {
@@ -46770,6 +51106,9 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutCouponInput
   }
 
   export type CouponCreateOrConnectWithoutRedemptionsInput = {
@@ -46793,6 +51132,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
@@ -46814,6 +51154,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
@@ -46908,6 +51249,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: LocationUpdateOneWithoutCouponsNestedInput
     freeItemDish?: DishUpdateOneWithoutCouponsNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutCouponNestedInput
   }
 
   export type CouponUncheckedUpdateWithoutRedemptionsInput = {
@@ -46928,6 +51272,9 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutCouponNestedInput
   }
 
   export type UserUpsertWithoutCouponRedemptionsInput = {
@@ -46957,6 +51304,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -46978,6 +51326,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -47253,6 +51602,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSegmentsInput = {
@@ -47268,6 +51618,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSegmentsInput = {
@@ -47357,6 +51708,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SegmentIncentiveCreateWithoutSegmentInput = {
+    id?: string
+    name?: string | null
+    incentiveType: string
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutSegmentIncentivesInput
+    coupon?: CouponCreateNestedOneWithoutSegmentIncentivesInput
+    grants?: IncentiveGrantCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveUncheckedCreateWithoutSegmentInput = {
+    id?: string
+    organizationId: string
+    name?: string | null
+    incentiveType: string
+    couponId?: string | null
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    grants?: IncentiveGrantUncheckedCreateNestedManyWithoutSegmentIncentiveInput
+  }
+
+  export type SegmentIncentiveCreateOrConnectWithoutSegmentInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    create: XOR<SegmentIncentiveCreateWithoutSegmentInput, SegmentIncentiveUncheckedCreateWithoutSegmentInput>
+  }
+
+  export type SegmentIncentiveCreateManySegmentInputEnvelope = {
+    data: SegmentIncentiveCreateManySegmentInput | SegmentIncentiveCreateManySegmentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutSegmentsInput = {
     update: XOR<OrganizationUpdateWithoutSegmentsInput, OrganizationUncheckedUpdateWithoutSegmentsInput>
     create: XOR<OrganizationCreateWithoutSegmentsInput, OrganizationUncheckedCreateWithoutSegmentsInput>
@@ -47381,6 +51778,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSegmentsInput = {
@@ -47396,6 +51794,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type InAppMessageUpsertWithWhereUniqueWithoutSegmentInput = {
@@ -47430,6 +51829,22 @@ export namespace Prisma {
     data: XOR<MarketingWorkflowUpdateManyMutationInput, MarketingWorkflowUncheckedUpdateManyWithoutSegmentInput>
   }
 
+  export type SegmentIncentiveUpsertWithWhereUniqueWithoutSegmentInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    update: XOR<SegmentIncentiveUpdateWithoutSegmentInput, SegmentIncentiveUncheckedUpdateWithoutSegmentInput>
+    create: XOR<SegmentIncentiveCreateWithoutSegmentInput, SegmentIncentiveUncheckedCreateWithoutSegmentInput>
+  }
+
+  export type SegmentIncentiveUpdateWithWhereUniqueWithoutSegmentInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    data: XOR<SegmentIncentiveUpdateWithoutSegmentInput, SegmentIncentiveUncheckedUpdateWithoutSegmentInput>
+  }
+
+  export type SegmentIncentiveUpdateManyWithWhereWithoutSegmentInput = {
+    where: SegmentIncentiveScalarWhereInput
+    data: XOR<SegmentIncentiveUpdateManyMutationInput, SegmentIncentiveUncheckedUpdateManyWithoutSegmentInput>
+  }
+
   export type OrganizationCreateWithoutInAppMessagesInput = {
     id?: string
     name: string
@@ -47443,6 +51858,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutOrganizationInput
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutInAppMessagesInput = {
@@ -47458,6 +51874,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutInAppMessagesInput = {
@@ -47475,6 +51892,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutSegmentsInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateWithoutInAppMessagesInput = {
@@ -47487,6 +51905,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentCreateOrConnectWithoutInAppMessagesInput = {
@@ -47540,6 +51959,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutOrganizationNestedInput
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutInAppMessagesInput = {
@@ -47555,6 +51975,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutInAppMessagesInput = {
@@ -47578,6 +51999,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateWithoutInAppMessagesInput = {
@@ -47590,6 +52012,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type InAppMessageReadUpsertWithWhereUniqueWithoutMessageInput = {
@@ -47715,6 +52138,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutOrganizationInput
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutWorkflowsInput = {
@@ -47730,6 +52154,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutWorkflowsInput = {
@@ -47747,6 +52172,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutSegmentsInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateWithoutWorkflowsInput = {
@@ -47759,6 +52185,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentCreateOrConnectWithoutWorkflowsInput = {
@@ -47816,6 +52243,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutOrganizationNestedInput
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutWorkflowsInput = {
@@ -47831,6 +52259,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutWorkflowsInput = {
@@ -47854,6 +52283,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateWithoutWorkflowsInput = {
@@ -47866,6 +52296,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type WorkflowExecutionLogUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -47968,6 +52399,680 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OrganizationCreateWithoutSegmentIncentivesInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationCreateNestedManyWithoutOrganizationInput
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutSegmentIncentivesInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutSegmentIncentivesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutSegmentIncentivesInput, OrganizationUncheckedCreateWithoutSegmentIncentivesInput>
+  }
+
+  export type CustomerSegmentCreateWithoutSegmentIncentivesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    rulesCombination?: string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutSegmentsInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
+    workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
+  }
+
+  export type CustomerSegmentUncheckedCreateWithoutSegmentIncentivesInput = {
+    id?: string
+    organizationId: string
+    name: string
+    description?: string | null
+    rulesCombination?: string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
+    workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
+  }
+
+  export type CustomerSegmentCreateOrConnectWithoutSegmentIncentivesInput = {
+    where: CustomerSegmentWhereUniqueInput
+    create: XOR<CustomerSegmentCreateWithoutSegmentIncentivesInput, CustomerSegmentUncheckedCreateWithoutSegmentIncentivesInput>
+  }
+
+  export type CouponCreateWithoutSegmentIncentivesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    type: $Enums.CouponType
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    maxUses?: number | null
+    maxUsesPerUser?: number
+    currentUses?: number
+    minOrderAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    location?: LocationCreateNestedOneWithoutCouponsInput
+    freeItemDish?: DishCreateNestedOneWithoutCouponsInput
+    redemptions?: CouponRedemptionCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutCouponInput
+  }
+
+  export type CouponUncheckedCreateWithoutSegmentIncentivesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    type: $Enums.CouponType
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    freeItemDishId?: string | null
+    locationId?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    maxUses?: number | null
+    maxUsesPerUser?: number
+    currentUses?: number
+    minOrderAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    redemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutCouponInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutCouponInput
+  }
+
+  export type CouponCreateOrConnectWithoutSegmentIncentivesInput = {
+    where: CouponWhereUniqueInput
+    create: XOR<CouponCreateWithoutSegmentIncentivesInput, CouponUncheckedCreateWithoutSegmentIncentivesInput>
+  }
+
+  export type IncentiveGrantCreateWithoutSegmentIncentiveInput = {
+    id?: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    user: UserCreateNestedOneWithoutIncentiveGrantsInput
+    coupon?: CouponCreateNestedOneWithoutIncentiveGrantsInput
+    walletTransaction?: WalletTransactionCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput = {
+    id?: string
+    userId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    couponId?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+    walletTransaction?: WalletTransactionUncheckedCreateNestedOneWithoutIncentiveGrantInput
+  }
+
+  export type IncentiveGrantCreateOrConnectWithoutSegmentIncentiveInput = {
+    where: IncentiveGrantWhereUniqueInput
+    create: XOR<IncentiveGrantCreateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput>
+  }
+
+  export type IncentiveGrantCreateManySegmentIncentiveInputEnvelope = {
+    data: IncentiveGrantCreateManySegmentIncentiveInput | IncentiveGrantCreateManySegmentIncentiveInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationUpsertWithoutSegmentIncentivesInput = {
+    update: XOR<OrganizationUpdateWithoutSegmentIncentivesInput, OrganizationUncheckedUpdateWithoutSegmentIncentivesInput>
+    create: XOR<OrganizationCreateWithoutSegmentIncentivesInput, OrganizationUncheckedCreateWithoutSegmentIncentivesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutSegmentIncentivesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutSegmentIncentivesInput, OrganizationUncheckedUpdateWithoutSegmentIncentivesInput>
+  }
+
+  export type OrganizationUpdateWithoutSegmentIncentivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUpdateManyWithoutOrganizationNestedInput
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutSegmentIncentivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type CustomerSegmentUpsertWithoutSegmentIncentivesInput = {
+    update: XOR<CustomerSegmentUpdateWithoutSegmentIncentivesInput, CustomerSegmentUncheckedUpdateWithoutSegmentIncentivesInput>
+    create: XOR<CustomerSegmentCreateWithoutSegmentIncentivesInput, CustomerSegmentUncheckedCreateWithoutSegmentIncentivesInput>
+    where?: CustomerSegmentWhereInput
+  }
+
+  export type CustomerSegmentUpdateToOneWithWhereWithoutSegmentIncentivesInput = {
+    where?: CustomerSegmentWhereInput
+    data: XOR<CustomerSegmentUpdateWithoutSegmentIncentivesInput, CustomerSegmentUncheckedUpdateWithoutSegmentIncentivesInput>
+  }
+
+  export type CustomerSegmentUpdateWithoutSegmentIncentivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rulesCombination?: StringFieldUpdateOperationsInput | string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
+    workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
+  }
+
+  export type CustomerSegmentUncheckedUpdateWithoutSegmentIncentivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rulesCombination?: StringFieldUpdateOperationsInput | string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
+    workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
+  }
+
+  export type CouponUpsertWithoutSegmentIncentivesInput = {
+    update: XOR<CouponUpdateWithoutSegmentIncentivesInput, CouponUncheckedUpdateWithoutSegmentIncentivesInput>
+    create: XOR<CouponCreateWithoutSegmentIncentivesInput, CouponUncheckedCreateWithoutSegmentIncentivesInput>
+    where?: CouponWhereInput
+  }
+
+  export type CouponUpdateToOneWithWhereWithoutSegmentIncentivesInput = {
+    where?: CouponWhereInput
+    data: XOR<CouponUpdateWithoutSegmentIncentivesInput, CouponUncheckedUpdateWithoutSegmentIncentivesInput>
+  }
+
+  export type CouponUpdateWithoutSegmentIncentivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumCouponTypeFieldUpdateOperationsInput | $Enums.CouponType
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    maxUsesPerUser?: IntFieldUpdateOperationsInput | number
+    currentUses?: IntFieldUpdateOperationsInput | number
+    minOrderAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: LocationUpdateOneWithoutCouponsNestedInput
+    freeItemDish?: DishUpdateOneWithoutCouponsNestedInput
+    redemptions?: CouponRedemptionUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutCouponNestedInput
+  }
+
+  export type CouponUncheckedUpdateWithoutSegmentIncentivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumCouponTypeFieldUpdateOperationsInput | $Enums.CouponType
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    freeItemDishId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    maxUsesPerUser?: IntFieldUpdateOperationsInput | number
+    currentUses?: IntFieldUpdateOperationsInput | number
+    minOrderAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    redemptions?: CouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutCouponNestedInput
+  }
+
+  export type IncentiveGrantUpsertWithWhereUniqueWithoutSegmentIncentiveInput = {
+    where: IncentiveGrantWhereUniqueInput
+    update: XOR<IncentiveGrantUpdateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedUpdateWithoutSegmentIncentiveInput>
+    create: XOR<IncentiveGrantCreateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedCreateWithoutSegmentIncentiveInput>
+  }
+
+  export type IncentiveGrantUpdateWithWhereUniqueWithoutSegmentIncentiveInput = {
+    where: IncentiveGrantWhereUniqueInput
+    data: XOR<IncentiveGrantUpdateWithoutSegmentIncentiveInput, IncentiveGrantUncheckedUpdateWithoutSegmentIncentiveInput>
+  }
+
+  export type IncentiveGrantUpdateManyWithWhereWithoutSegmentIncentiveInput = {
+    where: IncentiveGrantScalarWhereInput
+    data: XOR<IncentiveGrantUpdateManyMutationInput, IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveInput>
+  }
+
+  export type SegmentIncentiveCreateWithoutGrantsInput = {
+    id?: string
+    name?: string | null
+    incentiveType: string
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutSegmentIncentivesInput
+    segment: CustomerSegmentCreateNestedOneWithoutSegmentIncentivesInput
+    coupon?: CouponCreateNestedOneWithoutSegmentIncentivesInput
+  }
+
+  export type SegmentIncentiveUncheckedCreateWithoutGrantsInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    name?: string | null
+    incentiveType: string
+    couponId?: string | null
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SegmentIncentiveCreateOrConnectWithoutGrantsInput = {
+    where: SegmentIncentiveWhereUniqueInput
+    create: XOR<SegmentIncentiveCreateWithoutGrantsInput, SegmentIncentiveUncheckedCreateWithoutGrantsInput>
+  }
+
+  export type UserCreateWithoutIncentiveGrantsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+  }
+
+  export type UserUncheckedCreateWithoutIncentiveGrantsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+  }
+
+  export type UserCreateOrConnectWithoutIncentiveGrantsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutIncentiveGrantsInput, UserUncheckedCreateWithoutIncentiveGrantsInput>
+  }
+
+  export type CouponCreateWithoutIncentiveGrantsInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    type: $Enums.CouponType
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    maxUses?: number | null
+    maxUsesPerUser?: number
+    currentUses?: number
+    minOrderAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    location?: LocationCreateNestedOneWithoutCouponsInput
+    freeItemDish?: DishCreateNestedOneWithoutCouponsInput
+    redemptions?: CouponRedemptionCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutCouponInput
+  }
+
+  export type CouponUncheckedCreateWithoutIncentiveGrantsInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    type: $Enums.CouponType
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    freeItemDishId?: string | null
+    locationId?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    maxUses?: number | null
+    maxUsesPerUser?: number
+    currentUses?: number
+    minOrderAmount?: Decimal | DecimalJsLike | number | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    redemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutCouponInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutCouponInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutCouponInput
+  }
+
+  export type CouponCreateOrConnectWithoutIncentiveGrantsInput = {
+    where: CouponWhereUniqueInput
+    create: XOR<CouponCreateWithoutIncentiveGrantsInput, CouponUncheckedCreateWithoutIncentiveGrantsInput>
+  }
+
+  export type WalletTransactionCreateWithoutIncentiveGrantInput = {
+    id?: string
+    type: $Enums.WalletTransactionType
+    amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter: Decimal | DecimalJsLike | number | string
+    description?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWalletTransactionsInput
+    order?: OrderCreateNestedOneWithoutWalletTransactionsInput
+    performedBy?: UserCreateNestedOneWithoutPerformedWalletActionsInput
+  }
+
+  export type WalletTransactionUncheckedCreateWithoutIncentiveGrantInput = {
+    id?: string
+    userId: string
+    type: $Enums.WalletTransactionType
+    amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter: Decimal | DecimalJsLike | number | string
+    description?: string | null
+    orderId?: string | null
+    performedById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type WalletTransactionCreateOrConnectWithoutIncentiveGrantInput = {
+    where: WalletTransactionWhereUniqueInput
+    create: XOR<WalletTransactionCreateWithoutIncentiveGrantInput, WalletTransactionUncheckedCreateWithoutIncentiveGrantInput>
+  }
+
+  export type SegmentIncentiveUpsertWithoutGrantsInput = {
+    update: XOR<SegmentIncentiveUpdateWithoutGrantsInput, SegmentIncentiveUncheckedUpdateWithoutGrantsInput>
+    create: XOR<SegmentIncentiveCreateWithoutGrantsInput, SegmentIncentiveUncheckedCreateWithoutGrantsInput>
+    where?: SegmentIncentiveWhereInput
+  }
+
+  export type SegmentIncentiveUpdateToOneWithWhereWithoutGrantsInput = {
+    where?: SegmentIncentiveWhereInput
+    data: XOR<SegmentIncentiveUpdateWithoutGrantsInput, SegmentIncentiveUncheckedUpdateWithoutGrantsInput>
+  }
+
+  export type SegmentIncentiveUpdateWithoutGrantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    segment?: CustomerSegmentUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    coupon?: CouponUpdateOneWithoutSegmentIncentivesNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateWithoutGrantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutIncentiveGrantsInput = {
+    update: XOR<UserUpdateWithoutIncentiveGrantsInput, UserUncheckedUpdateWithoutIncentiveGrantsInput>
+    create: XOR<UserCreateWithoutIncentiveGrantsInput, UserUncheckedCreateWithoutIncentiveGrantsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutIncentiveGrantsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutIncentiveGrantsInput, UserUncheckedUpdateWithoutIncentiveGrantsInput>
+  }
+
+  export type UserUpdateWithoutIncentiveGrantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutIncentiveGrantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+  }
+
+  export type CouponUpsertWithoutIncentiveGrantsInput = {
+    update: XOR<CouponUpdateWithoutIncentiveGrantsInput, CouponUncheckedUpdateWithoutIncentiveGrantsInput>
+    create: XOR<CouponCreateWithoutIncentiveGrantsInput, CouponUncheckedCreateWithoutIncentiveGrantsInput>
+    where?: CouponWhereInput
+  }
+
+  export type CouponUpdateToOneWithWhereWithoutIncentiveGrantsInput = {
+    where?: CouponWhereInput
+    data: XOR<CouponUpdateWithoutIncentiveGrantsInput, CouponUncheckedUpdateWithoutIncentiveGrantsInput>
+  }
+
+  export type CouponUpdateWithoutIncentiveGrantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumCouponTypeFieldUpdateOperationsInput | $Enums.CouponType
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    maxUsesPerUser?: IntFieldUpdateOperationsInput | number
+    currentUses?: IntFieldUpdateOperationsInput | number
+    minOrderAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: LocationUpdateOneWithoutCouponsNestedInput
+    freeItemDish?: DishUpdateOneWithoutCouponsNestedInput
+    redemptions?: CouponRedemptionUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutCouponNestedInput
+  }
+
+  export type CouponUncheckedUpdateWithoutIncentiveGrantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumCouponTypeFieldUpdateOperationsInput | $Enums.CouponType
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    freeItemDishId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
+    maxUsesPerUser?: IntFieldUpdateOperationsInput | number
+    currentUses?: IntFieldUpdateOperationsInput | number
+    minOrderAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    redemptions?: CouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutCouponNestedInput
+  }
+
+  export type WalletTransactionUpsertWithoutIncentiveGrantInput = {
+    update: XOR<WalletTransactionUpdateWithoutIncentiveGrantInput, WalletTransactionUncheckedUpdateWithoutIncentiveGrantInput>
+    create: XOR<WalletTransactionCreateWithoutIncentiveGrantInput, WalletTransactionUncheckedCreateWithoutIncentiveGrantInput>
+    where?: WalletTransactionWhereInput
+  }
+
+  export type WalletTransactionUpdateToOneWithWhereWithoutIncentiveGrantInput = {
+    where?: WalletTransactionWhereInput
+    data: XOR<WalletTransactionUpdateWithoutIncentiveGrantInput, WalletTransactionUncheckedUpdateWithoutIncentiveGrantInput>
+  }
+
+  export type WalletTransactionUpdateWithoutIncentiveGrantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTransactionTypeFieldUpdateOperationsInput | $Enums.WalletTransactionType
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
+    order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
+    performedBy?: UserUpdateOneWithoutPerformedWalletActionsNestedInput
+  }
+
+  export type WalletTransactionUncheckedUpdateWithoutIncentiveGrantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumWalletTransactionTypeFieldUpdateOperationsInput | $Enums.WalletTransactionType
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderId?: NullableStringFieldUpdateOperationsInput | string | null
+    performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LocationCreateManyOrganizationInput = {
     id?: string
     name: string
@@ -48027,6 +53132,23 @@ export namespace Prisma {
     triggerConfig?: JsonNullValueInput | InputJsonValue
     actionType: string
     actionConfig?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SegmentIncentiveCreateManyOrganizationInput = {
+    id?: string
+    segmentId: string
+    name?: string | null
+    incentiveType: string
+    couponId?: string | null
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -48095,6 +53217,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
@@ -48116,6 +53239,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
@@ -48143,6 +53267,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateWithoutOrganizationInput = {
@@ -48155,6 +53280,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateManyWithoutOrganizationInput = {
@@ -48253,6 +53379,59 @@ export namespace Prisma {
     triggerConfig?: JsonNullValueInput | InputJsonValue
     actionType?: StringFieldUpdateOperationsInput | string
     actionConfig?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SegmentIncentiveUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    segment?: CustomerSegmentUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    coupon?: CouponUpdateOneWithoutSegmentIncentivesNestedInput
+    grants?: IncentiveGrantUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grants?: IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48681,6 +53860,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     freeItemDish?: DishUpdateOneWithoutCouponsNestedInput
     redemptions?: CouponRedemptionUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutCouponNestedInput
   }
 
   export type CouponUncheckedUpdateWithoutLocationInput = {
@@ -48701,6 +53883,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     redemptions?: CouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutCouponNestedInput
   }
 
   export type CouponUncheckedUpdateManyWithoutLocationInput = {
@@ -48788,6 +53973,17 @@ export namespace Prisma {
     redeemedAt?: Date | string
   }
 
+  export type IncentiveGrantCreateManyUserInput = {
+    id?: string
+    segmentIncentiveId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    couponId?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+  }
+
   export type WalletTransactionCreateManyUserInput = {
     id?: string
     type: $Enums.WalletTransactionType
@@ -48797,6 +53993,7 @@ export namespace Prisma {
     description?: string | null
     orderId?: string | null
     performedById?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -48809,6 +54006,7 @@ export namespace Prisma {
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
     orderId?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -49016,6 +54214,41 @@ export namespace Prisma {
     redeemedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IncentiveGrantUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    segmentIncentive?: SegmentIncentiveUpdateOneRequiredWithoutGrantsNestedInput
+    coupon?: CouponUpdateOneWithoutIncentiveGrantsNestedInput
+    walletTransaction?: WalletTransactionUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentIncentiveId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransaction?: WalletTransactionUncheckedUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentIncentiveId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type WalletTransactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumWalletTransactionTypeFieldUpdateOperationsInput | $Enums.WalletTransactionType
@@ -49026,6 +54259,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
     performedBy?: UserUpdateOneWithoutPerformedWalletActionsNestedInput
+    incentiveGrant?: IncentiveGrantUpdateOneWithoutWalletTransactionNestedInput
   }
 
   export type WalletTransactionUncheckedUpdateWithoutUserInput = {
@@ -49037,6 +54271,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -49049,6 +54284,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -49062,6 +54298,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
     order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
+    incentiveGrant?: IncentiveGrantUpdateOneWithoutWalletTransactionNestedInput
   }
 
   export type WalletTransactionUncheckedUpdateWithoutPerformedByInput = {
@@ -49073,6 +54310,7 @@ export namespace Prisma {
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -49085,6 +54323,7 @@ export namespace Prisma {
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -49329,6 +54568,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: LocationUpdateOneWithoutCouponsNestedInput
     redemptions?: CouponRedemptionUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutCouponNestedInput
   }
 
   export type CouponUncheckedUpdateWithoutFreeItemDishInput = {
@@ -49349,6 +54591,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     redemptions?: CouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutCouponNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutCouponNestedInput
   }
 
   export type CouponUncheckedUpdateManyWithoutFreeItemDishInput = {
@@ -49394,6 +54639,7 @@ export namespace Prisma {
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
     performedById?: string | null
+    incentiveGrantId?: string | null
     createdAt?: Date | string
   }
 
@@ -49452,6 +54698,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
     performedBy?: UserUpdateOneWithoutPerformedWalletActionsNestedInput
+    incentiveGrant?: IncentiveGrantUpdateOneWithoutWalletTransactionNestedInput
   }
 
   export type WalletTransactionUncheckedUpdateWithoutOrderInput = {
@@ -49463,6 +54710,7 @@ export namespace Prisma {
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -49475,6 +54723,7 @@ export namespace Prisma {
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -49483,6 +54732,44 @@ export namespace Prisma {
     userId: string
     orderId: string
     redeemedAt?: Date | string
+  }
+
+  export type IncentiveGrantCreateManyCouponInput = {
+    id?: string
+    segmentIncentiveId: string
+    userId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+  }
+
+  export type SegmentIncentiveCreateManyCouponInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    name?: string | null
+    incentiveType: string
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PromotionBannerCreateManyCouponInput = {
+    id?: string
+    title: string
+    subtitle?: string | null
+    imageUrl?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CouponRedemptionUpdateWithoutCouponInput = {
@@ -49504,6 +54791,126 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
     redeemedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IncentiveGrantUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    segmentIncentive?: SegmentIncentiveUpdateOneRequiredWithoutGrantsNestedInput
+    user?: UserUpdateOneRequiredWithoutIncentiveGrantsNestedInput
+    walletTransaction?: WalletTransactionUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentIncentiveId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransaction?: WalletTransactionUncheckedUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateManyWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentIncentiveId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SegmentIncentiveUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    segment?: CustomerSegmentUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    grants?: IncentiveGrantUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grants?: IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateManyWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PromotionBannerUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    menuAssignments?: MenuPromotionBannerUpdateManyWithoutPromotionBannerNestedInput
+  }
+
+  export type PromotionBannerUncheckedUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    menuAssignments?: MenuPromotionBannerUncheckedUpdateManyWithoutPromotionBannerNestedInput
+  }
+
+  export type PromotionBannerUncheckedUpdateManyWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InAppMessageCreateManySegmentInput = {
@@ -49530,6 +54937,23 @@ export namespace Prisma {
     triggerConfig?: JsonNullValueInput | InputJsonValue
     actionType: string
     actionConfig?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SegmentIncentiveCreateManySegmentInput = {
+    id?: string
+    organizationId: string
+    name?: string | null
+    incentiveType: string
+    couponId?: string | null
+    personaliseCoupon?: boolean
+    walletAmount?: Decimal | DecimalJsLike | number | string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    maxGrantsPerUser?: number
+    displayChannel?: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -49626,6 +55050,59 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SegmentIncentiveUpdateWithoutSegmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutSegmentIncentivesNestedInput
+    coupon?: CouponUpdateOneWithoutSegmentIncentivesNestedInput
+    grants?: IncentiveGrantUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateWithoutSegmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grants?: IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveNestedInput
+  }
+
+  export type SegmentIncentiveUncheckedUpdateManyWithoutSegmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    incentiveType?: StringFieldUpdateOperationsInput | string
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    personaliseCoupon?: BoolFieldUpdateOperationsInput | boolean
+    walletAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
+    displayChannel?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InAppMessageReadCreateManyMessageInput = {
     id?: string
     userId: string
@@ -49680,6 +55157,52 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     details?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type IncentiveGrantCreateManySegmentIncentiveInput = {
+    id?: string
+    userId: string
+    grantedAt?: Date | string
+    couponCode?: string | null
+    couponId?: string | null
+    walletTransactionId?: string | null
+    redeemedAt?: Date | string | null
+    redeemedOrderId?: string | null
+  }
+
+  export type IncentiveGrantUpdateWithoutSegmentIncentiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutIncentiveGrantsNestedInput
+    coupon?: CouponUpdateOneWithoutIncentiveGrantsNestedInput
+    walletTransaction?: WalletTransactionUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateWithoutSegmentIncentiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransaction?: WalletTransactionUncheckedUpdateOneWithoutIncentiveGrantNestedInput
+  }
+
+  export type IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    grantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    redeemedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
@@ -49743,6 +55266,10 @@ export namespace Prisma {
      * @deprecated Use MarketingWorkflowCountOutputTypeDefaultArgs instead
      */
     export type MarketingWorkflowCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MarketingWorkflowCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SegmentIncentiveCountOutputTypeDefaultArgs instead
+     */
+    export type SegmentIncentiveCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SegmentIncentiveCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OrganizationDefaultArgs instead
      */
@@ -49855,6 +55382,14 @@ export namespace Prisma {
      * @deprecated Use WorkflowExecutionLogDefaultArgs instead
      */
     export type WorkflowExecutionLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WorkflowExecutionLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SegmentIncentiveDefaultArgs instead
+     */
+    export type SegmentIncentiveArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SegmentIncentiveDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use IncentiveGrantDefaultArgs instead
+     */
+    export type IncentiveGrantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IncentiveGrantDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -7,6 +7,7 @@ const createSchema = z.object({
   title: z.string().min(1, 'Titel ist erforderlich').max(200),
   subtitle: z.string().max(500).optional().nullable(),
   imageUrl: z.string().url().optional().nullable().or(z.literal('')),
+  couponId: z.string().optional().nullable().or(z.literal('')),
   isActive: z.boolean().optional().default(true),
 })
 
@@ -55,6 +56,7 @@ export async function POST(request: NextRequest) {
         title: validated.title,
         subtitle: validated.subtitle || null,
         imageUrl: validated.imageUrl && validated.imageUrl !== '' ? validated.imageUrl : null,
+        couponId: validated.couponId && validated.couponId !== '' ? validated.couponId : null,
         isActive: validated.isActive ?? true,
       },
     })

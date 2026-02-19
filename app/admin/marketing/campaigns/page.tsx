@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { Mail, MessageSquare, Gift, Plus, Pencil, Trash2, Send } from 'lucide-react'
+import { Mail, MessageSquare, Gift, Plus, Pencil, Trash2, Send, Wallet, Ticket, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -20,6 +20,18 @@ import {
 import { MARKETING_SLOT_IDS, DISPLAY_TYPE_LABELS } from '@/lib/marketing-slots'
 
 type Segment = { id: string; name: string }
+type CouponOpt = { id: string; code: string; name: string; type: string } | null
+type Incentive = {
+  id: string
+  name: string | null
+  incentiveType: string
+  segment: { id: string; name: string }
+  coupon: CouponOpt
+  walletAmount: string | null
+  personaliseCoupon: boolean
+  isActive: boolean
+  _count: { grants: number }
+}
 type InAppMessage = {
   id: string
   title: string | null
@@ -64,6 +76,25 @@ export default function CampaignsPage() {
   const [savingMessage, setSavingMessage] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
 
+  const [incentives, setIncentives] = useState<Incentive[]>([])
+  const [coupons, setCoupons] = useState<{ id: string; code: string; name: string; type: string }[]>([])
+  const [loadingIncentives, setLoadingIncentives] = useState(true)
+  const [incentiveSheetOpen, setIncentiveSheetOpen] = useState(false)
+  const [editingIncentiveId, setEditingIncentiveId] = useState<string | null>(null)
+  const [incentiveForm, setIncentiveForm] = useState({
+    segmentId: '',
+    name: '',
+    incentiveType: 'COUPON' as 'COUPON' | 'WALLET_CREDIT',
+    couponId: '',
+    personaliseCoupon: false,
+    walletAmount: '5',
+    maxGrantsPerUser: 1,
+    displayChannel: 'BOTH' as 'EMAIL' | 'IN_APP' | 'BOTH',
+    isActive: true,
+  })
+  const [savingIncentive, setSavingIncentive] = useState(false)
+  const [grantingId, setGrantingId] = useState<string | null>(null)
+
   const fetchSegments = useCallback(async () => {
     try {
       setLoadingSegments(true)
@@ -98,6 +129,132 @@ export default function CampaignsPage() {
   useEffect(() => {
     fetchMessages()
   }, [fetchMessages])
+
+  const fetchIncentives = useCallback(async () => {
+    try {
+      setLoadingIncentives(true)
+      const res = await fetch('/api/admin/marketing/incentives')
+      const data = await res.json().catch(() => [])
+      if (!res.ok) throw new Error(data.error || 'Fehler')
+      setIncentives(Array.isArray(data) ? data : [])
+    } catch {
+      setIncentives([])
+    } finally {
+      setLoadingIncentives(false)
+    }
+  }, [])
+
+  const fetchCoupons = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/coupons?includeInactive=true')
+      const data = await res.json().catch(() => [])
+      if (!res.ok) return
+      setCoupons(Array.isArray(data) ? data.map((c: { id: string; code: string; name: string; type: string }) => ({ id: c.id, code: c.code, name: c.name, type: c.type })) : [])
+    } catch {
+      setCoupons([])
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchIncentives()
+  }, [fetchIncentives])
+
+  useEffect(() => {
+    fetchCoupons()
+  }, [fetchCoupons])
+
+  const openNewIncentive = () => {
+    setEditingIncentiveId(null)
+    setIncentiveForm({
+      segmentId: segments[0]?.id ?? '',
+      name: '',
+      incentiveType: 'COUPON',
+      couponId: coupons[0]?.id ?? '',
+      personaliseCoupon: false,
+      walletAmount: '5',
+      maxGrantsPerUser: 1,
+      displayChannel: 'BOTH',
+      isActive: true,
+    })
+    setSaveError(null)
+    setIncentiveSheetOpen(true)
+  }
+
+  const saveIncentive = async () => {
+    if (!incentiveForm.segmentId) {
+      setSaveError('Segment ist erforderlich.')
+      return
+    }
+    if (incentiveForm.incentiveType === 'COUPON' && !incentiveForm.couponId) {
+      setSaveError('Coupon ist erforderlich.')
+      return
+    }
+    if (incentiveForm.incentiveType === 'WALLET_CREDIT') {
+      const amt = parseFloat(incentiveForm.walletAmount)
+      if (isNaN(amt) || amt <= 0) {
+        setSaveError('Gültiger Betrag erforderlich.')
+        return
+      }
+    }
+    setSavingIncentive(true)
+    setSaveError(null)
+    try {
+      const payload = {
+        segmentId: incentiveForm.segmentId,
+        name: incentiveForm.name.trim() || null,
+        incentiveType: incentiveForm.incentiveType,
+        couponId: incentiveForm.incentiveType === 'COUPON' ? incentiveForm.couponId : null,
+        personaliseCoupon: incentiveForm.personaliseCoupon,
+        walletAmount: incentiveForm.incentiveType === 'WALLET_CREDIT' ? parseFloat(incentiveForm.walletAmount) : null,
+        maxGrantsPerUser: incentiveForm.maxGrantsPerUser,
+        displayChannel: incentiveForm.displayChannel,
+        isActive: incentiveForm.isActive,
+      }
+      const url = editingIncentiveId ? `/api/admin/marketing/incentives/${editingIncentiveId}` : '/api/admin/marketing/incentives'
+      const method = editingIncentiveId ? 'PATCH' : 'POST'
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editingIncentiveId ? { ...payload, segmentId: undefined } : payload),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Speichern fehlgeschlagen.')
+      setIncentiveSheetOpen(false)
+      fetchIncentives()
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : 'Fehler')
+    } finally {
+      setSavingIncentive(false)
+    }
+  }
+
+  const grantIncentive = async (id: string) => {
+    setGrantingId(id)
+    try {
+      const res = await fetch(`/api/admin/marketing/incentives/${id}/grant`, { method: 'POST' })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Ausspielung fehlgeschlagen.')
+      fetchIncentives()
+      if (data.granted != null) {
+        alert(`${data.granted} Nutzer haben den Incentive erhalten.${data.skipped ? ` ${data.skipped} übersprungen (bereits erhalten).` : ''}`)
+      }
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Fehler')
+    } finally {
+      setGrantingId(null)
+    }
+  }
+
+  const deleteIncentive = async (id: string) => {
+    if (!confirm('Incentive wirklich löschen?')) return
+    try {
+      const res = await fetch(`/api/admin/marketing/incentives/${id}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error('Löschen fehlgeschlagen.')
+      fetchIncentives()
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Fehler')
+    }
+  }
 
   const handleSendEmail = async () => {
     if (!emailForm.segmentId || !emailForm.subject.trim() || !emailForm.body.trim()) {
@@ -361,11 +518,76 @@ export default function CampaignsPage() {
         </TabsContent>
 
         <TabsContent value="incentives" className="space-y-4">
-          <Card className="rounded-2xl border border-border/50">
-            <CardContent className="py-12 text-center text-muted-foreground">
-              Incentives (Segment ↔ Coupon/Guthaben) können hier zugewiesen werden. Diese Funktion folgt in einer späteren Version.
-            </CardContent>
-          </Card>
+          <div className="flex justify-end">
+            <Button onClick={openNewIncentive} className="gap-2 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600">
+              <Plus className="h-4 w-4" />
+              Incentive zuweisen
+            </Button>
+          </div>
+          {loadingIncentives ? (
+            <Card className="rounded-2xl border-border/50">
+              <CardContent className="py-12 flex justify-center">
+                <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+              </CardContent>
+            </Card>
+          ) : incentives.length === 0 ? (
+            <Card className="rounded-2xl border-border/50">
+              <CardContent className="py-12 text-center text-muted-foreground">
+                Noch keine Incentives. Weisen Sie Coupons oder Guthaben einem Segment zu.
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2">
+              {incentives.map((i) => (
+                <Card key={i.id} className="rounded-2xl border border-border/50 hover:shadow-2xl transition-all duration-300">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <CardTitle className="text-lg">{i.name || (i.incentiveType === 'COUPON' ? i.coupon?.name : 'Guthaben-Incentive')}</CardTitle>
+                      <Badge variant={i.isActive ? 'default' : 'secondary'} className={i.isActive ? 'bg-green-600' : ''}>
+                        {i.isActive ? 'Aktiv' : 'Inaktiv'}
+                      </Badge>
+                    </div>
+                    <CardDescription className="flex items-center gap-2 flex-wrap">
+                      <span>Segment: {i.segment.name}</span>
+                      <span>·</span>
+                      {i.incentiveType === 'COUPON' ? (
+                        <>
+                          <Ticket className="h-3.5 w-3.5" />
+                          {i.coupon?.code ?? '-'}
+                          {i.personaliseCoupon && ' (personalisierter Code)'}
+                        </>
+                      ) : (
+                        <>
+                          <Wallet className="h-3.5 w-3.5" />
+                          {i.walletAmount} €
+                        </>
+                      )}
+                      <span>·</span>
+                      <span>{i._count.grants} Ausspielungen</span>
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="flex gap-2 flex-wrap">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-1"
+                        onClick={() => grantIncentive(i.id)}
+                        disabled={!!grantingId || !i.isActive}
+                      >
+                        <Play className="h-3.5 w-3.5" />
+                        {grantingId === i.id ? 'Wird ausgespielt…' : 'Jetzt ausspielen'}
+                      </Button>
+                      <Button variant="outline" size="sm" className="gap-1 text-destructive" onClick={() => deleteIncentive(i.id)}>
+                        <Trash2 className="h-3.5 w-3.5" />
+                        Löschen
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </TabsContent>
       </Tabs>
 
@@ -484,6 +706,115 @@ export default function CampaignsPage() {
           <SheetFooter>
             <Button variant="outline" onClick={() => setMessageSheetOpen(false)} disabled={savingMessage}>Abbrechen</Button>
             <Button onClick={saveMessage} disabled={savingMessage}>{savingMessage ? 'Speichern…' : 'Speichern'}</Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+
+      <Sheet open={incentiveSheetOpen} onOpenChange={setIncentiveSheetOpen}>
+        <SheetContent side="right" className="overflow-y-auto w-full sm:max-w-lg">
+          <SheetHeader>
+            <SheetTitle>{editingIncentiveId ? 'Incentive bearbeiten' : 'Incentive zuweisen'}</SheetTitle>
+            <SheetDescription>Coupon oder Guthaben einem Segment zuweisen.</SheetDescription>
+          </SheetHeader>
+          <div className="grid gap-4 py-6">
+            <div className="grid gap-2">
+              <Label>Segment *</Label>
+              <select
+                value={incentiveForm.segmentId}
+                onChange={(e) => setIncentiveForm((f) => ({ ...f, segmentId: e.target.value }))}
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                disabled={!!editingIncentiveId}
+              >
+                <option value="">— wählen —</option>
+                {segments.map((s) => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="grid gap-2">
+              <Label>Typ *</Label>
+              <select
+                value={incentiveForm.incentiveType}
+                onChange={(e) => setIncentiveForm((f) => ({ ...f, incentiveType: e.target.value as 'COUPON' | 'WALLET_CREDIT' }))}
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                disabled={!!editingIncentiveId}
+              >
+                <option value="COUPON">Coupon</option>
+                <option value="WALLET_CREDIT">Guthaben</option>
+              </select>
+            </div>
+            {incentiveForm.incentiveType === 'COUPON' && (
+              <>
+                <div className="grid gap-2">
+                  <Label>Coupon *</Label>
+                  <select
+                    value={incentiveForm.couponId}
+                    onChange={(e) => setIncentiveForm((f) => ({ ...f, couponId: e.target.value }))}
+                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                  >
+                    <option value="">— wählen —</option>
+                    {coupons.map((c) => (
+                      <option key={c.id} value={c.id}>{c.code} – {c.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="inc-personalise"
+                    checked={incentiveForm.personaliseCoupon}
+                    onChange={(e) => setIncentiveForm((f) => ({ ...f, personaliseCoupon: e.target.checked }))}
+                    className="h-4 w-4 rounded border-input"
+                  />
+                  <Label htmlFor="inc-personalise">Personalisierter Code pro User</Label>
+                </div>
+              </>
+            )}
+            {incentiveForm.incentiveType === 'WALLET_CREDIT' && (
+              <div className="grid gap-2">
+                <Label>Betrag (€) *</Label>
+                <Input
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  value={incentiveForm.walletAmount}
+                  onChange={(e) => setIncentiveForm((f) => ({ ...f, walletAmount: e.target.value }))}
+                  placeholder="5.00"
+                />
+              </div>
+            )}
+            <div className="grid gap-2">
+              <Label>Name (optional)</Label>
+              <Input
+                value={incentiveForm.name}
+                onChange={(e) => setIncentiveForm((f) => ({ ...f, name: e.target.value }))}
+                placeholder="z. B. Stammkunden-Belohnung"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label>Max. Ausspielungen pro User</Label>
+              <Input
+                type="number"
+                min="1"
+                value={incentiveForm.maxGrantsPerUser}
+                onChange={(e) => setIncentiveForm((f) => ({ ...f, maxGrantsPerUser: parseInt(e.target.value, 10) || 1 }))}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="inc-active"
+                checked={incentiveForm.isActive}
+                onChange={(e) => setIncentiveForm((f) => ({ ...f, isActive: e.target.checked }))}
+                className="h-4 w-4 rounded border-input"
+              />
+              <Label htmlFor="inc-active">Aktiv</Label>
+            </div>
+            {saveError && <p className="text-sm text-destructive">{saveError}</p>}
+          </div>
+          <SheetFooter>
+            <Button variant="outline" onClick={() => setIncentiveSheetOpen(false)} disabled={savingIncentive}>Abbrechen</Button>
+            <Button onClick={saveIncentive} disabled={savingIncentive}>{savingIncentive ? 'Speichern…' : 'Speichern'}</Button>
           </SheetFooter>
         </SheetContent>
       </Sheet>

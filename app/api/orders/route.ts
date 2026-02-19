@@ -297,6 +297,12 @@ export async function POST(request: NextRequest) {
           },
         })
 
+        // PROJ-4e: IncentiveGrant als eingelöst markieren
+        await tx.incentiveGrant.updateMany({
+          where: { couponId: coupon.id, userId },
+          data: { redeemedAt: new Date(), redeemedOrderId: newOrder.id },
+        })
+
         // currentUses im Coupon erhöhen
         await tx.coupon.update({
           where: { id: coupon.id },

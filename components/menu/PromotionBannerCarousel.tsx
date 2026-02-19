@@ -9,6 +9,8 @@ export interface PromotionBannerItem {
   title: string
   subtitle: string | null
   imageUrl: string | null
+  couponCode?: string | null
+  couponName?: string | null
 }
 
 interface PromotionBannerCarouselProps {
@@ -111,6 +113,11 @@ export function PromotionBannerCarousel({
             {banner.subtitle && (
               <p className="mt-1 text-sm md:text-base text-muted-foreground line-clamp-1">
                 {banner.subtitle}
+              </p>
+            )}
+            {banner.couponCode && (
+              <p className="mt-2 text-sm font-medium text-primary">
+                Gutscheincode: <code className="bg-primary/10 px-1.5 py-0.5 rounded">{banner.couponCode}</code>
               </p>
             )}
           </div>

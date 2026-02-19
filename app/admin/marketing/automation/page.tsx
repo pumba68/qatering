@@ -44,6 +44,7 @@ const actionLabels: Record<string, string> = {
 export default function AutomationPage() {
   const [workflows, setWorkflows] = useState<Workflow[]>([])
   const [segments, setSegments] = useState<Segment[]>([])
+  const [incentives, setIncentives] = useState<{ id: string; name: string | null; segment: { name: string } }[]>([])
   const [loading, setLoading] = useState(true)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -86,10 +87,22 @@ export default function AutomationPage() {
     }
   }, [])
 
+  const fetchIncentives = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/marketing/incentives')
+      const data = await res.json().catch(() => [])
+      if (!res.ok) return
+      setIncentives(Array.isArray(data) ? data : [])
+    } catch {
+      setIncentives([])
+    }
+  }, [])
+
   useEffect(() => {
     fetchWorkflows()
     fetchSegments()
-  }, [fetchWorkflows, fetchSegments])
+    fetchIncentives()
+  }, [fetchWorkflows, fetchSegments, fetchIncentives])
 
   const fetchLogs = useCallback(async (workflowId: string) => {
     const res = await fetch(`/api/admin/marketing/workflows/${workflowId}/logs?limit=20`)
@@ -142,6 +155,10 @@ export default function AutomationPage() {
     }
     if (!form.segmentId) {
       setSaveError('Segment ist erforderlich.')
+      return
+    }
+    if (form.actionType === 'GRANT_INCENTIVE' && !(form.actionConfig?.incentiveId as string)?.trim()) {
+      setSaveError('Bei Aktion "Incentive vergeben" muss ein Incentive ausgewählt werden.')
       return
     }
     setSaving(true)
@@ -344,7 +361,7 @@ export default function AutomationPage() {
               <Label>Aktion</Label>
               <select
                 value={form.actionType}
-                onChange={(e) => setForm((f) => ({ ...f, actionType: e.target.value as 'SEND_EMAIL' | 'SHOW_IN_APP' | 'GRANT_INCENTIVE' }))}
+                onChange={(e) => setForm((f) => ({ ...f, actionType: e.target.value as 'SEND_EMAIL' | 'SHOW_IN_APP' | 'GRANT_INCENTIVE', actionConfig: e.target.value === 'GRANT_INCENTIVE' ? (f.actionConfig?.incentiveId ? f.actionConfig : { incentiveId: incentives[0]?.id ?? '' }) : {} }))}
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
               >
                 <option value="SEND_EMAIL">E-Mail senden</option>
@@ -352,6 +369,21 @@ export default function AutomationPage() {
                 <option value="GRANT_INCENTIVE">Incentive vergeben</option>
               </select>
             </div>
+            {form.actionType === 'GRANT_INCENTIVE' && (
+              <div className="grid gap-2">
+                <Label>Incentive</Label>
+                <select
+                  value={(form.actionConfig?.incentiveId as string) ?? ''}
+                  onChange={(e) => setForm((f) => ({ ...f, actionConfig: { ...f.actionConfig, incentiveId: e.target.value } }))}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                >
+                  <option value="">— wählen —</option>
+                  {incentives.map((i) => (
+                    <option key={i.id} value={i.id}>{i.name || i.segment.name} ({i.segment.name})</option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"

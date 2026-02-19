@@ -73,7 +73,11 @@ export async function GET(request: NextRequest) {
           ...baseInclude,
           promotionBanners: {
             where: { promotionBanner: { isActive: true } },
-            include: { promotionBanner: true },
+            include: {
+              promotionBanner: {
+                include: { coupon: { select: { code: true, name: true } } },
+              },
+            },
             orderBy: { sortOrder: 'asc' as const },
           },
         },
@@ -103,11 +107,21 @@ export async function GET(request: NextRequest) {
 
     // Promotion-Banner für Kunden-Ansicht (bereits nach sortOrder sortiert, nur aktive)
     const promotionBanners = (menu.promotionBanners || []).map(
-      (a: { promotionBanner: { id: string; title: string; subtitle: string | null; imageUrl: string | null } }) => ({
+      (a: {
+        promotionBanner: {
+          id: string
+          title: string
+          subtitle: string | null
+          imageUrl: string | null
+          coupon?: { code: string; name: string } | null
+        }
+      }) => ({
         id: a.promotionBanner.id,
         title: a.promotionBanner.title,
         subtitle: a.promotionBanner.subtitle,
         imageUrl: a.promotionBanner.imageUrl,
+        couponCode: a.promotionBanner.coupon?.code ?? null,
+        couponName: a.promotionBanner.coupon?.name ?? null,
       })
     )
 

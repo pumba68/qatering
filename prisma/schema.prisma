@@ -27,6 +27,7 @@ model Organization {
   segments    CustomerSegment[]
   inAppMessages InAppMessage[]
   workflows   MarketingWorkflow[]
+  segmentIncentives SegmentIncentive[]
 
   @@map("organizations")
 }
@@ -163,6 +164,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   couponRedemptions CouponRedemption[]
+  incentiveGrants IncentiveGrant[]
   wallet        Wallet?
   walletTransactions WalletTransaction[]
   performedWalletActions WalletTransaction[] @relation("WalletAudit")
@@ -187,6 +189,7 @@ enum WalletTransactionType {
   ORDER_PAYMENT  // Bestellzahlung
   REFUND         // Erstattung (Stornierung)
   ADJUSTMENT     // Admin-Anpassung
+  INCENTIVE      // PROJ-4e: Guthaben-Incentive (Segment)
 }
 
 model WalletTransaction {
@@ -199,11 +202,13 @@ model WalletTransaction {
   description   String?               @db.Text
   orderId       String?
   performedById String?               // Admin bei TOP_UP/ADJUSTMENT
+  incentiveGrantId String?            @unique // PROJ-4e: Bei INCENTIVE-Transaktion (1:1)
   createdAt     DateTime              @default(now())
 
   user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   order         Order?  @relation(fields: [orderId], references: [id], onDelete: SetNull)
   performedBy   User?   @relation("WalletAudit", fields: [performedById], references: [id], onDelete: SetNull)
+  incentiveGrant IncentiveGrant? @relation(fields: [incentiveGrantId], references: [id], onDelete: SetNull)
 
   @@index([userId])
   @@index([orderId])
@@ -298,10 +303,12 @@ model PromotionBanner {
   title     String   @db.VarChar(200)
   subtitle  String?  @db.VarChar(500)
   imageUrl  String?  @db.Text
+  couponId  String?  // PROJ-4e: Optionaler Coupon für dezenten Hinweis (z. B. "Code BAYERN10")
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  coupon          Coupon? @relation(fields: [couponId], references: [id], onDelete: SetNull)
   menuAssignments MenuPromotionBanner[]
 
   @@map("promotion_banners")
@@ -456,7 +463,10 @@ model Coupon {
 
   location        Location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
   freeItemDish    Dish?     @relation(fields: [freeItemDishId], references: [id])
-  redemptions     CouponRedemption[]
+  redemptions       CouponRedemption[]
+  incentiveGrants   IncentiveGrant[]    // Personalisierte Coupons (von SegmentIncentive erzeugt)
+  segmentIncentives SegmentIncentive[]  // Vorlage für Incentive (couponId)
+  promotionBanners  PromotionBanner[]   // PROJ-4e: Banner mit Coupon-Hinweis
 
   @@index([code, isActive])
   @@index([locationId])
@@ -537,6 +547,7 @@ model CustomerSegment {
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   inAppMessages InAppMessage[]
   workflows      MarketingWorkflow[]
+  segmentIncentives SegmentIncentive[]
 
   @@unique([organizationId, name])
   @@index([organizationId])
@@ -625,4 +636,56 @@ model WorkflowExecutionLog {
   @@index([workflowId])
   @@index([executedAt])
   @@map("workflow_execution_logs")
+}
+
+// PROJ-4e: Incentive = Segment-Verknüpfung zu Coupon oder Guthaben
+model SegmentIncentive {
+  id              String   @id @default(cuid())
+  organizationId  String
+  segmentId       String
+  name            String?  @db.VarChar(200)  // Anzeigename (z. B. "Stammkunden-Belohnung")
+  incentiveType   String   @db.VarChar(20)   // COUPON | WALLET_CREDIT
+  couponId        String?  // Bei COUPON: Vorlage (oder bei personalisiert: wird pro User erzeugt)
+  personaliseCoupon Boolean @default(false) // Pro User eigener Code
+  walletAmount    Decimal? @db.Decimal(10, 2) // Bei WALLET_CREDIT: Betrag in €
+  startDate       DateTime @default(now())
+  endDate         DateTime?
+  maxGrantsPerUser Int     @default(1)
+  displayChannel  String   @default("BOTH") @db.VarChar(20) // EMAIL | IN_APP | BOTH
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization    Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment         CustomerSegment @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  coupon          Coupon?        @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  grants          IncentiveGrant[]
+
+  @@index([organizationId])
+  @@index([segmentId])
+  @@index([isActive, startDate, endDate])
+  @@map("segment_incentives")
+}
+
+// PROJ-4e: Wer hat welchen Incentive erhalten?
+model IncentiveGrant {
+  id                  String   @id @default(cuid())
+  segmentIncentiveId  String
+  userId              String
+  grantedAt           DateTime @default(now())
+  couponCode          String?  @db.VarChar(80)  // Code für User (bei COUPON)
+  couponId            String?  // Bei personalisiert: erzeugter Coupon
+  walletTransactionId String?  // Bei WALLET_CREDIT
+  redeemedAt          DateTime? // Zeitpunkt der Einlösung (bei Coupon, aus CouponRedemption)
+  redeemedOrderId     String?  // Bei Coupon-Einlösung
+
+  segmentIncentive    SegmentIncentive @relation(fields: [segmentIncentiveId], references: [id], onDelete: Cascade)
+  user                User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  coupon              Coupon?          @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  walletTransaction   WalletTransaction?
+
+  @@unique([segmentIncentiveId, userId])
+  @@index([userId])
+  @@index([segmentIncentiveId])
+  @@map("incentive_grants")
 }

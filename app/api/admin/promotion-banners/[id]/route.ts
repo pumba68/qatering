@@ -7,6 +7,7 @@ const updateSchema = z.object({
   title: z.string().min(1).max(200).optional(),
   subtitle: z.string().max(500).optional().nullable(),
   imageUrl: z.string().url().optional().nullable().or(z.literal('')),
+  couponId: z.string().optional().nullable().or(z.literal('')),
   isActive: z.boolean().optional(),
 })
 
@@ -54,10 +55,11 @@ export async function PATCH(
     const body = await request.json()
     const validated = updateSchema.parse(body)
 
-    const data: { title?: string; subtitle?: string | null; imageUrl?: string | null; isActive?: boolean } = {}
+    const data: { title?: string; subtitle?: string | null; imageUrl?: string | null; couponId?: string | null; isActive?: boolean } = {}
     if (validated.title !== undefined) data.title = validated.title
     if (validated.subtitle !== undefined) data.subtitle = validated.subtitle
     if (validated.imageUrl !== undefined) data.imageUrl = validated.imageUrl === '' ? null : validated.imageUrl
+    if (validated.couponId !== undefined) data.couponId = validated.couponId === '' ? null : validated.couponId
     if (validated.isActive !== undefined) data.isActive = validated.isActive
 
     const banner = await prisma.promotionBanner.update({

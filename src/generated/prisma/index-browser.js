@@ -225,6 +225,7 @@ exports.Prisma.WalletTransactionScalarFieldEnum = {
   description: 'description',
   orderId: 'orderId',
   performedById: 'performedById',
+  incentiveGrantId: 'incentiveGrantId',
   createdAt: 'createdAt'
 };
 
@@ -280,6 +281,7 @@ exports.Prisma.PromotionBannerScalarFieldEnum = {
   title: 'title',
   subtitle: 'subtitle',
   imageUrl: 'imageUrl',
+  couponId: 'couponId',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -456,6 +458,36 @@ exports.Prisma.WorkflowExecutionLogScalarFieldEnum = {
   details: 'details'
 };
 
+exports.Prisma.SegmentIncentiveScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  segmentId: 'segmentId',
+  name: 'name',
+  incentiveType: 'incentiveType',
+  couponId: 'couponId',
+  personaliseCoupon: 'personaliseCoupon',
+  walletAmount: 'walletAmount',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  maxGrantsPerUser: 'maxGrantsPerUser',
+  displayChannel: 'displayChannel',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IncentiveGrantScalarFieldEnum = {
+  id: 'id',
+  segmentIncentiveId: 'segmentIncentiveId',
+  userId: 'userId',
+  grantedAt: 'grantedAt',
+  couponCode: 'couponCode',
+  couponId: 'couponId',
+  walletTransactionId: 'walletTransactionId',
+  redeemedAt: 'redeemedAt',
+  redeemedOrderId: 'redeemedOrderId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -502,7 +534,8 @@ exports.WalletTransactionType = exports.$Enums.WalletTransactionType = {
   TOP_UP: 'TOP_UP',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
   REFUND: 'REFUND',
-  ADJUSTMENT: 'ADJUSTMENT'
+  ADJUSTMENT: 'ADJUSTMENT',
+  INCENTIVE: 'INCENTIVE'
 };
 
 exports.OrderStatus = exports.$Enums.OrderStatus = {
@@ -562,7 +595,9 @@ exports.Prisma.ModelName = {
   InAppMessage: 'InAppMessage',
   InAppMessageRead: 'InAppMessageRead',
   MarketingWorkflow: 'MarketingWorkflow',
-  WorkflowExecutionLog: 'WorkflowExecutionLog'
+  WorkflowExecutionLog: 'WorkflowExecutionLog',
+  SegmentIncentive: 'SegmentIncentive',
+  IncentiveGrant: 'IncentiveGrant'
 };
 
 /**
