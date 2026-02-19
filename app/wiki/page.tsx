@@ -11,6 +11,7 @@ const MermaidDiagram = dynamic(
 
 const SECTIONS = [
   { id: 'purpose', label: 'Zweck der Plattform', icon: '🎯' },
+  { id: 'status', label: 'Platform-Status', icon: '📊' },
   { id: 'overview', label: 'Projekt-Übersicht', icon: '📋' },
   { id: 'features', label: 'Features (aktueller Stand)', icon: '✨' },
   { id: 'techstack', label: 'Tech Stack', icon: '🛠️' },
@@ -21,6 +22,7 @@ const SECTIONS = [
   { id: 'api', label: 'API-Übersicht', icon: '🔌' },
   { id: 'database', label: 'Datenbank-Schema', icon: '🗄️' },
   { id: 'wallet', label: 'Guthaben & Wallet', icon: '💰' },
+  { id: 'billing', label: 'Vertragspartner-Abrechnung', icon: '🧾' },
   { id: 'promotions', label: 'Promotions', icon: '🏷️' },
   { id: 'design', label: 'Design Guidelines', icon: '🎨' },
   { id: 'setup', label: 'Setup & Installation', icon: '🚀' },
@@ -91,6 +93,110 @@ export default function WikiPage() {
                     <li>Mehrere Standorte und Organisationen (Multi-Location, White-Label-fähig)</li>
                     <li>Promotions: Gericht-Aktionen (Sonderpreis, Label) und Motto-Wochen-Banner</li>
                   </ul>
+                </div>
+              </section>
+            )}
+
+            {/* Platform-Status */}
+            {show('status') && (
+              <section className="bg-card rounded-2xl border border-border/50 p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-foreground mb-4">📊 Platform-Status</h2>
+                <p className="text-muted-foreground mb-6">
+                  Übersicht über Feature-Umsetzung, fehlende Teile, Testresultate und Codequalität. Stand: Januar 2026.
+                </p>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Feature-Matrix</h3>
+                <div className="overflow-x-auto mb-6">
+                  <table className="w-full text-sm border-collapse">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-3 px-2 font-medium text-foreground">Feature</th>
+                        <th className="text-left py-3 px-2 font-medium text-foreground">Umsetzung</th>
+                        <th className="text-left py-3 px-2 font-medium text-foreground">Fehlende Teile</th>
+                        <th className="text-left py-3 px-2 font-medium text-foreground">QA-Ergebnis</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-muted-foreground">
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-1 Schaltzentrale</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">—</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Bestanden</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-2 Motto-Banner</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">—</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Bestanden</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-3 Multi-Location</td>
+                        <td className="py-3 px-2">🟡 Teilweise</td>
+                        <td className="py-3 px-2">PROJ-3c User-Location-Zuordnung (User ↔ Location)</td>
+                        <td className="py-3 px-2"><span className="text-amber-600 dark:text-amber-400">🟡 3a/3b/3d OK</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-4 Kundensegmente & Marketing</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">E-Mail-Versand, Workflow-Scheduler (E2E-Test offen)</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-4e Incentives</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">—</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Bestanden</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-5 Vertragspartner-Abrechnung</td>
+                        <td className="py-3 px-2">🟡 Teilweise</td>
+                        <td className="py-3 px-2">Vollständige QA gegen alle ACs offen</td>
+                        <td className="py-3 px-2"><span className="text-amber-600 dark:text-amber-400">🟡 Basis vorhanden</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-6 Guthaben & Wallet</td>
+                        <td className="py-3 px-2">✅ Vollständig (MVP Phase 1)</td>
+                        <td className="py-3 px-2">Niedrig-Guthaben-Benachrichtigungen, Finanzberichte (Post-MVP)</td>
+                        <td className="py-3 px-2">—</td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">Menu-Planner UI</td>
+                        <td className="py-3 px-2">✅ Vorhanden</td>
+                        <td className="py-3 px-2">Top-5-Schnellzugriff, Sheet „Alle Gerichte“ (optional)</td>
+                        <td className="py-3 px-2">—</td>
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-2 font-medium text-foreground">Menu-View Optimization</td>
+                        <td className="py-3 px-2">✅ Umgesetzt</td>
+                        <td className="py-3 px-2">—</td>
+                        <td className="py-3 px-2">—</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Testresultate (Detail)</h3>
+                <div className="space-y-2 text-sm text-muted-foreground mb-6">
+                  <p><strong className="text-foreground">PROJ-1, PROJ-2, PROJ-4e:</strong> Alle geprüften Acceptance Criteria bestanden (Code-Review + HTTP-Tests).</p>
+                  <p><strong className="text-foreground">PROJ-3:</strong> Location CRUD, Location-Switcher und Mehrfachauswahl in Schaltzentrale OK. User-Location-Zuordnung nicht geprüft.</p>
+                  <p><strong className="text-foreground">PROJ-4:</strong> Segmente, Kampagnen, Automation implementiert. Regressionstest für E-Mail/Workflow empfohlen.</p>
+                  <p><strong className="text-foreground">PROJ-5:</strong> /admin/billing mit API vorhanden. Vollständige QA empfohlen.</p>
+                  <p><strong className="text-foreground">PROJ-6:</strong> Wallet (Guthaben, Aufladung, Historie) implementiert. Feature-Spec in features/PROJ-6-wallet-guthaben.md.</p>
+                  <p className="text-xs mt-2">Details in <code className="bg-muted px-1 rounded">features/PROJ-*.md</code> (Abschnitt „QA Test Results“).</p>
+                </div>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Codequalität</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200">ESLint: 23 Warnings</span>
+                  </div>
+                  <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                    <li><strong className="text-foreground">react-hooks/exhaustive-deps:</strong> 18× – fehlende useEffect-Dependencies (funktional meist unkritisch, aber Aufräumen empfohlen)</li>
+                    <li><strong className="text-foreground">@next/next/no-img-element:</strong> 5× – <code className="bg-muted px-1 rounded">img</code> statt <code className="bg-muted px-1 rounded">next/image</code> (Performance-Optimierung bei Bildern)</li>
+                  </ul>
+                  <p className="text-muted-foreground">
+                    Keine ESLint-Errors. Build läuft durch. Typsicherheit durch TypeScript. Bewertung: <strong className="text-foreground">gut</strong> – produktionsreif mit Verbesserungspotenzial bei Hooks und Bildoptimierung.
+                  </p>
                 </div>
               </section>
             )}
@@ -346,6 +452,97 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                     Internes Guthaben pro Nutzer. Bezahlung nur per Wallet; keine negativen Salden. Aufladung nur durch Admin (z. B. nach Barzahlung/Überweisung); Min/Max pro Vorgang (z. B. 5–200 €). Transaktionstypen: TOP_UP, ORDER_PAYMENT, REFUND, ADJUSTMENT (mit Pflicht-Grund). Abbuchung bei Bestellung atomar mit Order-Anlage. Nutzer: Wallet-Anzeige im Header, /wallet, /wallet/history. Admin: Guthaben aufladen, Guthaben verwalten (Balances, Anpassungen). Siehe auch Abschnitt Wallet in den bisherigen Wiki-Texten (unten) bzw. wallet-spec.md.
                   </p>
                 </div>
+              </section>
+            )}
+
+            {/* Vertragspartner-Abrechnung (PROJ-5) */}
+            {show('billing') && (
+              <section className="bg-card rounded-2xl border border-border/50 p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-foreground mb-4">🧾 Vertragspartner-Abrechnung</h2>
+                <p className="text-muted-foreground mb-6">
+                  Diese Anleitung richtet sich an <strong className="text-foreground">Betreiber der Kantine</strong>. Sie erfahren, wie Sie Zuschusskosten pro Vertragspartner erfassen, Monatsrechnungen erstellen und den Zahlungseingang dokumentieren.
+                </p>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Was ist die Vertragspartner-Abrechnung?</h3>
+                <p className="text-muted-foreground mb-4">
+                  Wenn Mitarbeiter eines Vertragspartners (z. B. Firma XY) in Ihrer Kantine bestellen, übernimmt der Arbeitgeber oft einen Teil des Preises (Arbeitgeber-Zuschuss). Die Plattform bucht diese Differenz (Realpreis minus vom Kunden gezahlter Betrag) automatisch dem Vertragspartner zu. Am Monatsende erstellen Sie eine Rechnung über alle angefallenen Zuschusskosten und stellen sie dem Vertragspartner in Rechnung.
+                </p>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Wichtige Begriffe</h3>
+                <ul className="list-disc list-inside text-muted-foreground space-y-1 mb-6">
+                  <li><strong className="text-foreground">Vertragspartner (Company):</strong> Ein Unternehmen, das mit Ihnen einen Vertrag hat und seinen Mitarbeitern einen Zuschuss zur Kantinennutzung gewährt.</li>
+                  <li><strong className="text-foreground">Zuschuss:</strong> Der Anteil, den der Arbeitgeber übernimmt – egal ob als fester Betrag, fester Rabatt oder prozentual. Es zählt immer die tatsächliche Differenz pro Bestellung.</li>
+                  <li><strong className="text-foreground">Offener Saldo:</strong> Summe der Zuschussbeträge aus Bestellungen, die noch keiner Rechnung zugeordnet wurden.</li>
+                  <li><strong className="text-foreground">Einzelposten:</strong> Jede Zeile auf der Rechnung = eine Bestellung mit Bestellnummer, Datum, Mitarbeiter und Zuschussbetrag.</li>
+                </ul>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Wo finde ich die Vertragspartner-Abrechnung?</h3>
+                <p className="text-muted-foreground mb-4">
+                  Im Admin-Bereich unter <strong className="text-foreground">Verwaltung → Vertragspartner-Abrechnung</strong> (<code className="bg-muted px-1.5 py-0.5 rounded">/admin/billing</code>). Sie benötigen die Rolle ADMIN oder SUPER_ADMIN.
+                </p>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Anleitung: Monatsrechnung erstellen und versenden</h3>
+                <ol className="list-decimal list-inside space-y-3 text-muted-foreground mb-6">
+                  <li>
+                    <strong className="text-foreground">Offene Salden prüfen:</strong> In der Tabelle „Offene Salden“ sehen Sie alle Vertragspartner mit einem noch nicht abgerechneten Betrag. Prüfen Sie, für welchen Monat Sie abrechnen möchten.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Rechnung anlegen:</strong> Wählen Sie unter „Rechnung erstellen“ das Unternehmen, den Monat und das Jahr. Klicken Sie auf „Rechnung erstellen“. Die Rechnung wird als Entwurf angelegt.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Details prüfen:</strong> Klicken Sie bei der erstellten Rechnung auf „Details“. Dort sehen Sie alle Einzelposten (Bestellnummer, Datum, Mitarbeiter, Summe). Prüfen Sie die Richtigkeit.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">PDF exportieren:</strong> Klicken Sie auf „PDF exportieren“. Die Datei wird heruntergeladen. Der Status der Rechnung wechselt automatisch auf „Rechnung gestellt“. Versenden Sie das PDF an den Vertragspartner.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Zahlung dokumentieren:</strong> Nach Zahlungseingang klicken Sie auf „Als bezahlt markieren“. Der Status wechselt auf „Bezahlt“.
+                  </li>
+                </ol>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Rechnungsstatus im Überblick</h3>
+                <table className="w-full text-sm border-collapse mb-6">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-2 font-medium text-foreground">Status</th>
+                      <th className="text-left py-2 font-medium text-foreground">Bedeutung</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-muted-foreground">
+                    <tr className="border-b border-border/50">
+                      <td className="py-2 font-medium text-foreground">Entwurf</td>
+                      <td className="py-2">Rechnung erstellt, PDF noch nicht exportiert</td>
+                    </tr>
+                    <tr className="border-b border-border/50">
+                      <td className="py-2 font-medium text-foreground">Rechnung gestellt</td>
+                      <td className="py-2">PDF exportiert und an Vertragspartner gesendet</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 font-medium text-foreground">Bezahlt</td>
+                      <td className="py-2">Zahlung eingegangen, manuell als bezahlt markiert</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h3 className="text-lg font-semibold text-foreground mb-3">Häufige Fragen</h3>
+                <div className="space-y-4 text-muted-foreground mb-4">
+                  <p>
+                    <strong className="text-foreground">Werden Coupons oder Aktionen ohne Firmenbezug abgerechnet?</strong><br />
+                    Nein. Nur der Anteil, der dem Arbeitgeber-Zuschuss zuzurechnen ist, wird dem Vertragspartner in Rechnung gestellt. Allgemeine Rabatte (z. B. Motto-Woche-Coupon) erscheinen nicht auf der Vertragspartner-Rechnung.
+                  </p>
+                  <p>
+                    <strong className="text-foreground">Was passiert bei stornierten Bestellungen?</strong><br />
+                    Stornierte Bestellungen werden bei der Abrechnung berücksichtigt (Rückbuchung oder Korrektur). Die Einzelposten auf der Rechnung spiegeln den korrekten Stand wider.
+                  </p>
+                  <p>
+                    <strong className="text-foreground">Kann ich mehrere Rechnungen für denselben Monat und Vertragspartner erstellen?</strong><br />
+                    Nein. Pro Vertragspartner und Monat wird nur eine Rechnung erstellt. Bestellungen, die bereits in einer Rechnung enthalten sind, erscheinen nicht erneut.
+                  </p>
+                </div>
+
+                <p className="text-sm text-muted-foreground">
+                  Voraussetzung: Vertragspartner und Zuschuss-Konfiguration müssen unter <strong className="text-foreground">Unternehmen</strong> angelegt sein. Mitarbeiter müssen dem Unternehmen zugeordnet sein, damit ihre Bestellungen dem Zuschuss zugeordnet werden.
+                </p>
               </section>
             )}
 

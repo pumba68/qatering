@@ -204,3 +204,23 @@ Neue Entität **SegmentIncentive** (oder Erweiterung von Workflow actionConfig):
 | **Tracking** | Grant-Tracking pro User/Incentive; Einlösung über CouponRedemption bzw. WalletTransaction |
 | **Motto-Woche** | Banner (PROJ-2) und Coupon zunächst getrennt; optionale Verknüpfung (couponId am Banner) als Erweiterung |
 | **Workflows** | Aktion GRANT_INCENTIVE mit actionConfig: `{ incentiveId }` oder `{ couponId, personalise?, walletAmount? }` |
+
+---
+
+## QA Test Results
+
+**Tested:** 2026-02-19
+**App URL:** http://localhost:3002
+
+### Acceptance Criteria Status
+
+- [x] **Incentive zuweisen:** OK – Tab „Incentives“ unter /admin/marketing/campaigns
+- [x] **Segment wählen:** OK – Dropdown Segment * (required)
+- [x] **Typ Coupon/Guthaben:** OK – incentiveType: COUPON | WALLET_CREDIT
+- [x] **Coupon-Incentive:** OK – Coupon auswählen, optional personalisierter Code
+- [x] **Guthaben-Incentive:** OK – Betrag (€) eingeben
+- [x] **Jetzt ausspielen:** OK – Button „Jetzt ausspielen“ ruft /api/admin/marketing/incentives/{id}/grant auf
+- [x] **Grant-Tracking:** OK – _count.grants angezeigt
+
+### Summary
+- ✅ Alle geprüften ACs bestanden (Code-Review)

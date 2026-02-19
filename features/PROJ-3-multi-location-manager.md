@@ -288,3 +288,27 @@ Keine neuen Datenbank-Tabellen; nur Nutzung und API-Logik anpassen.
 | **Kunden (CUSTOMER)** | Kunden müssen **keine** Location explizit zugewiesen bekommen; sie können an allen Locations der Organisation bestellen. |
 | **SUPER_ADMIN** | SUPER_ADMIN sieht **alle Organisationen und alle Locations** (plattformweit). |
 | **Reporting Mehrfachauswahl** | **Ja:** Mehrfachauswahl (z.B. Location A + B) für Standort-Vergleich im Reporting gewünscht; API und UI entsprechend erweitern. |
+
+---
+
+## QA Test Results
+
+**Tested:** 2026-02-19  
+**App URL:** http://localhost:3002  
+**Status:** Teilweise implementiert (PROJ-3a)
+
+### PROJ-3a: Location CRUD – Status
+
+- [x] **Liste unter /admin/locations:** OK – Locations werden geladen
+- [x] **Neue Location anlegen:** OK – Sheet mit Formular (Name, Adresse, Telefon, E-Mail)
+- [x] **Location bearbeiten:** OK – Edit-Modal
+- [x] **Toggle Aktiv/Inaktiv:** Vorhanden (isActive)
+- [x] **PROJ-3b Location-Switcher:** Vorhanden in Schaltzentrale (Dropdown Mehrfachauswahl); LocationContext für Admin
+- [ ] **PROJ-3c User-Location-Zuordnung:** Nicht geprüft
+- [x] **PROJ-3d Manager-Reporting:** Schaltzentrale unterstützt locationIds (Mehrfachauswahl)
+
+### Summary
+
+- PROJ-3a (Location CRUD) ist implementiert und funktional.
+- PROJ-3b, 3d: Location-Switcher und Mehrfachauswahl in Schaltzentrale vorhanden.
+- PROJ-3c: Weitere QA bei vollständiger Implementierung empfohlen.

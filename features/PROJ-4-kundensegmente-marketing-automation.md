@@ -657,3 +657,24 @@ Keine weiteren Admin-Links für PROJ-4 außerhalb dieser Gruppe; Coupons bleiben
 - [x] Abhängigkeiten und Reihenfolge beschrieben
 - [x] Scope und optionale Erweiterungen abgegrenzt
 - [ ] User Review: Spec lesen und freigeben (oder Feedback geben)
+
+---
+
+## QA Test Results
+
+**Tested:** 2026-02-19  
+**App URL:** http://localhost:3002  
+**Status:** Kernfunktionen implementiert (PROJ-4a–4d, PROJ-4e)
+
+### Implementierungsstatus
+
+- [x] **PROJ-4a Kundensegmente:** /admin/marketing/segments – CRUD, Zielgruppengröße
+- [x] **PROJ-4b Segment-Regeln:** Zielgruppen-Regeln, Preview
+- [x] **PROJ-4c Kampagnen:** /admin/marketing/campaigns – E-Mail, In-App, Incentives (Tabs)
+- [x] **PROJ-4d Automation:** /admin/marketing/automation – Workflows, Trigger, Aktionen
+- [x] **PROJ-4e Incentives:** Siehe PROJ-4e-coupons-incentives-verknuepfung.md (separater QA-Report)
+
+### Summary
+
+- Marketing-Struktur (Segmente, Kampagnen, Automation) ist implementiert.
+- Regressionstest für E-Mail-Versand, In-App-Nachrichten und Workflow-Ausführung empfohlen.

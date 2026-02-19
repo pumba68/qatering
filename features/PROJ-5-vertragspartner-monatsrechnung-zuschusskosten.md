@@ -86,3 +86,23 @@ Als **Betreiber der Kantine** sollen die durch **Unternehmenszuschüsse** entsta
 | **PDF** | Rechnung als PDF exportierbar; nach Export Status „Rechnung gestellt“ |
 | **Status** | „Rechnung gestellt“ → manuell auf „Bezahlt“ wechselbar |
 | **Einzelposten** | Bestellnummer, Datum, Mitarbeiter, Summe (Zuschussbetrag) |
+
+---
+
+## QA Test Results
+
+**Tested:** 2026-02-19  
+**App URL:** http://localhost:3002  
+**Status:** Implementierung vorhanden (/admin/billing)
+
+### Implementierungsstatus
+
+- [ ] **Abrechnungskonto pro Vertragspartner:** Seite /admin/billing vorhanden; API /api/admin/billing/overview, invoices
+- [ ] **Monatsrechnung erstellen:** API-Struktur vorhanden
+- [ ] **PDF-Export:** API `/api/admin/billing/invoices/{id}/export-pdf`
+- [ ] **Status Rechnung gestellt / Bezahlt:** UI-Elemente in billing/page.tsx
+
+### Summary
+
+- Vertragspartner-Abrechnung ist grundsätzlich implementiert.
+- Vollständige QA gegen alle Acceptance Criteria bei nächstem Testlauf empfohlen.

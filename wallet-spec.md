@@ -1,6 +1,13 @@
 Guthaben-System
 
-## Status: 📝 SPEZIFIKATION
+## Feature-Spec
+
+Die strukturierte Feature-Spezifikation (User Stories, Acceptance Criteria, Edge Cases) befindet sich in:
+**`features/PROJ-6-wallet-guthaben.md`**
+
+---
+
+## Status: 📝 DETAILLIERTE SPEZIFIKATION & TECH-DESIGN
 
 ## Übersicht
 Internes Guthaben-basiertes Zahlungssystem, bei dem Mitarbeiter Guthaben auf ihr Konto laden und damit bargeldlos für Mahlzeiten bezahlen können.

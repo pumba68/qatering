@@ -52,3 +52,25 @@ Das Admin-Dashboard wird zu einer **Schaltzentrale** umgebaut: ausschließlich K
 - Welcher Zeitraum ist Standard beim ersten Laden? (z. B. „Dieser Monat“ oder „Letzte 30 Tage“)
 - Soll die Stornoquote als KPI-Karte immer angezeigt werden oder nur optional?
 - Soll „Aktive Besteller“ als Anzahl distinct User im Zeitraum definiert werden?
+
+---
+
+## QA Test Results
+
+**Tested:** 2026-02-19
+**App URL:** http://localhost:3002
+
+### Acceptance Criteria Status
+
+- [x] **KPI-Zeile:** OK – SchaltzentraleKPIs zeigt Umsatz, Bestellanzahl, AOV, Stornoquote, Aktive Besteller (5 Karten)
+- [x] **Line/Area-Chart:** OK – OrdersAreaChart (Order Trend) implementiert
+- [x] **Bar-Chart:** OK – TopDishesBarChart (Top Gerichte) implementiert
+- [x] **Pie/Donut-Chart:** OK – StatusPieChart (Statusverteilung) implementiert
+- [x] **Wochentag-Chart:** OK – WeekdayBarChart implementiert
+- [x] **Keine Bestellübersicht:** OK – Keine Tabelle auf /admin; Link „Bestellungen verwalten“ führt zu /admin/orders
+- [x] **Filter:** OK – Standort (Dropdown Mehrfachauswahl), Zeitraum (Heute / 7 Tage / Woche / Monat / 30 Tage)
+- [x] **API:** OK – GET /api/admin/analytics mit period, locationId, locationIds; liefert alle Aggregationen
+- [x] **Darstellung:** OK – Responsive Grid, Drag & Drop Layout, CTA-Bereich
+
+### Summary
+- ✅ Alle geprüften ACs bestanden (Code-Review + HTTP-Tests)

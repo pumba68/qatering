@@ -117,3 +117,23 @@ Kunden sehen **oberhalb des Speiseplans** ein optionales **Hero-/Promotion-Banne
 - **Banner-Verwaltung:** Eigene Admin-Seite unter Sidebar-Kategorie **„Promotions“**; **Coupons** ebenfalls unter „Promotions“ eingeordnet.
 - **CTA:** Kein CTA; Banner nur Anzeige (Titel, optional Untertitel, optional Bild) plus optional Schließen-Button.
 - **Mehrere Banner pro Woche:** Werden als **Karussell** angezeigt (Slider mit Pfeilen/Dots, optional Swipe). Reihenfolge = Zuweisungsreihenfolge (sortOrder).
+
+---
+
+## QA Test Results
+
+**Tested:** 2026-02-19
+**App URL:** http://localhost:3002
+
+### Acceptance Criteria Status
+
+- [x] **Sidebar:** OK – Kategorie „Promotions“ mit Motto-Banner, Coupons
+- [x] **Admin CRUD:** OK – /admin/promotions/banners mit Create, Read, Update, Delete; Titel (Pflicht), Untertitel, Bild optional
+- [x] **Menu-Planner Zuweisung:** OK – Zuweisung pro KW (MenuPromotionBanner)
+- [x] **Kunde /menu:** OK – PromotionBannerCarousel oberhalb des Speiseplans in MenuWeek
+- [x] **Karussell:** OK – Pfeile + Dots bei mehreren Bannern; Reihenfolge = sortOrder
+- [x] **Schließen-Button:** OK – X-Button, sessionStorage für aktuelle Session
+- [x] **API:** OK – GET /api/menus liefert promotionBanners bei Zuweisung
+
+### Summary
+- ✅ Alle geprüften ACs bestanden (Code-Review)
