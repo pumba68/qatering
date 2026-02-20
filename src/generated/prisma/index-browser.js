@@ -226,6 +226,8 @@ exports.Prisma.WalletTransactionScalarFieldEnum = {
   orderId: 'orderId',
   performedById: 'performedById',
   incentiveGrantId: 'incentiveGrantId',
+  paymentProvider: 'paymentProvider',
+  externalPaymentId: 'externalPaymentId',
   createdAt: 'createdAt'
 };
 
@@ -528,6 +530,16 @@ exports.Prisma.PushSubscriptionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PaymentProviderConfigScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  provider: 'provider',
+  isEnabled: 'isEnabled',
+  configJson: 'configJson',
+  updatedAt: 'updatedAt',
+  updatedById: 'updatedById'
+};
+
 exports.Prisma.IncentiveGrantScalarFieldEnum = {
   id: 'id',
   segmentIncentiveId: 'segmentIncentiveId',
@@ -678,6 +690,7 @@ exports.Prisma.ModelName = {
   PushNotification: 'PushNotification',
   PushNotificationLog: 'PushNotificationLog',
   PushSubscription: 'PushSubscription',
+  PaymentProviderConfig: 'PaymentProviderConfig',
   IncentiveGrant: 'IncentiveGrant'
 };
 

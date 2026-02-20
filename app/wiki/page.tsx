@@ -22,6 +22,7 @@ const SECTIONS = [
   { id: 'api', label: 'API-Übersicht', icon: '🔌' },
   { id: 'database', label: 'Datenbank-Schema', icon: '🗄️' },
   { id: 'wallet', label: 'Guthaben & Wallet', icon: '💰' },
+  { id: 'payments', label: 'Stripe & Zahlungen', icon: '💳' },
   { id: 'billing', label: 'Vertragspartner-Abrechnung', icon: '🧾' },
   { id: 'promotions', label: 'Promotions', icon: '🏷️' },
   { id: 'marketing-editor', label: 'Marketing-Editor & Push', icon: '✉️' },
@@ -184,10 +185,22 @@ export default function WikiPage() {
                         <td className="py-3 px-2">—</td>
                         <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
                       </tr>
-                      <tr>
+                      <tr className="border-b border-border/50">
                         <td className="py-3 px-2 font-medium text-foreground">PROJ-10 In-App / Push-Integration</td>
                         <td className="py-3 px-2">✅ Vollständig</td>
                         <td className="py-3 px-2">VAPID-Keys in .env konfigurieren für Push-Versand</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-11 Stripe Online-Zahlung</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">Stripe-Keys + PAYMENT_CONFIG_SECRET in .env / Admin-Panel konfigurieren</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-14 Admin Payment-Settings</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">PAYMENT_CONFIG_SECRET Env-Variable setzen</td>
                         <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
                       </tr>
                     </tbody>
@@ -466,10 +479,163 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
             {show('wallet') && (
               <section className="bg-card rounded-2xl border border-border/50 p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-foreground mb-4">💰 Guthaben &amp; Wallet</h2>
-                <div className="prose prose-neutral dark:prose-invert max-w-none space-y-4">
-                  <p className="text-muted-foreground">
-                    Internes Guthaben pro Nutzer. Bezahlung nur per Wallet; keine negativen Salden. Aufladung nur durch Admin (z. B. nach Barzahlung/Überweisung); Min/Max pro Vorgang (z. B. 5–200 €). Transaktionstypen: TOP_UP, ORDER_PAYMENT, REFUND, ADJUSTMENT (mit Pflicht-Grund). Abbuchung bei Bestellung atomar mit Order-Anlage. Nutzer: Wallet-Anzeige im Header, /wallet, /wallet/history. Admin: Guthaben aufladen, Guthaben verwalten (Balances, Anpassungen). Siehe auch Abschnitt Wallet in den bisherigen Wiki-Texten (unten) bzw. wallet-spec.md.
+                                <div className="prose prose-neutral dark:prose-invert max-w-none space-y-4">
+                  <p className="text-muted-foreground mb-3">
+                    Internes Guthaben pro Nutzer. Bezahlung nur per Wallet; keine negativen Salden. Min. 5 €, Max. 200 € pro Aufladung. Transaktionstypen: TOP_UP, ORDER_PAYMENT, REFUND, ADJUSTMENT (mit Pflicht-Grund). Abbuchung bei Bestellung atomar mit Order-Anlage. Nutzer: Wallet-Anzeige im Header, <code className="bg-muted px-1 rounded">/wallet</code>, <code className="bg-muted px-1 rounded">/wallet/history</code>. Admin: Guthaben aufladen, Guthaben verwalten (Balances, Anpassungen).
                   </p>
+                  <div className="rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 p-4 text-sm text-green-800 dark:text-green-200">
+                    <strong>Neu (PROJ-11):</strong> Kunden k&ouml;nnen ihr Guthaben <strong>selbstst&auml;ndig per Stripe aufladen</strong> &ndash; direkt auf <code className="bg-green-100 dark:bg-green-900/40 px-1 rounded">/wallet</code>. Unterst&uuml;tzte Methoden: Kreditkarte, Apple Pay, Google Pay, SEPA-Lastschrift. Voraussetzung: Stripe in Admin &rarr; Zahlungen konfiguriert. Einrichtungsanleitung im Abschnitt &ldquo;Stripe &amp; Zahlungen&rdquo;.
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Stripe & Zahlungen (PROJ-11 / PROJ-14) */}
+            {show('payments') && (
+              <section className="bg-card rounded-2xl border border-border/50 p-6 md:p-8 space-y-8">
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground mb-1">💳 Stripe &amp; Zahlungen einrichten</h2>
+                  <p className="text-muted-foreground text-sm">
+                    Anleitung f&uuml;r Betreiber &ndash; Stripe API-Keys konfigurieren, Webhook einrichten und Selfservice-Aufladung f&uuml;r Kunden aktivieren (PROJ-11 / PROJ-14).
+                  </p>
+                </div>
+
+                {/* Voraussetzungen */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Voraussetzungen</h3>
+                  <ul className="list-disc list-inside text-muted-foreground space-y-1.5 text-sm">
+                    <li>Ein <strong className="text-foreground">Stripe-Account</strong> &ndash; kostenlos erstellen unter stripe.com</li>
+                    <li>Die Plattform l&auml;uft unter <strong className="text-foreground">HTTPS</strong> (Stripe verweigert Payments auf HTTP in Produktion; f&uuml;r lokale Tests ist HTTP erlaubt)</li>
+                    <li>Env-Variable <code className="bg-muted px-1 rounded">PAYMENT_CONFIG_SECRET</code> muss gesetzt sein (verschl&uuml;sselt API-Keys in der DB)</li>
+                  </ul>
+                </div>
+
+                {/* Schritt 1: API-Keys */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Schritt 1 &ndash; Stripe API-Keys holen</h3>
+                  <ol className="list-decimal list-inside text-muted-foreground space-y-2 text-sm mb-4">
+                    <li>Im <strong className="text-foreground">Stripe Dashboard</strong> anmelden (&rsaquo; Developers &rsaquo; API keys)</li>
+                    <li><strong className="text-foreground">Publishable Key</strong> kopieren &ndash; beginnt mit <code className="bg-muted px-1 rounded">pk_test_</code> (Test) oder <code className="bg-muted px-1 rounded">pk_live_</code> (Produktion)</li>
+                    <li><strong className="text-foreground">Secret Key</strong> kopieren &ndash; beginnt mit <code className="bg-muted px-1 rounded">sk_test_</code> oder <code className="bg-muted px-1 rounded">sk_live_</code>. Nie &ouml;ffentlich teilen!</li>
+                  </ol>
+                  <div className="rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 p-4 text-sm text-amber-800 dark:text-amber-200">
+                    <strong>Test vs. Live:</strong> F&uuml;r die Entwicklung und Demo immer Test-Keys verwenden. Die Testumgebung verbucht kein echtes Geld. F&uuml;r den Produktivbetrieb Live-Keys einsetzen.
+                  </div>
+                </div>
+
+                {/* Schritt 2: Webhook */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Schritt 2 &ndash; Webhook einrichten</h3>
+                  <p className="text-muted-foreground text-sm mb-3">
+                    Der Webhook stellt sicher, dass das Guthaben <strong className="text-foreground">auch dann gutgeschrieben wird</strong>, wenn der Nutzer den Browser nach der Zahlung schlie&szlig;t.
+                  </p>
+                  <ol className="list-decimal list-inside text-muted-foreground space-y-2 text-sm mb-4">
+                    <li>Im Stripe Dashboard: <strong className="text-foreground">Developers &rsaquo; Webhooks &rsaquo; Add endpoint</strong></li>
+                    <li>Endpoint-URL eintragen: <code className="bg-muted px-1.5 py-0.5 rounded text-foreground">https://ihre-domain.de/api/payments/stripe/webhook</code></li>
+                    <li>Events ausw&auml;hlen: <code className="bg-muted px-1 rounded">payment_intent.succeeded</code> und <code className="bg-muted px-1 rounded">payment_intent.payment_failed</code></li>
+                    <li><strong className="text-foreground">Webhook Secret</strong> kopieren &ndash; beginnt mit <code className="bg-muted px-1 rounded">whsec_</code></li>
+                  </ol>
+                  <div className="rounded-xl bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 p-4 text-sm text-blue-800 dark:text-blue-200 mb-3">
+                    <strong>Lokale Entwicklung mit Stripe CLI:</strong>
+                    <pre className="mt-2 bg-blue-100 dark:bg-blue-900/40 rounded p-2 font-mono text-xs overflow-x-auto">stripe listen --forward-to localhost:3000/api/payments/stripe/webhook</pre>
+                    Die CLI gibt einen tempor&auml;ren Webhook-Secret aus &ndash; diesen als <code className="bg-blue-100 dark:bg-blue-900/40 px-1 rounded">STRIPE_WEBHOOK_SECRET</code> in <code className="bg-blue-100 dark:bg-blue-900/40 px-1 rounded">.env</code> eintragen.
+                  </div>
+                </div>
+
+                {/* Schritt 3: Env-Variable */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Schritt 3 &ndash; Env-Variable setzen</h3>
+                  <p className="text-muted-foreground text-sm mb-3">
+                    In der <code className="bg-muted px-1 rounded">.env</code>-Datei (lokal) bzw. in den Deployment-Umgebungsvariablen (Vercel/Server):
+                  </p>
+                  <pre className="bg-muted rounded-xl p-4 text-sm text-foreground overflow-x-auto border border-border/50 mb-3">
+{`# Verschlüsselungsschlüssel für alle Payment-Provider-Keys in der DB\nPAYMENT_CONFIG_SECRET=<min. 32 zufällige Zeichen>\n\n# Stripe Webhook Secret (aus Stripe-Dashboard oder stripe listen CLI)\nSTRIPE_WEBHOOK_SECRET=whsec_...`}
+                  </pre>
+                  <p className="text-muted-foreground text-sm mb-2">
+                    <code className="bg-muted px-1 rounded">PAYMENT_CONFIG_SECRET</code> generieren:
+                  </p>
+                  <pre className="bg-muted rounded-xl p-3 text-sm text-foreground border border-border/50 mb-3">openssl rand -base64 32</pre>
+                  <div className="rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 p-4 text-sm text-red-800 dark:text-red-200">
+                    <strong>Achtung:</strong> <code className="bg-red-100 dark:bg-red-900/40 px-1 rounded">PAYMENT_CONFIG_SECRET</code> niemals &auml;ndern, nachdem Keys in der DB gespeichert wurden &ndash; sonst k&ouml;nnen sie nicht mehr entschl&uuml;sselt werden. Bei einer &Auml;nderung m&uuml;ssen alle Keys im Admin-Panel neu eingetragen werden.
+                  </div>
+                </div>
+
+                {/* Schritt 4: Admin-Panel */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Schritt 4 &ndash; Stripe im Admin-Panel konfigurieren</h3>
+                  <ol className="list-decimal list-inside text-muted-foreground space-y-2 text-sm mb-4">
+                    <li>Admin-Bereich &ouml;ffnen: <strong className="text-foreground">System &rsaquo; Zahlungen</strong> (<code className="bg-muted px-1 rounded">/admin/settings/payments</code>)</li>
+                    <li>In der <strong className="text-foreground">Stripe-Karte</strong> auf das Stift-Symbol (&#x270F;) neben &ldquo;Publishable Key&rdquo; klicken und den kopierten Key eingeben</li>
+                    <li>Dasselbe f&uuml;r <strong>Secret Key</strong> und <strong>Webhook Secret</strong> wiederholen</li>
+                    <li>Auf <strong className="text-foreground">&ldquo;Speichern&rdquo;</strong> klicken</li>
+                    <li>Den Toggle <strong className="text-foreground">&ldquo;Stripe aktivieren&rdquo;</strong> einschalten</li>
+                    <li>Auf <strong className="text-foreground">&ldquo;Verbindung testen&rdquo;</strong> klicken &ndash; es sollte <span className="text-green-600 dark:text-green-400">&ldquo;Verbunden mit Stripe.&rdquo;</span> erscheinen</li>
+                  </ol>
+                  <div className="rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 p-4 text-sm text-green-800 dark:text-green-200">
+                    Nach dem Aktivieren erscheint auf <code className="bg-green-100 dark:bg-green-900/40 px-1 rounded">/wallet</code> automatisch der Auflade-Bereich mit Kreditkarte, Apple Pay, Google Pay und SEPA.
+                  </div>
+                </div>
+
+                {/* Testkarten */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Stripe Testkarten</h3>
+                  <p className="text-muted-foreground text-sm mb-3">Im Test-Modus k&ouml;nnen folgende Karten-Nummern verwendet werden (Ablaufdatum und CVC beliebig):</p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Kartennummer</th>
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Ergebnis</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-mono text-foreground">4242 4242 4242 4242</td><td className="py-2 px-2 text-green-600 dark:text-green-400">✅ Zahlung erfolgreich</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-mono text-foreground">4000 0000 0000 9995</td><td className="py-2 px-2 text-red-600 dark:text-red-400">❌ Karte abgelehnt</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-mono text-foreground">4000 0025 0000 3155</td><td className="py-2 px-2 text-amber-600 dark:text-amber-400">🔁 3D Secure Authentifizierung</td></tr>
+                        <tr><td className="py-2 px-2 font-mono text-foreground">4000 0000 0000 0077</td><td className="py-2 px-2 text-red-600 dark:text-red-400">❌ Karte gesperrt</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Zahlungsablauf */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Wie der Zahlungsablauf funktioniert</h3>
+                  <ol className="list-decimal list-inside text-muted-foreground space-y-2 text-sm">
+                    <li>Kunde w&auml;hlt Betrag (10 / 20 / 25 / 50 &euro;) auf <code className="bg-muted px-1 rounded">/wallet</code></li>
+                    <li>Browser ruft <code className="bg-muted px-1 rounded">POST /api/payments/stripe/create-intent</code> auf &ndash; Server erstellt Payment Intent bei Stripe</li>
+                    <li>Stripe Payment Element l&auml;dt im Browser &ndash; Kartendaten gehen direkt an Stripe (kein Zugriff unserer Server)</li>
+                    <li>Nach Zahlung sendet Stripe einen <strong className="text-foreground">Webhook</strong> an <code className="bg-muted px-1 rounded">/api/payments/stripe/webhook</code></li>
+                    <li>Webhook-Handler pr&uuml;ft Signatur und Idempotenz, ruft <code className="bg-muted px-1 rounded">topUp()</code> auf</li>
+                    <li>Wallet-Guthaben wird atomar in der Datenbank erh&ouml;ht; Kunde sieht Toast-Meldung</li>
+                  </ol>
+                </div>
+
+                {/* Fehlerbehebung */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">H&auml;ufige Fehler &amp; L&ouml;sungen</h3>
+                  <div className="space-y-4 text-sm text-muted-foreground">
+                    <div>
+                      <p className="font-semibold text-foreground">&ldquo;Stripe ist nicht konfiguriert.&rdquo;</p>
+                      <p>Kein Stripe Secret Key gefunden. Bitte in Admin &rsaquo; Zahlungen einrichten oder <code className="bg-muted px-1 rounded">STRIPE_SECRET_KEY</code> als Fallback in <code className="bg-muted px-1 rounded">.env</code> setzen.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Webhook-Signatur ung&uuml;ltig (400-Fehler)</p>
+                      <p>Das Webhook Secret im Admin-Panel stimmt nicht mit dem im Stripe-Dashboard &uuml;berein. Bitte beide pr&uuml;fen und neu eintragen.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Guthaben wird nach Zahlung nicht gutgeschrieben</p>
+                      <p>Der Webhook erreicht den Server nicht. Pr&uuml;fen: 1. Ist der Webhook im Stripe-Dashboard aktiv? 2. Ist die Webhook-URL korrekt (HTTPS)? 3. F&uuml;r lokale Tests: l&auml;uft <code className="bg-muted px-1 rounded">stripe listen --forward-to ...</code>?</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Stripe-Auflade-Bereich erscheint nicht auf /wallet</p>
+                      <p>Stripe muss im Admin-Panel aktiviert sein (Toggle &ldquo;Aktiviert&rdquo;). Der Bereich wird nur angezeigt, wenn <code className="bg-muted px-1 rounded">/api/payments/providers/active</code> den Eintrag <code className="bg-muted px-1 rounded">stripe</code> zur&uuml;ckgibt.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Apple Pay erscheint nicht</p>
+                      <p>Apple Pay ist nur in Safari auf iOS/macOS verf&uuml;gbar. Domain muss bei Stripe unter Business settings &rsaquo; Apple Pay registriert sein. F&uuml;r Google Pay ist keine separate Registrierung n&ouml;tig.</p>
+                    </div>
+                  </div>
                 </div>
               </section>
             )}

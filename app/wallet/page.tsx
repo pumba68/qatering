@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { formatCurrency } from '@/lib/utils'
-import { Wallet, History, AlertCircle, ArrowRight } from 'lucide-react'
+import { Wallet, History, ArrowRight } from 'lucide-react'
 import { MarketingSlotArea } from '@/components/marketing/MarketingSlotArea'
 import { MarketingBannerArea } from '@/components/marketing/MarketingBannerArea'
+import { WalletTopUpSection } from '@/components/wallet/WalletTopUpSection'
 
 interface WalletData {
   balance: number
@@ -19,6 +20,12 @@ export default function WalletPage() {
   const { data: session, status } = useSession()
   const [wallet, setWallet] = useState<WalletData | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const handleBalanceChange = (newBalance: number) => {
+    setWallet((prev) =>
+      prev ? { ...prev, balance: newBalance, isLow: newBalance < 5, isZero: newBalance === 0 } : prev
+    )
+  }
 
   useEffect(() => {
     if (status !== 'authenticated') {
@@ -86,15 +93,14 @@ export default function WalletPage() {
             <div className="mt-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
               <p className="text-sm text-amber-800 dark:text-amber-200">
                 {wallet?.isZero
-                  ? 'Kein Guthaben – Bitte Guthaben aufladen.'
+                  ? 'Kein Guthaben – Bitte jetzt aufladen.'
                   : 'Guthaben niedrig – Bitte aufladen.'}
-              </p>
-              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-                Aufladung erfolgt über Ihre Kantine / Ihren Arbeitgeber.
               </p>
             </div>
           )}
         </div>
+
+        <WalletTopUpSection onBalanceChange={handleBalanceChange} />
 
         <div className="flex flex-col sm:flex-row gap-4">
           <Link

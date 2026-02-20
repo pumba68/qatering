@@ -179,6 +179,11 @@ export type PushNotificationLog = $Result.DefaultSelection<Prisma.$PushNotificat
  */
 export type PushSubscription = $Result.DefaultSelection<Prisma.$PushSubscriptionPayload>
 /**
+ * Model PaymentProviderConfig
+ * 
+ */
+export type PaymentProviderConfig = $Result.DefaultSelection<Prisma.$PaymentProviderConfigPayload>
+/**
  * Model IncentiveGrant
  * 
  */
@@ -795,6 +800,16 @@ export class PrismaClient<
   get pushSubscription(): Prisma.PushSubscriptionDelegate<ExtArgs>;
 
   /**
+   * `prisma.paymentProviderConfig`: Exposes CRUD operations for the **PaymentProviderConfig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PaymentProviderConfigs
+    * const paymentProviderConfigs = await prisma.paymentProviderConfig.findMany()
+    * ```
+    */
+  get paymentProviderConfig(): Prisma.PaymentProviderConfigDelegate<ExtArgs>;
+
+  /**
    * `prisma.incentiveGrant`: Exposes CRUD operations for the **IncentiveGrant** model.
     * Example usage:
     * ```ts
@@ -1277,6 +1292,7 @@ export namespace Prisma {
     PushNotification: 'PushNotification',
     PushNotificationLog: 'PushNotificationLog',
     PushSubscription: 'PushSubscription',
+    PaymentProviderConfig: 'PaymentProviderConfig',
     IncentiveGrant: 'IncentiveGrant'
   };
 
@@ -1293,7 +1309,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "incentiveGrant"
+      modelProps: "organization" | "company" | "companyInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3607,6 +3623,76 @@ export namespace Prisma {
           }
         }
       }
+      PaymentProviderConfig: {
+        payload: Prisma.$PaymentProviderConfigPayload<ExtArgs>
+        fields: Prisma.PaymentProviderConfigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PaymentProviderConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PaymentProviderConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>
+          }
+          findFirst: {
+            args: Prisma.PaymentProviderConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PaymentProviderConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>
+          }
+          findMany: {
+            args: Prisma.PaymentProviderConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>[]
+          }
+          create: {
+            args: Prisma.PaymentProviderConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>
+          }
+          createMany: {
+            args: Prisma.PaymentProviderConfigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PaymentProviderConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>[]
+          }
+          delete: {
+            args: Prisma.PaymentProviderConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>
+          }
+          update: {
+            args: Prisma.PaymentProviderConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>
+          }
+          deleteMany: {
+            args: Prisma.PaymentProviderConfigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PaymentProviderConfigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PaymentProviderConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentProviderConfigPayload>
+          }
+          aggregate: {
+            args: Prisma.PaymentProviderConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePaymentProviderConfig>
+          }
+          groupBy: {
+            args: Prisma.PaymentProviderConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PaymentProviderConfigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PaymentProviderConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<PaymentProviderConfigCountAggregateOutputType> | number
+          }
+        }
+      }
       IncentiveGrant: {
         payload: Prisma.$IncentiveGrantPayload<ExtArgs>
         fields: Prisma.IncentiveGrantFieldRefs
@@ -3846,6 +3932,7 @@ export namespace Prisma {
     segmentIncentives: number
     marketingTemplates: number
     pushNotifications: number
+    paymentConfigs: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3857,6 +3944,7 @@ export namespace Prisma {
     segmentIncentives?: boolean | OrganizationCountOutputTypeCountSegmentIncentivesArgs
     marketingTemplates?: boolean | OrganizationCountOutputTypeCountMarketingTemplatesArgs
     pushNotifications?: boolean | OrganizationCountOutputTypeCountPushNotificationsArgs
+    paymentConfigs?: boolean | OrganizationCountOutputTypeCountPaymentConfigsArgs
   }
 
   // Custom InputTypes
@@ -3924,6 +4012,13 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountPushNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PushNotificationWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountPaymentConfigsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentProviderConfigWhereInput
   }
 
 
@@ -4081,6 +4176,7 @@ export namespace Prisma {
     performedWalletActions: number
     pushNotificationLogs: number
     pushSubscriptions: number
+    paymentConfigChanges: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4095,6 +4191,7 @@ export namespace Prisma {
     performedWalletActions?: boolean | UserCountOutputTypeCountPerformedWalletActionsArgs
     pushNotificationLogs?: boolean | UserCountOutputTypeCountPushNotificationLogsArgs
     pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
+    paymentConfigChanges?: boolean | UserCountOutputTypeCountPaymentConfigChangesArgs
   }
 
   // Custom InputTypes
@@ -4183,6 +4280,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPushSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PushSubscriptionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPaymentConfigChangesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentProviderConfigWhereInput
   }
 
 
@@ -4866,6 +4970,7 @@ export namespace Prisma {
     segmentIncentives?: boolean | Organization$segmentIncentivesArgs<ExtArgs>
     marketingTemplates?: boolean | Organization$marketingTemplatesArgs<ExtArgs>
     pushNotifications?: boolean | Organization$pushNotificationsArgs<ExtArgs>
+    paymentConfigs?: boolean | Organization$paymentConfigsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -4900,6 +5005,7 @@ export namespace Prisma {
     segmentIncentives?: boolean | Organization$segmentIncentivesArgs<ExtArgs>
     marketingTemplates?: boolean | Organization$marketingTemplatesArgs<ExtArgs>
     pushNotifications?: boolean | Organization$pushNotificationsArgs<ExtArgs>
+    paymentConfigs?: boolean | Organization$paymentConfigsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4915,6 +5021,7 @@ export namespace Prisma {
       segmentIncentives: Prisma.$SegmentIncentivePayload<ExtArgs>[]
       marketingTemplates: Prisma.$MarketingTemplatePayload<ExtArgs>[]
       pushNotifications: Prisma.$PushNotificationPayload<ExtArgs>[]
+      paymentConfigs: Prisma.$PaymentProviderConfigPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5297,6 +5404,7 @@ export namespace Prisma {
     segmentIncentives<T extends Organization$segmentIncentivesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$segmentIncentivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findMany"> | Null>
     marketingTemplates<T extends Organization$marketingTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$marketingTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findMany"> | Null>
     pushNotifications<T extends Organization$pushNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$pushNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findMany"> | Null>
+    paymentConfigs<T extends Organization$paymentConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$paymentConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5805,6 +5913,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PushNotificationScalarFieldEnum | PushNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.paymentConfigs
+   */
+  export type Organization$paymentConfigsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    where?: PaymentProviderConfigWhereInput
+    orderBy?: PaymentProviderConfigOrderByWithRelationInput | PaymentProviderConfigOrderByWithRelationInput[]
+    cursor?: PaymentProviderConfigWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentProviderConfigScalarFieldEnum | PaymentProviderConfigScalarFieldEnum[]
   }
 
   /**
@@ -11301,6 +11429,7 @@ export namespace Prisma {
     performedWalletActions?: boolean | User$performedWalletActionsArgs<ExtArgs>
     pushNotificationLogs?: boolean | User$pushNotificationLogsArgs<ExtArgs>
     pushSubscriptions?: boolean | User$pushSubscriptionsArgs<ExtArgs>
+    paymentConfigChanges?: boolean | User$paymentConfigChangesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -11345,6 +11474,7 @@ export namespace Prisma {
     performedWalletActions?: boolean | User$performedWalletActionsArgs<ExtArgs>
     pushNotificationLogs?: boolean | User$pushNotificationLogsArgs<ExtArgs>
     pushSubscriptions?: boolean | User$pushSubscriptionsArgs<ExtArgs>
+    paymentConfigChanges?: boolean | User$paymentConfigChangesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11367,6 +11497,7 @@ export namespace Prisma {
       performedWalletActions: Prisma.$WalletTransactionPayload<ExtArgs>[]
       pushNotificationLogs: Prisma.$PushNotificationLogPayload<ExtArgs>[]
       pushSubscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
+      paymentConfigChanges: Prisma.$PaymentProviderConfigPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11756,6 +11887,7 @@ export namespace Prisma {
     performedWalletActions<T extends User$performedWalletActionsArgs<ExtArgs> = {}>(args?: Subset<T, User$performedWalletActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     pushNotificationLogs<T extends User$pushNotificationLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$pushNotificationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findMany"> | Null>
     pushSubscriptions<T extends User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany"> | Null>
+    paymentConfigChanges<T extends User$paymentConfigChangesArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentConfigChangesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12360,6 +12492,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PushSubscriptionScalarFieldEnum | PushSubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * User.paymentConfigChanges
+   */
+  export type User$paymentConfigChangesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    where?: PaymentProviderConfigWhereInput
+    orderBy?: PaymentProviderConfigOrderByWithRelationInput | PaymentProviderConfigOrderByWithRelationInput[]
+    cursor?: PaymentProviderConfigWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentProviderConfigScalarFieldEnum | PaymentProviderConfigScalarFieldEnum[]
   }
 
   /**
@@ -13367,6 +13519,8 @@ export namespace Prisma {
     orderId: string | null
     performedById: string | null
     incentiveGrantId: string | null
+    paymentProvider: string | null
+    externalPaymentId: string | null
     createdAt: Date | null
   }
 
@@ -13381,6 +13535,8 @@ export namespace Prisma {
     orderId: string | null
     performedById: string | null
     incentiveGrantId: string | null
+    paymentProvider: string | null
+    externalPaymentId: string | null
     createdAt: Date | null
   }
 
@@ -13395,6 +13551,8 @@ export namespace Prisma {
     orderId: number
     performedById: number
     incentiveGrantId: number
+    paymentProvider: number
+    externalPaymentId: number
     createdAt: number
     _all: number
   }
@@ -13423,6 +13581,8 @@ export namespace Prisma {
     orderId?: true
     performedById?: true
     incentiveGrantId?: true
+    paymentProvider?: true
+    externalPaymentId?: true
     createdAt?: true
   }
 
@@ -13437,6 +13597,8 @@ export namespace Prisma {
     orderId?: true
     performedById?: true
     incentiveGrantId?: true
+    paymentProvider?: true
+    externalPaymentId?: true
     createdAt?: true
   }
 
@@ -13451,6 +13613,8 @@ export namespace Prisma {
     orderId?: true
     performedById?: true
     incentiveGrantId?: true
+    paymentProvider?: true
+    externalPaymentId?: true
     createdAt?: true
     _all?: true
   }
@@ -13552,6 +13716,8 @@ export namespace Prisma {
     orderId: string | null
     performedById: string | null
     incentiveGrantId: string | null
+    paymentProvider: string | null
+    externalPaymentId: string | null
     createdAt: Date
     _count: WalletTransactionCountAggregateOutputType | null
     _avg: WalletTransactionAvgAggregateOutputType | null
@@ -13585,6 +13751,8 @@ export namespace Prisma {
     orderId?: boolean
     performedById?: boolean
     incentiveGrantId?: boolean
+    paymentProvider?: boolean
+    externalPaymentId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     order?: boolean | WalletTransaction$orderArgs<ExtArgs>
@@ -13603,6 +13771,8 @@ export namespace Prisma {
     orderId?: boolean
     performedById?: boolean
     incentiveGrantId?: boolean
+    paymentProvider?: boolean
+    externalPaymentId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     order?: boolean | WalletTransaction$orderArgs<ExtArgs>
@@ -13621,6 +13791,8 @@ export namespace Prisma {
     orderId?: boolean
     performedById?: boolean
     incentiveGrantId?: boolean
+    paymentProvider?: boolean
+    externalPaymentId?: boolean
     createdAt?: boolean
   }
 
@@ -13656,6 +13828,8 @@ export namespace Prisma {
       orderId: string | null
       performedById: string | null
       incentiveGrantId: string | null
+      paymentProvider: string | null
+      externalPaymentId: string | null
       createdAt: Date
     }, ExtArgs["result"]["walletTransaction"]>
     composites: {}
@@ -14064,6 +14238,8 @@ export namespace Prisma {
     readonly orderId: FieldRef<"WalletTransaction", 'String'>
     readonly performedById: FieldRef<"WalletTransaction", 'String'>
     readonly incentiveGrantId: FieldRef<"WalletTransaction", 'String'>
+    readonly paymentProvider: FieldRef<"WalletTransaction", 'String'>
+    readonly externalPaymentId: FieldRef<"WalletTransaction", 'String'>
     readonly createdAt: FieldRef<"WalletTransaction", 'DateTime'>
   }
     
@@ -39239,6 +39415,984 @@ export namespace Prisma {
 
 
   /**
+   * Model PaymentProviderConfig
+   */
+
+  export type AggregatePaymentProviderConfig = {
+    _count: PaymentProviderConfigCountAggregateOutputType | null
+    _min: PaymentProviderConfigMinAggregateOutputType | null
+    _max: PaymentProviderConfigMaxAggregateOutputType | null
+  }
+
+  export type PaymentProviderConfigMinAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    provider: string | null
+    isEnabled: boolean | null
+    configJson: string | null
+    updatedAt: Date | null
+    updatedById: string | null
+  }
+
+  export type PaymentProviderConfigMaxAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    provider: string | null
+    isEnabled: boolean | null
+    configJson: string | null
+    updatedAt: Date | null
+    updatedById: string | null
+  }
+
+  export type PaymentProviderConfigCountAggregateOutputType = {
+    id: number
+    organizationId: number
+    provider: number
+    isEnabled: number
+    configJson: number
+    updatedAt: number
+    updatedById: number
+    _all: number
+  }
+
+
+  export type PaymentProviderConfigMinAggregateInputType = {
+    id?: true
+    organizationId?: true
+    provider?: true
+    isEnabled?: true
+    configJson?: true
+    updatedAt?: true
+    updatedById?: true
+  }
+
+  export type PaymentProviderConfigMaxAggregateInputType = {
+    id?: true
+    organizationId?: true
+    provider?: true
+    isEnabled?: true
+    configJson?: true
+    updatedAt?: true
+    updatedById?: true
+  }
+
+  export type PaymentProviderConfigCountAggregateInputType = {
+    id?: true
+    organizationId?: true
+    provider?: true
+    isEnabled?: true
+    configJson?: true
+    updatedAt?: true
+    updatedById?: true
+    _all?: true
+  }
+
+  export type PaymentProviderConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentProviderConfig to aggregate.
+     */
+    where?: PaymentProviderConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentProviderConfigs to fetch.
+     */
+    orderBy?: PaymentProviderConfigOrderByWithRelationInput | PaymentProviderConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PaymentProviderConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentProviderConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentProviderConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PaymentProviderConfigs
+    **/
+    _count?: true | PaymentProviderConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PaymentProviderConfigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PaymentProviderConfigMaxAggregateInputType
+  }
+
+  export type GetPaymentProviderConfigAggregateType<T extends PaymentProviderConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregatePaymentProviderConfig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePaymentProviderConfig[P]>
+      : GetScalarType<T[P], AggregatePaymentProviderConfig[P]>
+  }
+
+
+
+
+  export type PaymentProviderConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentProviderConfigWhereInput
+    orderBy?: PaymentProviderConfigOrderByWithAggregationInput | PaymentProviderConfigOrderByWithAggregationInput[]
+    by: PaymentProviderConfigScalarFieldEnum[] | PaymentProviderConfigScalarFieldEnum
+    having?: PaymentProviderConfigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PaymentProviderConfigCountAggregateInputType | true
+    _min?: PaymentProviderConfigMinAggregateInputType
+    _max?: PaymentProviderConfigMaxAggregateInputType
+  }
+
+  export type PaymentProviderConfigGroupByOutputType = {
+    id: string
+    organizationId: string
+    provider: string
+    isEnabled: boolean
+    configJson: string
+    updatedAt: Date
+    updatedById: string | null
+    _count: PaymentProviderConfigCountAggregateOutputType | null
+    _min: PaymentProviderConfigMinAggregateOutputType | null
+    _max: PaymentProviderConfigMaxAggregateOutputType | null
+  }
+
+  type GetPaymentProviderConfigGroupByPayload<T extends PaymentProviderConfigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PaymentProviderConfigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PaymentProviderConfigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PaymentProviderConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentProviderConfigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PaymentProviderConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    provider?: boolean
+    isEnabled?: boolean
+    configJson?: boolean
+    updatedAt?: boolean
+    updatedById?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    updatedBy?: boolean | PaymentProviderConfig$updatedByArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentProviderConfig"]>
+
+  export type PaymentProviderConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    provider?: boolean
+    isEnabled?: boolean
+    configJson?: boolean
+    updatedAt?: boolean
+    updatedById?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    updatedBy?: boolean | PaymentProviderConfig$updatedByArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentProviderConfig"]>
+
+  export type PaymentProviderConfigSelectScalar = {
+    id?: boolean
+    organizationId?: boolean
+    provider?: boolean
+    isEnabled?: boolean
+    configJson?: boolean
+    updatedAt?: boolean
+    updatedById?: boolean
+  }
+
+  export type PaymentProviderConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    updatedBy?: boolean | PaymentProviderConfig$updatedByArgs<ExtArgs>
+  }
+  export type PaymentProviderConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    updatedBy?: boolean | PaymentProviderConfig$updatedByArgs<ExtArgs>
+  }
+
+  export type $PaymentProviderConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PaymentProviderConfig"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      updatedBy: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationId: string
+      provider: string
+      isEnabled: boolean
+      configJson: string
+      updatedAt: Date
+      updatedById: string | null
+    }, ExtArgs["result"]["paymentProviderConfig"]>
+    composites: {}
+  }
+
+  type PaymentProviderConfigGetPayload<S extends boolean | null | undefined | PaymentProviderConfigDefaultArgs> = $Result.GetResult<Prisma.$PaymentProviderConfigPayload, S>
+
+  type PaymentProviderConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PaymentProviderConfigFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PaymentProviderConfigCountAggregateInputType | true
+    }
+
+  export interface PaymentProviderConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentProviderConfig'], meta: { name: 'PaymentProviderConfig' } }
+    /**
+     * Find zero or one PaymentProviderConfig that matches the filter.
+     * @param {PaymentProviderConfigFindUniqueArgs} args - Arguments to find a PaymentProviderConfig
+     * @example
+     * // Get one PaymentProviderConfig
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PaymentProviderConfigFindUniqueArgs>(args: SelectSubset<T, PaymentProviderConfigFindUniqueArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PaymentProviderConfig that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PaymentProviderConfigFindUniqueOrThrowArgs} args - Arguments to find a PaymentProviderConfig
+     * @example
+     * // Get one PaymentProviderConfig
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PaymentProviderConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentProviderConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PaymentProviderConfig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentProviderConfigFindFirstArgs} args - Arguments to find a PaymentProviderConfig
+     * @example
+     * // Get one PaymentProviderConfig
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PaymentProviderConfigFindFirstArgs>(args?: SelectSubset<T, PaymentProviderConfigFindFirstArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PaymentProviderConfig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentProviderConfigFindFirstOrThrowArgs} args - Arguments to find a PaymentProviderConfig
+     * @example
+     * // Get one PaymentProviderConfig
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PaymentProviderConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentProviderConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PaymentProviderConfigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentProviderConfigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PaymentProviderConfigs
+     * const paymentProviderConfigs = await prisma.paymentProviderConfig.findMany()
+     * 
+     * // Get first 10 PaymentProviderConfigs
+     * const paymentProviderConfigs = await prisma.paymentProviderConfig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const paymentProviderConfigWithIdOnly = await prisma.paymentProviderConfig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PaymentProviderConfigFindManyArgs>(args?: SelectSubset<T, PaymentProviderConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PaymentProviderConfig.
+     * @param {PaymentProviderConfigCreateArgs} args - Arguments to create a PaymentProviderConfig.
+     * @example
+     * // Create one PaymentProviderConfig
+     * const PaymentProviderConfig = await prisma.paymentProviderConfig.create({
+     *   data: {
+     *     // ... data to create a PaymentProviderConfig
+     *   }
+     * })
+     * 
+     */
+    create<T extends PaymentProviderConfigCreateArgs>(args: SelectSubset<T, PaymentProviderConfigCreateArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PaymentProviderConfigs.
+     * @param {PaymentProviderConfigCreateManyArgs} args - Arguments to create many PaymentProviderConfigs.
+     * @example
+     * // Create many PaymentProviderConfigs
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PaymentProviderConfigCreateManyArgs>(args?: SelectSubset<T, PaymentProviderConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PaymentProviderConfigs and returns the data saved in the database.
+     * @param {PaymentProviderConfigCreateManyAndReturnArgs} args - Arguments to create many PaymentProviderConfigs.
+     * @example
+     * // Create many PaymentProviderConfigs
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PaymentProviderConfigs and only return the `id`
+     * const paymentProviderConfigWithIdOnly = await prisma.paymentProviderConfig.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PaymentProviderConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, PaymentProviderConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PaymentProviderConfig.
+     * @param {PaymentProviderConfigDeleteArgs} args - Arguments to delete one PaymentProviderConfig.
+     * @example
+     * // Delete one PaymentProviderConfig
+     * const PaymentProviderConfig = await prisma.paymentProviderConfig.delete({
+     *   where: {
+     *     // ... filter to delete one PaymentProviderConfig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PaymentProviderConfigDeleteArgs>(args: SelectSubset<T, PaymentProviderConfigDeleteArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PaymentProviderConfig.
+     * @param {PaymentProviderConfigUpdateArgs} args - Arguments to update one PaymentProviderConfig.
+     * @example
+     * // Update one PaymentProviderConfig
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PaymentProviderConfigUpdateArgs>(args: SelectSubset<T, PaymentProviderConfigUpdateArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PaymentProviderConfigs.
+     * @param {PaymentProviderConfigDeleteManyArgs} args - Arguments to filter PaymentProviderConfigs to delete.
+     * @example
+     * // Delete a few PaymentProviderConfigs
+     * const { count } = await prisma.paymentProviderConfig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PaymentProviderConfigDeleteManyArgs>(args?: SelectSubset<T, PaymentProviderConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PaymentProviderConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentProviderConfigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PaymentProviderConfigs
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PaymentProviderConfigUpdateManyArgs>(args: SelectSubset<T, PaymentProviderConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PaymentProviderConfig.
+     * @param {PaymentProviderConfigUpsertArgs} args - Arguments to update or create a PaymentProviderConfig.
+     * @example
+     * // Update or create a PaymentProviderConfig
+     * const paymentProviderConfig = await prisma.paymentProviderConfig.upsert({
+     *   create: {
+     *     // ... data to create a PaymentProviderConfig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PaymentProviderConfig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PaymentProviderConfigUpsertArgs>(args: SelectSubset<T, PaymentProviderConfigUpsertArgs<ExtArgs>>): Prisma__PaymentProviderConfigClient<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PaymentProviderConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentProviderConfigCountArgs} args - Arguments to filter PaymentProviderConfigs to count.
+     * @example
+     * // Count the number of PaymentProviderConfigs
+     * const count = await prisma.paymentProviderConfig.count({
+     *   where: {
+     *     // ... the filter for the PaymentProviderConfigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends PaymentProviderConfigCountArgs>(
+      args?: Subset<T, PaymentProviderConfigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PaymentProviderConfigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PaymentProviderConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentProviderConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PaymentProviderConfigAggregateArgs>(args: Subset<T, PaymentProviderConfigAggregateArgs>): Prisma.PrismaPromise<GetPaymentProviderConfigAggregateType<T>>
+
+    /**
+     * Group by PaymentProviderConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentProviderConfigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PaymentProviderConfigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PaymentProviderConfigGroupByArgs['orderBy'] }
+        : { orderBy?: PaymentProviderConfigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PaymentProviderConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentProviderConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PaymentProviderConfig model
+   */
+  readonly fields: PaymentProviderConfigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PaymentProviderConfig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PaymentProviderConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    updatedBy<T extends PaymentProviderConfig$updatedByArgs<ExtArgs> = {}>(args?: Subset<T, PaymentProviderConfig$updatedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PaymentProviderConfig model
+   */ 
+  interface PaymentProviderConfigFieldRefs {
+    readonly id: FieldRef<"PaymentProviderConfig", 'String'>
+    readonly organizationId: FieldRef<"PaymentProviderConfig", 'String'>
+    readonly provider: FieldRef<"PaymentProviderConfig", 'String'>
+    readonly isEnabled: FieldRef<"PaymentProviderConfig", 'Boolean'>
+    readonly configJson: FieldRef<"PaymentProviderConfig", 'String'>
+    readonly updatedAt: FieldRef<"PaymentProviderConfig", 'DateTime'>
+    readonly updatedById: FieldRef<"PaymentProviderConfig", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PaymentProviderConfig findUnique
+   */
+  export type PaymentProviderConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentProviderConfig to fetch.
+     */
+    where: PaymentProviderConfigWhereUniqueInput
+  }
+
+  /**
+   * PaymentProviderConfig findUniqueOrThrow
+   */
+  export type PaymentProviderConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentProviderConfig to fetch.
+     */
+    where: PaymentProviderConfigWhereUniqueInput
+  }
+
+  /**
+   * PaymentProviderConfig findFirst
+   */
+  export type PaymentProviderConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentProviderConfig to fetch.
+     */
+    where?: PaymentProviderConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentProviderConfigs to fetch.
+     */
+    orderBy?: PaymentProviderConfigOrderByWithRelationInput | PaymentProviderConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentProviderConfigs.
+     */
+    cursor?: PaymentProviderConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentProviderConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentProviderConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentProviderConfigs.
+     */
+    distinct?: PaymentProviderConfigScalarFieldEnum | PaymentProviderConfigScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentProviderConfig findFirstOrThrow
+   */
+  export type PaymentProviderConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentProviderConfig to fetch.
+     */
+    where?: PaymentProviderConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentProviderConfigs to fetch.
+     */
+    orderBy?: PaymentProviderConfigOrderByWithRelationInput | PaymentProviderConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentProviderConfigs.
+     */
+    cursor?: PaymentProviderConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentProviderConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentProviderConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentProviderConfigs.
+     */
+    distinct?: PaymentProviderConfigScalarFieldEnum | PaymentProviderConfigScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentProviderConfig findMany
+   */
+  export type PaymentProviderConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentProviderConfigs to fetch.
+     */
+    where?: PaymentProviderConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentProviderConfigs to fetch.
+     */
+    orderBy?: PaymentProviderConfigOrderByWithRelationInput | PaymentProviderConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PaymentProviderConfigs.
+     */
+    cursor?: PaymentProviderConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentProviderConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentProviderConfigs.
+     */
+    skip?: number
+    distinct?: PaymentProviderConfigScalarFieldEnum | PaymentProviderConfigScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentProviderConfig create
+   */
+  export type PaymentProviderConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PaymentProviderConfig.
+     */
+    data: XOR<PaymentProviderConfigCreateInput, PaymentProviderConfigUncheckedCreateInput>
+  }
+
+  /**
+   * PaymentProviderConfig createMany
+   */
+  export type PaymentProviderConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PaymentProviderConfigs.
+     */
+    data: PaymentProviderConfigCreateManyInput | PaymentProviderConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PaymentProviderConfig createManyAndReturn
+   */
+  export type PaymentProviderConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PaymentProviderConfigs.
+     */
+    data: PaymentProviderConfigCreateManyInput | PaymentProviderConfigCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PaymentProviderConfig update
+   */
+  export type PaymentProviderConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PaymentProviderConfig.
+     */
+    data: XOR<PaymentProviderConfigUpdateInput, PaymentProviderConfigUncheckedUpdateInput>
+    /**
+     * Choose, which PaymentProviderConfig to update.
+     */
+    where: PaymentProviderConfigWhereUniqueInput
+  }
+
+  /**
+   * PaymentProviderConfig updateMany
+   */
+  export type PaymentProviderConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PaymentProviderConfigs.
+     */
+    data: XOR<PaymentProviderConfigUpdateManyMutationInput, PaymentProviderConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which PaymentProviderConfigs to update
+     */
+    where?: PaymentProviderConfigWhereInput
+  }
+
+  /**
+   * PaymentProviderConfig upsert
+   */
+  export type PaymentProviderConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PaymentProviderConfig to update in case it exists.
+     */
+    where: PaymentProviderConfigWhereUniqueInput
+    /**
+     * In case the PaymentProviderConfig found by the `where` argument doesn't exist, create a new PaymentProviderConfig with this data.
+     */
+    create: XOR<PaymentProviderConfigCreateInput, PaymentProviderConfigUncheckedCreateInput>
+    /**
+     * In case the PaymentProviderConfig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PaymentProviderConfigUpdateInput, PaymentProviderConfigUncheckedUpdateInput>
+  }
+
+  /**
+   * PaymentProviderConfig delete
+   */
+  export type PaymentProviderConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+    /**
+     * Filter which PaymentProviderConfig to delete.
+     */
+    where: PaymentProviderConfigWhereUniqueInput
+  }
+
+  /**
+   * PaymentProviderConfig deleteMany
+   */
+  export type PaymentProviderConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentProviderConfigs to delete
+     */
+    where?: PaymentProviderConfigWhereInput
+  }
+
+  /**
+   * PaymentProviderConfig.updatedBy
+   */
+  export type PaymentProviderConfig$updatedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * PaymentProviderConfig without action
+   */
+  export type PaymentProviderConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentProviderConfig
+     */
+    select?: PaymentProviderConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentProviderConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model IncentiveGrant
    */
 
@@ -40407,6 +41561,8 @@ export namespace Prisma {
     orderId: 'orderId',
     performedById: 'performedById',
     incentiveGrantId: 'incentiveGrantId',
+    paymentProvider: 'paymentProvider',
+    externalPaymentId: 'externalPaymentId',
     createdAt: 'createdAt'
   };
 
@@ -40784,6 +41940,19 @@ export namespace Prisma {
   export type PushSubscriptionScalarFieldEnum = (typeof PushSubscriptionScalarFieldEnum)[keyof typeof PushSubscriptionScalarFieldEnum]
 
 
+  export const PaymentProviderConfigScalarFieldEnum: {
+    id: 'id',
+    organizationId: 'organizationId',
+    provider: 'provider',
+    isEnabled: 'isEnabled',
+    configJson: 'configJson',
+    updatedAt: 'updatedAt',
+    updatedById: 'updatedById'
+  };
+
+  export type PaymentProviderConfigScalarFieldEnum = (typeof PaymentProviderConfigScalarFieldEnum)[keyof typeof PaymentProviderConfigScalarFieldEnum]
+
+
   export const IncentiveGrantScalarFieldEnum: {
     id: 'id',
     segmentIncentiveId: 'segmentIncentiveId',
@@ -41113,6 +42282,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveListRelationFilter
     marketingTemplates?: MarketingTemplateListRelationFilter
     pushNotifications?: PushNotificationListRelationFilter
+    paymentConfigs?: PaymentProviderConfigListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -41132,6 +42302,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveOrderByRelationAggregateInput
     marketingTemplates?: MarketingTemplateOrderByRelationAggregateInput
     pushNotifications?: PushNotificationOrderByRelationAggregateInput
+    paymentConfigs?: PaymentProviderConfigOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -41154,6 +42325,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveListRelationFilter
     marketingTemplates?: MarketingTemplateListRelationFilter
     pushNotifications?: PushNotificationListRelationFilter
+    paymentConfigs?: PaymentProviderConfigListRelationFilter
   }, "id" | "slug">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -41630,6 +42802,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionListRelationFilter
     pushNotificationLogs?: PushNotificationLogListRelationFilter
     pushSubscriptions?: PushSubscriptionListRelationFilter
+    paymentConfigChanges?: PaymentProviderConfigListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -41656,6 +42829,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionOrderByRelationAggregateInput
     pushNotificationLogs?: PushNotificationLogOrderByRelationAggregateInput
     pushSubscriptions?: PushSubscriptionOrderByRelationAggregateInput
+    paymentConfigChanges?: PaymentProviderConfigOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -41685,6 +42859,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionListRelationFilter
     pushNotificationLogs?: PushNotificationLogListRelationFilter
     pushSubscriptions?: PushSubscriptionListRelationFilter
+    paymentConfigChanges?: PaymentProviderConfigListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -41785,6 +42960,8 @@ export namespace Prisma {
     orderId?: StringNullableFilter<"WalletTransaction"> | string | null
     performedById?: StringNullableFilter<"WalletTransaction"> | string | null
     incentiveGrantId?: StringNullableFilter<"WalletTransaction"> | string | null
+    paymentProvider?: StringNullableFilter<"WalletTransaction"> | string | null
+    externalPaymentId?: StringNullableFilter<"WalletTransaction"> | string | null
     createdAt?: DateTimeFilter<"WalletTransaction"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     order?: XOR<OrderNullableRelationFilter, OrderWhereInput> | null
@@ -41803,6 +42980,8 @@ export namespace Prisma {
     orderId?: SortOrderInput | SortOrder
     performedById?: SortOrderInput | SortOrder
     incentiveGrantId?: SortOrderInput | SortOrder
+    paymentProvider?: SortOrderInput | SortOrder
+    externalPaymentId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     order?: OrderOrderByWithRelationInput
@@ -41824,6 +43003,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"WalletTransaction"> | string | null
     orderId?: StringNullableFilter<"WalletTransaction"> | string | null
     performedById?: StringNullableFilter<"WalletTransaction"> | string | null
+    paymentProvider?: StringNullableFilter<"WalletTransaction"> | string | null
+    externalPaymentId?: StringNullableFilter<"WalletTransaction"> | string | null
     createdAt?: DateTimeFilter<"WalletTransaction"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     order?: XOR<OrderNullableRelationFilter, OrderWhereInput> | null
@@ -41842,6 +43023,8 @@ export namespace Prisma {
     orderId?: SortOrderInput | SortOrder
     performedById?: SortOrderInput | SortOrder
     incentiveGrantId?: SortOrderInput | SortOrder
+    paymentProvider?: SortOrderInput | SortOrder
+    externalPaymentId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: WalletTransactionCountOrderByAggregateInput
     _avg?: WalletTransactionAvgOrderByAggregateInput
@@ -41864,6 +43047,8 @@ export namespace Prisma {
     orderId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     performedById?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     incentiveGrantId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
+    paymentProvider?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
+    externalPaymentId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"WalletTransaction"> | Date | string
   }
 
@@ -43872,6 +45057,75 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PushSubscription"> | Date | string
   }
 
+  export type PaymentProviderConfigWhereInput = {
+    AND?: PaymentProviderConfigWhereInput | PaymentProviderConfigWhereInput[]
+    OR?: PaymentProviderConfigWhereInput[]
+    NOT?: PaymentProviderConfigWhereInput | PaymentProviderConfigWhereInput[]
+    id?: StringFilter<"PaymentProviderConfig"> | string
+    organizationId?: StringFilter<"PaymentProviderConfig"> | string
+    provider?: StringFilter<"PaymentProviderConfig"> | string
+    isEnabled?: BoolFilter<"PaymentProviderConfig"> | boolean
+    configJson?: StringFilter<"PaymentProviderConfig"> | string
+    updatedAt?: DateTimeFilter<"PaymentProviderConfig"> | Date | string
+    updatedById?: StringNullableFilter<"PaymentProviderConfig"> | string | null
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    updatedBy?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type PaymentProviderConfigOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    configJson?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrderInput | SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    updatedBy?: UserOrderByWithRelationInput
+  }
+
+  export type PaymentProviderConfigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    organizationId_provider?: PaymentProviderConfigOrganizationIdProviderCompoundUniqueInput
+    AND?: PaymentProviderConfigWhereInput | PaymentProviderConfigWhereInput[]
+    OR?: PaymentProviderConfigWhereInput[]
+    NOT?: PaymentProviderConfigWhereInput | PaymentProviderConfigWhereInput[]
+    organizationId?: StringFilter<"PaymentProviderConfig"> | string
+    provider?: StringFilter<"PaymentProviderConfig"> | string
+    isEnabled?: BoolFilter<"PaymentProviderConfig"> | boolean
+    configJson?: StringFilter<"PaymentProviderConfig"> | string
+    updatedAt?: DateTimeFilter<"PaymentProviderConfig"> | Date | string
+    updatedById?: StringNullableFilter<"PaymentProviderConfig"> | string | null
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    updatedBy?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id" | "organizationId_provider">
+
+  export type PaymentProviderConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    configJson?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrderInput | SortOrder
+    _count?: PaymentProviderConfigCountOrderByAggregateInput
+    _max?: PaymentProviderConfigMaxOrderByAggregateInput
+    _min?: PaymentProviderConfigMinOrderByAggregateInput
+  }
+
+  export type PaymentProviderConfigScalarWhereWithAggregatesInput = {
+    AND?: PaymentProviderConfigScalarWhereWithAggregatesInput | PaymentProviderConfigScalarWhereWithAggregatesInput[]
+    OR?: PaymentProviderConfigScalarWhereWithAggregatesInput[]
+    NOT?: PaymentProviderConfigScalarWhereWithAggregatesInput | PaymentProviderConfigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PaymentProviderConfig"> | string
+    organizationId?: StringWithAggregatesFilter<"PaymentProviderConfig"> | string
+    provider?: StringWithAggregatesFilter<"PaymentProviderConfig"> | string
+    isEnabled?: BoolWithAggregatesFilter<"PaymentProviderConfig"> | boolean
+    configJson?: StringWithAggregatesFilter<"PaymentProviderConfig"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PaymentProviderConfig"> | Date | string
+    updatedById?: StringNullableWithAggregatesFilter<"PaymentProviderConfig"> | string | null
+  }
+
   export type IncentiveGrantWhereInput = {
     AND?: IncentiveGrantWhereInput | IncentiveGrantWhereInput[]
     OR?: IncentiveGrantWhereInput[]
@@ -43974,6 +45228,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -43993,6 +45248,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -44012,6 +45268,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -44031,6 +45288,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -44550,6 +45808,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -44575,6 +45834,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUpdateInput = {
@@ -44600,6 +45860,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -44625,6 +45886,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -44720,6 +45982,8 @@ export namespace Prisma {
     balanceBefore: Decimal | DecimalJsLike | number | string
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutWalletTransactionsInput
     order?: OrderCreateNestedOneWithoutWalletTransactionsInput
@@ -44738,6 +46002,8 @@ export namespace Prisma {
     orderId?: string | null
     performedById?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -44748,6 +46014,8 @@ export namespace Prisma {
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
     order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
@@ -44766,6 +46034,8 @@ export namespace Prisma {
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -44780,6 +46050,8 @@ export namespace Prisma {
     orderId?: string | null
     performedById?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -44790,6 +46062,8 @@ export namespace Prisma {
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -44804,6 +46078,8 @@ export namespace Prisma {
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -46957,6 +48233,74 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PaymentProviderConfigCreateInput = {
+    id?: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutPaymentConfigsInput
+    updatedBy?: UserCreateNestedOneWithoutPaymentConfigChangesInput
+  }
+
+  export type PaymentProviderConfigUncheckedCreateInput = {
+    id?: string
+    organizationId: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
+  export type PaymentProviderConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPaymentConfigsNestedInput
+    updatedBy?: UserUpdateOneWithoutPaymentConfigChangesNestedInput
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PaymentProviderConfigCreateManyInput = {
+    id?: string
+    organizationId: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
+  export type PaymentProviderConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type IncentiveGrantCreateInput = {
     id?: string
     grantedAt?: Date | string
@@ -47131,6 +48475,12 @@ export namespace Prisma {
     none?: PushNotificationWhereInput
   }
 
+  export type PaymentProviderConfigListRelationFilter = {
+    every?: PaymentProviderConfigWhereInput
+    some?: PaymentProviderConfigWhereInput
+    none?: PaymentProviderConfigWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -47165,6 +48515,10 @@ export namespace Prisma {
   }
 
   export type PushNotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PaymentProviderConfigOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -47961,6 +49315,8 @@ export namespace Prisma {
     orderId?: SortOrder
     performedById?: SortOrder
     incentiveGrantId?: SortOrder
+    paymentProvider?: SortOrder
+    externalPaymentId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -47981,6 +49337,8 @@ export namespace Prisma {
     orderId?: SortOrder
     performedById?: SortOrder
     incentiveGrantId?: SortOrder
+    paymentProvider?: SortOrder
+    externalPaymentId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -47995,6 +49353,8 @@ export namespace Prisma {
     orderId?: SortOrder
     performedById?: SortOrder
     incentiveGrantId?: SortOrder
+    paymentProvider?: SortOrder
+    externalPaymentId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -49426,6 +50786,41 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type PaymentProviderConfigOrganizationIdProviderCompoundUniqueInput = {
+    organizationId: string
+    provider: string
+  }
+
+  export type PaymentProviderConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    configJson?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrder
+  }
+
+  export type PaymentProviderConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    configJson?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrder
+  }
+
+  export type PaymentProviderConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    configJson?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrder
+  }
+
   export type SegmentIncentiveRelationFilter = {
     is?: SegmentIncentiveWhereInput
     isNot?: SegmentIncentiveWhereInput
@@ -49533,6 +50928,13 @@ export namespace Prisma {
     connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
   }
 
+  export type PaymentProviderConfigCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutOrganizationInput, PaymentProviderConfigUncheckedCreateWithoutOrganizationInput> | PaymentProviderConfigCreateWithoutOrganizationInput[] | PaymentProviderConfigUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutOrganizationInput | PaymentProviderConfigCreateOrConnectWithoutOrganizationInput[]
+    createMany?: PaymentProviderConfigCreateManyOrganizationInputEnvelope
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+  }
+
   export type LocationUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -49587,6 +50989,13 @@ export namespace Prisma {
     connectOrCreate?: PushNotificationCreateOrConnectWithoutOrganizationInput | PushNotificationCreateOrConnectWithoutOrganizationInput[]
     createMany?: PushNotificationCreateManyOrganizationInputEnvelope
     connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+  }
+
+  export type PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutOrganizationInput, PaymentProviderConfigUncheckedCreateWithoutOrganizationInput> | PaymentProviderConfigCreateWithoutOrganizationInput[] | PaymentProviderConfigUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutOrganizationInput | PaymentProviderConfigCreateOrConnectWithoutOrganizationInput[]
+    createMany?: PaymentProviderConfigCreateManyOrganizationInputEnvelope
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -49713,6 +51122,20 @@ export namespace Prisma {
     deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
   }
 
+  export type PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutOrganizationInput, PaymentProviderConfigUncheckedCreateWithoutOrganizationInput> | PaymentProviderConfigCreateWithoutOrganizationInput[] | PaymentProviderConfigUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutOrganizationInput | PaymentProviderConfigCreateOrConnectWithoutOrganizationInput[]
+    upsert?: PaymentProviderConfigUpsertWithWhereUniqueWithoutOrganizationInput | PaymentProviderConfigUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: PaymentProviderConfigCreateManyOrganizationInputEnvelope
+    set?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    disconnect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    delete?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    update?: PaymentProviderConfigUpdateWithWhereUniqueWithoutOrganizationInput | PaymentProviderConfigUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: PaymentProviderConfigUpdateManyWithWhereWithoutOrganizationInput | PaymentProviderConfigUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: PaymentProviderConfigScalarWhereInput | PaymentProviderConfigScalarWhereInput[]
+  }
+
   export type LocationUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -49823,6 +51246,20 @@ export namespace Prisma {
     update?: PushNotificationUpdateWithWhereUniqueWithoutOrganizationInput | PushNotificationUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: PushNotificationUpdateManyWithWhereWithoutOrganizationInput | PushNotificationUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutOrganizationInput, PaymentProviderConfigUncheckedCreateWithoutOrganizationInput> | PaymentProviderConfigCreateWithoutOrganizationInput[] | PaymentProviderConfigUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutOrganizationInput | PaymentProviderConfigCreateOrConnectWithoutOrganizationInput[]
+    upsert?: PaymentProviderConfigUpsertWithWhereUniqueWithoutOrganizationInput | PaymentProviderConfigUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: PaymentProviderConfigCreateManyOrganizationInputEnvelope
+    set?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    disconnect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    delete?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    update?: PaymentProviderConfigUpdateWithWhereUniqueWithoutOrganizationInput | PaymentProviderConfigUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: PaymentProviderConfigUpdateManyWithWhereWithoutOrganizationInput | PaymentProviderConfigUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: PaymentProviderConfigScalarWhereInput | PaymentProviderConfigScalarWhereInput[]
   }
 
   export type CompanyEmployeeCreateNestedManyWithoutCompanyInput = {
@@ -50365,6 +51802,13 @@ export namespace Prisma {
     connect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
   }
 
+  export type PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutUpdatedByInput, PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput> | PaymentProviderConfigCreateWithoutUpdatedByInput[] | PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput | PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput[]
+    createMany?: PaymentProviderConfigCreateManyUpdatedByInputEnvelope
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+  }
+
   export type UserLocationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -50446,6 +51890,13 @@ export namespace Prisma {
     connectOrCreate?: PushSubscriptionCreateOrConnectWithoutUserInput | PushSubscriptionCreateOrConnectWithoutUserInput[]
     createMany?: PushSubscriptionCreateManyUserInputEnvelope
     connect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+  }
+
+  export type PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutUpdatedByInput, PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput> | PaymentProviderConfigCreateWithoutUpdatedByInput[] | PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput | PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput[]
+    createMany?: PaymentProviderConfigCreateManyUpdatedByInputEnvelope
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -50626,6 +52077,20 @@ export namespace Prisma {
     deleteMany?: PushSubscriptionScalarWhereInput | PushSubscriptionScalarWhereInput[]
   }
 
+  export type PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutUpdatedByInput, PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput> | PaymentProviderConfigCreateWithoutUpdatedByInput[] | PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput | PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput[]
+    upsert?: PaymentProviderConfigUpsertWithWhereUniqueWithoutUpdatedByInput | PaymentProviderConfigUpsertWithWhereUniqueWithoutUpdatedByInput[]
+    createMany?: PaymentProviderConfigCreateManyUpdatedByInputEnvelope
+    set?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    disconnect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    delete?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    update?: PaymentProviderConfigUpdateWithWhereUniqueWithoutUpdatedByInput | PaymentProviderConfigUpdateWithWhereUniqueWithoutUpdatedByInput[]
+    updateMany?: PaymentProviderConfigUpdateManyWithWhereWithoutUpdatedByInput | PaymentProviderConfigUpdateManyWithWhereWithoutUpdatedByInput[]
+    deleteMany?: PaymentProviderConfigScalarWhereInput | PaymentProviderConfigScalarWhereInput[]
+  }
+
   export type UserLocationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -50788,6 +52253,20 @@ export namespace Prisma {
     update?: PushSubscriptionUpdateWithWhereUniqueWithoutUserInput | PushSubscriptionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PushSubscriptionUpdateManyWithWhereWithoutUserInput | PushSubscriptionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PushSubscriptionScalarWhereInput | PushSubscriptionScalarWhereInput[]
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput = {
+    create?: XOR<PaymentProviderConfigCreateWithoutUpdatedByInput, PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput> | PaymentProviderConfigCreateWithoutUpdatedByInput[] | PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput | PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput[]
+    upsert?: PaymentProviderConfigUpsertWithWhereUniqueWithoutUpdatedByInput | PaymentProviderConfigUpsertWithWhereUniqueWithoutUpdatedByInput[]
+    createMany?: PaymentProviderConfigCreateManyUpdatedByInputEnvelope
+    set?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    disconnect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    delete?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    connect?: PaymentProviderConfigWhereUniqueInput | PaymentProviderConfigWhereUniqueInput[]
+    update?: PaymentProviderConfigUpdateWithWhereUniqueWithoutUpdatedByInput | PaymentProviderConfigUpdateWithWhereUniqueWithoutUpdatedByInput[]
+    updateMany?: PaymentProviderConfigUpdateManyWithWhereWithoutUpdatedByInput | PaymentProviderConfigUpdateManyWithWhereWithoutUpdatedByInput[]
+    deleteMany?: PaymentProviderConfigScalarWhereInput | PaymentProviderConfigScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWalletInput = {
@@ -52500,6 +53979,36 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPushSubscriptionsInput, UserUpdateWithoutPushSubscriptionsInput>, UserUncheckedUpdateWithoutPushSubscriptionsInput>
   }
 
+  export type OrganizationCreateNestedOneWithoutPaymentConfigsInput = {
+    create?: XOR<OrganizationCreateWithoutPaymentConfigsInput, OrganizationUncheckedCreateWithoutPaymentConfigsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutPaymentConfigsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPaymentConfigChangesInput = {
+    create?: XOR<UserCreateWithoutPaymentConfigChangesInput, UserUncheckedCreateWithoutPaymentConfigChangesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPaymentConfigChangesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutPaymentConfigsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutPaymentConfigsInput, OrganizationUncheckedCreateWithoutPaymentConfigsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutPaymentConfigsInput
+    upsert?: OrganizationUpsertWithoutPaymentConfigsInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutPaymentConfigsInput, OrganizationUpdateWithoutPaymentConfigsInput>, OrganizationUncheckedUpdateWithoutPaymentConfigsInput>
+  }
+
+  export type UserUpdateOneWithoutPaymentConfigChangesNestedInput = {
+    create?: XOR<UserCreateWithoutPaymentConfigChangesInput, UserUncheckedCreateWithoutPaymentConfigChangesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPaymentConfigChangesInput
+    upsert?: UserUpsertWithoutPaymentConfigChangesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPaymentConfigChangesInput, UserUpdateWithoutPaymentConfigChangesInput>, UserUncheckedUpdateWithoutPaymentConfigChangesInput>
+  }
+
   export type SegmentIncentiveCreateNestedOneWithoutGrantsInput = {
     create?: XOR<SegmentIncentiveCreateWithoutGrantsInput, SegmentIncentiveUncheckedCreateWithoutGrantsInput>
     connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutGrantsInput
@@ -53128,6 +54637,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -53152,6 +54662,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -53417,6 +54928,34 @@ export namespace Prisma {
 
   export type PushNotificationCreateManyOrganizationInputEnvelope = {
     data: PushNotificationCreateManyOrganizationInput | PushNotificationCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PaymentProviderConfigCreateWithoutOrganizationInput = {
+    id?: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+    updatedBy?: UserCreateNestedOneWithoutPaymentConfigChangesInput
+  }
+
+  export type PaymentProviderConfigUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
+  export type PaymentProviderConfigCreateOrConnectWithoutOrganizationInput = {
+    where: PaymentProviderConfigWhereUniqueInput
+    create: XOR<PaymentProviderConfigCreateWithoutOrganizationInput, PaymentProviderConfigUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type PaymentProviderConfigCreateManyOrganizationInputEnvelope = {
+    data: PaymentProviderConfigCreateManyOrganizationInput | PaymentProviderConfigCreateManyOrganizationInput[]
     skipDuplicates?: boolean
   }
 
@@ -53690,6 +55229,35 @@ export namespace Prisma {
     totalRecipients?: IntFilter<"PushNotification"> | number
     createdAt?: DateTimeFilter<"PushNotification"> | Date | string
     updatedAt?: DateTimeFilter<"PushNotification"> | Date | string
+  }
+
+  export type PaymentProviderConfigUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: PaymentProviderConfigWhereUniqueInput
+    update: XOR<PaymentProviderConfigUpdateWithoutOrganizationInput, PaymentProviderConfigUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<PaymentProviderConfigCreateWithoutOrganizationInput, PaymentProviderConfigUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type PaymentProviderConfigUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: PaymentProviderConfigWhereUniqueInput
+    data: XOR<PaymentProviderConfigUpdateWithoutOrganizationInput, PaymentProviderConfigUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type PaymentProviderConfigUpdateManyWithWhereWithoutOrganizationInput = {
+    where: PaymentProviderConfigScalarWhereInput
+    data: XOR<PaymentProviderConfigUpdateManyMutationInput, PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type PaymentProviderConfigScalarWhereInput = {
+    AND?: PaymentProviderConfigScalarWhereInput | PaymentProviderConfigScalarWhereInput[]
+    OR?: PaymentProviderConfigScalarWhereInput[]
+    NOT?: PaymentProviderConfigScalarWhereInput | PaymentProviderConfigScalarWhereInput[]
+    id?: StringFilter<"PaymentProviderConfig"> | string
+    organizationId?: StringFilter<"PaymentProviderConfig"> | string
+    provider?: StringFilter<"PaymentProviderConfig"> | string
+    isEnabled?: BoolFilter<"PaymentProviderConfig"> | boolean
+    configJson?: StringFilter<"PaymentProviderConfig"> | string
+    updatedAt?: DateTimeFilter<"PaymentProviderConfig"> | Date | string
+    updatedById?: StringNullableFilter<"PaymentProviderConfig"> | string | null
   }
 
   export type CompanyEmployeeCreateWithoutCompanyInput = {
@@ -54182,6 +55750,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutCompanyEmployeesInput = {
@@ -54206,6 +55775,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutCompanyEmployeesInput = {
@@ -54289,6 +55859,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyEmployeesInput = {
@@ -54313,6 +55884,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type OrganizationCreateWithoutLocationsInput = {
@@ -54331,6 +55903,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutLocationsInput = {
@@ -54349,6 +55922,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutLocationsInput = {
@@ -54557,6 +56131,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutLocationsInput = {
@@ -54575,6 +56150,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type MenuUpsertWithWhereUniqueWithoutLocationInput = {
@@ -54705,6 +56281,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -54723,6 +56300,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -54986,6 +56564,8 @@ export namespace Prisma {
     balanceBefore: Decimal | DecimalJsLike | number | string
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
     order?: OrderCreateNestedOneWithoutWalletTransactionsInput
     performedBy?: UserCreateNestedOneWithoutPerformedWalletActionsInput
@@ -55002,6 +56582,8 @@ export namespace Prisma {
     orderId?: string | null
     performedById?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -55022,6 +56604,8 @@ export namespace Prisma {
     balanceBefore: Decimal | DecimalJsLike | number | string
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutWalletTransactionsInput
     order?: OrderCreateNestedOneWithoutWalletTransactionsInput
@@ -55038,6 +56622,8 @@ export namespace Prisma {
     description?: string | null
     orderId?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -55101,6 +56687,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PaymentProviderConfigCreateWithoutUpdatedByInput = {
+    id?: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutPaymentConfigsInput
+  }
+
+  export type PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput = {
+    id?: string
+    organizationId: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentProviderConfigCreateOrConnectWithoutUpdatedByInput = {
+    where: PaymentProviderConfigWhereUniqueInput
+    create: XOR<PaymentProviderConfigCreateWithoutUpdatedByInput, PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput>
+  }
+
+  export type PaymentProviderConfigCreateManyUpdatedByInputEnvelope = {
+    data: PaymentProviderConfigCreateManyUpdatedByInput | PaymentProviderConfigCreateManyUpdatedByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutUsersInput = {
     update: XOR<OrganizationUpdateWithoutUsersInput, OrganizationUncheckedUpdateWithoutUsersInput>
     create: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
@@ -55128,6 +56742,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -55146,6 +56761,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserLocationUpsertWithWhereUniqueWithoutUserInput = {
@@ -55367,6 +56983,8 @@ export namespace Prisma {
     orderId?: StringNullableFilter<"WalletTransaction"> | string | null
     performedById?: StringNullableFilter<"WalletTransaction"> | string | null
     incentiveGrantId?: StringNullableFilter<"WalletTransaction"> | string | null
+    paymentProvider?: StringNullableFilter<"WalletTransaction"> | string | null
+    externalPaymentId?: StringNullableFilter<"WalletTransaction"> | string | null
     createdAt?: DateTimeFilter<"WalletTransaction"> | Date | string
   }
 
@@ -55441,6 +57059,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PushSubscription"> | Date | string
   }
 
+  export type PaymentProviderConfigUpsertWithWhereUniqueWithoutUpdatedByInput = {
+    where: PaymentProviderConfigWhereUniqueInput
+    update: XOR<PaymentProviderConfigUpdateWithoutUpdatedByInput, PaymentProviderConfigUncheckedUpdateWithoutUpdatedByInput>
+    create: XOR<PaymentProviderConfigCreateWithoutUpdatedByInput, PaymentProviderConfigUncheckedCreateWithoutUpdatedByInput>
+  }
+
+  export type PaymentProviderConfigUpdateWithWhereUniqueWithoutUpdatedByInput = {
+    where: PaymentProviderConfigWhereUniqueInput
+    data: XOR<PaymentProviderConfigUpdateWithoutUpdatedByInput, PaymentProviderConfigUncheckedUpdateWithoutUpdatedByInput>
+  }
+
+  export type PaymentProviderConfigUpdateManyWithWhereWithoutUpdatedByInput = {
+    where: PaymentProviderConfigScalarWhereInput
+    data: XOR<PaymentProviderConfigUpdateManyMutationInput, PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByInput>
+  }
+
   export type UserCreateWithoutWalletInput = {
     id?: string
     email: string
@@ -55463,6 +57097,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -55487,6 +57122,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -55527,6 +57163,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -55551,6 +57188,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserCreateWithoutWalletTransactionsInput = {
@@ -55575,6 +57213,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutWalletTransactionsInput = {
@@ -55599,6 +57238,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutWalletTransactionsInput = {
@@ -55683,6 +57323,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPerformedWalletActionsInput = {
@@ -55707,6 +57348,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPerformedWalletActionsInput = {
@@ -55776,6 +57418,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
@@ -55800,6 +57443,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type OrderUpsertWithoutWalletTransactionsInput = {
@@ -55896,6 +57540,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedWalletActionsInput = {
@@ -55920,6 +57565,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type IncentiveGrantUpsertWithoutWalletTransactionInput = {
@@ -55979,6 +57625,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLocationsInput = {
@@ -56003,6 +57650,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLocationsInput = {
@@ -56082,6 +57730,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLocationsInput = {
@@ -56106,6 +57755,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type LocationUpsertWithoutUsersInput = {
@@ -56175,6 +57825,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -56199,6 +57850,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -56239,6 +57891,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -56263,6 +57916,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -56287,6 +57941,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -56311,6 +57966,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -56351,6 +58007,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -56375,6 +58032,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type LocationCreateWithoutMenusInput = {
@@ -57310,6 +58968,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -57334,6 +58993,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -57474,6 +59134,8 @@ export namespace Prisma {
     balanceBefore: Decimal | DecimalJsLike | number | string
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutWalletTransactionsInput
     performedBy?: UserCreateNestedOneWithoutPerformedWalletActionsInput
@@ -57490,6 +59152,8 @@ export namespace Prisma {
     description?: string | null
     performedById?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -57536,6 +59200,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -57560,6 +59225,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type LocationUpsertWithoutOrdersInput = {
@@ -58163,6 +59829,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutCouponRedemptionsInput = {
@@ -58187,6 +59854,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutCouponRedemptionsInput = {
@@ -58339,6 +60007,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCouponRedemptionsInput = {
@@ -58363,6 +60032,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type OrderUpsertWithoutCouponRedemptionsInput = {
@@ -58638,6 +60308,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSegmentsInput = {
@@ -58656,6 +60327,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSegmentsInput = {
@@ -58866,6 +60538,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSegmentsInput = {
@@ -58884,6 +60557,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type InAppMessageUpsertWithWhereUniqueWithoutSegmentInput = {
@@ -58966,6 +60640,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutInAppMessagesInput = {
@@ -58984,6 +60659,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutInAppMessagesInput = {
@@ -59110,6 +60786,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutInAppMessagesInput = {
@@ -59128,6 +60805,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutInAppMessagesInput = {
@@ -59346,6 +61024,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutWorkflowsInput = {
@@ -59364,6 +61043,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutWorkflowsInput = {
@@ -59457,6 +61137,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutWorkflowsInput = {
@@ -59475,6 +61156,7 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutWorkflowsInput = {
@@ -59632,6 +61314,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSegmentIncentivesInput = {
@@ -59650,6 +61333,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSegmentIncentivesInput = {
@@ -59802,6 +61486,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSegmentIncentivesInput = {
@@ -59820,6 +61505,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutSegmentIncentivesInput = {
@@ -59950,6 +61636,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutMarketingTemplatesInput = {
@@ -59968,6 +61655,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutMarketingTemplatesInput = {
@@ -60130,6 +61818,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutMarketingTemplatesInput = {
@@ -60148,6 +61837,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type InAppMessageUpsertWithWhereUniqueWithoutMarketingTemplateInput = {
@@ -60214,6 +61904,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutPushNotificationsInput = {
@@ -60232,6 +61923,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutPushNotificationsInput = {
@@ -60360,6 +62052,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutPushNotificationsInput = {
@@ -60378,6 +62071,7 @@ export namespace Prisma {
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutPushNotificationsInput = {
@@ -60539,6 +62233,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPushNotificationLogsInput = {
@@ -60563,6 +62258,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPushNotificationLogsInput = {
@@ -60648,6 +62344,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushNotificationLogsInput = {
@@ -60672,6 +62369,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserCreateWithoutPushSubscriptionsInput = {
@@ -60696,6 +62394,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -60720,6 +62419,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -60760,6 +62460,7 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -60784,6 +62485,215 @@ export namespace Prisma {
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+  }
+
+  export type OrganizationCreateWithoutPaymentConfigsInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationCreateNestedManyWithoutOrganizationInput
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutPaymentConfigsInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutPaymentConfigsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutPaymentConfigsInput, OrganizationUncheckedCreateWithoutPaymentConfigsInput>
+  }
+
+  export type UserCreateWithoutPaymentConfigChangesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPaymentConfigChangesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPaymentConfigChangesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPaymentConfigChangesInput, UserUncheckedCreateWithoutPaymentConfigChangesInput>
+  }
+
+  export type OrganizationUpsertWithoutPaymentConfigsInput = {
+    update: XOR<OrganizationUpdateWithoutPaymentConfigsInput, OrganizationUncheckedUpdateWithoutPaymentConfigsInput>
+    create: XOR<OrganizationCreateWithoutPaymentConfigsInput, OrganizationUncheckedCreateWithoutPaymentConfigsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutPaymentConfigsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutPaymentConfigsInput, OrganizationUncheckedUpdateWithoutPaymentConfigsInput>
+  }
+
+  export type OrganizationUpdateWithoutPaymentConfigsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUpdateManyWithoutOrganizationNestedInput
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutPaymentConfigsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type UserUpsertWithoutPaymentConfigChangesInput = {
+    update: XOR<UserUpdateWithoutPaymentConfigChangesInput, UserUncheckedUpdateWithoutPaymentConfigChangesInput>
+    create: XOR<UserCreateWithoutPaymentConfigChangesInput, UserUncheckedCreateWithoutPaymentConfigChangesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPaymentConfigChangesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPaymentConfigChangesInput, UserUncheckedUpdateWithoutPaymentConfigChangesInput>
+  }
+
+  export type UserUpdateWithoutPaymentConfigChangesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPaymentConfigChangesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SegmentIncentiveCreateWithoutGrantsInput = {
@@ -60849,6 +62759,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutIncentiveGrantsInput = {
@@ -60873,6 +62784,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
     pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutIncentiveGrantsInput = {
@@ -60938,6 +62850,8 @@ export namespace Prisma {
     balanceBefore: Decimal | DecimalJsLike | number | string
     balanceAfter: Decimal | DecimalJsLike | number | string
     description?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutWalletTransactionsInput
     order?: OrderCreateNestedOneWithoutWalletTransactionsInput
@@ -60954,6 +62868,8 @@ export namespace Prisma {
     description?: string | null
     orderId?: string | null
     performedById?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -61042,6 +62958,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncentiveGrantsInput = {
@@ -61066,6 +62983,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type CouponUpsertWithoutIncentiveGrantsInput = {
@@ -61143,6 +63061,8 @@ export namespace Prisma {
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
     order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
@@ -61159,6 +63079,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -61274,6 +63196,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type PaymentProviderConfigCreateManyOrganizationInput = {
+    id?: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
   export type LocationUpdateWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -61343,6 +63274,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -61367,6 +63299,7 @@ export namespace Prisma {
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
     pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -61662,6 +63595,33 @@ export namespace Prisma {
     totalRecipients?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentProviderConfigUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: UserUpdateOneWithoutPaymentConfigChangesNestedInput
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyEmployeeCreateManyCompanyInput = {
@@ -62221,6 +64181,8 @@ export namespace Prisma {
     orderId?: string | null
     performedById?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -62234,6 +64196,8 @@ export namespace Prisma {
     description?: string | null
     orderId?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -62250,6 +64214,15 @@ export namespace Prisma {
     p256dhKey: string
     authKey: string
     createdAt?: Date | string
+  }
+
+  export type PaymentProviderConfigCreateManyUpdatedByInput = {
+    id?: string
+    organizationId: string
+    provider: string
+    isEnabled?: boolean
+    configJson: string
+    updatedAt?: Date | string
   }
 
   export type UserLocationUpdateWithoutUserInput = {
@@ -62498,6 +64471,8 @@ export namespace Prisma {
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
     performedBy?: UserUpdateOneWithoutPerformedWalletActionsNestedInput
@@ -62514,6 +64489,8 @@ export namespace Prisma {
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -62527,6 +64504,8 @@ export namespace Prisma {
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -62537,6 +64516,8 @@ export namespace Prisma {
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
     order?: OrderUpdateOneWithoutWalletTransactionsNestedInput
@@ -62553,6 +64534,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -62566,6 +64549,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -62612,6 +64597,33 @@ export namespace Prisma {
     p256dhKey?: StringFieldUpdateOperationsInput | string
     authKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentProviderConfigUpdateWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPaymentConfigsNestedInput
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    configJson?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MenuItemCreateManyMenuInput = {
@@ -62927,6 +64939,8 @@ export namespace Prisma {
     description?: string | null
     performedById?: string | null
     incentiveGrantId?: string | null
+    paymentProvider?: string | null
+    externalPaymentId?: string | null
     createdAt?: Date | string
   }
 
@@ -62982,6 +64996,8 @@ export namespace Prisma {
     balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceAfter?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletTransactionsNestedInput
     performedBy?: UserUpdateOneWithoutPerformedWalletActionsNestedInput
@@ -62998,6 +65014,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -63011,6 +65029,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -63997,6 +66017,10 @@ export namespace Prisma {
      * @deprecated Use PushSubscriptionDefaultArgs instead
      */
     export type PushSubscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PushSubscriptionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PaymentProviderConfigDefaultArgs instead
+     */
+    export type PaymentProviderConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentProviderConfigDefaultArgs<ExtArgs>
     /**
      * @deprecated Use IncentiveGrantDefaultArgs instead
      */

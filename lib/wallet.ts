@@ -20,11 +20,16 @@ export async function ensureWallet(userId: string) {
   return wallet
 }
 
-/** Guthaben aufladen (Admin). Betrag positiv. */
+/** Guthaben aufladen (Admin oder Online-Payment). Betrag positiv. */
 export async function topUp(
   userId: string,
   amount: number,
-  options: { note?: string; performedById?: string }
+  options: {
+    note?: string
+    performedById?: string
+    paymentProvider?: string
+    externalPaymentId?: string
+  }
 ) {
   if (amount < MIN_TOP_UP || amount > MAX_TOP_UP) {
     throw new Error(`Betrag muss zwischen ${MIN_TOP_UP} und ${MAX_TOP_UP} EUR liegen.`)
@@ -46,6 +51,8 @@ export async function topUp(
         balanceAfter,
         description: options.note || `Aufladung`,
         performedById: options.performedById ?? undefined,
+        paymentProvider: options.paymentProvider ?? undefined,
+        externalPaymentId: options.externalPaymentId ?? undefined,
       },
     })
     return updated

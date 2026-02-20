@@ -30,6 +30,7 @@ model Organization {
   segmentIncentives SegmentIncentive[]
   marketingTemplates MarketingTemplate[]
   pushNotifications  PushNotification[]
+  paymentConfigs     PaymentProviderConfig[]
 
   @@map("organizations")
 }
@@ -172,6 +173,7 @@ model User {
   performedWalletActions WalletTransaction[] @relation("WalletAudit")
   pushNotificationLogs PushNotificationLog[]
   pushSubscriptions    PushSubscription[]
+  paymentConfigChanges PaymentProviderConfig[] @relation("PaymentConfigAudit")
 
   @@map("users")
 }
@@ -207,6 +209,8 @@ model WalletTransaction {
   orderId       String?
   performedById String?               // Admin bei TOP_UP/ADJUSTMENT
   incentiveGrantId String?            @unique // PROJ-4e: Bei INCENTIVE-Transaktion (1:1)
+  paymentProvider  String?            @db.VarChar(20) // PROJ-14: stripe | paypal | sumup
+  externalPaymentId String?           @db.VarChar(200) // PROJ-14: Externe Transaktions-ID (Idempotenz)
   createdAt     DateTime              @default(now())
 
   user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -787,6 +791,24 @@ model PushSubscription {
   @@unique([userId, endpoint])
   @@index([userId])
   @@map("push_subscriptions")
+}
+
+// PROJ-14: Payment-Provider-Konfiguration (verschlüsselt in DB)
+model PaymentProviderConfig {
+  id             String   @id @default(cuid())
+  organizationId String
+  provider       String   @db.VarChar(20) // stripe | paypal | sumup
+  isEnabled      Boolean  @default(false)
+  configJson     String   @db.Text        // AES-256-GCM verschlüsseltes JSON mit Keys
+  updatedAt      DateTime @updatedAt
+  updatedById    String?
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  updatedBy      User?        @relation("PaymentConfigAudit", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  @@unique([organizationId, provider])
+  @@index([organizationId])
+  @@map("payment_provider_configs")
 }
 
 // PROJ-4e: Wer hat welchen Incentive erhalten?

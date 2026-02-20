@@ -24,6 +24,7 @@ import {
   Receipt,
   LayoutTemplate,
   BellRing,
+  CreditCard,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -113,6 +114,7 @@ const menuGroups = [
     label: 'System',
     items: [
       { title: 'Einstellungen', url: '/admin/settings', icon: Settings },
+      { title: 'Zahlungen', url: '/admin/settings/payments', icon: CreditCard },
     ],
   },
 ]
