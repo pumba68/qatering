@@ -40,13 +40,26 @@ export async function PUT(
   }
 
   // Encrypt the config JSON
-  const configJson = encryptConfig(JSON.stringify(config))
+  let configJson: string
+  try {
+    configJson = encryptConfig(JSON.stringify(config))
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Verschlüsselung fehlgeschlagen'
+    console.error('[payments PUT] encryptConfig failed:', message)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 
-  await prisma.paymentProviderConfig.upsert({
-    where: { organizationId_provider: { organizationId, provider } },
-    update: { isEnabled, configJson, updatedById: userId },
-    create: { organizationId, provider, isEnabled, configJson, updatedById: userId },
-  })
+  try {
+    await prisma.paymentProviderConfig.upsert({
+      where: { organizationId_provider: { organizationId, provider } },
+      update: { isEnabled, configJson, updatedById: userId },
+      create: { organizationId, provider, isEnabled, configJson, updatedById: userId },
+    })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Datenbankfehler'
+    console.error('[payments PUT] DB upsert failed:', message)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 
   invalidateActiveProvidersCache()
 
