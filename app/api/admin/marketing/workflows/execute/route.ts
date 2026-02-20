@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 /**
  * POST: Workflows ausführen (für Cron/Manuelle Auslösung).
  * Führt alle aktiven Workflows mit SCHEDULED-Trigger aus.

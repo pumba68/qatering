@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 /**
  * GET: Incentive-Codes des eingeloggten Users (personalisierte Coupons, noch nicht eingelöst).
  */

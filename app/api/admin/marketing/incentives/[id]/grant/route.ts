@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { grantIncentiveToSegment } from '@/lib/incentive-grant'
