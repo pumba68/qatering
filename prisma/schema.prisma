@@ -28,6 +28,8 @@ model Organization {
   inAppMessages InAppMessage[]
   workflows   MarketingWorkflow[]
   segmentIncentives SegmentIncentive[]
+  marketingTemplates MarketingTemplate[]
+  pushNotifications  PushNotification[]
 
   @@map("organizations")
 }
@@ -168,6 +170,8 @@ model User {
   wallet        Wallet?
   walletTransactions WalletTransaction[]
   performedWalletActions WalletTransaction[] @relation("WalletAudit")
+  pushNotificationLogs PushNotificationLog[]
+  pushSubscriptions    PushSubscription[]
 
   @@map("users")
 }
@@ -299,17 +303,21 @@ model Menu {
 
 // Wiederverwendbare Motto-/Promotion-Banner (z. B. "Bayerische Woche", "Italian Week")
 model PromotionBanner {
-  id        String   @id @default(cuid())
-  title     String   @db.VarChar(200)
-  subtitle  String?  @db.VarChar(500)
-  imageUrl  String?  @db.Text
-  couponId  String?  // PROJ-4e: Optionaler Coupon für dezenten Hinweis (z. B. "Code BAYERN10")
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                  String   @id @default(cuid())
+  title               String   @db.VarChar(200)
+  subtitle            String?  @db.VarChar(500)
+  imageUrl            String?  @db.Text
+  couponId            String?  // PROJ-4e: Optionaler Coupon für dezenten Hinweis (z. B. "Code BAYERN10")
+  isActive            Boolean  @default(true)
+  // PROJ-10: Optionale Block-Editor Verknüpfung
+  marketingTemplateId String?
+  templateSnapshot    Json?    // Snapshot des Template-Inhalts bei Zuweisung
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  coupon          Coupon? @relation(fields: [couponId], references: [id], onDelete: SetNull)
-  menuAssignments MenuPromotionBanner[]
+  coupon            Coupon?            @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  marketingTemplate MarketingTemplate? @relation("PromotionBannerTemplate", fields: [marketingTemplateId], references: [id], onDelete: SetNull)
+  menuAssignments   MenuPromotionBanner[]
 
   @@map("promotion_banners")
 }
@@ -546,8 +554,9 @@ model CustomerSegment {
 
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   inAppMessages InAppMessage[]
-  workflows      MarketingWorkflow[]
+  workflows         MarketingWorkflow[]
   segmentIncentives SegmentIncentive[]
+  pushNotifications PushNotification[]
 
   @@unique([organizationId, name])
   @@index([organizationId])
@@ -558,24 +567,28 @@ model CustomerSegment {
 // displayType: POPUP = Modal/Overlay, BANNER = Karte auf Seite, SLOT = dynamischer Platz (slotId)
 // slotId: z.B. menu_top, menu_sidebar, dashboard_hero, wallet_top, popup_after_login
 model InAppMessage {
-  id             String    @id @default(cuid())
-  organizationId String
-  segmentId      String
-  title          String?   @db.VarChar(200)
-  body           String    @db.Text
-  linkUrl        String?   @db.Text
-  displayPlace   String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard (Seite für BANNER)
-  displayType    String    @default("BANNER") @db.VarChar(20) // POPUP | BANNER | SLOT
-  slotId         String?   @db.VarChar(80) // z.B. menu_top, popup_after_login (bei SLOT oder POPUP)
-  startDate      DateTime  @default(now())
-  endDate        DateTime?
-  isActive       Boolean   @default(true)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id                  String    @id @default(cuid())
+  organizationId      String
+  segmentId           String
+  title               String?   @db.VarChar(200)
+  body                String    @db.Text
+  linkUrl             String?   @db.Text
+  displayPlace        String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard (Seite für BANNER)
+  displayType         String    @default("BANNER") @db.VarChar(20) // POPUP | BANNER | SLOT
+  slotId              String?   @db.VarChar(80) // z.B. menu_top, popup_after_login (bei SLOT oder POPUP)
+  startDate           DateTime  @default(now())
+  endDate             DateTime?
+  isActive            Boolean   @default(true)
+  // PROJ-10: Optionale Block-Editor Verknüpfung (nullable → kein Breaking Change)
+  marketingTemplateId String?
+  templateSnapshot    Json?     // Snapshot des Template-Inhalts bei Aktivierung
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
-  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  segment        CustomerSegment @relation(fields: [segmentId], references: [id], onDelete: Cascade)
-  readBy         InAppMessageRead[]
+  organization      Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment           CustomerSegment    @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  marketingTemplate MarketingTemplate? @relation("InAppMessageTemplate", fields: [marketingTemplateId], references: [id], onDelete: SetNull)
+  readBy            InAppMessageRead[]
 
   @@index([organizationId])
   @@index([segmentId])
@@ -665,6 +678,115 @@ model SegmentIncentive {
   @@index([segmentId])
   @@index([isActive, startDate, endDate])
   @@map("segment_incentives")
+}
+
+// PROJ-7/8: Marketing Template Library & Block-Editor
+enum MarketingTemplateType {
+  EMAIL
+  IN_APP_BANNER
+  PROMOTION_BANNER
+  PUSH
+}
+
+enum MarketingTemplateStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+model MarketingTemplate {
+  id             String                  @id @default(cuid())
+  organizationId String?                 // null = plattformweite Starter-Templates
+  name           String                  @db.VarChar(200)
+  type           MarketingTemplateType
+  content        Json                    @default("{}")  // Block-Editor JSON
+  status         MarketingTemplateStatus @default(ACTIVE)
+  isStarter      Boolean                 @default(false)
+  isFavorite     Boolean                 @default(false)
+  thumbnailUrl   String?                 @db.Text
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  organization      Organization?       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  // PROJ-10: Back-relations
+  inAppMessages     InAppMessage[]      @relation("InAppMessageTemplate")
+  promotionBanners  PromotionBanner[]   @relation("PromotionBannerTemplate")
+  pushNotifications PushNotification[]
+
+  @@index([organizationId, type, status])
+  @@index([isStarter])
+  @@map("marketing_templates")
+}
+
+// PROJ-10: Push-Benachrichtigungen ─────────────────────────────────────────────
+
+enum PushNotificationStatus {
+  DRAFT
+  SCHEDULED
+  SENT
+  FAILED
+}
+
+enum PushDeliveryStatus {
+  SENT
+  DELIVERED
+  FAILED
+}
+
+model PushNotification {
+  id                  String                  @id @default(cuid())
+  organizationId      String
+  segmentId           String
+  marketingTemplateId String?
+  templateSnapshot    Json?                   // Snapshot des Template-Inhalts bei Versand
+  pushTitle           String                  @db.VarChar(65)
+  pushBody            String                  @db.VarChar(200)
+  deepLink            String?                 @db.VarChar(500) // In-App Deep-Link URL
+  status              PushNotificationStatus  @default(DRAFT)
+  scheduledAt         DateTime?               // null = sofort senden
+  sentAt              DateTime?
+  totalRecipients     Int                     @default(0)
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+
+  organization      Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment           CustomerSegment    @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  marketingTemplate MarketingTemplate? @relation(fields: [marketingTemplateId], references: [id], onDelete: SetNull)
+  logs              PushNotificationLog[]
+
+  @@index([organizationId, status])
+  @@index([segmentId])
+  @@map("push_notifications")
+}
+
+model PushNotificationLog {
+  id                 String             @id @default(cuid())
+  pushNotificationId String
+  userId             String
+  status             PushDeliveryStatus
+  sentAt             DateTime           @default(now())
+
+  pushNotification PushNotification @relation(fields: [pushNotificationId], references: [id], onDelete: Cascade)
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([pushNotificationId, userId])
+  @@index([pushNotificationId])
+  @@map("push_notification_logs")
+}
+
+// PROJ-10: Browser Push-Subscriptions (VAPID)
+model PushSubscription {
+  id             String   @id @default(cuid())
+  userId         String
+  endpoint       String   @db.Text
+  p256dhKey      String   @db.Text
+  authKey        String   @db.Text
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, endpoint])
+  @@index([userId])
+  @@map("push_subscriptions")
 }
 
 // PROJ-4e: Wer hat welchen Incentive erhalten?

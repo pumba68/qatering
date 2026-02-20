@@ -159,6 +159,26 @@ export type WorkflowExecutionLog = $Result.DefaultSelection<Prisma.$WorkflowExec
  */
 export type SegmentIncentive = $Result.DefaultSelection<Prisma.$SegmentIncentivePayload>
 /**
+ * Model MarketingTemplate
+ * 
+ */
+export type MarketingTemplate = $Result.DefaultSelection<Prisma.$MarketingTemplatePayload>
+/**
+ * Model PushNotification
+ * 
+ */
+export type PushNotification = $Result.DefaultSelection<Prisma.$PushNotificationPayload>
+/**
+ * Model PushNotificationLog
+ * 
+ */
+export type PushNotificationLog = $Result.DefaultSelection<Prisma.$PushNotificationLogPayload>
+/**
+ * Model PushSubscription
+ * 
+ */
+export type PushSubscription = $Result.DefaultSelection<Prisma.$PushSubscriptionPayload>
+/**
  * Model IncentiveGrant
  * 
  */
@@ -238,6 +258,43 @@ export const MetadataType: {
 
 export type MetadataType = (typeof MetadataType)[keyof typeof MetadataType]
 
+
+export const MarketingTemplateType: {
+  EMAIL: 'EMAIL',
+  IN_APP_BANNER: 'IN_APP_BANNER',
+  PROMOTION_BANNER: 'PROMOTION_BANNER',
+  PUSH: 'PUSH'
+};
+
+export type MarketingTemplateType = (typeof MarketingTemplateType)[keyof typeof MarketingTemplateType]
+
+
+export const MarketingTemplateStatus: {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type MarketingTemplateStatus = (typeof MarketingTemplateStatus)[keyof typeof MarketingTemplateStatus]
+
+
+export const PushNotificationStatus: {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  SENT: 'SENT',
+  FAILED: 'FAILED'
+};
+
+export type PushNotificationStatus = (typeof PushNotificationStatus)[keyof typeof PushNotificationStatus]
+
+
+export const PushDeliveryStatus: {
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED'
+};
+
+export type PushDeliveryStatus = (typeof PushDeliveryStatus)[keyof typeof PushDeliveryStatus]
+
 }
 
 export type SubsidyType = $Enums.SubsidyType
@@ -267,6 +324,22 @@ export const CouponType: typeof $Enums.CouponType
 export type MetadataType = $Enums.MetadataType
 
 export const MetadataType: typeof $Enums.MetadataType
+
+export type MarketingTemplateType = $Enums.MarketingTemplateType
+
+export const MarketingTemplateType: typeof $Enums.MarketingTemplateType
+
+export type MarketingTemplateStatus = $Enums.MarketingTemplateStatus
+
+export const MarketingTemplateStatus: typeof $Enums.MarketingTemplateStatus
+
+export type PushNotificationStatus = $Enums.PushNotificationStatus
+
+export const PushNotificationStatus: typeof $Enums.PushNotificationStatus
+
+export type PushDeliveryStatus = $Enums.PushDeliveryStatus
+
+export const PushDeliveryStatus: typeof $Enums.PushDeliveryStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -680,6 +753,46 @@ export class PrismaClient<
     * ```
     */
   get segmentIncentive(): Prisma.SegmentIncentiveDelegate<ExtArgs>;
+
+  /**
+   * `prisma.marketingTemplate`: Exposes CRUD operations for the **MarketingTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MarketingTemplates
+    * const marketingTemplates = await prisma.marketingTemplate.findMany()
+    * ```
+    */
+  get marketingTemplate(): Prisma.MarketingTemplateDelegate<ExtArgs>;
+
+  /**
+   * `prisma.pushNotification`: Exposes CRUD operations for the **PushNotification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PushNotifications
+    * const pushNotifications = await prisma.pushNotification.findMany()
+    * ```
+    */
+  get pushNotification(): Prisma.PushNotificationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.pushNotificationLog`: Exposes CRUD operations for the **PushNotificationLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PushNotificationLogs
+    * const pushNotificationLogs = await prisma.pushNotificationLog.findMany()
+    * ```
+    */
+  get pushNotificationLog(): Prisma.PushNotificationLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.pushSubscription`: Exposes CRUD operations for the **PushSubscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PushSubscriptions
+    * const pushSubscriptions = await prisma.pushSubscription.findMany()
+    * ```
+    */
+  get pushSubscription(): Prisma.PushSubscriptionDelegate<ExtArgs>;
 
   /**
    * `prisma.incentiveGrant`: Exposes CRUD operations for the **IncentiveGrant** model.
@@ -1160,6 +1273,10 @@ export namespace Prisma {
     MarketingWorkflow: 'MarketingWorkflow',
     WorkflowExecutionLog: 'WorkflowExecutionLog',
     SegmentIncentive: 'SegmentIncentive',
+    MarketingTemplate: 'MarketingTemplate',
+    PushNotification: 'PushNotification',
+    PushNotificationLog: 'PushNotificationLog',
+    PushSubscription: 'PushSubscription',
     IncentiveGrant: 'IncentiveGrant'
   };
 
@@ -1176,7 +1293,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "incentiveGrant"
+      modelProps: "organization" | "company" | "companyInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "incentiveGrant"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3210,6 +3327,286 @@ export namespace Prisma {
           }
         }
       }
+      MarketingTemplate: {
+        payload: Prisma.$MarketingTemplatePayload<ExtArgs>
+        fields: Prisma.MarketingTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MarketingTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MarketingTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.MarketingTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MarketingTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.MarketingTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.MarketingTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.MarketingTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MarketingTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.MarketingTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>
+          }
+          update: {
+            args: Prisma.MarketingTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.MarketingTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MarketingTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MarketingTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.MarketingTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMarketingTemplate>
+          }
+          groupBy: {
+            args: Prisma.MarketingTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MarketingTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MarketingTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<MarketingTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      PushNotification: {
+        payload: Prisma.$PushNotificationPayload<ExtArgs>
+        fields: Prisma.PushNotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PushNotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PushNotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.PushNotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PushNotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>
+          }
+          findMany: {
+            args: Prisma.PushNotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>[]
+          }
+          create: {
+            args: Prisma.PushNotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>
+          }
+          createMany: {
+            args: Prisma.PushNotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PushNotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.PushNotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>
+          }
+          update: {
+            args: Prisma.PushNotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.PushNotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PushNotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PushNotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.PushNotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePushNotification>
+          }
+          groupBy: {
+            args: Prisma.PushNotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PushNotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PushNotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<PushNotificationCountAggregateOutputType> | number
+          }
+        }
+      }
+      PushNotificationLog: {
+        payload: Prisma.$PushNotificationLogPayload<ExtArgs>
+        fields: Prisma.PushNotificationLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PushNotificationLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PushNotificationLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>
+          }
+          findFirst: {
+            args: Prisma.PushNotificationLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PushNotificationLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>
+          }
+          findMany: {
+            args: Prisma.PushNotificationLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>[]
+          }
+          create: {
+            args: Prisma.PushNotificationLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>
+          }
+          createMany: {
+            args: Prisma.PushNotificationLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PushNotificationLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>[]
+          }
+          delete: {
+            args: Prisma.PushNotificationLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>
+          }
+          update: {
+            args: Prisma.PushNotificationLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.PushNotificationLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PushNotificationLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PushNotificationLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushNotificationLogPayload>
+          }
+          aggregate: {
+            args: Prisma.PushNotificationLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePushNotificationLog>
+          }
+          groupBy: {
+            args: Prisma.PushNotificationLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PushNotificationLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PushNotificationLogCountArgs<ExtArgs>
+            result: $Utils.Optional<PushNotificationLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      PushSubscription: {
+        payload: Prisma.$PushSubscriptionPayload<ExtArgs>
+        fields: Prisma.PushSubscriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PushSubscriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PushSubscriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.PushSubscriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PushSubscriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>
+          }
+          findMany: {
+            args: Prisma.PushSubscriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>[]
+          }
+          create: {
+            args: Prisma.PushSubscriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>
+          }
+          createMany: {
+            args: Prisma.PushSubscriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PushSubscriptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>[]
+          }
+          delete: {
+            args: Prisma.PushSubscriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>
+          }
+          update: {
+            args: Prisma.PushSubscriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PushSubscriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PushSubscriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PushSubscriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushSubscriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.PushSubscriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePushSubscription>
+          }
+          groupBy: {
+            args: Prisma.PushSubscriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PushSubscriptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PushSubscriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<PushSubscriptionCountAggregateOutputType> | number
+          }
+        }
+      }
       IncentiveGrant: {
         payload: Prisma.$IncentiveGrantPayload<ExtArgs>
         fields: Prisma.IncentiveGrantFieldRefs
@@ -3447,6 +3844,8 @@ export namespace Prisma {
     inAppMessages: number
     workflows: number
     segmentIncentives: number
+    marketingTemplates: number
+    pushNotifications: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3456,6 +3855,8 @@ export namespace Prisma {
     inAppMessages?: boolean | OrganizationCountOutputTypeCountInAppMessagesArgs
     workflows?: boolean | OrganizationCountOutputTypeCountWorkflowsArgs
     segmentIncentives?: boolean | OrganizationCountOutputTypeCountSegmentIncentivesArgs
+    marketingTemplates?: boolean | OrganizationCountOutputTypeCountMarketingTemplatesArgs
+    pushNotifications?: boolean | OrganizationCountOutputTypeCountPushNotificationsArgs
   }
 
   // Custom InputTypes
@@ -3509,6 +3910,20 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountSegmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SegmentIncentiveWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountMarketingTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MarketingTemplateWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountPushNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushNotificationWhereInput
   }
 
 
@@ -3664,6 +4079,8 @@ export namespace Prisma {
     incentiveGrants: number
     walletTransactions: number
     performedWalletActions: number
+    pushNotificationLogs: number
+    pushSubscriptions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3676,6 +4093,8 @@ export namespace Prisma {
     incentiveGrants?: boolean | UserCountOutputTypeCountIncentiveGrantsArgs
     walletTransactions?: boolean | UserCountOutputTypeCountWalletTransactionsArgs
     performedWalletActions?: boolean | UserCountOutputTypeCountPerformedWalletActionsArgs
+    pushNotificationLogs?: boolean | UserCountOutputTypeCountPushNotificationLogsArgs
+    pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
   }
 
   // Custom InputTypes
@@ -3750,6 +4169,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPerformedWalletActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WalletTransactionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPushNotificationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushNotificationLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPushSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushSubscriptionWhereInput
   }
 
 
@@ -4010,12 +4443,14 @@ export namespace Prisma {
     inAppMessages: number
     workflows: number
     segmentIncentives: number
+    pushNotifications: number
   }
 
   export type CustomerSegmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     inAppMessages?: boolean | CustomerSegmentCountOutputTypeCountInAppMessagesArgs
     workflows?: boolean | CustomerSegmentCountOutputTypeCountWorkflowsArgs
     segmentIncentives?: boolean | CustomerSegmentCountOutputTypeCountSegmentIncentivesArgs
+    pushNotifications?: boolean | CustomerSegmentCountOutputTypeCountPushNotificationsArgs
   }
 
   // Custom InputTypes
@@ -4048,6 +4483,13 @@ export namespace Prisma {
    */
   export type CustomerSegmentCountOutputTypeCountSegmentIncentivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SegmentIncentiveWhereInput
+  }
+
+  /**
+   * CustomerSegmentCountOutputType without action
+   */
+  export type CustomerSegmentCountOutputTypeCountPushNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushNotificationWhereInput
   }
 
 
@@ -4141,6 +4583,86 @@ export namespace Prisma {
    */
   export type SegmentIncentiveCountOutputTypeCountGrantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IncentiveGrantWhereInput
+  }
+
+
+  /**
+   * Count Type MarketingTemplateCountOutputType
+   */
+
+  export type MarketingTemplateCountOutputType = {
+    inAppMessages: number
+    promotionBanners: number
+    pushNotifications: number
+  }
+
+  export type MarketingTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inAppMessages?: boolean | MarketingTemplateCountOutputTypeCountInAppMessagesArgs
+    promotionBanners?: boolean | MarketingTemplateCountOutputTypeCountPromotionBannersArgs
+    pushNotifications?: boolean | MarketingTemplateCountOutputTypeCountPushNotificationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MarketingTemplateCountOutputType without action
+   */
+  export type MarketingTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateCountOutputType
+     */
+    select?: MarketingTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MarketingTemplateCountOutputType without action
+   */
+  export type MarketingTemplateCountOutputTypeCountInAppMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InAppMessageWhereInput
+  }
+
+  /**
+   * MarketingTemplateCountOutputType without action
+   */
+  export type MarketingTemplateCountOutputTypeCountPromotionBannersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PromotionBannerWhereInput
+  }
+
+  /**
+   * MarketingTemplateCountOutputType without action
+   */
+  export type MarketingTemplateCountOutputTypeCountPushNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushNotificationWhereInput
+  }
+
+
+  /**
+   * Count Type PushNotificationCountOutputType
+   */
+
+  export type PushNotificationCountOutputType = {
+    logs: number
+  }
+
+  export type PushNotificationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    logs?: boolean | PushNotificationCountOutputTypeCountLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PushNotificationCountOutputType without action
+   */
+  export type PushNotificationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationCountOutputType
+     */
+    select?: PushNotificationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PushNotificationCountOutputType without action
+   */
+  export type PushNotificationCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushNotificationLogWhereInput
   }
 
 
@@ -4342,6 +4864,8 @@ export namespace Prisma {
     inAppMessages?: boolean | Organization$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | Organization$workflowsArgs<ExtArgs>
     segmentIncentives?: boolean | Organization$segmentIncentivesArgs<ExtArgs>
+    marketingTemplates?: boolean | Organization$marketingTemplatesArgs<ExtArgs>
+    pushNotifications?: boolean | Organization$pushNotificationsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -4374,6 +4898,8 @@ export namespace Prisma {
     inAppMessages?: boolean | Organization$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | Organization$workflowsArgs<ExtArgs>
     segmentIncentives?: boolean | Organization$segmentIncentivesArgs<ExtArgs>
+    marketingTemplates?: boolean | Organization$marketingTemplatesArgs<ExtArgs>
+    pushNotifications?: boolean | Organization$pushNotificationsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4387,6 +4913,8 @@ export namespace Prisma {
       inAppMessages: Prisma.$InAppMessagePayload<ExtArgs>[]
       workflows: Prisma.$MarketingWorkflowPayload<ExtArgs>[]
       segmentIncentives: Prisma.$SegmentIncentivePayload<ExtArgs>[]
+      marketingTemplates: Prisma.$MarketingTemplatePayload<ExtArgs>[]
+      pushNotifications: Prisma.$PushNotificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4767,6 +5295,8 @@ export namespace Prisma {
     inAppMessages<T extends Organization$inAppMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$inAppMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InAppMessagePayload<ExtArgs>, T, "findMany"> | Null>
     workflows<T extends Organization$workflowsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$workflowsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingWorkflowPayload<ExtArgs>, T, "findMany"> | Null>
     segmentIncentives<T extends Organization$segmentIncentivesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$segmentIncentivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findMany"> | Null>
+    marketingTemplates<T extends Organization$marketingTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$marketingTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findMany"> | Null>
+    pushNotifications<T extends Organization$pushNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$pushNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5235,6 +5765,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SegmentIncentiveScalarFieldEnum | SegmentIncentiveScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.marketingTemplates
+   */
+  export type Organization$marketingTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    where?: MarketingTemplateWhereInput
+    orderBy?: MarketingTemplateOrderByWithRelationInput | MarketingTemplateOrderByWithRelationInput[]
+    cursor?: MarketingTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MarketingTemplateScalarFieldEnum | MarketingTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.pushNotifications
+   */
+  export type Organization$pushNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    where?: PushNotificationWhereInput
+    orderBy?: PushNotificationOrderByWithRelationInput | PushNotificationOrderByWithRelationInput[]
+    cursor?: PushNotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PushNotificationScalarFieldEnum | PushNotificationScalarFieldEnum[]
   }
 
   /**
@@ -10729,6 +11299,8 @@ export namespace Prisma {
     wallet?: boolean | User$walletArgs<ExtArgs>
     walletTransactions?: boolean | User$walletTransactionsArgs<ExtArgs>
     performedWalletActions?: boolean | User$performedWalletActionsArgs<ExtArgs>
+    pushNotificationLogs?: boolean | User$pushNotificationLogsArgs<ExtArgs>
+    pushSubscriptions?: boolean | User$pushSubscriptionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -10771,6 +11343,8 @@ export namespace Prisma {
     wallet?: boolean | User$walletArgs<ExtArgs>
     walletTransactions?: boolean | User$walletTransactionsArgs<ExtArgs>
     performedWalletActions?: boolean | User$performedWalletActionsArgs<ExtArgs>
+    pushNotificationLogs?: boolean | User$pushNotificationLogsArgs<ExtArgs>
+    pushSubscriptions?: boolean | User$pushSubscriptionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10791,6 +11365,8 @@ export namespace Prisma {
       wallet: Prisma.$WalletPayload<ExtArgs> | null
       walletTransactions: Prisma.$WalletTransactionPayload<ExtArgs>[]
       performedWalletActions: Prisma.$WalletTransactionPayload<ExtArgs>[]
+      pushNotificationLogs: Prisma.$PushNotificationLogPayload<ExtArgs>[]
+      pushSubscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11178,6 +11754,8 @@ export namespace Prisma {
     wallet<T extends User$walletArgs<ExtArgs> = {}>(args?: Subset<T, User$walletArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     walletTransactions<T extends User$walletTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$walletTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     performedWalletActions<T extends User$performedWalletActionsArgs<ExtArgs> = {}>(args?: Subset<T, User$performedWalletActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletTransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    pushNotificationLogs<T extends User$pushNotificationLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$pushNotificationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findMany"> | Null>
+    pushSubscriptions<T extends User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11742,6 +12320,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WalletTransactionScalarFieldEnum | WalletTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * User.pushNotificationLogs
+   */
+  export type User$pushNotificationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    where?: PushNotificationLogWhereInput
+    orderBy?: PushNotificationLogOrderByWithRelationInput | PushNotificationLogOrderByWithRelationInput[]
+    cursor?: PushNotificationLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PushNotificationLogScalarFieldEnum | PushNotificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.pushSubscriptions
+   */
+  export type User$pushSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    where?: PushSubscriptionWhereInput
+    orderBy?: PushSubscriptionOrderByWithRelationInput | PushSubscriptionOrderByWithRelationInput[]
+    cursor?: PushSubscriptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PushSubscriptionScalarFieldEnum | PushSubscriptionScalarFieldEnum[]
   }
 
   /**
@@ -18663,6 +19281,7 @@ export namespace Prisma {
     imageUrl: string | null
     couponId: string | null
     isActive: boolean | null
+    marketingTemplateId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18674,6 +19293,7 @@ export namespace Prisma {
     imageUrl: string | null
     couponId: string | null
     isActive: boolean | null
+    marketingTemplateId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18685,6 +19305,8 @@ export namespace Prisma {
     imageUrl: number
     couponId: number
     isActive: number
+    marketingTemplateId: number
+    templateSnapshot: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -18698,6 +19320,7 @@ export namespace Prisma {
     imageUrl?: true
     couponId?: true
     isActive?: true
+    marketingTemplateId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18709,6 +19332,7 @@ export namespace Prisma {
     imageUrl?: true
     couponId?: true
     isActive?: true
+    marketingTemplateId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18720,6 +19344,8 @@ export namespace Prisma {
     imageUrl?: true
     couponId?: true
     isActive?: true
+    marketingTemplateId?: true
+    templateSnapshot?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -18804,6 +19430,8 @@ export namespace Prisma {
     imageUrl: string | null
     couponId: string | null
     isActive: boolean
+    marketingTemplateId: string | null
+    templateSnapshot: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: PromotionBannerCountAggregateOutputType | null
@@ -18832,9 +19460,12 @@ export namespace Prisma {
     imageUrl?: boolean
     couponId?: boolean
     isActive?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
+    marketingTemplate?: boolean | PromotionBanner$marketingTemplateArgs<ExtArgs>
     menuAssignments?: boolean | PromotionBanner$menuAssignmentsArgs<ExtArgs>
     _count?: boolean | PromotionBannerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["promotionBanner"]>
@@ -18846,9 +19477,12 @@ export namespace Prisma {
     imageUrl?: boolean
     couponId?: boolean
     isActive?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
+    marketingTemplate?: boolean | PromotionBanner$marketingTemplateArgs<ExtArgs>
   }, ExtArgs["result"]["promotionBanner"]>
 
   export type PromotionBannerSelectScalar = {
@@ -18858,23 +19492,28 @@ export namespace Prisma {
     imageUrl?: boolean
     couponId?: boolean
     isActive?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type PromotionBannerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
+    marketingTemplate?: boolean | PromotionBanner$marketingTemplateArgs<ExtArgs>
     menuAssignments?: boolean | PromotionBanner$menuAssignmentsArgs<ExtArgs>
     _count?: boolean | PromotionBannerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PromotionBannerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     coupon?: boolean | PromotionBanner$couponArgs<ExtArgs>
+    marketingTemplate?: boolean | PromotionBanner$marketingTemplateArgs<ExtArgs>
   }
 
   export type $PromotionBannerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PromotionBanner"
     objects: {
       coupon: Prisma.$CouponPayload<ExtArgs> | null
+      marketingTemplate: Prisma.$MarketingTemplatePayload<ExtArgs> | null
       menuAssignments: Prisma.$MenuPromotionBannerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -18884,6 +19523,8 @@ export namespace Prisma {
       imageUrl: string | null
       couponId: string | null
       isActive: boolean
+      marketingTemplateId: string | null
+      templateSnapshot: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["promotionBanner"]>
@@ -19251,6 +19892,7 @@ export namespace Prisma {
   export interface Prisma__PromotionBannerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     coupon<T extends PromotionBanner$couponArgs<ExtArgs> = {}>(args?: Subset<T, PromotionBanner$couponArgs<ExtArgs>>): Prisma__CouponClient<$Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    marketingTemplate<T extends PromotionBanner$marketingTemplateArgs<ExtArgs> = {}>(args?: Subset<T, PromotionBanner$marketingTemplateArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     menuAssignments<T extends PromotionBanner$menuAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, PromotionBanner$menuAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MenuPromotionBannerPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -19287,6 +19929,8 @@ export namespace Prisma {
     readonly imageUrl: FieldRef<"PromotionBanner", 'String'>
     readonly couponId: FieldRef<"PromotionBanner", 'String'>
     readonly isActive: FieldRef<"PromotionBanner", 'Boolean'>
+    readonly marketingTemplateId: FieldRef<"PromotionBanner", 'String'>
+    readonly templateSnapshot: FieldRef<"PromotionBanner", 'Json'>
     readonly createdAt: FieldRef<"PromotionBanner", 'DateTime'>
     readonly updatedAt: FieldRef<"PromotionBanner", 'DateTime'>
   }
@@ -19619,6 +20263,21 @@ export namespace Prisma {
      */
     include?: CouponInclude<ExtArgs> | null
     where?: CouponWhereInput
+  }
+
+  /**
+   * PromotionBanner.marketingTemplate
+   */
+  export type PromotionBanner$marketingTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    where?: MarketingTemplateWhereInput
   }
 
   /**
@@ -28457,6 +29116,7 @@ export namespace Prisma {
     inAppMessages?: boolean | CustomerSegment$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | CustomerSegment$workflowsArgs<ExtArgs>
     segmentIncentives?: boolean | CustomerSegment$segmentIncentivesArgs<ExtArgs>
+    pushNotifications?: boolean | CustomerSegment$pushNotificationsArgs<ExtArgs>
     _count?: boolean | CustomerSegmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customerSegment"]>
 
@@ -28488,6 +29148,7 @@ export namespace Prisma {
     inAppMessages?: boolean | CustomerSegment$inAppMessagesArgs<ExtArgs>
     workflows?: boolean | CustomerSegment$workflowsArgs<ExtArgs>
     segmentIncentives?: boolean | CustomerSegment$segmentIncentivesArgs<ExtArgs>
+    pushNotifications?: boolean | CustomerSegment$pushNotificationsArgs<ExtArgs>
     _count?: boolean | CustomerSegmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerSegmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28501,6 +29162,7 @@ export namespace Prisma {
       inAppMessages: Prisma.$InAppMessagePayload<ExtArgs>[]
       workflows: Prisma.$MarketingWorkflowPayload<ExtArgs>[]
       segmentIncentives: Prisma.$SegmentIncentivePayload<ExtArgs>[]
+      pushNotifications: Prisma.$PushNotificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -28879,6 +29541,7 @@ export namespace Prisma {
     inAppMessages<T extends CustomerSegment$inAppMessagesArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegment$inAppMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InAppMessagePayload<ExtArgs>, T, "findMany"> | Null>
     workflows<T extends CustomerSegment$workflowsArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegment$workflowsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingWorkflowPayload<ExtArgs>, T, "findMany"> | Null>
     segmentIncentives<T extends CustomerSegment$segmentIncentivesArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegment$segmentIncentivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SegmentIncentivePayload<ExtArgs>, T, "findMany"> | Null>
+    pushNotifications<T extends CustomerSegment$pushNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegment$pushNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29294,6 +29957,26 @@ export namespace Prisma {
   }
 
   /**
+   * CustomerSegment.pushNotifications
+   */
+  export type CustomerSegment$pushNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    where?: PushNotificationWhereInput
+    orderBy?: PushNotificationOrderByWithRelationInput | PushNotificationOrderByWithRelationInput[]
+    cursor?: PushNotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PushNotificationScalarFieldEnum | PushNotificationScalarFieldEnum[]
+  }
+
+  /**
    * CustomerSegment without action
    */
   export type CustomerSegmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29331,6 +30014,7 @@ export namespace Prisma {
     startDate: Date | null
     endDate: Date | null
     isActive: boolean | null
+    marketingTemplateId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -29348,6 +30032,7 @@ export namespace Prisma {
     startDate: Date | null
     endDate: Date | null
     isActive: boolean | null
+    marketingTemplateId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -29365,6 +30050,8 @@ export namespace Prisma {
     startDate: number
     endDate: number
     isActive: number
+    marketingTemplateId: number
+    templateSnapshot: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -29384,6 +30071,7 @@ export namespace Prisma {
     startDate?: true
     endDate?: true
     isActive?: true
+    marketingTemplateId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -29401,6 +30089,7 @@ export namespace Prisma {
     startDate?: true
     endDate?: true
     isActive?: true
+    marketingTemplateId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -29418,6 +30107,8 @@ export namespace Prisma {
     startDate?: true
     endDate?: true
     isActive?: true
+    marketingTemplateId?: true
+    templateSnapshot?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -29508,6 +30199,8 @@ export namespace Prisma {
     startDate: Date
     endDate: Date | null
     isActive: boolean
+    marketingTemplateId: string | null
+    templateSnapshot: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: InAppMessageCountAggregateOutputType | null
@@ -29542,10 +30235,13 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | InAppMessage$marketingTemplateArgs<ExtArgs>
     readBy?: boolean | InAppMessage$readByArgs<ExtArgs>
     _count?: boolean | InAppMessageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["inAppMessage"]>
@@ -29563,10 +30259,13 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | InAppMessage$marketingTemplateArgs<ExtArgs>
   }, ExtArgs["result"]["inAppMessage"]>
 
   export type InAppMessageSelectScalar = {
@@ -29582,6 +30281,8 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     isActive?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -29589,12 +30290,14 @@ export namespace Prisma {
   export type InAppMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | InAppMessage$marketingTemplateArgs<ExtArgs>
     readBy?: boolean | InAppMessage$readByArgs<ExtArgs>
     _count?: boolean | InAppMessageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InAppMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | InAppMessage$marketingTemplateArgs<ExtArgs>
   }
 
   export type $InAppMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29602,6 +30305,7 @@ export namespace Prisma {
     objects: {
       organization: Prisma.$OrganizationPayload<ExtArgs>
       segment: Prisma.$CustomerSegmentPayload<ExtArgs>
+      marketingTemplate: Prisma.$MarketingTemplatePayload<ExtArgs> | null
       readBy: Prisma.$InAppMessageReadPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -29617,6 +30321,8 @@ export namespace Prisma {
       startDate: Date
       endDate: Date | null
       isActive: boolean
+      marketingTemplateId: string | null
+      templateSnapshot: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["inAppMessage"]>
@@ -29985,6 +30691,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     segment<T extends CustomerSegmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegmentDefaultArgs<ExtArgs>>): Prisma__CustomerSegmentClient<$Result.GetResult<Prisma.$CustomerSegmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    marketingTemplate<T extends InAppMessage$marketingTemplateArgs<ExtArgs> = {}>(args?: Subset<T, InAppMessage$marketingTemplateArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     readBy<T extends InAppMessage$readByArgs<ExtArgs> = {}>(args?: Subset<T, InAppMessage$readByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InAppMessageReadPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -30027,6 +30734,8 @@ export namespace Prisma {
     readonly startDate: FieldRef<"InAppMessage", 'DateTime'>
     readonly endDate: FieldRef<"InAppMessage", 'DateTime'>
     readonly isActive: FieldRef<"InAppMessage", 'Boolean'>
+    readonly marketingTemplateId: FieldRef<"InAppMessage", 'String'>
+    readonly templateSnapshot: FieldRef<"InAppMessage", 'Json'>
     readonly createdAt: FieldRef<"InAppMessage", 'DateTime'>
     readonly updatedAt: FieldRef<"InAppMessage", 'DateTime'>
   }
@@ -30344,6 +31053,21 @@ export namespace Prisma {
      * Filter which InAppMessages to delete
      */
     where?: InAppMessageWhereInput
+  }
+
+  /**
+   * InAppMessage.marketingTemplate
+   */
+  export type InAppMessage$marketingTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    where?: MarketingTemplateWhereInput
   }
 
   /**
@@ -34417,6 +35141,4104 @@ export namespace Prisma {
 
 
   /**
+   * Model MarketingTemplate
+   */
+
+  export type AggregateMarketingTemplate = {
+    _count: MarketingTemplateCountAggregateOutputType | null
+    _min: MarketingTemplateMinAggregateOutputType | null
+    _max: MarketingTemplateMaxAggregateOutputType | null
+  }
+
+  export type MarketingTemplateMinAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    name: string | null
+    type: $Enums.MarketingTemplateType | null
+    status: $Enums.MarketingTemplateStatus | null
+    isStarter: boolean | null
+    isFavorite: boolean | null
+    thumbnailUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MarketingTemplateMaxAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    name: string | null
+    type: $Enums.MarketingTemplateType | null
+    status: $Enums.MarketingTemplateStatus | null
+    isStarter: boolean | null
+    isFavorite: boolean | null
+    thumbnailUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MarketingTemplateCountAggregateOutputType = {
+    id: number
+    organizationId: number
+    name: number
+    type: number
+    content: number
+    status: number
+    isStarter: number
+    isFavorite: number
+    thumbnailUrl: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MarketingTemplateMinAggregateInputType = {
+    id?: true
+    organizationId?: true
+    name?: true
+    type?: true
+    status?: true
+    isStarter?: true
+    isFavorite?: true
+    thumbnailUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MarketingTemplateMaxAggregateInputType = {
+    id?: true
+    organizationId?: true
+    name?: true
+    type?: true
+    status?: true
+    isStarter?: true
+    isFavorite?: true
+    thumbnailUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MarketingTemplateCountAggregateInputType = {
+    id?: true
+    organizationId?: true
+    name?: true
+    type?: true
+    content?: true
+    status?: true
+    isStarter?: true
+    isFavorite?: true
+    thumbnailUrl?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MarketingTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MarketingTemplate to aggregate.
+     */
+    where?: MarketingTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplates to fetch.
+     */
+    orderBy?: MarketingTemplateOrderByWithRelationInput | MarketingTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MarketingTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MarketingTemplates
+    **/
+    _count?: true | MarketingTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MarketingTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MarketingTemplateMaxAggregateInputType
+  }
+
+  export type GetMarketingTemplateAggregateType<T extends MarketingTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateMarketingTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMarketingTemplate[P]>
+      : GetScalarType<T[P], AggregateMarketingTemplate[P]>
+  }
+
+
+
+
+  export type MarketingTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MarketingTemplateWhereInput
+    orderBy?: MarketingTemplateOrderByWithAggregationInput | MarketingTemplateOrderByWithAggregationInput[]
+    by: MarketingTemplateScalarFieldEnum[] | MarketingTemplateScalarFieldEnum
+    having?: MarketingTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MarketingTemplateCountAggregateInputType | true
+    _min?: MarketingTemplateMinAggregateInputType
+    _max?: MarketingTemplateMaxAggregateInputType
+  }
+
+  export type MarketingTemplateGroupByOutputType = {
+    id: string
+    organizationId: string | null
+    name: string
+    type: $Enums.MarketingTemplateType
+    content: JsonValue
+    status: $Enums.MarketingTemplateStatus
+    isStarter: boolean
+    isFavorite: boolean
+    thumbnailUrl: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MarketingTemplateCountAggregateOutputType | null
+    _min: MarketingTemplateMinAggregateOutputType | null
+    _max: MarketingTemplateMaxAggregateOutputType | null
+  }
+
+  type GetMarketingTemplateGroupByPayload<T extends MarketingTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MarketingTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MarketingTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MarketingTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], MarketingTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MarketingTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    name?: boolean
+    type?: boolean
+    content?: boolean
+    status?: boolean
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | MarketingTemplate$organizationArgs<ExtArgs>
+    inAppMessages?: boolean | MarketingTemplate$inAppMessagesArgs<ExtArgs>
+    promotionBanners?: boolean | MarketingTemplate$promotionBannersArgs<ExtArgs>
+    pushNotifications?: boolean | MarketingTemplate$pushNotificationsArgs<ExtArgs>
+    _count?: boolean | MarketingTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["marketingTemplate"]>
+
+  export type MarketingTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    name?: boolean
+    type?: boolean
+    content?: boolean
+    status?: boolean
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | MarketingTemplate$organizationArgs<ExtArgs>
+  }, ExtArgs["result"]["marketingTemplate"]>
+
+  export type MarketingTemplateSelectScalar = {
+    id?: boolean
+    organizationId?: boolean
+    name?: boolean
+    type?: boolean
+    content?: boolean
+    status?: boolean
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MarketingTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | MarketingTemplate$organizationArgs<ExtArgs>
+    inAppMessages?: boolean | MarketingTemplate$inAppMessagesArgs<ExtArgs>
+    promotionBanners?: boolean | MarketingTemplate$promotionBannersArgs<ExtArgs>
+    pushNotifications?: boolean | MarketingTemplate$pushNotificationsArgs<ExtArgs>
+    _count?: boolean | MarketingTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MarketingTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | MarketingTemplate$organizationArgs<ExtArgs>
+  }
+
+  export type $MarketingTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MarketingTemplate"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      inAppMessages: Prisma.$InAppMessagePayload<ExtArgs>[]
+      promotionBanners: Prisma.$PromotionBannerPayload<ExtArgs>[]
+      pushNotifications: Prisma.$PushNotificationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationId: string | null
+      name: string
+      type: $Enums.MarketingTemplateType
+      content: Prisma.JsonValue
+      status: $Enums.MarketingTemplateStatus
+      isStarter: boolean
+      isFavorite: boolean
+      thumbnailUrl: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["marketingTemplate"]>
+    composites: {}
+  }
+
+  type MarketingTemplateGetPayload<S extends boolean | null | undefined | MarketingTemplateDefaultArgs> = $Result.GetResult<Prisma.$MarketingTemplatePayload, S>
+
+  type MarketingTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MarketingTemplateFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MarketingTemplateCountAggregateInputType | true
+    }
+
+  export interface MarketingTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MarketingTemplate'], meta: { name: 'MarketingTemplate' } }
+    /**
+     * Find zero or one MarketingTemplate that matches the filter.
+     * @param {MarketingTemplateFindUniqueArgs} args - Arguments to find a MarketingTemplate
+     * @example
+     * // Get one MarketingTemplate
+     * const marketingTemplate = await prisma.marketingTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MarketingTemplateFindUniqueArgs>(args: SelectSubset<T, MarketingTemplateFindUniqueArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MarketingTemplate that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MarketingTemplateFindUniqueOrThrowArgs} args - Arguments to find a MarketingTemplate
+     * @example
+     * // Get one MarketingTemplate
+     * const marketingTemplate = await prisma.marketingTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MarketingTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, MarketingTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MarketingTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateFindFirstArgs} args - Arguments to find a MarketingTemplate
+     * @example
+     * // Get one MarketingTemplate
+     * const marketingTemplate = await prisma.marketingTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MarketingTemplateFindFirstArgs>(args?: SelectSubset<T, MarketingTemplateFindFirstArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MarketingTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateFindFirstOrThrowArgs} args - Arguments to find a MarketingTemplate
+     * @example
+     * // Get one MarketingTemplate
+     * const marketingTemplate = await prisma.marketingTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MarketingTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, MarketingTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MarketingTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MarketingTemplates
+     * const marketingTemplates = await prisma.marketingTemplate.findMany()
+     * 
+     * // Get first 10 MarketingTemplates
+     * const marketingTemplates = await prisma.marketingTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const marketingTemplateWithIdOnly = await prisma.marketingTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MarketingTemplateFindManyArgs>(args?: SelectSubset<T, MarketingTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MarketingTemplate.
+     * @param {MarketingTemplateCreateArgs} args - Arguments to create a MarketingTemplate.
+     * @example
+     * // Create one MarketingTemplate
+     * const MarketingTemplate = await prisma.marketingTemplate.create({
+     *   data: {
+     *     // ... data to create a MarketingTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends MarketingTemplateCreateArgs>(args: SelectSubset<T, MarketingTemplateCreateArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MarketingTemplates.
+     * @param {MarketingTemplateCreateManyArgs} args - Arguments to create many MarketingTemplates.
+     * @example
+     * // Create many MarketingTemplates
+     * const marketingTemplate = await prisma.marketingTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MarketingTemplateCreateManyArgs>(args?: SelectSubset<T, MarketingTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MarketingTemplates and returns the data saved in the database.
+     * @param {MarketingTemplateCreateManyAndReturnArgs} args - Arguments to create many MarketingTemplates.
+     * @example
+     * // Create many MarketingTemplates
+     * const marketingTemplate = await prisma.marketingTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MarketingTemplates and only return the `id`
+     * const marketingTemplateWithIdOnly = await prisma.marketingTemplate.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MarketingTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, MarketingTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MarketingTemplate.
+     * @param {MarketingTemplateDeleteArgs} args - Arguments to delete one MarketingTemplate.
+     * @example
+     * // Delete one MarketingTemplate
+     * const MarketingTemplate = await prisma.marketingTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one MarketingTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MarketingTemplateDeleteArgs>(args: SelectSubset<T, MarketingTemplateDeleteArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MarketingTemplate.
+     * @param {MarketingTemplateUpdateArgs} args - Arguments to update one MarketingTemplate.
+     * @example
+     * // Update one MarketingTemplate
+     * const marketingTemplate = await prisma.marketingTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MarketingTemplateUpdateArgs>(args: SelectSubset<T, MarketingTemplateUpdateArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MarketingTemplates.
+     * @param {MarketingTemplateDeleteManyArgs} args - Arguments to filter MarketingTemplates to delete.
+     * @example
+     * // Delete a few MarketingTemplates
+     * const { count } = await prisma.marketingTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MarketingTemplateDeleteManyArgs>(args?: SelectSubset<T, MarketingTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MarketingTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MarketingTemplates
+     * const marketingTemplate = await prisma.marketingTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MarketingTemplateUpdateManyArgs>(args: SelectSubset<T, MarketingTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MarketingTemplate.
+     * @param {MarketingTemplateUpsertArgs} args - Arguments to update or create a MarketingTemplate.
+     * @example
+     * // Update or create a MarketingTemplate
+     * const marketingTemplate = await prisma.marketingTemplate.upsert({
+     *   create: {
+     *     // ... data to create a MarketingTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MarketingTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MarketingTemplateUpsertArgs>(args: SelectSubset<T, MarketingTemplateUpsertArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MarketingTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateCountArgs} args - Arguments to filter MarketingTemplates to count.
+     * @example
+     * // Count the number of MarketingTemplates
+     * const count = await prisma.marketingTemplate.count({
+     *   where: {
+     *     // ... the filter for the MarketingTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends MarketingTemplateCountArgs>(
+      args?: Subset<T, MarketingTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MarketingTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MarketingTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MarketingTemplateAggregateArgs>(args: Subset<T, MarketingTemplateAggregateArgs>): Prisma.PrismaPromise<GetMarketingTemplateAggregateType<T>>
+
+    /**
+     * Group by MarketingTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MarketingTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MarketingTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: MarketingTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MarketingTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMarketingTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MarketingTemplate model
+   */
+  readonly fields: MarketingTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MarketingTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MarketingTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends MarketingTemplate$organizationArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    inAppMessages<T extends MarketingTemplate$inAppMessagesArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$inAppMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InAppMessagePayload<ExtArgs>, T, "findMany"> | Null>
+    promotionBanners<T extends MarketingTemplate$promotionBannersArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$promotionBannersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionBannerPayload<ExtArgs>, T, "findMany"> | Null>
+    pushNotifications<T extends MarketingTemplate$pushNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$pushNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MarketingTemplate model
+   */ 
+  interface MarketingTemplateFieldRefs {
+    readonly id: FieldRef<"MarketingTemplate", 'String'>
+    readonly organizationId: FieldRef<"MarketingTemplate", 'String'>
+    readonly name: FieldRef<"MarketingTemplate", 'String'>
+    readonly type: FieldRef<"MarketingTemplate", 'MarketingTemplateType'>
+    readonly content: FieldRef<"MarketingTemplate", 'Json'>
+    readonly status: FieldRef<"MarketingTemplate", 'MarketingTemplateStatus'>
+    readonly isStarter: FieldRef<"MarketingTemplate", 'Boolean'>
+    readonly isFavorite: FieldRef<"MarketingTemplate", 'Boolean'>
+    readonly thumbnailUrl: FieldRef<"MarketingTemplate", 'String'>
+    readonly createdAt: FieldRef<"MarketingTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"MarketingTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MarketingTemplate findUnique
+   */
+  export type MarketingTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplate to fetch.
+     */
+    where: MarketingTemplateWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplate findUniqueOrThrow
+   */
+  export type MarketingTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplate to fetch.
+     */
+    where: MarketingTemplateWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplate findFirst
+   */
+  export type MarketingTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplate to fetch.
+     */
+    where?: MarketingTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplates to fetch.
+     */
+    orderBy?: MarketingTemplateOrderByWithRelationInput | MarketingTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MarketingTemplates.
+     */
+    cursor?: MarketingTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MarketingTemplates.
+     */
+    distinct?: MarketingTemplateScalarFieldEnum | MarketingTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplate findFirstOrThrow
+   */
+  export type MarketingTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplate to fetch.
+     */
+    where?: MarketingTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplates to fetch.
+     */
+    orderBy?: MarketingTemplateOrderByWithRelationInput | MarketingTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MarketingTemplates.
+     */
+    cursor?: MarketingTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MarketingTemplates.
+     */
+    distinct?: MarketingTemplateScalarFieldEnum | MarketingTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplate findMany
+   */
+  export type MarketingTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplates to fetch.
+     */
+    where?: MarketingTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplates to fetch.
+     */
+    orderBy?: MarketingTemplateOrderByWithRelationInput | MarketingTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MarketingTemplates.
+     */
+    cursor?: MarketingTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplates.
+     */
+    skip?: number
+    distinct?: MarketingTemplateScalarFieldEnum | MarketingTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplate create
+   */
+  export type MarketingTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MarketingTemplate.
+     */
+    data: XOR<MarketingTemplateCreateInput, MarketingTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * MarketingTemplate createMany
+   */
+  export type MarketingTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MarketingTemplates.
+     */
+    data: MarketingTemplateCreateManyInput | MarketingTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MarketingTemplate createManyAndReturn
+   */
+  export type MarketingTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MarketingTemplates.
+     */
+    data: MarketingTemplateCreateManyInput | MarketingTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MarketingTemplate update
+   */
+  export type MarketingTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MarketingTemplate.
+     */
+    data: XOR<MarketingTemplateUpdateInput, MarketingTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which MarketingTemplate to update.
+     */
+    where: MarketingTemplateWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplate updateMany
+   */
+  export type MarketingTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MarketingTemplates.
+     */
+    data: XOR<MarketingTemplateUpdateManyMutationInput, MarketingTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which MarketingTemplates to update
+     */
+    where?: MarketingTemplateWhereInput
+  }
+
+  /**
+   * MarketingTemplate upsert
+   */
+  export type MarketingTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MarketingTemplate to update in case it exists.
+     */
+    where: MarketingTemplateWhereUniqueInput
+    /**
+     * In case the MarketingTemplate found by the `where` argument doesn't exist, create a new MarketingTemplate with this data.
+     */
+    create: XOR<MarketingTemplateCreateInput, MarketingTemplateUncheckedCreateInput>
+    /**
+     * In case the MarketingTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MarketingTemplateUpdateInput, MarketingTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * MarketingTemplate delete
+   */
+  export type MarketingTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which MarketingTemplate to delete.
+     */
+    where: MarketingTemplateWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplate deleteMany
+   */
+  export type MarketingTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MarketingTemplates to delete
+     */
+    where?: MarketingTemplateWhereInput
+  }
+
+  /**
+   * MarketingTemplate.organization
+   */
+  export type MarketingTemplate$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * MarketingTemplate.inAppMessages
+   */
+  export type MarketingTemplate$inAppMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InAppMessage
+     */
+    select?: InAppMessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InAppMessageInclude<ExtArgs> | null
+    where?: InAppMessageWhereInput
+    orderBy?: InAppMessageOrderByWithRelationInput | InAppMessageOrderByWithRelationInput[]
+    cursor?: InAppMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InAppMessageScalarFieldEnum | InAppMessageScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplate.promotionBanners
+   */
+  export type MarketingTemplate$promotionBannersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PromotionBanner
+     */
+    select?: PromotionBannerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromotionBannerInclude<ExtArgs> | null
+    where?: PromotionBannerWhereInput
+    orderBy?: PromotionBannerOrderByWithRelationInput | PromotionBannerOrderByWithRelationInput[]
+    cursor?: PromotionBannerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PromotionBannerScalarFieldEnum | PromotionBannerScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplate.pushNotifications
+   */
+  export type MarketingTemplate$pushNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    where?: PushNotificationWhereInput
+    orderBy?: PushNotificationOrderByWithRelationInput | PushNotificationOrderByWithRelationInput[]
+    cursor?: PushNotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PushNotificationScalarFieldEnum | PushNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplate without action
+   */
+  export type MarketingTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PushNotification
+   */
+
+  export type AggregatePushNotification = {
+    _count: PushNotificationCountAggregateOutputType | null
+    _avg: PushNotificationAvgAggregateOutputType | null
+    _sum: PushNotificationSumAggregateOutputType | null
+    _min: PushNotificationMinAggregateOutputType | null
+    _max: PushNotificationMaxAggregateOutputType | null
+  }
+
+  export type PushNotificationAvgAggregateOutputType = {
+    totalRecipients: number | null
+  }
+
+  export type PushNotificationSumAggregateOutputType = {
+    totalRecipients: number | null
+  }
+
+  export type PushNotificationMinAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    segmentId: string | null
+    marketingTemplateId: string | null
+    pushTitle: string | null
+    pushBody: string | null
+    deepLink: string | null
+    status: $Enums.PushNotificationStatus | null
+    scheduledAt: Date | null
+    sentAt: Date | null
+    totalRecipients: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PushNotificationMaxAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    segmentId: string | null
+    marketingTemplateId: string | null
+    pushTitle: string | null
+    pushBody: string | null
+    deepLink: string | null
+    status: $Enums.PushNotificationStatus | null
+    scheduledAt: Date | null
+    sentAt: Date | null
+    totalRecipients: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PushNotificationCountAggregateOutputType = {
+    id: number
+    organizationId: number
+    segmentId: number
+    marketingTemplateId: number
+    templateSnapshot: number
+    pushTitle: number
+    pushBody: number
+    deepLink: number
+    status: number
+    scheduledAt: number
+    sentAt: number
+    totalRecipients: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PushNotificationAvgAggregateInputType = {
+    totalRecipients?: true
+  }
+
+  export type PushNotificationSumAggregateInputType = {
+    totalRecipients?: true
+  }
+
+  export type PushNotificationMinAggregateInputType = {
+    id?: true
+    organizationId?: true
+    segmentId?: true
+    marketingTemplateId?: true
+    pushTitle?: true
+    pushBody?: true
+    deepLink?: true
+    status?: true
+    scheduledAt?: true
+    sentAt?: true
+    totalRecipients?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PushNotificationMaxAggregateInputType = {
+    id?: true
+    organizationId?: true
+    segmentId?: true
+    marketingTemplateId?: true
+    pushTitle?: true
+    pushBody?: true
+    deepLink?: true
+    status?: true
+    scheduledAt?: true
+    sentAt?: true
+    totalRecipients?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PushNotificationCountAggregateInputType = {
+    id?: true
+    organizationId?: true
+    segmentId?: true
+    marketingTemplateId?: true
+    templateSnapshot?: true
+    pushTitle?: true
+    pushBody?: true
+    deepLink?: true
+    status?: true
+    scheduledAt?: true
+    sentAt?: true
+    totalRecipients?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PushNotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushNotification to aggregate.
+     */
+    where?: PushNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotifications to fetch.
+     */
+    orderBy?: PushNotificationOrderByWithRelationInput | PushNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PushNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PushNotifications
+    **/
+    _count?: true | PushNotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PushNotificationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PushNotificationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PushNotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PushNotificationMaxAggregateInputType
+  }
+
+  export type GetPushNotificationAggregateType<T extends PushNotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregatePushNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePushNotification[P]>
+      : GetScalarType<T[P], AggregatePushNotification[P]>
+  }
+
+
+
+
+  export type PushNotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushNotificationWhereInput
+    orderBy?: PushNotificationOrderByWithAggregationInput | PushNotificationOrderByWithAggregationInput[]
+    by: PushNotificationScalarFieldEnum[] | PushNotificationScalarFieldEnum
+    having?: PushNotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PushNotificationCountAggregateInputType | true
+    _avg?: PushNotificationAvgAggregateInputType
+    _sum?: PushNotificationSumAggregateInputType
+    _min?: PushNotificationMinAggregateInputType
+    _max?: PushNotificationMaxAggregateInputType
+  }
+
+  export type PushNotificationGroupByOutputType = {
+    id: string
+    organizationId: string
+    segmentId: string
+    marketingTemplateId: string | null
+    templateSnapshot: JsonValue | null
+    pushTitle: string
+    pushBody: string
+    deepLink: string | null
+    status: $Enums.PushNotificationStatus
+    scheduledAt: Date | null
+    sentAt: Date | null
+    totalRecipients: number
+    createdAt: Date
+    updatedAt: Date
+    _count: PushNotificationCountAggregateOutputType | null
+    _avg: PushNotificationAvgAggregateOutputType | null
+    _sum: PushNotificationSumAggregateOutputType | null
+    _min: PushNotificationMinAggregateOutputType | null
+    _max: PushNotificationMaxAggregateOutputType | null
+  }
+
+  type GetPushNotificationGroupByPayload<T extends PushNotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PushNotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PushNotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PushNotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], PushNotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PushNotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    segmentId?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
+    pushTitle?: boolean
+    pushBody?: boolean
+    deepLink?: boolean
+    status?: boolean
+    scheduledAt?: boolean
+    sentAt?: boolean
+    totalRecipients?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | PushNotification$marketingTemplateArgs<ExtArgs>
+    logs?: boolean | PushNotification$logsArgs<ExtArgs>
+    _count?: boolean | PushNotificationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pushNotification"]>
+
+  export type PushNotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    segmentId?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
+    pushTitle?: boolean
+    pushBody?: boolean
+    deepLink?: boolean
+    status?: boolean
+    scheduledAt?: boolean
+    sentAt?: boolean
+    totalRecipients?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | PushNotification$marketingTemplateArgs<ExtArgs>
+  }, ExtArgs["result"]["pushNotification"]>
+
+  export type PushNotificationSelectScalar = {
+    id?: boolean
+    organizationId?: boolean
+    segmentId?: boolean
+    marketingTemplateId?: boolean
+    templateSnapshot?: boolean
+    pushTitle?: boolean
+    pushBody?: boolean
+    deepLink?: boolean
+    status?: boolean
+    scheduledAt?: boolean
+    sentAt?: boolean
+    totalRecipients?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PushNotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | PushNotification$marketingTemplateArgs<ExtArgs>
+    logs?: boolean | PushNotification$logsArgs<ExtArgs>
+    _count?: boolean | PushNotificationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PushNotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    segment?: boolean | CustomerSegmentDefaultArgs<ExtArgs>
+    marketingTemplate?: boolean | PushNotification$marketingTemplateArgs<ExtArgs>
+  }
+
+  export type $PushNotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PushNotification"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      segment: Prisma.$CustomerSegmentPayload<ExtArgs>
+      marketingTemplate: Prisma.$MarketingTemplatePayload<ExtArgs> | null
+      logs: Prisma.$PushNotificationLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationId: string
+      segmentId: string
+      marketingTemplateId: string | null
+      templateSnapshot: Prisma.JsonValue | null
+      pushTitle: string
+      pushBody: string
+      deepLink: string | null
+      status: $Enums.PushNotificationStatus
+      scheduledAt: Date | null
+      sentAt: Date | null
+      totalRecipients: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["pushNotification"]>
+    composites: {}
+  }
+
+  type PushNotificationGetPayload<S extends boolean | null | undefined | PushNotificationDefaultArgs> = $Result.GetResult<Prisma.$PushNotificationPayload, S>
+
+  type PushNotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PushNotificationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PushNotificationCountAggregateInputType | true
+    }
+
+  export interface PushNotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PushNotification'], meta: { name: 'PushNotification' } }
+    /**
+     * Find zero or one PushNotification that matches the filter.
+     * @param {PushNotificationFindUniqueArgs} args - Arguments to find a PushNotification
+     * @example
+     * // Get one PushNotification
+     * const pushNotification = await prisma.pushNotification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PushNotificationFindUniqueArgs>(args: SelectSubset<T, PushNotificationFindUniqueArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PushNotification that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PushNotificationFindUniqueOrThrowArgs} args - Arguments to find a PushNotification
+     * @example
+     * // Get one PushNotification
+     * const pushNotification = await prisma.pushNotification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PushNotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, PushNotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PushNotification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationFindFirstArgs} args - Arguments to find a PushNotification
+     * @example
+     * // Get one PushNotification
+     * const pushNotification = await prisma.pushNotification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PushNotificationFindFirstArgs>(args?: SelectSubset<T, PushNotificationFindFirstArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PushNotification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationFindFirstOrThrowArgs} args - Arguments to find a PushNotification
+     * @example
+     * // Get one PushNotification
+     * const pushNotification = await prisma.pushNotification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PushNotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, PushNotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PushNotifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PushNotifications
+     * const pushNotifications = await prisma.pushNotification.findMany()
+     * 
+     * // Get first 10 PushNotifications
+     * const pushNotifications = await prisma.pushNotification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pushNotificationWithIdOnly = await prisma.pushNotification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PushNotificationFindManyArgs>(args?: SelectSubset<T, PushNotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PushNotification.
+     * @param {PushNotificationCreateArgs} args - Arguments to create a PushNotification.
+     * @example
+     * // Create one PushNotification
+     * const PushNotification = await prisma.pushNotification.create({
+     *   data: {
+     *     // ... data to create a PushNotification
+     *   }
+     * })
+     * 
+     */
+    create<T extends PushNotificationCreateArgs>(args: SelectSubset<T, PushNotificationCreateArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PushNotifications.
+     * @param {PushNotificationCreateManyArgs} args - Arguments to create many PushNotifications.
+     * @example
+     * // Create many PushNotifications
+     * const pushNotification = await prisma.pushNotification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PushNotificationCreateManyArgs>(args?: SelectSubset<T, PushNotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PushNotifications and returns the data saved in the database.
+     * @param {PushNotificationCreateManyAndReturnArgs} args - Arguments to create many PushNotifications.
+     * @example
+     * // Create many PushNotifications
+     * const pushNotification = await prisma.pushNotification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PushNotifications and only return the `id`
+     * const pushNotificationWithIdOnly = await prisma.pushNotification.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PushNotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, PushNotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PushNotification.
+     * @param {PushNotificationDeleteArgs} args - Arguments to delete one PushNotification.
+     * @example
+     * // Delete one PushNotification
+     * const PushNotification = await prisma.pushNotification.delete({
+     *   where: {
+     *     // ... filter to delete one PushNotification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PushNotificationDeleteArgs>(args: SelectSubset<T, PushNotificationDeleteArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PushNotification.
+     * @param {PushNotificationUpdateArgs} args - Arguments to update one PushNotification.
+     * @example
+     * // Update one PushNotification
+     * const pushNotification = await prisma.pushNotification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PushNotificationUpdateArgs>(args: SelectSubset<T, PushNotificationUpdateArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PushNotifications.
+     * @param {PushNotificationDeleteManyArgs} args - Arguments to filter PushNotifications to delete.
+     * @example
+     * // Delete a few PushNotifications
+     * const { count } = await prisma.pushNotification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PushNotificationDeleteManyArgs>(args?: SelectSubset<T, PushNotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PushNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PushNotifications
+     * const pushNotification = await prisma.pushNotification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PushNotificationUpdateManyArgs>(args: SelectSubset<T, PushNotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PushNotification.
+     * @param {PushNotificationUpsertArgs} args - Arguments to update or create a PushNotification.
+     * @example
+     * // Update or create a PushNotification
+     * const pushNotification = await prisma.pushNotification.upsert({
+     *   create: {
+     *     // ... data to create a PushNotification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PushNotification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PushNotificationUpsertArgs>(args: SelectSubset<T, PushNotificationUpsertArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PushNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationCountArgs} args - Arguments to filter PushNotifications to count.
+     * @example
+     * // Count the number of PushNotifications
+     * const count = await prisma.pushNotification.count({
+     *   where: {
+     *     // ... the filter for the PushNotifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends PushNotificationCountArgs>(
+      args?: Subset<T, PushNotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PushNotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PushNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PushNotificationAggregateArgs>(args: Subset<T, PushNotificationAggregateArgs>): Prisma.PrismaPromise<GetPushNotificationAggregateType<T>>
+
+    /**
+     * Group by PushNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PushNotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PushNotificationGroupByArgs['orderBy'] }
+        : { orderBy?: PushNotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PushNotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPushNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PushNotification model
+   */
+  readonly fields: PushNotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PushNotification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PushNotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    segment<T extends CustomerSegmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerSegmentDefaultArgs<ExtArgs>>): Prisma__CustomerSegmentClient<$Result.GetResult<Prisma.$CustomerSegmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    marketingTemplate<T extends PushNotification$marketingTemplateArgs<ExtArgs> = {}>(args?: Subset<T, PushNotification$marketingTemplateArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    logs<T extends PushNotification$logsArgs<ExtArgs> = {}>(args?: Subset<T, PushNotification$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PushNotification model
+   */ 
+  interface PushNotificationFieldRefs {
+    readonly id: FieldRef<"PushNotification", 'String'>
+    readonly organizationId: FieldRef<"PushNotification", 'String'>
+    readonly segmentId: FieldRef<"PushNotification", 'String'>
+    readonly marketingTemplateId: FieldRef<"PushNotification", 'String'>
+    readonly templateSnapshot: FieldRef<"PushNotification", 'Json'>
+    readonly pushTitle: FieldRef<"PushNotification", 'String'>
+    readonly pushBody: FieldRef<"PushNotification", 'String'>
+    readonly deepLink: FieldRef<"PushNotification", 'String'>
+    readonly status: FieldRef<"PushNotification", 'PushNotificationStatus'>
+    readonly scheduledAt: FieldRef<"PushNotification", 'DateTime'>
+    readonly sentAt: FieldRef<"PushNotification", 'DateTime'>
+    readonly totalRecipients: FieldRef<"PushNotification", 'Int'>
+    readonly createdAt: FieldRef<"PushNotification", 'DateTime'>
+    readonly updatedAt: FieldRef<"PushNotification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PushNotification findUnique
+   */
+  export type PushNotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotification to fetch.
+     */
+    where: PushNotificationWhereUniqueInput
+  }
+
+  /**
+   * PushNotification findUniqueOrThrow
+   */
+  export type PushNotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotification to fetch.
+     */
+    where: PushNotificationWhereUniqueInput
+  }
+
+  /**
+   * PushNotification findFirst
+   */
+  export type PushNotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotification to fetch.
+     */
+    where?: PushNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotifications to fetch.
+     */
+    orderBy?: PushNotificationOrderByWithRelationInput | PushNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushNotifications.
+     */
+    cursor?: PushNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushNotifications.
+     */
+    distinct?: PushNotificationScalarFieldEnum | PushNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * PushNotification findFirstOrThrow
+   */
+  export type PushNotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotification to fetch.
+     */
+    where?: PushNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotifications to fetch.
+     */
+    orderBy?: PushNotificationOrderByWithRelationInput | PushNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushNotifications.
+     */
+    cursor?: PushNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushNotifications.
+     */
+    distinct?: PushNotificationScalarFieldEnum | PushNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * PushNotification findMany
+   */
+  export type PushNotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotifications to fetch.
+     */
+    where?: PushNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotifications to fetch.
+     */
+    orderBy?: PushNotificationOrderByWithRelationInput | PushNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PushNotifications.
+     */
+    cursor?: PushNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotifications.
+     */
+    skip?: number
+    distinct?: PushNotificationScalarFieldEnum | PushNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * PushNotification create
+   */
+  export type PushNotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PushNotification.
+     */
+    data: XOR<PushNotificationCreateInput, PushNotificationUncheckedCreateInput>
+  }
+
+  /**
+   * PushNotification createMany
+   */
+  export type PushNotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PushNotifications.
+     */
+    data: PushNotificationCreateManyInput | PushNotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PushNotification createManyAndReturn
+   */
+  export type PushNotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PushNotifications.
+     */
+    data: PushNotificationCreateManyInput | PushNotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PushNotification update
+   */
+  export type PushNotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PushNotification.
+     */
+    data: XOR<PushNotificationUpdateInput, PushNotificationUncheckedUpdateInput>
+    /**
+     * Choose, which PushNotification to update.
+     */
+    where: PushNotificationWhereUniqueInput
+  }
+
+  /**
+   * PushNotification updateMany
+   */
+  export type PushNotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PushNotifications.
+     */
+    data: XOR<PushNotificationUpdateManyMutationInput, PushNotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which PushNotifications to update
+     */
+    where?: PushNotificationWhereInput
+  }
+
+  /**
+   * PushNotification upsert
+   */
+  export type PushNotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PushNotification to update in case it exists.
+     */
+    where: PushNotificationWhereUniqueInput
+    /**
+     * In case the PushNotification found by the `where` argument doesn't exist, create a new PushNotification with this data.
+     */
+    create: XOR<PushNotificationCreateInput, PushNotificationUncheckedCreateInput>
+    /**
+     * In case the PushNotification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PushNotificationUpdateInput, PushNotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * PushNotification delete
+   */
+  export type PushNotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+    /**
+     * Filter which PushNotification to delete.
+     */
+    where: PushNotificationWhereUniqueInput
+  }
+
+  /**
+   * PushNotification deleteMany
+   */
+  export type PushNotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushNotifications to delete
+     */
+    where?: PushNotificationWhereInput
+  }
+
+  /**
+   * PushNotification.marketingTemplate
+   */
+  export type PushNotification$marketingTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplate
+     */
+    select?: MarketingTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateInclude<ExtArgs> | null
+    where?: MarketingTemplateWhereInput
+  }
+
+  /**
+   * PushNotification.logs
+   */
+  export type PushNotification$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    where?: PushNotificationLogWhereInput
+    orderBy?: PushNotificationLogOrderByWithRelationInput | PushNotificationLogOrderByWithRelationInput[]
+    cursor?: PushNotificationLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PushNotificationLogScalarFieldEnum | PushNotificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * PushNotification without action
+   */
+  export type PushNotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotification
+     */
+    select?: PushNotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PushNotificationLog
+   */
+
+  export type AggregatePushNotificationLog = {
+    _count: PushNotificationLogCountAggregateOutputType | null
+    _min: PushNotificationLogMinAggregateOutputType | null
+    _max: PushNotificationLogMaxAggregateOutputType | null
+  }
+
+  export type PushNotificationLogMinAggregateOutputType = {
+    id: string | null
+    pushNotificationId: string | null
+    userId: string | null
+    status: $Enums.PushDeliveryStatus | null
+    sentAt: Date | null
+  }
+
+  export type PushNotificationLogMaxAggregateOutputType = {
+    id: string | null
+    pushNotificationId: string | null
+    userId: string | null
+    status: $Enums.PushDeliveryStatus | null
+    sentAt: Date | null
+  }
+
+  export type PushNotificationLogCountAggregateOutputType = {
+    id: number
+    pushNotificationId: number
+    userId: number
+    status: number
+    sentAt: number
+    _all: number
+  }
+
+
+  export type PushNotificationLogMinAggregateInputType = {
+    id?: true
+    pushNotificationId?: true
+    userId?: true
+    status?: true
+    sentAt?: true
+  }
+
+  export type PushNotificationLogMaxAggregateInputType = {
+    id?: true
+    pushNotificationId?: true
+    userId?: true
+    status?: true
+    sentAt?: true
+  }
+
+  export type PushNotificationLogCountAggregateInputType = {
+    id?: true
+    pushNotificationId?: true
+    userId?: true
+    status?: true
+    sentAt?: true
+    _all?: true
+  }
+
+  export type PushNotificationLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushNotificationLog to aggregate.
+     */
+    where?: PushNotificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotificationLogs to fetch.
+     */
+    orderBy?: PushNotificationLogOrderByWithRelationInput | PushNotificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PushNotificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotificationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PushNotificationLogs
+    **/
+    _count?: true | PushNotificationLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PushNotificationLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PushNotificationLogMaxAggregateInputType
+  }
+
+  export type GetPushNotificationLogAggregateType<T extends PushNotificationLogAggregateArgs> = {
+        [P in keyof T & keyof AggregatePushNotificationLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePushNotificationLog[P]>
+      : GetScalarType<T[P], AggregatePushNotificationLog[P]>
+  }
+
+
+
+
+  export type PushNotificationLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushNotificationLogWhereInput
+    orderBy?: PushNotificationLogOrderByWithAggregationInput | PushNotificationLogOrderByWithAggregationInput[]
+    by: PushNotificationLogScalarFieldEnum[] | PushNotificationLogScalarFieldEnum
+    having?: PushNotificationLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PushNotificationLogCountAggregateInputType | true
+    _min?: PushNotificationLogMinAggregateInputType
+    _max?: PushNotificationLogMaxAggregateInputType
+  }
+
+  export type PushNotificationLogGroupByOutputType = {
+    id: string
+    pushNotificationId: string
+    userId: string
+    status: $Enums.PushDeliveryStatus
+    sentAt: Date
+    _count: PushNotificationLogCountAggregateOutputType | null
+    _min: PushNotificationLogMinAggregateOutputType | null
+    _max: PushNotificationLogMaxAggregateOutputType | null
+  }
+
+  type GetPushNotificationLogGroupByPayload<T extends PushNotificationLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PushNotificationLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PushNotificationLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PushNotificationLogGroupByOutputType[P]>
+            : GetScalarType<T[P], PushNotificationLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PushNotificationLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pushNotificationId?: boolean
+    userId?: boolean
+    status?: boolean
+    sentAt?: boolean
+    pushNotification?: boolean | PushNotificationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pushNotificationLog"]>
+
+  export type PushNotificationLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pushNotificationId?: boolean
+    userId?: boolean
+    status?: boolean
+    sentAt?: boolean
+    pushNotification?: boolean | PushNotificationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pushNotificationLog"]>
+
+  export type PushNotificationLogSelectScalar = {
+    id?: boolean
+    pushNotificationId?: boolean
+    userId?: boolean
+    status?: boolean
+    sentAt?: boolean
+  }
+
+  export type PushNotificationLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pushNotification?: boolean | PushNotificationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PushNotificationLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pushNotification?: boolean | PushNotificationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PushNotificationLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PushNotificationLog"
+    objects: {
+      pushNotification: Prisma.$PushNotificationPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      pushNotificationId: string
+      userId: string
+      status: $Enums.PushDeliveryStatus
+      sentAt: Date
+    }, ExtArgs["result"]["pushNotificationLog"]>
+    composites: {}
+  }
+
+  type PushNotificationLogGetPayload<S extends boolean | null | undefined | PushNotificationLogDefaultArgs> = $Result.GetResult<Prisma.$PushNotificationLogPayload, S>
+
+  type PushNotificationLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PushNotificationLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PushNotificationLogCountAggregateInputType | true
+    }
+
+  export interface PushNotificationLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PushNotificationLog'], meta: { name: 'PushNotificationLog' } }
+    /**
+     * Find zero or one PushNotificationLog that matches the filter.
+     * @param {PushNotificationLogFindUniqueArgs} args - Arguments to find a PushNotificationLog
+     * @example
+     * // Get one PushNotificationLog
+     * const pushNotificationLog = await prisma.pushNotificationLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PushNotificationLogFindUniqueArgs>(args: SelectSubset<T, PushNotificationLogFindUniqueArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PushNotificationLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PushNotificationLogFindUniqueOrThrowArgs} args - Arguments to find a PushNotificationLog
+     * @example
+     * // Get one PushNotificationLog
+     * const pushNotificationLog = await prisma.pushNotificationLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PushNotificationLogFindUniqueOrThrowArgs>(args: SelectSubset<T, PushNotificationLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PushNotificationLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationLogFindFirstArgs} args - Arguments to find a PushNotificationLog
+     * @example
+     * // Get one PushNotificationLog
+     * const pushNotificationLog = await prisma.pushNotificationLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PushNotificationLogFindFirstArgs>(args?: SelectSubset<T, PushNotificationLogFindFirstArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PushNotificationLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationLogFindFirstOrThrowArgs} args - Arguments to find a PushNotificationLog
+     * @example
+     * // Get one PushNotificationLog
+     * const pushNotificationLog = await prisma.pushNotificationLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PushNotificationLogFindFirstOrThrowArgs>(args?: SelectSubset<T, PushNotificationLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PushNotificationLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PushNotificationLogs
+     * const pushNotificationLogs = await prisma.pushNotificationLog.findMany()
+     * 
+     * // Get first 10 PushNotificationLogs
+     * const pushNotificationLogs = await prisma.pushNotificationLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pushNotificationLogWithIdOnly = await prisma.pushNotificationLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PushNotificationLogFindManyArgs>(args?: SelectSubset<T, PushNotificationLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PushNotificationLog.
+     * @param {PushNotificationLogCreateArgs} args - Arguments to create a PushNotificationLog.
+     * @example
+     * // Create one PushNotificationLog
+     * const PushNotificationLog = await prisma.pushNotificationLog.create({
+     *   data: {
+     *     // ... data to create a PushNotificationLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends PushNotificationLogCreateArgs>(args: SelectSubset<T, PushNotificationLogCreateArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PushNotificationLogs.
+     * @param {PushNotificationLogCreateManyArgs} args - Arguments to create many PushNotificationLogs.
+     * @example
+     * // Create many PushNotificationLogs
+     * const pushNotificationLog = await prisma.pushNotificationLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PushNotificationLogCreateManyArgs>(args?: SelectSubset<T, PushNotificationLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PushNotificationLogs and returns the data saved in the database.
+     * @param {PushNotificationLogCreateManyAndReturnArgs} args - Arguments to create many PushNotificationLogs.
+     * @example
+     * // Create many PushNotificationLogs
+     * const pushNotificationLog = await prisma.pushNotificationLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PushNotificationLogs and only return the `id`
+     * const pushNotificationLogWithIdOnly = await prisma.pushNotificationLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PushNotificationLogCreateManyAndReturnArgs>(args?: SelectSubset<T, PushNotificationLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PushNotificationLog.
+     * @param {PushNotificationLogDeleteArgs} args - Arguments to delete one PushNotificationLog.
+     * @example
+     * // Delete one PushNotificationLog
+     * const PushNotificationLog = await prisma.pushNotificationLog.delete({
+     *   where: {
+     *     // ... filter to delete one PushNotificationLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PushNotificationLogDeleteArgs>(args: SelectSubset<T, PushNotificationLogDeleteArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PushNotificationLog.
+     * @param {PushNotificationLogUpdateArgs} args - Arguments to update one PushNotificationLog.
+     * @example
+     * // Update one PushNotificationLog
+     * const pushNotificationLog = await prisma.pushNotificationLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PushNotificationLogUpdateArgs>(args: SelectSubset<T, PushNotificationLogUpdateArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PushNotificationLogs.
+     * @param {PushNotificationLogDeleteManyArgs} args - Arguments to filter PushNotificationLogs to delete.
+     * @example
+     * // Delete a few PushNotificationLogs
+     * const { count } = await prisma.pushNotificationLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PushNotificationLogDeleteManyArgs>(args?: SelectSubset<T, PushNotificationLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PushNotificationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PushNotificationLogs
+     * const pushNotificationLog = await prisma.pushNotificationLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PushNotificationLogUpdateManyArgs>(args: SelectSubset<T, PushNotificationLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PushNotificationLog.
+     * @param {PushNotificationLogUpsertArgs} args - Arguments to update or create a PushNotificationLog.
+     * @example
+     * // Update or create a PushNotificationLog
+     * const pushNotificationLog = await prisma.pushNotificationLog.upsert({
+     *   create: {
+     *     // ... data to create a PushNotificationLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PushNotificationLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PushNotificationLogUpsertArgs>(args: SelectSubset<T, PushNotificationLogUpsertArgs<ExtArgs>>): Prisma__PushNotificationLogClient<$Result.GetResult<Prisma.$PushNotificationLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PushNotificationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationLogCountArgs} args - Arguments to filter PushNotificationLogs to count.
+     * @example
+     * // Count the number of PushNotificationLogs
+     * const count = await prisma.pushNotificationLog.count({
+     *   where: {
+     *     // ... the filter for the PushNotificationLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends PushNotificationLogCountArgs>(
+      args?: Subset<T, PushNotificationLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PushNotificationLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PushNotificationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PushNotificationLogAggregateArgs>(args: Subset<T, PushNotificationLogAggregateArgs>): Prisma.PrismaPromise<GetPushNotificationLogAggregateType<T>>
+
+    /**
+     * Group by PushNotificationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushNotificationLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PushNotificationLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PushNotificationLogGroupByArgs['orderBy'] }
+        : { orderBy?: PushNotificationLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PushNotificationLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPushNotificationLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PushNotificationLog model
+   */
+  readonly fields: PushNotificationLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PushNotificationLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PushNotificationLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    pushNotification<T extends PushNotificationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PushNotificationDefaultArgs<ExtArgs>>): Prisma__PushNotificationClient<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PushNotificationLog model
+   */ 
+  interface PushNotificationLogFieldRefs {
+    readonly id: FieldRef<"PushNotificationLog", 'String'>
+    readonly pushNotificationId: FieldRef<"PushNotificationLog", 'String'>
+    readonly userId: FieldRef<"PushNotificationLog", 'String'>
+    readonly status: FieldRef<"PushNotificationLog", 'PushDeliveryStatus'>
+    readonly sentAt: FieldRef<"PushNotificationLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PushNotificationLog findUnique
+   */
+  export type PushNotificationLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotificationLog to fetch.
+     */
+    where: PushNotificationLogWhereUniqueInput
+  }
+
+  /**
+   * PushNotificationLog findUniqueOrThrow
+   */
+  export type PushNotificationLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotificationLog to fetch.
+     */
+    where: PushNotificationLogWhereUniqueInput
+  }
+
+  /**
+   * PushNotificationLog findFirst
+   */
+  export type PushNotificationLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotificationLog to fetch.
+     */
+    where?: PushNotificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotificationLogs to fetch.
+     */
+    orderBy?: PushNotificationLogOrderByWithRelationInput | PushNotificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushNotificationLogs.
+     */
+    cursor?: PushNotificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotificationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushNotificationLogs.
+     */
+    distinct?: PushNotificationLogScalarFieldEnum | PushNotificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * PushNotificationLog findFirstOrThrow
+   */
+  export type PushNotificationLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotificationLog to fetch.
+     */
+    where?: PushNotificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotificationLogs to fetch.
+     */
+    orderBy?: PushNotificationLogOrderByWithRelationInput | PushNotificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushNotificationLogs.
+     */
+    cursor?: PushNotificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotificationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushNotificationLogs.
+     */
+    distinct?: PushNotificationLogScalarFieldEnum | PushNotificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * PushNotificationLog findMany
+   */
+  export type PushNotificationLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PushNotificationLogs to fetch.
+     */
+    where?: PushNotificationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushNotificationLogs to fetch.
+     */
+    orderBy?: PushNotificationLogOrderByWithRelationInput | PushNotificationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PushNotificationLogs.
+     */
+    cursor?: PushNotificationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushNotificationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushNotificationLogs.
+     */
+    skip?: number
+    distinct?: PushNotificationLogScalarFieldEnum | PushNotificationLogScalarFieldEnum[]
+  }
+
+  /**
+   * PushNotificationLog create
+   */
+  export type PushNotificationLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PushNotificationLog.
+     */
+    data: XOR<PushNotificationLogCreateInput, PushNotificationLogUncheckedCreateInput>
+  }
+
+  /**
+   * PushNotificationLog createMany
+   */
+  export type PushNotificationLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PushNotificationLogs.
+     */
+    data: PushNotificationLogCreateManyInput | PushNotificationLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PushNotificationLog createManyAndReturn
+   */
+  export type PushNotificationLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PushNotificationLogs.
+     */
+    data: PushNotificationLogCreateManyInput | PushNotificationLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PushNotificationLog update
+   */
+  export type PushNotificationLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PushNotificationLog.
+     */
+    data: XOR<PushNotificationLogUpdateInput, PushNotificationLogUncheckedUpdateInput>
+    /**
+     * Choose, which PushNotificationLog to update.
+     */
+    where: PushNotificationLogWhereUniqueInput
+  }
+
+  /**
+   * PushNotificationLog updateMany
+   */
+  export type PushNotificationLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PushNotificationLogs.
+     */
+    data: XOR<PushNotificationLogUpdateManyMutationInput, PushNotificationLogUncheckedUpdateManyInput>
+    /**
+     * Filter which PushNotificationLogs to update
+     */
+    where?: PushNotificationLogWhereInput
+  }
+
+  /**
+   * PushNotificationLog upsert
+   */
+  export type PushNotificationLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PushNotificationLog to update in case it exists.
+     */
+    where: PushNotificationLogWhereUniqueInput
+    /**
+     * In case the PushNotificationLog found by the `where` argument doesn't exist, create a new PushNotificationLog with this data.
+     */
+    create: XOR<PushNotificationLogCreateInput, PushNotificationLogUncheckedCreateInput>
+    /**
+     * In case the PushNotificationLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PushNotificationLogUpdateInput, PushNotificationLogUncheckedUpdateInput>
+  }
+
+  /**
+   * PushNotificationLog delete
+   */
+  export type PushNotificationLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+    /**
+     * Filter which PushNotificationLog to delete.
+     */
+    where: PushNotificationLogWhereUniqueInput
+  }
+
+  /**
+   * PushNotificationLog deleteMany
+   */
+  export type PushNotificationLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushNotificationLogs to delete
+     */
+    where?: PushNotificationLogWhereInput
+  }
+
+  /**
+   * PushNotificationLog without action
+   */
+  export type PushNotificationLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushNotificationLog
+     */
+    select?: PushNotificationLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushNotificationLogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PushSubscription
+   */
+
+  export type AggregatePushSubscription = {
+    _count: PushSubscriptionCountAggregateOutputType | null
+    _min: PushSubscriptionMinAggregateOutputType | null
+    _max: PushSubscriptionMaxAggregateOutputType | null
+  }
+
+  export type PushSubscriptionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    endpoint: string | null
+    p256dhKey: string | null
+    authKey: string | null
+    createdAt: Date | null
+  }
+
+  export type PushSubscriptionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    endpoint: string | null
+    p256dhKey: string | null
+    authKey: string | null
+    createdAt: Date | null
+  }
+
+  export type PushSubscriptionCountAggregateOutputType = {
+    id: number
+    userId: number
+    endpoint: number
+    p256dhKey: number
+    authKey: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PushSubscriptionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    endpoint?: true
+    p256dhKey?: true
+    authKey?: true
+    createdAt?: true
+  }
+
+  export type PushSubscriptionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    endpoint?: true
+    p256dhKey?: true
+    authKey?: true
+    createdAt?: true
+  }
+
+  export type PushSubscriptionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    endpoint?: true
+    p256dhKey?: true
+    authKey?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PushSubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushSubscription to aggregate.
+     */
+    where?: PushSubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushSubscriptions to fetch.
+     */
+    orderBy?: PushSubscriptionOrderByWithRelationInput | PushSubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PushSubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushSubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushSubscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PushSubscriptions
+    **/
+    _count?: true | PushSubscriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PushSubscriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PushSubscriptionMaxAggregateInputType
+  }
+
+  export type GetPushSubscriptionAggregateType<T extends PushSubscriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePushSubscription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePushSubscription[P]>
+      : GetScalarType<T[P], AggregatePushSubscription[P]>
+  }
+
+
+
+
+  export type PushSubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushSubscriptionWhereInput
+    orderBy?: PushSubscriptionOrderByWithAggregationInput | PushSubscriptionOrderByWithAggregationInput[]
+    by: PushSubscriptionScalarFieldEnum[] | PushSubscriptionScalarFieldEnum
+    having?: PushSubscriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PushSubscriptionCountAggregateInputType | true
+    _min?: PushSubscriptionMinAggregateInputType
+    _max?: PushSubscriptionMaxAggregateInputType
+  }
+
+  export type PushSubscriptionGroupByOutputType = {
+    id: string
+    userId: string
+    endpoint: string
+    p256dhKey: string
+    authKey: string
+    createdAt: Date
+    _count: PushSubscriptionCountAggregateOutputType | null
+    _min: PushSubscriptionMinAggregateOutputType | null
+    _max: PushSubscriptionMaxAggregateOutputType | null
+  }
+
+  type GetPushSubscriptionGroupByPayload<T extends PushSubscriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PushSubscriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PushSubscriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PushSubscriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], PushSubscriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PushSubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    endpoint?: boolean
+    p256dhKey?: boolean
+    authKey?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pushSubscription"]>
+
+  export type PushSubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    endpoint?: boolean
+    p256dhKey?: boolean
+    authKey?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pushSubscription"]>
+
+  export type PushSubscriptionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    endpoint?: boolean
+    p256dhKey?: boolean
+    authKey?: boolean
+    createdAt?: boolean
+  }
+
+  export type PushSubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PushSubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PushSubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PushSubscription"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      endpoint: string
+      p256dhKey: string
+      authKey: string
+      createdAt: Date
+    }, ExtArgs["result"]["pushSubscription"]>
+    composites: {}
+  }
+
+  type PushSubscriptionGetPayload<S extends boolean | null | undefined | PushSubscriptionDefaultArgs> = $Result.GetResult<Prisma.$PushSubscriptionPayload, S>
+
+  type PushSubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PushSubscriptionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PushSubscriptionCountAggregateInputType | true
+    }
+
+  export interface PushSubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PushSubscription'], meta: { name: 'PushSubscription' } }
+    /**
+     * Find zero or one PushSubscription that matches the filter.
+     * @param {PushSubscriptionFindUniqueArgs} args - Arguments to find a PushSubscription
+     * @example
+     * // Get one PushSubscription
+     * const pushSubscription = await prisma.pushSubscription.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PushSubscriptionFindUniqueArgs>(args: SelectSubset<T, PushSubscriptionFindUniqueArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PushSubscription that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PushSubscriptionFindUniqueOrThrowArgs} args - Arguments to find a PushSubscription
+     * @example
+     * // Get one PushSubscription
+     * const pushSubscription = await prisma.pushSubscription.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PushSubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, PushSubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PushSubscription that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushSubscriptionFindFirstArgs} args - Arguments to find a PushSubscription
+     * @example
+     * // Get one PushSubscription
+     * const pushSubscription = await prisma.pushSubscription.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PushSubscriptionFindFirstArgs>(args?: SelectSubset<T, PushSubscriptionFindFirstArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PushSubscription that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushSubscriptionFindFirstOrThrowArgs} args - Arguments to find a PushSubscription
+     * @example
+     * // Get one PushSubscription
+     * const pushSubscription = await prisma.pushSubscription.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PushSubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, PushSubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PushSubscriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushSubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PushSubscriptions
+     * const pushSubscriptions = await prisma.pushSubscription.findMany()
+     * 
+     * // Get first 10 PushSubscriptions
+     * const pushSubscriptions = await prisma.pushSubscription.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pushSubscriptionWithIdOnly = await prisma.pushSubscription.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PushSubscriptionFindManyArgs>(args?: SelectSubset<T, PushSubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PushSubscription.
+     * @param {PushSubscriptionCreateArgs} args - Arguments to create a PushSubscription.
+     * @example
+     * // Create one PushSubscription
+     * const PushSubscription = await prisma.pushSubscription.create({
+     *   data: {
+     *     // ... data to create a PushSubscription
+     *   }
+     * })
+     * 
+     */
+    create<T extends PushSubscriptionCreateArgs>(args: SelectSubset<T, PushSubscriptionCreateArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PushSubscriptions.
+     * @param {PushSubscriptionCreateManyArgs} args - Arguments to create many PushSubscriptions.
+     * @example
+     * // Create many PushSubscriptions
+     * const pushSubscription = await prisma.pushSubscription.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PushSubscriptionCreateManyArgs>(args?: SelectSubset<T, PushSubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PushSubscriptions and returns the data saved in the database.
+     * @param {PushSubscriptionCreateManyAndReturnArgs} args - Arguments to create many PushSubscriptions.
+     * @example
+     * // Create many PushSubscriptions
+     * const pushSubscription = await prisma.pushSubscription.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PushSubscriptions and only return the `id`
+     * const pushSubscriptionWithIdOnly = await prisma.pushSubscription.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PushSubscriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, PushSubscriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PushSubscription.
+     * @param {PushSubscriptionDeleteArgs} args - Arguments to delete one PushSubscription.
+     * @example
+     * // Delete one PushSubscription
+     * const PushSubscription = await prisma.pushSubscription.delete({
+     *   where: {
+     *     // ... filter to delete one PushSubscription
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PushSubscriptionDeleteArgs>(args: SelectSubset<T, PushSubscriptionDeleteArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PushSubscription.
+     * @param {PushSubscriptionUpdateArgs} args - Arguments to update one PushSubscription.
+     * @example
+     * // Update one PushSubscription
+     * const pushSubscription = await prisma.pushSubscription.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PushSubscriptionUpdateArgs>(args: SelectSubset<T, PushSubscriptionUpdateArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PushSubscriptions.
+     * @param {PushSubscriptionDeleteManyArgs} args - Arguments to filter PushSubscriptions to delete.
+     * @example
+     * // Delete a few PushSubscriptions
+     * const { count } = await prisma.pushSubscription.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PushSubscriptionDeleteManyArgs>(args?: SelectSubset<T, PushSubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PushSubscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushSubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PushSubscriptions
+     * const pushSubscription = await prisma.pushSubscription.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PushSubscriptionUpdateManyArgs>(args: SelectSubset<T, PushSubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PushSubscription.
+     * @param {PushSubscriptionUpsertArgs} args - Arguments to update or create a PushSubscription.
+     * @example
+     * // Update or create a PushSubscription
+     * const pushSubscription = await prisma.pushSubscription.upsert({
+     *   create: {
+     *     // ... data to create a PushSubscription
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PushSubscription we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PushSubscriptionUpsertArgs>(args: SelectSubset<T, PushSubscriptionUpsertArgs<ExtArgs>>): Prisma__PushSubscriptionClient<$Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PushSubscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushSubscriptionCountArgs} args - Arguments to filter PushSubscriptions to count.
+     * @example
+     * // Count the number of PushSubscriptions
+     * const count = await prisma.pushSubscription.count({
+     *   where: {
+     *     // ... the filter for the PushSubscriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PushSubscriptionCountArgs>(
+      args?: Subset<T, PushSubscriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PushSubscriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PushSubscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushSubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PushSubscriptionAggregateArgs>(args: Subset<T, PushSubscriptionAggregateArgs>): Prisma.PrismaPromise<GetPushSubscriptionAggregateType<T>>
+
+    /**
+     * Group by PushSubscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushSubscriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PushSubscriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PushSubscriptionGroupByArgs['orderBy'] }
+        : { orderBy?: PushSubscriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PushSubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPushSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PushSubscription model
+   */
+  readonly fields: PushSubscriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PushSubscription.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PushSubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PushSubscription model
+   */ 
+  interface PushSubscriptionFieldRefs {
+    readonly id: FieldRef<"PushSubscription", 'String'>
+    readonly userId: FieldRef<"PushSubscription", 'String'>
+    readonly endpoint: FieldRef<"PushSubscription", 'String'>
+    readonly p256dhKey: FieldRef<"PushSubscription", 'String'>
+    readonly authKey: FieldRef<"PushSubscription", 'String'>
+    readonly createdAt: FieldRef<"PushSubscription", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PushSubscription findUnique
+   */
+  export type PushSubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which PushSubscription to fetch.
+     */
+    where: PushSubscriptionWhereUniqueInput
+  }
+
+  /**
+   * PushSubscription findUniqueOrThrow
+   */
+  export type PushSubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which PushSubscription to fetch.
+     */
+    where: PushSubscriptionWhereUniqueInput
+  }
+
+  /**
+   * PushSubscription findFirst
+   */
+  export type PushSubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which PushSubscription to fetch.
+     */
+    where?: PushSubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushSubscriptions to fetch.
+     */
+    orderBy?: PushSubscriptionOrderByWithRelationInput | PushSubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushSubscriptions.
+     */
+    cursor?: PushSubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushSubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushSubscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushSubscriptions.
+     */
+    distinct?: PushSubscriptionScalarFieldEnum | PushSubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * PushSubscription findFirstOrThrow
+   */
+  export type PushSubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which PushSubscription to fetch.
+     */
+    where?: PushSubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushSubscriptions to fetch.
+     */
+    orderBy?: PushSubscriptionOrderByWithRelationInput | PushSubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushSubscriptions.
+     */
+    cursor?: PushSubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushSubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushSubscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushSubscriptions.
+     */
+    distinct?: PushSubscriptionScalarFieldEnum | PushSubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * PushSubscription findMany
+   */
+  export type PushSubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which PushSubscriptions to fetch.
+     */
+    where?: PushSubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushSubscriptions to fetch.
+     */
+    orderBy?: PushSubscriptionOrderByWithRelationInput | PushSubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PushSubscriptions.
+     */
+    cursor?: PushSubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushSubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushSubscriptions.
+     */
+    skip?: number
+    distinct?: PushSubscriptionScalarFieldEnum | PushSubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * PushSubscription create
+   */
+  export type PushSubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PushSubscription.
+     */
+    data: XOR<PushSubscriptionCreateInput, PushSubscriptionUncheckedCreateInput>
+  }
+
+  /**
+   * PushSubscription createMany
+   */
+  export type PushSubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PushSubscriptions.
+     */
+    data: PushSubscriptionCreateManyInput | PushSubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PushSubscription createManyAndReturn
+   */
+  export type PushSubscriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PushSubscriptions.
+     */
+    data: PushSubscriptionCreateManyInput | PushSubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PushSubscription update
+   */
+  export type PushSubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PushSubscription.
+     */
+    data: XOR<PushSubscriptionUpdateInput, PushSubscriptionUncheckedUpdateInput>
+    /**
+     * Choose, which PushSubscription to update.
+     */
+    where: PushSubscriptionWhereUniqueInput
+  }
+
+  /**
+   * PushSubscription updateMany
+   */
+  export type PushSubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PushSubscriptions.
+     */
+    data: XOR<PushSubscriptionUpdateManyMutationInput, PushSubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which PushSubscriptions to update
+     */
+    where?: PushSubscriptionWhereInput
+  }
+
+  /**
+   * PushSubscription upsert
+   */
+  export type PushSubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PushSubscription to update in case it exists.
+     */
+    where: PushSubscriptionWhereUniqueInput
+    /**
+     * In case the PushSubscription found by the `where` argument doesn't exist, create a new PushSubscription with this data.
+     */
+    create: XOR<PushSubscriptionCreateInput, PushSubscriptionUncheckedCreateInput>
+    /**
+     * In case the PushSubscription was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PushSubscriptionUpdateInput, PushSubscriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * PushSubscription delete
+   */
+  export type PushSubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter which PushSubscription to delete.
+     */
+    where: PushSubscriptionWhereUniqueInput
+  }
+
+  /**
+   * PushSubscription deleteMany
+   */
+  export type PushSubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushSubscriptions to delete
+     */
+    where?: PushSubscriptionWhereInput
+  }
+
+  /**
+   * PushSubscription without action
+   */
+  export type PushSubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushSubscription
+     */
+    select?: PushSubscriptionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushSubscriptionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model IncentiveGrant
    */
 
@@ -35660,6 +40482,8 @@ export namespace Prisma {
     imageUrl: 'imageUrl',
     couponId: 'couponId',
     isActive: 'isActive',
+    marketingTemplateId: 'marketingTemplateId',
+    templateSnapshot: 'templateSnapshot',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -35831,6 +40655,8 @@ export namespace Prisma {
     startDate: 'startDate',
     endDate: 'endDate',
     isActive: 'isActive',
+    marketingTemplateId: 'marketingTemplateId',
+    templateSnapshot: 'templateSnapshot',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -35896,6 +40722,66 @@ export namespace Prisma {
   };
 
   export type SegmentIncentiveScalarFieldEnum = (typeof SegmentIncentiveScalarFieldEnum)[keyof typeof SegmentIncentiveScalarFieldEnum]
+
+
+  export const MarketingTemplateScalarFieldEnum: {
+    id: 'id',
+    organizationId: 'organizationId',
+    name: 'name',
+    type: 'type',
+    content: 'content',
+    status: 'status',
+    isStarter: 'isStarter',
+    isFavorite: 'isFavorite',
+    thumbnailUrl: 'thumbnailUrl',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MarketingTemplateScalarFieldEnum = (typeof MarketingTemplateScalarFieldEnum)[keyof typeof MarketingTemplateScalarFieldEnum]
+
+
+  export const PushNotificationScalarFieldEnum: {
+    id: 'id',
+    organizationId: 'organizationId',
+    segmentId: 'segmentId',
+    marketingTemplateId: 'marketingTemplateId',
+    templateSnapshot: 'templateSnapshot',
+    pushTitle: 'pushTitle',
+    pushBody: 'pushBody',
+    deepLink: 'deepLink',
+    status: 'status',
+    scheduledAt: 'scheduledAt',
+    sentAt: 'sentAt',
+    totalRecipients: 'totalRecipients',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PushNotificationScalarFieldEnum = (typeof PushNotificationScalarFieldEnum)[keyof typeof PushNotificationScalarFieldEnum]
+
+
+  export const PushNotificationLogScalarFieldEnum: {
+    id: 'id',
+    pushNotificationId: 'pushNotificationId',
+    userId: 'userId',
+    status: 'status',
+    sentAt: 'sentAt'
+  };
+
+  export type PushNotificationLogScalarFieldEnum = (typeof PushNotificationLogScalarFieldEnum)[keyof typeof PushNotificationLogScalarFieldEnum]
+
+
+  export const PushSubscriptionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    endpoint: 'endpoint',
+    p256dhKey: 'p256dhKey',
+    authKey: 'authKey',
+    createdAt: 'createdAt'
+  };
+
+  export type PushSubscriptionScalarFieldEnum = (typeof PushSubscriptionScalarFieldEnum)[keyof typeof PushSubscriptionScalarFieldEnum]
 
 
   export const IncentiveGrantScalarFieldEnum: {
@@ -36135,6 +41021,62 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'MarketingTemplateType'
+   */
+  export type EnumMarketingTemplateTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MarketingTemplateType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MarketingTemplateType[]'
+   */
+  export type ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MarketingTemplateType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MarketingTemplateStatus'
+   */
+  export type EnumMarketingTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MarketingTemplateStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MarketingTemplateStatus[]'
+   */
+  export type ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MarketingTemplateStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PushNotificationStatus'
+   */
+  export type EnumPushNotificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PushNotificationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PushNotificationStatus[]'
+   */
+  export type ListEnumPushNotificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PushNotificationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PushDeliveryStatus'
+   */
+  export type EnumPushDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PushDeliveryStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PushDeliveryStatus[]'
+   */
+  export type ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PushDeliveryStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -36169,6 +41111,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
     segmentIncentives?: SegmentIncentiveListRelationFilter
+    marketingTemplates?: MarketingTemplateListRelationFilter
+    pushNotifications?: PushNotificationListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -36186,6 +41130,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageOrderByRelationAggregateInput
     workflows?: MarketingWorkflowOrderByRelationAggregateInput
     segmentIncentives?: SegmentIncentiveOrderByRelationAggregateInput
+    marketingTemplates?: MarketingTemplateOrderByRelationAggregateInput
+    pushNotifications?: PushNotificationOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -36206,6 +41152,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
     segmentIncentives?: SegmentIncentiveListRelationFilter
+    marketingTemplates?: MarketingTemplateListRelationFilter
+    pushNotifications?: PushNotificationListRelationFilter
   }, "id" | "slug">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -36680,6 +41628,8 @@ export namespace Prisma {
     wallet?: XOR<WalletNullableRelationFilter, WalletWhereInput> | null
     walletTransactions?: WalletTransactionListRelationFilter
     performedWalletActions?: WalletTransactionListRelationFilter
+    pushNotificationLogs?: PushNotificationLogListRelationFilter
+    pushSubscriptions?: PushSubscriptionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -36704,6 +41654,8 @@ export namespace Prisma {
     wallet?: WalletOrderByWithRelationInput
     walletTransactions?: WalletTransactionOrderByRelationAggregateInput
     performedWalletActions?: WalletTransactionOrderByRelationAggregateInput
+    pushNotificationLogs?: PushNotificationLogOrderByRelationAggregateInput
+    pushSubscriptions?: PushSubscriptionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -36731,6 +41683,8 @@ export namespace Prisma {
     wallet?: XOR<WalletNullableRelationFilter, WalletWhereInput> | null
     walletTransactions?: WalletTransactionListRelationFilter
     performedWalletActions?: WalletTransactionListRelationFilter
+    pushNotificationLogs?: PushNotificationLogListRelationFilter
+    pushSubscriptions?: PushSubscriptionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -37247,9 +42201,12 @@ export namespace Prisma {
     imageUrl?: StringNullableFilter<"PromotionBanner"> | string | null
     couponId?: StringNullableFilter<"PromotionBanner"> | string | null
     isActive?: BoolFilter<"PromotionBanner"> | boolean
+    marketingTemplateId?: StringNullableFilter<"PromotionBanner"> | string | null
+    templateSnapshot?: JsonNullableFilter<"PromotionBanner">
     createdAt?: DateTimeFilter<"PromotionBanner"> | Date | string
     updatedAt?: DateTimeFilter<"PromotionBanner"> | Date | string
     coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
+    marketingTemplate?: XOR<MarketingTemplateNullableRelationFilter, MarketingTemplateWhereInput> | null
     menuAssignments?: MenuPromotionBannerListRelationFilter
   }
 
@@ -37260,9 +42217,12 @@ export namespace Prisma {
     imageUrl?: SortOrderInput | SortOrder
     couponId?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrderInput | SortOrder
+    templateSnapshot?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     coupon?: CouponOrderByWithRelationInput
+    marketingTemplate?: MarketingTemplateOrderByWithRelationInput
     menuAssignments?: MenuPromotionBannerOrderByRelationAggregateInput
   }
 
@@ -37276,9 +42236,12 @@ export namespace Prisma {
     imageUrl?: StringNullableFilter<"PromotionBanner"> | string | null
     couponId?: StringNullableFilter<"PromotionBanner"> | string | null
     isActive?: BoolFilter<"PromotionBanner"> | boolean
+    marketingTemplateId?: StringNullableFilter<"PromotionBanner"> | string | null
+    templateSnapshot?: JsonNullableFilter<"PromotionBanner">
     createdAt?: DateTimeFilter<"PromotionBanner"> | Date | string
     updatedAt?: DateTimeFilter<"PromotionBanner"> | Date | string
     coupon?: XOR<CouponNullableRelationFilter, CouponWhereInput> | null
+    marketingTemplate?: XOR<MarketingTemplateNullableRelationFilter, MarketingTemplateWhereInput> | null
     menuAssignments?: MenuPromotionBannerListRelationFilter
   }, "id">
 
@@ -37289,6 +42252,8 @@ export namespace Prisma {
     imageUrl?: SortOrderInput | SortOrder
     couponId?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrderInput | SortOrder
+    templateSnapshot?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PromotionBannerCountOrderByAggregateInput
@@ -37306,6 +42271,8 @@ export namespace Prisma {
     imageUrl?: StringNullableWithAggregatesFilter<"PromotionBanner"> | string | null
     couponId?: StringNullableWithAggregatesFilter<"PromotionBanner"> | string | null
     isActive?: BoolWithAggregatesFilter<"PromotionBanner"> | boolean
+    marketingTemplateId?: StringNullableWithAggregatesFilter<"PromotionBanner"> | string | null
+    templateSnapshot?: JsonNullableWithAggregatesFilter<"PromotionBanner">
     createdAt?: DateTimeWithAggregatesFilter<"PromotionBanner"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PromotionBanner"> | Date | string
   }
@@ -38076,6 +43043,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
     segmentIncentives?: SegmentIncentiveListRelationFilter
+    pushNotifications?: PushNotificationListRelationFilter
   }
 
   export type CustomerSegmentOrderByWithRelationInput = {
@@ -38091,6 +43059,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageOrderByRelationAggregateInput
     workflows?: MarketingWorkflowOrderByRelationAggregateInput
     segmentIncentives?: SegmentIncentiveOrderByRelationAggregateInput
+    pushNotifications?: PushNotificationOrderByRelationAggregateInput
   }
 
   export type CustomerSegmentWhereUniqueInput = Prisma.AtLeast<{
@@ -38110,6 +43079,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageListRelationFilter
     workflows?: MarketingWorkflowListRelationFilter
     segmentIncentives?: SegmentIncentiveListRelationFilter
+    pushNotifications?: PushNotificationListRelationFilter
   }, "id" | "organizationId_name">
 
   export type CustomerSegmentOrderByWithAggregationInput = {
@@ -38156,10 +43126,13 @@ export namespace Prisma {
     startDate?: DateTimeFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolFilter<"InAppMessage"> | boolean
+    marketingTemplateId?: StringNullableFilter<"InAppMessage"> | string | null
+    templateSnapshot?: JsonNullableFilter<"InAppMessage">
     createdAt?: DateTimeFilter<"InAppMessage"> | Date | string
     updatedAt?: DateTimeFilter<"InAppMessage"> | Date | string
     organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
     segment?: XOR<CustomerSegmentRelationFilter, CustomerSegmentWhereInput>
+    marketingTemplate?: XOR<MarketingTemplateNullableRelationFilter, MarketingTemplateWhereInput> | null
     readBy?: InAppMessageReadListRelationFilter
   }
 
@@ -38176,10 +43149,13 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrderInput | SortOrder
+    templateSnapshot?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
     segment?: CustomerSegmentOrderByWithRelationInput
+    marketingTemplate?: MarketingTemplateOrderByWithRelationInput
     readBy?: InAppMessageReadOrderByRelationAggregateInput
   }
 
@@ -38199,10 +43175,13 @@ export namespace Prisma {
     startDate?: DateTimeFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolFilter<"InAppMessage"> | boolean
+    marketingTemplateId?: StringNullableFilter<"InAppMessage"> | string | null
+    templateSnapshot?: JsonNullableFilter<"InAppMessage">
     createdAt?: DateTimeFilter<"InAppMessage"> | Date | string
     updatedAt?: DateTimeFilter<"InAppMessage"> | Date | string
     organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
     segment?: XOR<CustomerSegmentRelationFilter, CustomerSegmentWhereInput>
+    marketingTemplate?: XOR<MarketingTemplateNullableRelationFilter, MarketingTemplateWhereInput> | null
     readBy?: InAppMessageReadListRelationFilter
   }, "id">
 
@@ -38219,6 +43198,8 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrderInput | SortOrder
+    templateSnapshot?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: InAppMessageCountOrderByAggregateInput
@@ -38242,6 +43223,8 @@ export namespace Prisma {
     startDate?: DateTimeWithAggregatesFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableWithAggregatesFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolWithAggregatesFilter<"InAppMessage"> | boolean
+    marketingTemplateId?: StringNullableWithAggregatesFilter<"InAppMessage"> | string | null
+    templateSnapshot?: JsonNullableWithAggregatesFilter<"InAppMessage">
     createdAt?: DateTimeWithAggregatesFilter<"InAppMessage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"InAppMessage"> | Date | string
   }
@@ -38564,6 +43547,331 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"SegmentIncentive"> | Date | string
   }
 
+  export type MarketingTemplateWhereInput = {
+    AND?: MarketingTemplateWhereInput | MarketingTemplateWhereInput[]
+    OR?: MarketingTemplateWhereInput[]
+    NOT?: MarketingTemplateWhereInput | MarketingTemplateWhereInput[]
+    id?: StringFilter<"MarketingTemplate"> | string
+    organizationId?: StringNullableFilter<"MarketingTemplate"> | string | null
+    name?: StringFilter<"MarketingTemplate"> | string
+    type?: EnumMarketingTemplateTypeFilter<"MarketingTemplate"> | $Enums.MarketingTemplateType
+    content?: JsonFilter<"MarketingTemplate">
+    status?: EnumMarketingTemplateStatusFilter<"MarketingTemplate"> | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFilter<"MarketingTemplate"> | boolean
+    isFavorite?: BoolFilter<"MarketingTemplate"> | boolean
+    thumbnailUrl?: StringNullableFilter<"MarketingTemplate"> | string | null
+    createdAt?: DateTimeFilter<"MarketingTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"MarketingTemplate"> | Date | string
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    inAppMessages?: InAppMessageListRelationFilter
+    promotionBanners?: PromotionBannerListRelationFilter
+    pushNotifications?: PushNotificationListRelationFilter
+  }
+
+  export type MarketingTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    isStarter?: SortOrder
+    isFavorite?: SortOrder
+    thumbnailUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    inAppMessages?: InAppMessageOrderByRelationAggregateInput
+    promotionBanners?: PromotionBannerOrderByRelationAggregateInput
+    pushNotifications?: PushNotificationOrderByRelationAggregateInput
+  }
+
+  export type MarketingTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MarketingTemplateWhereInput | MarketingTemplateWhereInput[]
+    OR?: MarketingTemplateWhereInput[]
+    NOT?: MarketingTemplateWhereInput | MarketingTemplateWhereInput[]
+    organizationId?: StringNullableFilter<"MarketingTemplate"> | string | null
+    name?: StringFilter<"MarketingTemplate"> | string
+    type?: EnumMarketingTemplateTypeFilter<"MarketingTemplate"> | $Enums.MarketingTemplateType
+    content?: JsonFilter<"MarketingTemplate">
+    status?: EnumMarketingTemplateStatusFilter<"MarketingTemplate"> | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFilter<"MarketingTemplate"> | boolean
+    isFavorite?: BoolFilter<"MarketingTemplate"> | boolean
+    thumbnailUrl?: StringNullableFilter<"MarketingTemplate"> | string | null
+    createdAt?: DateTimeFilter<"MarketingTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"MarketingTemplate"> | Date | string
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    inAppMessages?: InAppMessageListRelationFilter
+    promotionBanners?: PromotionBannerListRelationFilter
+    pushNotifications?: PushNotificationListRelationFilter
+  }, "id">
+
+  export type MarketingTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    isStarter?: SortOrder
+    isFavorite?: SortOrder
+    thumbnailUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MarketingTemplateCountOrderByAggregateInput
+    _max?: MarketingTemplateMaxOrderByAggregateInput
+    _min?: MarketingTemplateMinOrderByAggregateInput
+  }
+
+  export type MarketingTemplateScalarWhereWithAggregatesInput = {
+    AND?: MarketingTemplateScalarWhereWithAggregatesInput | MarketingTemplateScalarWhereWithAggregatesInput[]
+    OR?: MarketingTemplateScalarWhereWithAggregatesInput[]
+    NOT?: MarketingTemplateScalarWhereWithAggregatesInput | MarketingTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MarketingTemplate"> | string
+    organizationId?: StringNullableWithAggregatesFilter<"MarketingTemplate"> | string | null
+    name?: StringWithAggregatesFilter<"MarketingTemplate"> | string
+    type?: EnumMarketingTemplateTypeWithAggregatesFilter<"MarketingTemplate"> | $Enums.MarketingTemplateType
+    content?: JsonWithAggregatesFilter<"MarketingTemplate">
+    status?: EnumMarketingTemplateStatusWithAggregatesFilter<"MarketingTemplate"> | $Enums.MarketingTemplateStatus
+    isStarter?: BoolWithAggregatesFilter<"MarketingTemplate"> | boolean
+    isFavorite?: BoolWithAggregatesFilter<"MarketingTemplate"> | boolean
+    thumbnailUrl?: StringNullableWithAggregatesFilter<"MarketingTemplate"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MarketingTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MarketingTemplate"> | Date | string
+  }
+
+  export type PushNotificationWhereInput = {
+    AND?: PushNotificationWhereInput | PushNotificationWhereInput[]
+    OR?: PushNotificationWhereInput[]
+    NOT?: PushNotificationWhereInput | PushNotificationWhereInput[]
+    id?: StringFilter<"PushNotification"> | string
+    organizationId?: StringFilter<"PushNotification"> | string
+    segmentId?: StringFilter<"PushNotification"> | string
+    marketingTemplateId?: StringNullableFilter<"PushNotification"> | string | null
+    templateSnapshot?: JsonNullableFilter<"PushNotification">
+    pushTitle?: StringFilter<"PushNotification"> | string
+    pushBody?: StringFilter<"PushNotification"> | string
+    deepLink?: StringNullableFilter<"PushNotification"> | string | null
+    status?: EnumPushNotificationStatusFilter<"PushNotification"> | $Enums.PushNotificationStatus
+    scheduledAt?: DateTimeNullableFilter<"PushNotification"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"PushNotification"> | Date | string | null
+    totalRecipients?: IntFilter<"PushNotification"> | number
+    createdAt?: DateTimeFilter<"PushNotification"> | Date | string
+    updatedAt?: DateTimeFilter<"PushNotification"> | Date | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    segment?: XOR<CustomerSegmentRelationFilter, CustomerSegmentWhereInput>
+    marketingTemplate?: XOR<MarketingTemplateNullableRelationFilter, MarketingTemplateWhereInput> | null
+    logs?: PushNotificationLogListRelationFilter
+  }
+
+  export type PushNotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    marketingTemplateId?: SortOrderInput | SortOrder
+    templateSnapshot?: SortOrderInput | SortOrder
+    pushTitle?: SortOrder
+    pushBody?: SortOrder
+    deepLink?: SortOrderInput | SortOrder
+    status?: SortOrder
+    scheduledAt?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    totalRecipients?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    segment?: CustomerSegmentOrderByWithRelationInput
+    marketingTemplate?: MarketingTemplateOrderByWithRelationInput
+    logs?: PushNotificationLogOrderByRelationAggregateInput
+  }
+
+  export type PushNotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PushNotificationWhereInput | PushNotificationWhereInput[]
+    OR?: PushNotificationWhereInput[]
+    NOT?: PushNotificationWhereInput | PushNotificationWhereInput[]
+    organizationId?: StringFilter<"PushNotification"> | string
+    segmentId?: StringFilter<"PushNotification"> | string
+    marketingTemplateId?: StringNullableFilter<"PushNotification"> | string | null
+    templateSnapshot?: JsonNullableFilter<"PushNotification">
+    pushTitle?: StringFilter<"PushNotification"> | string
+    pushBody?: StringFilter<"PushNotification"> | string
+    deepLink?: StringNullableFilter<"PushNotification"> | string | null
+    status?: EnumPushNotificationStatusFilter<"PushNotification"> | $Enums.PushNotificationStatus
+    scheduledAt?: DateTimeNullableFilter<"PushNotification"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"PushNotification"> | Date | string | null
+    totalRecipients?: IntFilter<"PushNotification"> | number
+    createdAt?: DateTimeFilter<"PushNotification"> | Date | string
+    updatedAt?: DateTimeFilter<"PushNotification"> | Date | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    segment?: XOR<CustomerSegmentRelationFilter, CustomerSegmentWhereInput>
+    marketingTemplate?: XOR<MarketingTemplateNullableRelationFilter, MarketingTemplateWhereInput> | null
+    logs?: PushNotificationLogListRelationFilter
+  }, "id">
+
+  export type PushNotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    marketingTemplateId?: SortOrderInput | SortOrder
+    templateSnapshot?: SortOrderInput | SortOrder
+    pushTitle?: SortOrder
+    pushBody?: SortOrder
+    deepLink?: SortOrderInput | SortOrder
+    status?: SortOrder
+    scheduledAt?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    totalRecipients?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PushNotificationCountOrderByAggregateInput
+    _avg?: PushNotificationAvgOrderByAggregateInput
+    _max?: PushNotificationMaxOrderByAggregateInput
+    _min?: PushNotificationMinOrderByAggregateInput
+    _sum?: PushNotificationSumOrderByAggregateInput
+  }
+
+  export type PushNotificationScalarWhereWithAggregatesInput = {
+    AND?: PushNotificationScalarWhereWithAggregatesInput | PushNotificationScalarWhereWithAggregatesInput[]
+    OR?: PushNotificationScalarWhereWithAggregatesInput[]
+    NOT?: PushNotificationScalarWhereWithAggregatesInput | PushNotificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PushNotification"> | string
+    organizationId?: StringWithAggregatesFilter<"PushNotification"> | string
+    segmentId?: StringWithAggregatesFilter<"PushNotification"> | string
+    marketingTemplateId?: StringNullableWithAggregatesFilter<"PushNotification"> | string | null
+    templateSnapshot?: JsonNullableWithAggregatesFilter<"PushNotification">
+    pushTitle?: StringWithAggregatesFilter<"PushNotification"> | string
+    pushBody?: StringWithAggregatesFilter<"PushNotification"> | string
+    deepLink?: StringNullableWithAggregatesFilter<"PushNotification"> | string | null
+    status?: EnumPushNotificationStatusWithAggregatesFilter<"PushNotification"> | $Enums.PushNotificationStatus
+    scheduledAt?: DateTimeNullableWithAggregatesFilter<"PushNotification"> | Date | string | null
+    sentAt?: DateTimeNullableWithAggregatesFilter<"PushNotification"> | Date | string | null
+    totalRecipients?: IntWithAggregatesFilter<"PushNotification"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"PushNotification"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PushNotification"> | Date | string
+  }
+
+  export type PushNotificationLogWhereInput = {
+    AND?: PushNotificationLogWhereInput | PushNotificationLogWhereInput[]
+    OR?: PushNotificationLogWhereInput[]
+    NOT?: PushNotificationLogWhereInput | PushNotificationLogWhereInput[]
+    id?: StringFilter<"PushNotificationLog"> | string
+    pushNotificationId?: StringFilter<"PushNotificationLog"> | string
+    userId?: StringFilter<"PushNotificationLog"> | string
+    status?: EnumPushDeliveryStatusFilter<"PushNotificationLog"> | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFilter<"PushNotificationLog"> | Date | string
+    pushNotification?: XOR<PushNotificationRelationFilter, PushNotificationWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type PushNotificationLogOrderByWithRelationInput = {
+    id?: SortOrder
+    pushNotificationId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+    pushNotification?: PushNotificationOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PushNotificationLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    pushNotificationId_userId?: PushNotificationLogPushNotificationIdUserIdCompoundUniqueInput
+    AND?: PushNotificationLogWhereInput | PushNotificationLogWhereInput[]
+    OR?: PushNotificationLogWhereInput[]
+    NOT?: PushNotificationLogWhereInput | PushNotificationLogWhereInput[]
+    pushNotificationId?: StringFilter<"PushNotificationLog"> | string
+    userId?: StringFilter<"PushNotificationLog"> | string
+    status?: EnumPushDeliveryStatusFilter<"PushNotificationLog"> | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFilter<"PushNotificationLog"> | Date | string
+    pushNotification?: XOR<PushNotificationRelationFilter, PushNotificationWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "pushNotificationId_userId">
+
+  export type PushNotificationLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    pushNotificationId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+    _count?: PushNotificationLogCountOrderByAggregateInput
+    _max?: PushNotificationLogMaxOrderByAggregateInput
+    _min?: PushNotificationLogMinOrderByAggregateInput
+  }
+
+  export type PushNotificationLogScalarWhereWithAggregatesInput = {
+    AND?: PushNotificationLogScalarWhereWithAggregatesInput | PushNotificationLogScalarWhereWithAggregatesInput[]
+    OR?: PushNotificationLogScalarWhereWithAggregatesInput[]
+    NOT?: PushNotificationLogScalarWhereWithAggregatesInput | PushNotificationLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PushNotificationLog"> | string
+    pushNotificationId?: StringWithAggregatesFilter<"PushNotificationLog"> | string
+    userId?: StringWithAggregatesFilter<"PushNotificationLog"> | string
+    status?: EnumPushDeliveryStatusWithAggregatesFilter<"PushNotificationLog"> | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeWithAggregatesFilter<"PushNotificationLog"> | Date | string
+  }
+
+  export type PushSubscriptionWhereInput = {
+    AND?: PushSubscriptionWhereInput | PushSubscriptionWhereInput[]
+    OR?: PushSubscriptionWhereInput[]
+    NOT?: PushSubscriptionWhereInput | PushSubscriptionWhereInput[]
+    id?: StringFilter<"PushSubscription"> | string
+    userId?: StringFilter<"PushSubscription"> | string
+    endpoint?: StringFilter<"PushSubscription"> | string
+    p256dhKey?: StringFilter<"PushSubscription"> | string
+    authKey?: StringFilter<"PushSubscription"> | string
+    createdAt?: DateTimeFilter<"PushSubscription"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type PushSubscriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    endpoint?: SortOrder
+    p256dhKey?: SortOrder
+    authKey?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PushSubscriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_endpoint?: PushSubscriptionUserIdEndpointCompoundUniqueInput
+    AND?: PushSubscriptionWhereInput | PushSubscriptionWhereInput[]
+    OR?: PushSubscriptionWhereInput[]
+    NOT?: PushSubscriptionWhereInput | PushSubscriptionWhereInput[]
+    userId?: StringFilter<"PushSubscription"> | string
+    endpoint?: StringFilter<"PushSubscription"> | string
+    p256dhKey?: StringFilter<"PushSubscription"> | string
+    authKey?: StringFilter<"PushSubscription"> | string
+    createdAt?: DateTimeFilter<"PushSubscription"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId_endpoint">
+
+  export type PushSubscriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    endpoint?: SortOrder
+    p256dhKey?: SortOrder
+    authKey?: SortOrder
+    createdAt?: SortOrder
+    _count?: PushSubscriptionCountOrderByAggregateInput
+    _max?: PushSubscriptionMaxOrderByAggregateInput
+    _min?: PushSubscriptionMinOrderByAggregateInput
+  }
+
+  export type PushSubscriptionScalarWhereWithAggregatesInput = {
+    AND?: PushSubscriptionScalarWhereWithAggregatesInput | PushSubscriptionScalarWhereWithAggregatesInput[]
+    OR?: PushSubscriptionScalarWhereWithAggregatesInput[]
+    NOT?: PushSubscriptionScalarWhereWithAggregatesInput | PushSubscriptionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PushSubscription"> | string
+    userId?: StringWithAggregatesFilter<"PushSubscription"> | string
+    endpoint?: StringWithAggregatesFilter<"PushSubscription"> | string
+    p256dhKey?: StringWithAggregatesFilter<"PushSubscription"> | string
+    authKey?: StringWithAggregatesFilter<"PushSubscription"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PushSubscription"> | Date | string
+  }
+
   export type IncentiveGrantWhereInput = {
     AND?: IncentiveGrantWhereInput | IncentiveGrantWhereInput[]
     OR?: IncentiveGrantWhereInput[]
@@ -38664,6 +43972,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -38681,6 +43991,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -38698,6 +44010,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -38715,6 +44029,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -39232,6 +44548,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -39255,6 +44573,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -39278,6 +44598,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -39301,6 +44623,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -39821,9 +45145,11 @@ export namespace Prisma {
     subtitle?: string | null
     imageUrl?: string | null
     isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     coupon?: CouponCreateNestedOneWithoutPromotionBannersInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutPromotionBannersInput
     menuAssignments?: MenuPromotionBannerCreateNestedManyWithoutPromotionBannerInput
   }
 
@@ -39834,6 +45160,8 @@ export namespace Prisma {
     imageUrl?: string | null
     couponId?: string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     menuAssignments?: MenuPromotionBannerUncheckedCreateNestedManyWithoutPromotionBannerInput
@@ -39845,9 +45173,11 @@ export namespace Prisma {
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coupon?: CouponUpdateOneWithoutPromotionBannersNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutPromotionBannersNestedInput
     menuAssignments?: MenuPromotionBannerUpdateManyWithoutPromotionBannerNestedInput
   }
 
@@ -39858,6 +45188,8 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     couponId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     menuAssignments?: MenuPromotionBannerUncheckedUpdateManyWithoutPromotionBannerNestedInput
@@ -39870,6 +45202,8 @@ export namespace Prisma {
     imageUrl?: string | null
     couponId?: string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39880,6 +45214,7 @@ export namespace Prisma {
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39891,6 +45226,8 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     couponId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40724,6 +46061,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateInput = {
@@ -40738,6 +46076,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUpdateInput = {
@@ -40752,6 +46091,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateInput = {
@@ -40766,6 +46106,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentCreateManyInput = {
@@ -40811,10 +46152,12 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutInAppMessagesInput
     segment: CustomerSegmentCreateNestedOneWithoutInAppMessagesInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutInAppMessagesInput
     readBy?: InAppMessageReadCreateNestedManyWithoutMessageInput
   }
 
@@ -40831,6 +46174,8 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     readBy?: InAppMessageReadUncheckedCreateNestedManyWithoutMessageInput
@@ -40847,10 +46192,12 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutInAppMessagesNestedInput
     segment?: CustomerSegmentUpdateOneRequiredWithoutInAppMessagesNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutInAppMessagesNestedInput
     readBy?: InAppMessageReadUpdateManyWithoutMessageNestedInput
   }
 
@@ -40867,6 +46214,8 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readBy?: InAppMessageReadUncheckedUpdateManyWithoutMessageNestedInput
@@ -40885,6 +46234,8 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -40900,6 +46251,7 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40917,6 +46269,8 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -41258,6 +46612,351 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MarketingTemplateCreateInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutMarketingTemplatesInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateUncheckedCreateInput = {
+    id?: string
+    organizationId?: string | null
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutMarketingTemplatesNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type MarketingTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type MarketingTemplateCreateManyInput = {
+    id?: string
+    organizationId?: string | null
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MarketingTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationCreateInput = {
+    id?: string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutPushNotificationsInput
+    segment: CustomerSegmentCreateNestedOneWithoutPushNotificationsInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutPushNotificationsInput
+    logs?: PushNotificationLogCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationUncheckedCreateInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: PushNotificationLogUncheckedCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPushNotificationsNestedInput
+    segment?: CustomerSegmentUpdateOneRequiredWithoutPushNotificationsNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutPushNotificationsNestedInput
+    logs?: PushNotificationLogUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PushNotificationLogUncheckedUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationCreateManyInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PushNotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationLogCreateInput = {
+    id?: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+    pushNotification: PushNotificationCreateNestedOneWithoutLogsInput
+    user: UserCreateNestedOneWithoutPushNotificationLogsInput
+  }
+
+  export type PushNotificationLogUncheckedCreateInput = {
+    id?: string
+    pushNotificationId: string
+    userId: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+  }
+
+  export type PushNotificationLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pushNotification?: PushNotificationUpdateOneRequiredWithoutLogsNestedInput
+    user?: UserUpdateOneRequiredWithoutPushNotificationLogsNestedInput
+  }
+
+  export type PushNotificationLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pushNotificationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationLogCreateManyInput = {
+    id?: string
+    pushNotificationId: string
+    userId: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+  }
+
+  export type PushNotificationLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pushNotificationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushSubscriptionCreateInput = {
+    id?: string
+    endpoint: string
+    p256dhKey: string
+    authKey: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPushSubscriptionsInput
+  }
+
+  export type PushSubscriptionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    endpoint: string
+    p256dhKey: string
+    authKey: string
+    createdAt?: Date | string
+  }
+
+  export type PushSubscriptionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    p256dhKey?: StringFieldUpdateOperationsInput | string
+    authKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPushSubscriptionsNestedInput
+  }
+
+  export type PushSubscriptionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    p256dhKey?: StringFieldUpdateOperationsInput | string
+    authKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushSubscriptionCreateManyInput = {
+    id?: string
+    userId: string
+    endpoint: string
+    p256dhKey: string
+    authKey: string
+    createdAt?: Date | string
+  }
+
+  export type PushSubscriptionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    p256dhKey?: StringFieldUpdateOperationsInput | string
+    authKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushSubscriptionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    p256dhKey?: StringFieldUpdateOperationsInput | string
+    authKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IncentiveGrantCreateInput = {
     id?: string
     grantedAt?: Date | string
@@ -41420,6 +47119,18 @@ export namespace Prisma {
     none?: SegmentIncentiveWhereInput
   }
 
+  export type MarketingTemplateListRelationFilter = {
+    every?: MarketingTemplateWhereInput
+    some?: MarketingTemplateWhereInput
+    none?: MarketingTemplateWhereInput
+  }
+
+  export type PushNotificationListRelationFilter = {
+    every?: PushNotificationWhereInput
+    some?: PushNotificationWhereInput
+    none?: PushNotificationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -41446,6 +47157,14 @@ export namespace Prisma {
   }
 
   export type SegmentIncentiveOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MarketingTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PushNotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42091,6 +47810,18 @@ export namespace Prisma {
     none?: WalletTransactionWhereInput
   }
 
+  export type PushNotificationLogListRelationFilter = {
+    every?: PushNotificationLogWhereInput
+    some?: PushNotificationLogWhereInput
+    none?: PushNotificationLogWhereInput
+  }
+
+  export type PushSubscriptionListRelationFilter = {
+    every?: PushSubscriptionWhereInput
+    some?: PushSubscriptionWhereInput
+    none?: PushSubscriptionWhereInput
+  }
+
   export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -42108,6 +47839,14 @@ export namespace Prisma {
   }
 
   export type WalletTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PushNotificationLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PushSubscriptionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42512,6 +48251,11 @@ export namespace Prisma {
     isNot?: CouponWhereInput | null
   }
 
+  export type MarketingTemplateNullableRelationFilter = {
+    is?: MarketingTemplateWhereInput | null
+    isNot?: MarketingTemplateWhereInput | null
+  }
+
   export type PromotionBannerCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -42519,6 +48263,8 @@ export namespace Prisma {
     imageUrl?: SortOrder
     couponId?: SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrder
+    templateSnapshot?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -42530,6 +48276,7 @@ export namespace Prisma {
     imageUrl?: SortOrder
     couponId?: SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -42541,6 +48288,7 @@ export namespace Prisma {
     imageUrl?: SortOrder
     couponId?: SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -43232,6 +48980,8 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrder
+    templateSnapshot?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -43249,6 +48999,7 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -43266,6 +49017,7 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     isActive?: SortOrder
+    marketingTemplateId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -43443,6 +49195,237 @@ export namespace Prisma {
     maxGrantsPerUser?: SortOrder
   }
 
+  export type EnumMarketingTemplateTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateType | EnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateTypeFilter<$PrismaModel> | $Enums.MarketingTemplateType
+  }
+
+  export type EnumMarketingTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateStatus | EnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel> | $Enums.MarketingTemplateStatus
+  }
+
+  export type MarketingTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    isStarter?: SortOrder
+    isFavorite?: SortOrder
+    thumbnailUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MarketingTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    isStarter?: SortOrder
+    isFavorite?: SortOrder
+    thumbnailUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MarketingTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    isStarter?: SortOrder
+    isFavorite?: SortOrder
+    thumbnailUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumMarketingTemplateTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateType | EnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateTypeWithAggregatesFilter<$PrismaModel> | $Enums.MarketingTemplateType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMarketingTemplateTypeFilter<$PrismaModel>
+    _max?: NestedEnumMarketingTemplateTypeFilter<$PrismaModel>
+  }
+
+  export type EnumMarketingTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateStatus | EnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.MarketingTemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel>
+  }
+
+  export type EnumPushNotificationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushNotificationStatus | EnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushNotificationStatusFilter<$PrismaModel> | $Enums.PushNotificationStatus
+  }
+
+  export type PushNotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    marketingTemplateId?: SortOrder
+    templateSnapshot?: SortOrder
+    pushTitle?: SortOrder
+    pushBody?: SortOrder
+    deepLink?: SortOrder
+    status?: SortOrder
+    scheduledAt?: SortOrder
+    sentAt?: SortOrder
+    totalRecipients?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PushNotificationAvgOrderByAggregateInput = {
+    totalRecipients?: SortOrder
+  }
+
+  export type PushNotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    marketingTemplateId?: SortOrder
+    pushTitle?: SortOrder
+    pushBody?: SortOrder
+    deepLink?: SortOrder
+    status?: SortOrder
+    scheduledAt?: SortOrder
+    sentAt?: SortOrder
+    totalRecipients?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PushNotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    segmentId?: SortOrder
+    marketingTemplateId?: SortOrder
+    pushTitle?: SortOrder
+    pushBody?: SortOrder
+    deepLink?: SortOrder
+    status?: SortOrder
+    scheduledAt?: SortOrder
+    sentAt?: SortOrder
+    totalRecipients?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PushNotificationSumOrderByAggregateInput = {
+    totalRecipients?: SortOrder
+  }
+
+  export type EnumPushNotificationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushNotificationStatus | EnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushNotificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.PushNotificationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPushNotificationStatusFilter<$PrismaModel>
+    _max?: NestedEnumPushNotificationStatusFilter<$PrismaModel>
+  }
+
+  export type EnumPushDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushDeliveryStatus | EnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushDeliveryStatusFilter<$PrismaModel> | $Enums.PushDeliveryStatus
+  }
+
+  export type PushNotificationRelationFilter = {
+    is?: PushNotificationWhereInput
+    isNot?: PushNotificationWhereInput
+  }
+
+  export type PushNotificationLogPushNotificationIdUserIdCompoundUniqueInput = {
+    pushNotificationId: string
+    userId: string
+  }
+
+  export type PushNotificationLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    pushNotificationId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type PushNotificationLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    pushNotificationId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type PushNotificationLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    pushNotificationId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type EnumPushDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushDeliveryStatus | EnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.PushDeliveryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPushDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumPushDeliveryStatusFilter<$PrismaModel>
+  }
+
+  export type PushSubscriptionUserIdEndpointCompoundUniqueInput = {
+    userId: string
+    endpoint: string
+  }
+
+  export type PushSubscriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    endpoint?: SortOrder
+    p256dhKey?: SortOrder
+    authKey?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PushSubscriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    endpoint?: SortOrder
+    p256dhKey?: SortOrder
+    authKey?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PushSubscriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    endpoint?: SortOrder
+    p256dhKey?: SortOrder
+    authKey?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type SegmentIncentiveRelationFilter = {
     is?: SegmentIncentiveWhereInput
     isNot?: SegmentIncentiveWhereInput
@@ -43536,6 +49519,20 @@ export namespace Prisma {
     connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
   }
 
+  export type MarketingTemplateCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<MarketingTemplateCreateWithoutOrganizationInput, MarketingTemplateUncheckedCreateWithoutOrganizationInput> | MarketingTemplateCreateWithoutOrganizationInput[] | MarketingTemplateUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutOrganizationInput | MarketingTemplateCreateOrConnectWithoutOrganizationInput[]
+    createMany?: MarketingTemplateCreateManyOrganizationInputEnvelope
+    connect?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+  }
+
+  export type PushNotificationCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<PushNotificationCreateWithoutOrganizationInput, PushNotificationUncheckedCreateWithoutOrganizationInput> | PushNotificationCreateWithoutOrganizationInput[] | PushNotificationUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutOrganizationInput | PushNotificationCreateOrConnectWithoutOrganizationInput[]
+    createMany?: PushNotificationCreateManyOrganizationInputEnvelope
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+  }
+
   export type LocationUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -43576,6 +49573,20 @@ export namespace Prisma {
     connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutOrganizationInput | SegmentIncentiveCreateOrConnectWithoutOrganizationInput[]
     createMany?: SegmentIncentiveCreateManyOrganizationInputEnvelope
     connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+  }
+
+  export type MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<MarketingTemplateCreateWithoutOrganizationInput, MarketingTemplateUncheckedCreateWithoutOrganizationInput> | MarketingTemplateCreateWithoutOrganizationInput[] | MarketingTemplateUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutOrganizationInput | MarketingTemplateCreateOrConnectWithoutOrganizationInput[]
+    createMany?: MarketingTemplateCreateManyOrganizationInputEnvelope
+    connect?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+  }
+
+  export type PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<PushNotificationCreateWithoutOrganizationInput, PushNotificationUncheckedCreateWithoutOrganizationInput> | PushNotificationCreateWithoutOrganizationInput[] | PushNotificationUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutOrganizationInput | PushNotificationCreateOrConnectWithoutOrganizationInput[]
+    createMany?: PushNotificationCreateManyOrganizationInputEnvelope
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -43674,6 +49685,34 @@ export namespace Prisma {
     deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
   }
 
+  export type MarketingTemplateUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<MarketingTemplateCreateWithoutOrganizationInput, MarketingTemplateUncheckedCreateWithoutOrganizationInput> | MarketingTemplateCreateWithoutOrganizationInput[] | MarketingTemplateUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutOrganizationInput | MarketingTemplateCreateOrConnectWithoutOrganizationInput[]
+    upsert?: MarketingTemplateUpsertWithWhereUniqueWithoutOrganizationInput | MarketingTemplateUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: MarketingTemplateCreateManyOrganizationInputEnvelope
+    set?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    disconnect?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    delete?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    connect?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    update?: MarketingTemplateUpdateWithWhereUniqueWithoutOrganizationInput | MarketingTemplateUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: MarketingTemplateUpdateManyWithWhereWithoutOrganizationInput | MarketingTemplateUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: MarketingTemplateScalarWhereInput | MarketingTemplateScalarWhereInput[]
+  }
+
+  export type PushNotificationUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<PushNotificationCreateWithoutOrganizationInput, PushNotificationUncheckedCreateWithoutOrganizationInput> | PushNotificationCreateWithoutOrganizationInput[] | PushNotificationUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutOrganizationInput | PushNotificationCreateOrConnectWithoutOrganizationInput[]
+    upsert?: PushNotificationUpsertWithWhereUniqueWithoutOrganizationInput | PushNotificationUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: PushNotificationCreateManyOrganizationInputEnvelope
+    set?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    disconnect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    delete?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    update?: PushNotificationUpdateWithWhereUniqueWithoutOrganizationInput | PushNotificationUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: PushNotificationUpdateManyWithWhereWithoutOrganizationInput | PushNotificationUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+  }
+
   export type LocationUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -43756,6 +49795,34 @@ export namespace Prisma {
     update?: SegmentIncentiveUpdateWithWhereUniqueWithoutOrganizationInput | SegmentIncentiveUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: SegmentIncentiveUpdateManyWithWhereWithoutOrganizationInput | SegmentIncentiveUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
+  }
+
+  export type MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<MarketingTemplateCreateWithoutOrganizationInput, MarketingTemplateUncheckedCreateWithoutOrganizationInput> | MarketingTemplateCreateWithoutOrganizationInput[] | MarketingTemplateUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutOrganizationInput | MarketingTemplateCreateOrConnectWithoutOrganizationInput[]
+    upsert?: MarketingTemplateUpsertWithWhereUniqueWithoutOrganizationInput | MarketingTemplateUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: MarketingTemplateCreateManyOrganizationInputEnvelope
+    set?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    disconnect?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    delete?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    connect?: MarketingTemplateWhereUniqueInput | MarketingTemplateWhereUniqueInput[]
+    update?: MarketingTemplateUpdateWithWhereUniqueWithoutOrganizationInput | MarketingTemplateUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: MarketingTemplateUpdateManyWithWhereWithoutOrganizationInput | MarketingTemplateUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: MarketingTemplateScalarWhereInput | MarketingTemplateScalarWhereInput[]
+  }
+
+  export type PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<PushNotificationCreateWithoutOrganizationInput, PushNotificationUncheckedCreateWithoutOrganizationInput> | PushNotificationCreateWithoutOrganizationInput[] | PushNotificationUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutOrganizationInput | PushNotificationCreateOrConnectWithoutOrganizationInput[]
+    upsert?: PushNotificationUpsertWithWhereUniqueWithoutOrganizationInput | PushNotificationUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: PushNotificationCreateManyOrganizationInputEnvelope
+    set?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    disconnect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    delete?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    update?: PushNotificationUpdateWithWhereUniqueWithoutOrganizationInput | PushNotificationUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: PushNotificationUpdateManyWithWhereWithoutOrganizationInput | PushNotificationUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
   }
 
   export type CompanyEmployeeCreateNestedManyWithoutCompanyInput = {
@@ -44284,6 +50351,20 @@ export namespace Prisma {
     connect?: WalletTransactionWhereUniqueInput | WalletTransactionWhereUniqueInput[]
   }
 
+  export type PushNotificationLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<PushNotificationLogCreateWithoutUserInput, PushNotificationLogUncheckedCreateWithoutUserInput> | PushNotificationLogCreateWithoutUserInput[] | PushNotificationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutUserInput | PushNotificationLogCreateOrConnectWithoutUserInput[]
+    createMany?: PushNotificationLogCreateManyUserInputEnvelope
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+  }
+
+  export type PushSubscriptionCreateNestedManyWithoutUserInput = {
+    create?: XOR<PushSubscriptionCreateWithoutUserInput, PushSubscriptionUncheckedCreateWithoutUserInput> | PushSubscriptionCreateWithoutUserInput[] | PushSubscriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushSubscriptionCreateOrConnectWithoutUserInput | PushSubscriptionCreateOrConnectWithoutUserInput[]
+    createMany?: PushSubscriptionCreateManyUserInputEnvelope
+    connect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+  }
+
   export type UserLocationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -44351,6 +50432,20 @@ export namespace Prisma {
     connectOrCreate?: WalletTransactionCreateOrConnectWithoutPerformedByInput | WalletTransactionCreateOrConnectWithoutPerformedByInput[]
     createMany?: WalletTransactionCreateManyPerformedByInputEnvelope
     connect?: WalletTransactionWhereUniqueInput | WalletTransactionWhereUniqueInput[]
+  }
+
+  export type PushNotificationLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PushNotificationLogCreateWithoutUserInput, PushNotificationLogUncheckedCreateWithoutUserInput> | PushNotificationLogCreateWithoutUserInput[] | PushNotificationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutUserInput | PushNotificationLogCreateOrConnectWithoutUserInput[]
+    createMany?: PushNotificationLogCreateManyUserInputEnvelope
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+  }
+
+  export type PushSubscriptionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PushSubscriptionCreateWithoutUserInput, PushSubscriptionUncheckedCreateWithoutUserInput> | PushSubscriptionCreateWithoutUserInput[] | PushSubscriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushSubscriptionCreateOrConnectWithoutUserInput | PushSubscriptionCreateOrConnectWithoutUserInput[]
+    createMany?: PushSubscriptionCreateManyUserInputEnvelope
+    connect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -44503,6 +50598,34 @@ export namespace Prisma {
     deleteMany?: WalletTransactionScalarWhereInput | WalletTransactionScalarWhereInput[]
   }
 
+  export type PushNotificationLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PushNotificationLogCreateWithoutUserInput, PushNotificationLogUncheckedCreateWithoutUserInput> | PushNotificationLogCreateWithoutUserInput[] | PushNotificationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutUserInput | PushNotificationLogCreateOrConnectWithoutUserInput[]
+    upsert?: PushNotificationLogUpsertWithWhereUniqueWithoutUserInput | PushNotificationLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PushNotificationLogCreateManyUserInputEnvelope
+    set?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    disconnect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    delete?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    update?: PushNotificationLogUpdateWithWhereUniqueWithoutUserInput | PushNotificationLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PushNotificationLogUpdateManyWithWhereWithoutUserInput | PushNotificationLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PushNotificationLogScalarWhereInput | PushNotificationLogScalarWhereInput[]
+  }
+
+  export type PushSubscriptionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PushSubscriptionCreateWithoutUserInput, PushSubscriptionUncheckedCreateWithoutUserInput> | PushSubscriptionCreateWithoutUserInput[] | PushSubscriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushSubscriptionCreateOrConnectWithoutUserInput | PushSubscriptionCreateOrConnectWithoutUserInput[]
+    upsert?: PushSubscriptionUpsertWithWhereUniqueWithoutUserInput | PushSubscriptionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PushSubscriptionCreateManyUserInputEnvelope
+    set?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    disconnect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    delete?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    connect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    update?: PushSubscriptionUpdateWithWhereUniqueWithoutUserInput | PushSubscriptionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PushSubscriptionUpdateManyWithWhereWithoutUserInput | PushSubscriptionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PushSubscriptionScalarWhereInput | PushSubscriptionScalarWhereInput[]
+  }
+
   export type UserLocationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -44637,6 +50760,34 @@ export namespace Prisma {
     update?: WalletTransactionUpdateWithWhereUniqueWithoutPerformedByInput | WalletTransactionUpdateWithWhereUniqueWithoutPerformedByInput[]
     updateMany?: WalletTransactionUpdateManyWithWhereWithoutPerformedByInput | WalletTransactionUpdateManyWithWhereWithoutPerformedByInput[]
     deleteMany?: WalletTransactionScalarWhereInput | WalletTransactionScalarWhereInput[]
+  }
+
+  export type PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PushNotificationLogCreateWithoutUserInput, PushNotificationLogUncheckedCreateWithoutUserInput> | PushNotificationLogCreateWithoutUserInput[] | PushNotificationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutUserInput | PushNotificationLogCreateOrConnectWithoutUserInput[]
+    upsert?: PushNotificationLogUpsertWithWhereUniqueWithoutUserInput | PushNotificationLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PushNotificationLogCreateManyUserInputEnvelope
+    set?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    disconnect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    delete?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    update?: PushNotificationLogUpdateWithWhereUniqueWithoutUserInput | PushNotificationLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PushNotificationLogUpdateManyWithWhereWithoutUserInput | PushNotificationLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PushNotificationLogScalarWhereInput | PushNotificationLogScalarWhereInput[]
+  }
+
+  export type PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PushSubscriptionCreateWithoutUserInput, PushSubscriptionUncheckedCreateWithoutUserInput> | PushSubscriptionCreateWithoutUserInput[] | PushSubscriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PushSubscriptionCreateOrConnectWithoutUserInput | PushSubscriptionCreateOrConnectWithoutUserInput[]
+    upsert?: PushSubscriptionUpsertWithWhereUniqueWithoutUserInput | PushSubscriptionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PushSubscriptionCreateManyUserInputEnvelope
+    set?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    disconnect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    delete?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    connect?: PushSubscriptionWhereUniqueInput | PushSubscriptionWhereUniqueInput[]
+    update?: PushSubscriptionUpdateWithWhereUniqueWithoutUserInput | PushSubscriptionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PushSubscriptionUpdateManyWithWhereWithoutUserInput | PushSubscriptionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PushSubscriptionScalarWhereInput | PushSubscriptionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWalletInput = {
@@ -44887,6 +51038,12 @@ export namespace Prisma {
     connect?: CouponWhereUniqueInput
   }
 
+  export type MarketingTemplateCreateNestedOneWithoutPromotionBannersInput = {
+    create?: XOR<MarketingTemplateCreateWithoutPromotionBannersInput, MarketingTemplateUncheckedCreateWithoutPromotionBannersInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutPromotionBannersInput
+    connect?: MarketingTemplateWhereUniqueInput
+  }
+
   export type MenuPromotionBannerCreateNestedManyWithoutPromotionBannerInput = {
     create?: XOR<MenuPromotionBannerCreateWithoutPromotionBannerInput, MenuPromotionBannerUncheckedCreateWithoutPromotionBannerInput> | MenuPromotionBannerCreateWithoutPromotionBannerInput[] | MenuPromotionBannerUncheckedCreateWithoutPromotionBannerInput[]
     connectOrCreate?: MenuPromotionBannerCreateOrConnectWithoutPromotionBannerInput | MenuPromotionBannerCreateOrConnectWithoutPromotionBannerInput[]
@@ -44909,6 +51066,16 @@ export namespace Prisma {
     delete?: CouponWhereInput | boolean
     connect?: CouponWhereUniqueInput
     update?: XOR<XOR<CouponUpdateToOneWithWhereWithoutPromotionBannersInput, CouponUpdateWithoutPromotionBannersInput>, CouponUncheckedUpdateWithoutPromotionBannersInput>
+  }
+
+  export type MarketingTemplateUpdateOneWithoutPromotionBannersNestedInput = {
+    create?: XOR<MarketingTemplateCreateWithoutPromotionBannersInput, MarketingTemplateUncheckedCreateWithoutPromotionBannersInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutPromotionBannersInput
+    upsert?: MarketingTemplateUpsertWithoutPromotionBannersInput
+    disconnect?: MarketingTemplateWhereInput | boolean
+    delete?: MarketingTemplateWhereInput | boolean
+    connect?: MarketingTemplateWhereUniqueInput
+    update?: XOR<XOR<MarketingTemplateUpdateToOneWithWhereWithoutPromotionBannersInput, MarketingTemplateUpdateWithoutPromotionBannersInput>, MarketingTemplateUncheckedUpdateWithoutPromotionBannersInput>
   }
 
   export type MenuPromotionBannerUpdateManyWithoutPromotionBannerNestedInput = {
@@ -45622,6 +51789,13 @@ export namespace Prisma {
     connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
   }
 
+  export type PushNotificationCreateNestedManyWithoutSegmentInput = {
+    create?: XOR<PushNotificationCreateWithoutSegmentInput, PushNotificationUncheckedCreateWithoutSegmentInput> | PushNotificationCreateWithoutSegmentInput[] | PushNotificationUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutSegmentInput | PushNotificationCreateOrConnectWithoutSegmentInput[]
+    createMany?: PushNotificationCreateManySegmentInputEnvelope
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+  }
+
   export type InAppMessageUncheckedCreateNestedManyWithoutSegmentInput = {
     create?: XOR<InAppMessageCreateWithoutSegmentInput, InAppMessageUncheckedCreateWithoutSegmentInput> | InAppMessageCreateWithoutSegmentInput[] | InAppMessageUncheckedCreateWithoutSegmentInput[]
     connectOrCreate?: InAppMessageCreateOrConnectWithoutSegmentInput | InAppMessageCreateOrConnectWithoutSegmentInput[]
@@ -45641,6 +51815,13 @@ export namespace Prisma {
     connectOrCreate?: SegmentIncentiveCreateOrConnectWithoutSegmentInput | SegmentIncentiveCreateOrConnectWithoutSegmentInput[]
     createMany?: SegmentIncentiveCreateManySegmentInputEnvelope
     connect?: SegmentIncentiveWhereUniqueInput | SegmentIncentiveWhereUniqueInput[]
+  }
+
+  export type PushNotificationUncheckedCreateNestedManyWithoutSegmentInput = {
+    create?: XOR<PushNotificationCreateWithoutSegmentInput, PushNotificationUncheckedCreateWithoutSegmentInput> | PushNotificationCreateWithoutSegmentInput[] | PushNotificationUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutSegmentInput | PushNotificationCreateOrConnectWithoutSegmentInput[]
+    createMany?: PushNotificationCreateManySegmentInputEnvelope
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
   }
 
   export type OrganizationUpdateOneRequiredWithoutSegmentsNestedInput = {
@@ -45693,6 +51874,20 @@ export namespace Prisma {
     deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
   }
 
+  export type PushNotificationUpdateManyWithoutSegmentNestedInput = {
+    create?: XOR<PushNotificationCreateWithoutSegmentInput, PushNotificationUncheckedCreateWithoutSegmentInput> | PushNotificationCreateWithoutSegmentInput[] | PushNotificationUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutSegmentInput | PushNotificationCreateOrConnectWithoutSegmentInput[]
+    upsert?: PushNotificationUpsertWithWhereUniqueWithoutSegmentInput | PushNotificationUpsertWithWhereUniqueWithoutSegmentInput[]
+    createMany?: PushNotificationCreateManySegmentInputEnvelope
+    set?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    disconnect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    delete?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    update?: PushNotificationUpdateWithWhereUniqueWithoutSegmentInput | PushNotificationUpdateWithWhereUniqueWithoutSegmentInput[]
+    updateMany?: PushNotificationUpdateManyWithWhereWithoutSegmentInput | PushNotificationUpdateManyWithWhereWithoutSegmentInput[]
+    deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+  }
+
   export type InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput = {
     create?: XOR<InAppMessageCreateWithoutSegmentInput, InAppMessageUncheckedCreateWithoutSegmentInput> | InAppMessageCreateWithoutSegmentInput[] | InAppMessageUncheckedCreateWithoutSegmentInput[]
     connectOrCreate?: InAppMessageCreateOrConnectWithoutSegmentInput | InAppMessageCreateOrConnectWithoutSegmentInput[]
@@ -45735,6 +51930,20 @@ export namespace Prisma {
     deleteMany?: SegmentIncentiveScalarWhereInput | SegmentIncentiveScalarWhereInput[]
   }
 
+  export type PushNotificationUncheckedUpdateManyWithoutSegmentNestedInput = {
+    create?: XOR<PushNotificationCreateWithoutSegmentInput, PushNotificationUncheckedCreateWithoutSegmentInput> | PushNotificationCreateWithoutSegmentInput[] | PushNotificationUncheckedCreateWithoutSegmentInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutSegmentInput | PushNotificationCreateOrConnectWithoutSegmentInput[]
+    upsert?: PushNotificationUpsertWithWhereUniqueWithoutSegmentInput | PushNotificationUpsertWithWhereUniqueWithoutSegmentInput[]
+    createMany?: PushNotificationCreateManySegmentInputEnvelope
+    set?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    disconnect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    delete?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    update?: PushNotificationUpdateWithWhereUniqueWithoutSegmentInput | PushNotificationUpdateWithWhereUniqueWithoutSegmentInput[]
+    updateMany?: PushNotificationUpdateManyWithWhereWithoutSegmentInput | PushNotificationUpdateManyWithWhereWithoutSegmentInput[]
+    deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+  }
+
   export type OrganizationCreateNestedOneWithoutInAppMessagesInput = {
     create?: XOR<OrganizationCreateWithoutInAppMessagesInput, OrganizationUncheckedCreateWithoutInAppMessagesInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutInAppMessagesInput
@@ -45745,6 +51954,12 @@ export namespace Prisma {
     create?: XOR<CustomerSegmentCreateWithoutInAppMessagesInput, CustomerSegmentUncheckedCreateWithoutInAppMessagesInput>
     connectOrCreate?: CustomerSegmentCreateOrConnectWithoutInAppMessagesInput
     connect?: CustomerSegmentWhereUniqueInput
+  }
+
+  export type MarketingTemplateCreateNestedOneWithoutInAppMessagesInput = {
+    create?: XOR<MarketingTemplateCreateWithoutInAppMessagesInput, MarketingTemplateUncheckedCreateWithoutInAppMessagesInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutInAppMessagesInput
+    connect?: MarketingTemplateWhereUniqueInput
   }
 
   export type InAppMessageReadCreateNestedManyWithoutMessageInput = {
@@ -45775,6 +51990,16 @@ export namespace Prisma {
     upsert?: CustomerSegmentUpsertWithoutInAppMessagesInput
     connect?: CustomerSegmentWhereUniqueInput
     update?: XOR<XOR<CustomerSegmentUpdateToOneWithWhereWithoutInAppMessagesInput, CustomerSegmentUpdateWithoutInAppMessagesInput>, CustomerSegmentUncheckedUpdateWithoutInAppMessagesInput>
+  }
+
+  export type MarketingTemplateUpdateOneWithoutInAppMessagesNestedInput = {
+    create?: XOR<MarketingTemplateCreateWithoutInAppMessagesInput, MarketingTemplateUncheckedCreateWithoutInAppMessagesInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutInAppMessagesInput
+    upsert?: MarketingTemplateUpsertWithoutInAppMessagesInput
+    disconnect?: MarketingTemplateWhereInput | boolean
+    delete?: MarketingTemplateWhereInput | boolean
+    connect?: MarketingTemplateWhereUniqueInput
+    update?: XOR<XOR<MarketingTemplateUpdateToOneWithWhereWithoutInAppMessagesInput, MarketingTemplateUpdateWithoutInAppMessagesInput>, MarketingTemplateUncheckedUpdateWithoutInAppMessagesInput>
   }
 
   export type InAppMessageReadUpdateManyWithoutMessageNestedInput = {
@@ -45987,6 +52212,292 @@ export namespace Prisma {
     update?: IncentiveGrantUpdateWithWhereUniqueWithoutSegmentIncentiveInput | IncentiveGrantUpdateWithWhereUniqueWithoutSegmentIncentiveInput[]
     updateMany?: IncentiveGrantUpdateManyWithWhereWithoutSegmentIncentiveInput | IncentiveGrantUpdateManyWithWhereWithoutSegmentIncentiveInput[]
     deleteMany?: IncentiveGrantScalarWhereInput | IncentiveGrantScalarWhereInput[]
+  }
+
+  export type OrganizationCreateNestedOneWithoutMarketingTemplatesInput = {
+    create?: XOR<OrganizationCreateWithoutMarketingTemplatesInput, OrganizationUncheckedCreateWithoutMarketingTemplatesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutMarketingTemplatesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type InAppMessageCreateNestedManyWithoutMarketingTemplateInput = {
+    create?: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput> | InAppMessageCreateWithoutMarketingTemplateInput[] | InAppMessageUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: InAppMessageCreateOrConnectWithoutMarketingTemplateInput | InAppMessageCreateOrConnectWithoutMarketingTemplateInput[]
+    createMany?: InAppMessageCreateManyMarketingTemplateInputEnvelope
+    connect?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+  }
+
+  export type PromotionBannerCreateNestedManyWithoutMarketingTemplateInput = {
+    create?: XOR<PromotionBannerCreateWithoutMarketingTemplateInput, PromotionBannerUncheckedCreateWithoutMarketingTemplateInput> | PromotionBannerCreateWithoutMarketingTemplateInput[] | PromotionBannerUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutMarketingTemplateInput | PromotionBannerCreateOrConnectWithoutMarketingTemplateInput[]
+    createMany?: PromotionBannerCreateManyMarketingTemplateInputEnvelope
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+  }
+
+  export type PushNotificationCreateNestedManyWithoutMarketingTemplateInput = {
+    create?: XOR<PushNotificationCreateWithoutMarketingTemplateInput, PushNotificationUncheckedCreateWithoutMarketingTemplateInput> | PushNotificationCreateWithoutMarketingTemplateInput[] | PushNotificationUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutMarketingTemplateInput | PushNotificationCreateOrConnectWithoutMarketingTemplateInput[]
+    createMany?: PushNotificationCreateManyMarketingTemplateInputEnvelope
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+  }
+
+  export type InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput = {
+    create?: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput> | InAppMessageCreateWithoutMarketingTemplateInput[] | InAppMessageUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: InAppMessageCreateOrConnectWithoutMarketingTemplateInput | InAppMessageCreateOrConnectWithoutMarketingTemplateInput[]
+    createMany?: InAppMessageCreateManyMarketingTemplateInputEnvelope
+    connect?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+  }
+
+  export type PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput = {
+    create?: XOR<PromotionBannerCreateWithoutMarketingTemplateInput, PromotionBannerUncheckedCreateWithoutMarketingTemplateInput> | PromotionBannerCreateWithoutMarketingTemplateInput[] | PromotionBannerUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutMarketingTemplateInput | PromotionBannerCreateOrConnectWithoutMarketingTemplateInput[]
+    createMany?: PromotionBannerCreateManyMarketingTemplateInputEnvelope
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+  }
+
+  export type PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput = {
+    create?: XOR<PushNotificationCreateWithoutMarketingTemplateInput, PushNotificationUncheckedCreateWithoutMarketingTemplateInput> | PushNotificationCreateWithoutMarketingTemplateInput[] | PushNotificationUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutMarketingTemplateInput | PushNotificationCreateOrConnectWithoutMarketingTemplateInput[]
+    createMany?: PushNotificationCreateManyMarketingTemplateInputEnvelope
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+  }
+
+  export type EnumMarketingTemplateTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MarketingTemplateType
+  }
+
+  export type EnumMarketingTemplateStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MarketingTemplateStatus
+  }
+
+  export type OrganizationUpdateOneWithoutMarketingTemplatesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutMarketingTemplatesInput, OrganizationUncheckedCreateWithoutMarketingTemplatesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutMarketingTemplatesInput
+    upsert?: OrganizationUpsertWithoutMarketingTemplatesInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutMarketingTemplatesInput, OrganizationUpdateWithoutMarketingTemplatesInput>, OrganizationUncheckedUpdateWithoutMarketingTemplatesInput>
+  }
+
+  export type InAppMessageUpdateManyWithoutMarketingTemplateNestedInput = {
+    create?: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput> | InAppMessageCreateWithoutMarketingTemplateInput[] | InAppMessageUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: InAppMessageCreateOrConnectWithoutMarketingTemplateInput | InAppMessageCreateOrConnectWithoutMarketingTemplateInput[]
+    upsert?: InAppMessageUpsertWithWhereUniqueWithoutMarketingTemplateInput | InAppMessageUpsertWithWhereUniqueWithoutMarketingTemplateInput[]
+    createMany?: InAppMessageCreateManyMarketingTemplateInputEnvelope
+    set?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    disconnect?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    delete?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    connect?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    update?: InAppMessageUpdateWithWhereUniqueWithoutMarketingTemplateInput | InAppMessageUpdateWithWhereUniqueWithoutMarketingTemplateInput[]
+    updateMany?: InAppMessageUpdateManyWithWhereWithoutMarketingTemplateInput | InAppMessageUpdateManyWithWhereWithoutMarketingTemplateInput[]
+    deleteMany?: InAppMessageScalarWhereInput | InAppMessageScalarWhereInput[]
+  }
+
+  export type PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput = {
+    create?: XOR<PromotionBannerCreateWithoutMarketingTemplateInput, PromotionBannerUncheckedCreateWithoutMarketingTemplateInput> | PromotionBannerCreateWithoutMarketingTemplateInput[] | PromotionBannerUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutMarketingTemplateInput | PromotionBannerCreateOrConnectWithoutMarketingTemplateInput[]
+    upsert?: PromotionBannerUpsertWithWhereUniqueWithoutMarketingTemplateInput | PromotionBannerUpsertWithWhereUniqueWithoutMarketingTemplateInput[]
+    createMany?: PromotionBannerCreateManyMarketingTemplateInputEnvelope
+    set?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    disconnect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    delete?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    update?: PromotionBannerUpdateWithWhereUniqueWithoutMarketingTemplateInput | PromotionBannerUpdateWithWhereUniqueWithoutMarketingTemplateInput[]
+    updateMany?: PromotionBannerUpdateManyWithWhereWithoutMarketingTemplateInput | PromotionBannerUpdateManyWithWhereWithoutMarketingTemplateInput[]
+    deleteMany?: PromotionBannerScalarWhereInput | PromotionBannerScalarWhereInput[]
+  }
+
+  export type PushNotificationUpdateManyWithoutMarketingTemplateNestedInput = {
+    create?: XOR<PushNotificationCreateWithoutMarketingTemplateInput, PushNotificationUncheckedCreateWithoutMarketingTemplateInput> | PushNotificationCreateWithoutMarketingTemplateInput[] | PushNotificationUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutMarketingTemplateInput | PushNotificationCreateOrConnectWithoutMarketingTemplateInput[]
+    upsert?: PushNotificationUpsertWithWhereUniqueWithoutMarketingTemplateInput | PushNotificationUpsertWithWhereUniqueWithoutMarketingTemplateInput[]
+    createMany?: PushNotificationCreateManyMarketingTemplateInputEnvelope
+    set?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    disconnect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    delete?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    update?: PushNotificationUpdateWithWhereUniqueWithoutMarketingTemplateInput | PushNotificationUpdateWithWhereUniqueWithoutMarketingTemplateInput[]
+    updateMany?: PushNotificationUpdateManyWithWhereWithoutMarketingTemplateInput | PushNotificationUpdateManyWithWhereWithoutMarketingTemplateInput[]
+    deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+  }
+
+  export type InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput = {
+    create?: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput> | InAppMessageCreateWithoutMarketingTemplateInput[] | InAppMessageUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: InAppMessageCreateOrConnectWithoutMarketingTemplateInput | InAppMessageCreateOrConnectWithoutMarketingTemplateInput[]
+    upsert?: InAppMessageUpsertWithWhereUniqueWithoutMarketingTemplateInput | InAppMessageUpsertWithWhereUniqueWithoutMarketingTemplateInput[]
+    createMany?: InAppMessageCreateManyMarketingTemplateInputEnvelope
+    set?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    disconnect?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    delete?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    connect?: InAppMessageWhereUniqueInput | InAppMessageWhereUniqueInput[]
+    update?: InAppMessageUpdateWithWhereUniqueWithoutMarketingTemplateInput | InAppMessageUpdateWithWhereUniqueWithoutMarketingTemplateInput[]
+    updateMany?: InAppMessageUpdateManyWithWhereWithoutMarketingTemplateInput | InAppMessageUpdateManyWithWhereWithoutMarketingTemplateInput[]
+    deleteMany?: InAppMessageScalarWhereInput | InAppMessageScalarWhereInput[]
+  }
+
+  export type PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput = {
+    create?: XOR<PromotionBannerCreateWithoutMarketingTemplateInput, PromotionBannerUncheckedCreateWithoutMarketingTemplateInput> | PromotionBannerCreateWithoutMarketingTemplateInput[] | PromotionBannerUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PromotionBannerCreateOrConnectWithoutMarketingTemplateInput | PromotionBannerCreateOrConnectWithoutMarketingTemplateInput[]
+    upsert?: PromotionBannerUpsertWithWhereUniqueWithoutMarketingTemplateInput | PromotionBannerUpsertWithWhereUniqueWithoutMarketingTemplateInput[]
+    createMany?: PromotionBannerCreateManyMarketingTemplateInputEnvelope
+    set?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    disconnect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    delete?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    connect?: PromotionBannerWhereUniqueInput | PromotionBannerWhereUniqueInput[]
+    update?: PromotionBannerUpdateWithWhereUniqueWithoutMarketingTemplateInput | PromotionBannerUpdateWithWhereUniqueWithoutMarketingTemplateInput[]
+    updateMany?: PromotionBannerUpdateManyWithWhereWithoutMarketingTemplateInput | PromotionBannerUpdateManyWithWhereWithoutMarketingTemplateInput[]
+    deleteMany?: PromotionBannerScalarWhereInput | PromotionBannerScalarWhereInput[]
+  }
+
+  export type PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput = {
+    create?: XOR<PushNotificationCreateWithoutMarketingTemplateInput, PushNotificationUncheckedCreateWithoutMarketingTemplateInput> | PushNotificationCreateWithoutMarketingTemplateInput[] | PushNotificationUncheckedCreateWithoutMarketingTemplateInput[]
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutMarketingTemplateInput | PushNotificationCreateOrConnectWithoutMarketingTemplateInput[]
+    upsert?: PushNotificationUpsertWithWhereUniqueWithoutMarketingTemplateInput | PushNotificationUpsertWithWhereUniqueWithoutMarketingTemplateInput[]
+    createMany?: PushNotificationCreateManyMarketingTemplateInputEnvelope
+    set?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    disconnect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    delete?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    connect?: PushNotificationWhereUniqueInput | PushNotificationWhereUniqueInput[]
+    update?: PushNotificationUpdateWithWhereUniqueWithoutMarketingTemplateInput | PushNotificationUpdateWithWhereUniqueWithoutMarketingTemplateInput[]
+    updateMany?: PushNotificationUpdateManyWithWhereWithoutMarketingTemplateInput | PushNotificationUpdateManyWithWhereWithoutMarketingTemplateInput[]
+    deleteMany?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+  }
+
+  export type OrganizationCreateNestedOneWithoutPushNotificationsInput = {
+    create?: XOR<OrganizationCreateWithoutPushNotificationsInput, OrganizationUncheckedCreateWithoutPushNotificationsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutPushNotificationsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type CustomerSegmentCreateNestedOneWithoutPushNotificationsInput = {
+    create?: XOR<CustomerSegmentCreateWithoutPushNotificationsInput, CustomerSegmentUncheckedCreateWithoutPushNotificationsInput>
+    connectOrCreate?: CustomerSegmentCreateOrConnectWithoutPushNotificationsInput
+    connect?: CustomerSegmentWhereUniqueInput
+  }
+
+  export type MarketingTemplateCreateNestedOneWithoutPushNotificationsInput = {
+    create?: XOR<MarketingTemplateCreateWithoutPushNotificationsInput, MarketingTemplateUncheckedCreateWithoutPushNotificationsInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutPushNotificationsInput
+    connect?: MarketingTemplateWhereUniqueInput
+  }
+
+  export type PushNotificationLogCreateNestedManyWithoutPushNotificationInput = {
+    create?: XOR<PushNotificationLogCreateWithoutPushNotificationInput, PushNotificationLogUncheckedCreateWithoutPushNotificationInput> | PushNotificationLogCreateWithoutPushNotificationInput[] | PushNotificationLogUncheckedCreateWithoutPushNotificationInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutPushNotificationInput | PushNotificationLogCreateOrConnectWithoutPushNotificationInput[]
+    createMany?: PushNotificationLogCreateManyPushNotificationInputEnvelope
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+  }
+
+  export type PushNotificationLogUncheckedCreateNestedManyWithoutPushNotificationInput = {
+    create?: XOR<PushNotificationLogCreateWithoutPushNotificationInput, PushNotificationLogUncheckedCreateWithoutPushNotificationInput> | PushNotificationLogCreateWithoutPushNotificationInput[] | PushNotificationLogUncheckedCreateWithoutPushNotificationInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutPushNotificationInput | PushNotificationLogCreateOrConnectWithoutPushNotificationInput[]
+    createMany?: PushNotificationLogCreateManyPushNotificationInputEnvelope
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+  }
+
+  export type EnumPushNotificationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PushNotificationStatus
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutPushNotificationsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutPushNotificationsInput, OrganizationUncheckedCreateWithoutPushNotificationsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutPushNotificationsInput
+    upsert?: OrganizationUpsertWithoutPushNotificationsInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutPushNotificationsInput, OrganizationUpdateWithoutPushNotificationsInput>, OrganizationUncheckedUpdateWithoutPushNotificationsInput>
+  }
+
+  export type CustomerSegmentUpdateOneRequiredWithoutPushNotificationsNestedInput = {
+    create?: XOR<CustomerSegmentCreateWithoutPushNotificationsInput, CustomerSegmentUncheckedCreateWithoutPushNotificationsInput>
+    connectOrCreate?: CustomerSegmentCreateOrConnectWithoutPushNotificationsInput
+    upsert?: CustomerSegmentUpsertWithoutPushNotificationsInput
+    connect?: CustomerSegmentWhereUniqueInput
+    update?: XOR<XOR<CustomerSegmentUpdateToOneWithWhereWithoutPushNotificationsInput, CustomerSegmentUpdateWithoutPushNotificationsInput>, CustomerSegmentUncheckedUpdateWithoutPushNotificationsInput>
+  }
+
+  export type MarketingTemplateUpdateOneWithoutPushNotificationsNestedInput = {
+    create?: XOR<MarketingTemplateCreateWithoutPushNotificationsInput, MarketingTemplateUncheckedCreateWithoutPushNotificationsInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutPushNotificationsInput
+    upsert?: MarketingTemplateUpsertWithoutPushNotificationsInput
+    disconnect?: MarketingTemplateWhereInput | boolean
+    delete?: MarketingTemplateWhereInput | boolean
+    connect?: MarketingTemplateWhereUniqueInput
+    update?: XOR<XOR<MarketingTemplateUpdateToOneWithWhereWithoutPushNotificationsInput, MarketingTemplateUpdateWithoutPushNotificationsInput>, MarketingTemplateUncheckedUpdateWithoutPushNotificationsInput>
+  }
+
+  export type PushNotificationLogUpdateManyWithoutPushNotificationNestedInput = {
+    create?: XOR<PushNotificationLogCreateWithoutPushNotificationInput, PushNotificationLogUncheckedCreateWithoutPushNotificationInput> | PushNotificationLogCreateWithoutPushNotificationInput[] | PushNotificationLogUncheckedCreateWithoutPushNotificationInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutPushNotificationInput | PushNotificationLogCreateOrConnectWithoutPushNotificationInput[]
+    upsert?: PushNotificationLogUpsertWithWhereUniqueWithoutPushNotificationInput | PushNotificationLogUpsertWithWhereUniqueWithoutPushNotificationInput[]
+    createMany?: PushNotificationLogCreateManyPushNotificationInputEnvelope
+    set?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    disconnect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    delete?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    update?: PushNotificationLogUpdateWithWhereUniqueWithoutPushNotificationInput | PushNotificationLogUpdateWithWhereUniqueWithoutPushNotificationInput[]
+    updateMany?: PushNotificationLogUpdateManyWithWhereWithoutPushNotificationInput | PushNotificationLogUpdateManyWithWhereWithoutPushNotificationInput[]
+    deleteMany?: PushNotificationLogScalarWhereInput | PushNotificationLogScalarWhereInput[]
+  }
+
+  export type PushNotificationLogUncheckedUpdateManyWithoutPushNotificationNestedInput = {
+    create?: XOR<PushNotificationLogCreateWithoutPushNotificationInput, PushNotificationLogUncheckedCreateWithoutPushNotificationInput> | PushNotificationLogCreateWithoutPushNotificationInput[] | PushNotificationLogUncheckedCreateWithoutPushNotificationInput[]
+    connectOrCreate?: PushNotificationLogCreateOrConnectWithoutPushNotificationInput | PushNotificationLogCreateOrConnectWithoutPushNotificationInput[]
+    upsert?: PushNotificationLogUpsertWithWhereUniqueWithoutPushNotificationInput | PushNotificationLogUpsertWithWhereUniqueWithoutPushNotificationInput[]
+    createMany?: PushNotificationLogCreateManyPushNotificationInputEnvelope
+    set?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    disconnect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    delete?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    connect?: PushNotificationLogWhereUniqueInput | PushNotificationLogWhereUniqueInput[]
+    update?: PushNotificationLogUpdateWithWhereUniqueWithoutPushNotificationInput | PushNotificationLogUpdateWithWhereUniqueWithoutPushNotificationInput[]
+    updateMany?: PushNotificationLogUpdateManyWithWhereWithoutPushNotificationInput | PushNotificationLogUpdateManyWithWhereWithoutPushNotificationInput[]
+    deleteMany?: PushNotificationLogScalarWhereInput | PushNotificationLogScalarWhereInput[]
+  }
+
+  export type PushNotificationCreateNestedOneWithoutLogsInput = {
+    create?: XOR<PushNotificationCreateWithoutLogsInput, PushNotificationUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutLogsInput
+    connect?: PushNotificationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPushNotificationLogsInput = {
+    create?: XOR<UserCreateWithoutPushNotificationLogsInput, UserUncheckedCreateWithoutPushNotificationLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPushNotificationLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumPushDeliveryStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PushDeliveryStatus
+  }
+
+  export type PushNotificationUpdateOneRequiredWithoutLogsNestedInput = {
+    create?: XOR<PushNotificationCreateWithoutLogsInput, PushNotificationUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: PushNotificationCreateOrConnectWithoutLogsInput
+    upsert?: PushNotificationUpsertWithoutLogsInput
+    connect?: PushNotificationWhereUniqueInput
+    update?: XOR<XOR<PushNotificationUpdateToOneWithWhereWithoutLogsInput, PushNotificationUpdateWithoutLogsInput>, PushNotificationUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPushNotificationLogsNestedInput = {
+    create?: XOR<UserCreateWithoutPushNotificationLogsInput, UserUncheckedCreateWithoutPushNotificationLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPushNotificationLogsInput
+    upsert?: UserUpsertWithoutPushNotificationLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPushNotificationLogsInput, UserUpdateWithoutPushNotificationLogsInput>, UserUncheckedUpdateWithoutPushNotificationLogsInput>
+  }
+
+  export type UserCreateNestedOneWithoutPushSubscriptionsInput = {
+    create?: XOR<UserCreateWithoutPushSubscriptionsInput, UserUncheckedCreateWithoutPushSubscriptionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPushSubscriptionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPushSubscriptionsNestedInput = {
+    create?: XOR<UserCreateWithoutPushSubscriptionsInput, UserUncheckedCreateWithoutPushSubscriptionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPushSubscriptionsInput
+    upsert?: UserUpsertWithoutPushSubscriptionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPushSubscriptionsInput, UserUpdateWithoutPushSubscriptionsInput>, UserUncheckedUpdateWithoutPushSubscriptionsInput>
   }
 
   export type SegmentIncentiveCreateNestedOneWithoutGrantsInput = {
@@ -46483,6 +52994,74 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumMarketingTemplateTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateType | EnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateTypeFilter<$PrismaModel> | $Enums.MarketingTemplateType
+  }
+
+  export type NestedEnumMarketingTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateStatus | EnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel> | $Enums.MarketingTemplateStatus
+  }
+
+  export type NestedEnumMarketingTemplateTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateType | EnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateType[] | ListEnumMarketingTemplateTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateTypeWithAggregatesFilter<$PrismaModel> | $Enums.MarketingTemplateType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMarketingTemplateTypeFilter<$PrismaModel>
+    _max?: NestedEnumMarketingTemplateTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMarketingTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MarketingTemplateStatus | EnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MarketingTemplateStatus[] | ListEnumMarketingTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMarketingTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.MarketingTemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPushNotificationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushNotificationStatus | EnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushNotificationStatusFilter<$PrismaModel> | $Enums.PushNotificationStatus
+  }
+
+  export type NestedEnumPushNotificationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushNotificationStatus | EnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushNotificationStatus[] | ListEnumPushNotificationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushNotificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.PushNotificationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPushNotificationStatusFilter<$PrismaModel>
+    _max?: NestedEnumPushNotificationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPushDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushDeliveryStatus | EnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushDeliveryStatusFilter<$PrismaModel> | $Enums.PushDeliveryStatus
+  }
+
+  export type NestedEnumPushDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PushDeliveryStatus | EnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PushDeliveryStatus[] | ListEnumPushDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPushDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.PushDeliveryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPushDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumPushDeliveryStatusFilter<$PrismaModel>
+  }
+
   export type LocationCreateWithoutOrganizationInput = {
     id?: string
     name: string
@@ -46547,6 +53126,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -46569,6 +53150,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -46592,6 +53175,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateWithoutOrganizationInput = {
@@ -46605,6 +53189,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentCreateOrConnectWithoutOrganizationInput = {
@@ -46628,9 +53213,11 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     segment: CustomerSegmentCreateNestedOneWithoutInAppMessagesInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutInAppMessagesInput
     readBy?: InAppMessageReadCreateNestedManyWithoutMessageInput
   }
 
@@ -46646,6 +53233,8 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     readBy?: InAppMessageReadUncheckedCreateNestedManyWithoutMessageInput
@@ -46742,6 +53331,92 @@ export namespace Prisma {
 
   export type SegmentIncentiveCreateManyOrganizationInputEnvelope = {
     data: SegmentIncentiveCreateManyOrganizationInput | SegmentIncentiveCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MarketingTemplateCreateWithoutOrganizationInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateCreateOrConnectWithoutOrganizationInput = {
+    where: MarketingTemplateWhereUniqueInput
+    create: XOR<MarketingTemplateCreateWithoutOrganizationInput, MarketingTemplateUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type MarketingTemplateCreateManyOrganizationInputEnvelope = {
+    data: MarketingTemplateCreateManyOrganizationInput | MarketingTemplateCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PushNotificationCreateWithoutOrganizationInput = {
+    id?: string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    segment: CustomerSegmentCreateNestedOneWithoutPushNotificationsInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutPushNotificationsInput
+    logs?: PushNotificationLogCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    segmentId: string
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: PushNotificationLogUncheckedCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationCreateOrConnectWithoutOrganizationInput = {
+    where: PushNotificationWhereUniqueInput
+    create: XOR<PushNotificationCreateWithoutOrganizationInput, PushNotificationUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type PushNotificationCreateManyOrganizationInputEnvelope = {
+    data: PushNotificationCreateManyOrganizationInput | PushNotificationCreateManyOrganizationInput[]
     skipDuplicates?: boolean
   }
 
@@ -46872,6 +53547,8 @@ export namespace Prisma {
     startDate?: DateTimeFilter<"InAppMessage"> | Date | string
     endDate?: DateTimeNullableFilter<"InAppMessage"> | Date | string | null
     isActive?: BoolFilter<"InAppMessage"> | boolean
+    marketingTemplateId?: StringNullableFilter<"InAppMessage"> | string | null
+    templateSnapshot?: JsonNullableFilter<"InAppMessage">
     createdAt?: DateTimeFilter<"InAppMessage"> | Date | string
     updatedAt?: DateTimeFilter<"InAppMessage"> | Date | string
   }
@@ -46944,6 +53621,75 @@ export namespace Prisma {
     isActive?: BoolFilter<"SegmentIncentive"> | boolean
     createdAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
     updatedAt?: DateTimeFilter<"SegmentIncentive"> | Date | string
+  }
+
+  export type MarketingTemplateUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: MarketingTemplateWhereUniqueInput
+    update: XOR<MarketingTemplateUpdateWithoutOrganizationInput, MarketingTemplateUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<MarketingTemplateCreateWithoutOrganizationInput, MarketingTemplateUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type MarketingTemplateUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: MarketingTemplateWhereUniqueInput
+    data: XOR<MarketingTemplateUpdateWithoutOrganizationInput, MarketingTemplateUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type MarketingTemplateUpdateManyWithWhereWithoutOrganizationInput = {
+    where: MarketingTemplateScalarWhereInput
+    data: XOR<MarketingTemplateUpdateManyMutationInput, MarketingTemplateUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type MarketingTemplateScalarWhereInput = {
+    AND?: MarketingTemplateScalarWhereInput | MarketingTemplateScalarWhereInput[]
+    OR?: MarketingTemplateScalarWhereInput[]
+    NOT?: MarketingTemplateScalarWhereInput | MarketingTemplateScalarWhereInput[]
+    id?: StringFilter<"MarketingTemplate"> | string
+    organizationId?: StringNullableFilter<"MarketingTemplate"> | string | null
+    name?: StringFilter<"MarketingTemplate"> | string
+    type?: EnumMarketingTemplateTypeFilter<"MarketingTemplate"> | $Enums.MarketingTemplateType
+    content?: JsonFilter<"MarketingTemplate">
+    status?: EnumMarketingTemplateStatusFilter<"MarketingTemplate"> | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFilter<"MarketingTemplate"> | boolean
+    isFavorite?: BoolFilter<"MarketingTemplate"> | boolean
+    thumbnailUrl?: StringNullableFilter<"MarketingTemplate"> | string | null
+    createdAt?: DateTimeFilter<"MarketingTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"MarketingTemplate"> | Date | string
+  }
+
+  export type PushNotificationUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: PushNotificationWhereUniqueInput
+    update: XOR<PushNotificationUpdateWithoutOrganizationInput, PushNotificationUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<PushNotificationCreateWithoutOrganizationInput, PushNotificationUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type PushNotificationUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: PushNotificationWhereUniqueInput
+    data: XOR<PushNotificationUpdateWithoutOrganizationInput, PushNotificationUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type PushNotificationUpdateManyWithWhereWithoutOrganizationInput = {
+    where: PushNotificationScalarWhereInput
+    data: XOR<PushNotificationUpdateManyMutationInput, PushNotificationUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type PushNotificationScalarWhereInput = {
+    AND?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+    OR?: PushNotificationScalarWhereInput[]
+    NOT?: PushNotificationScalarWhereInput | PushNotificationScalarWhereInput[]
+    id?: StringFilter<"PushNotification"> | string
+    organizationId?: StringFilter<"PushNotification"> | string
+    segmentId?: StringFilter<"PushNotification"> | string
+    marketingTemplateId?: StringNullableFilter<"PushNotification"> | string | null
+    templateSnapshot?: JsonNullableFilter<"PushNotification">
+    pushTitle?: StringFilter<"PushNotification"> | string
+    pushBody?: StringFilter<"PushNotification"> | string
+    deepLink?: StringNullableFilter<"PushNotification"> | string | null
+    status?: EnumPushNotificationStatusFilter<"PushNotification"> | $Enums.PushNotificationStatus
+    scheduledAt?: DateTimeNullableFilter<"PushNotification"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"PushNotification"> | Date | string | null
+    totalRecipients?: IntFilter<"PushNotification"> | number
+    createdAt?: DateTimeFilter<"PushNotification"> | Date | string
+    updatedAt?: DateTimeFilter<"PushNotification"> | Date | string
   }
 
   export type CompanyEmployeeCreateWithoutCompanyInput = {
@@ -47434,6 +54180,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyEmployeesInput = {
@@ -47456,6 +54204,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyEmployeesInput = {
@@ -47537,6 +54287,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyEmployeesInput = {
@@ -47559,6 +54311,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutLocationsInput = {
@@ -47575,6 +54329,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutLocationsInput = {
@@ -47591,6 +54347,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutLocationsInput = {
@@ -47797,6 +54555,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutLocationsInput = {
@@ -47813,6 +54573,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type MenuUpsertWithWhereUniqueWithoutLocationInput = {
@@ -47941,6 +54703,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -47957,6 +54721,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -48285,6 +55051,56 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PushNotificationLogCreateWithoutUserInput = {
+    id?: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+    pushNotification: PushNotificationCreateNestedOneWithoutLogsInput
+  }
+
+  export type PushNotificationLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    pushNotificationId: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+  }
+
+  export type PushNotificationLogCreateOrConnectWithoutUserInput = {
+    where: PushNotificationLogWhereUniqueInput
+    create: XOR<PushNotificationLogCreateWithoutUserInput, PushNotificationLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type PushNotificationLogCreateManyUserInputEnvelope = {
+    data: PushNotificationLogCreateManyUserInput | PushNotificationLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PushSubscriptionCreateWithoutUserInput = {
+    id?: string
+    endpoint: string
+    p256dhKey: string
+    authKey: string
+    createdAt?: Date | string
+  }
+
+  export type PushSubscriptionUncheckedCreateWithoutUserInput = {
+    id?: string
+    endpoint: string
+    p256dhKey: string
+    authKey: string
+    createdAt?: Date | string
+  }
+
+  export type PushSubscriptionCreateOrConnectWithoutUserInput = {
+    where: PushSubscriptionWhereUniqueInput
+    create: XOR<PushSubscriptionCreateWithoutUserInput, PushSubscriptionUncheckedCreateWithoutUserInput>
+  }
+
+  export type PushSubscriptionCreateManyUserInputEnvelope = {
+    data: PushSubscriptionCreateManyUserInput | PushSubscriptionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutUsersInput = {
     update: XOR<OrganizationUpdateWithoutUsersInput, OrganizationUncheckedUpdateWithoutUsersInput>
     create: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
@@ -48310,6 +55126,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -48326,6 +55144,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserLocationUpsertWithWhereUniqueWithoutUserInput = {
@@ -48566,6 +55386,61 @@ export namespace Prisma {
     data: XOR<WalletTransactionUpdateManyMutationInput, WalletTransactionUncheckedUpdateManyWithoutPerformedByInput>
   }
 
+  export type PushNotificationLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: PushNotificationLogWhereUniqueInput
+    update: XOR<PushNotificationLogUpdateWithoutUserInput, PushNotificationLogUncheckedUpdateWithoutUserInput>
+    create: XOR<PushNotificationLogCreateWithoutUserInput, PushNotificationLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type PushNotificationLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: PushNotificationLogWhereUniqueInput
+    data: XOR<PushNotificationLogUpdateWithoutUserInput, PushNotificationLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PushNotificationLogUpdateManyWithWhereWithoutUserInput = {
+    where: PushNotificationLogScalarWhereInput
+    data: XOR<PushNotificationLogUpdateManyMutationInput, PushNotificationLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PushNotificationLogScalarWhereInput = {
+    AND?: PushNotificationLogScalarWhereInput | PushNotificationLogScalarWhereInput[]
+    OR?: PushNotificationLogScalarWhereInput[]
+    NOT?: PushNotificationLogScalarWhereInput | PushNotificationLogScalarWhereInput[]
+    id?: StringFilter<"PushNotificationLog"> | string
+    pushNotificationId?: StringFilter<"PushNotificationLog"> | string
+    userId?: StringFilter<"PushNotificationLog"> | string
+    status?: EnumPushDeliveryStatusFilter<"PushNotificationLog"> | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFilter<"PushNotificationLog"> | Date | string
+  }
+
+  export type PushSubscriptionUpsertWithWhereUniqueWithoutUserInput = {
+    where: PushSubscriptionWhereUniqueInput
+    update: XOR<PushSubscriptionUpdateWithoutUserInput, PushSubscriptionUncheckedUpdateWithoutUserInput>
+    create: XOR<PushSubscriptionCreateWithoutUserInput, PushSubscriptionUncheckedCreateWithoutUserInput>
+  }
+
+  export type PushSubscriptionUpdateWithWhereUniqueWithoutUserInput = {
+    where: PushSubscriptionWhereUniqueInput
+    data: XOR<PushSubscriptionUpdateWithoutUserInput, PushSubscriptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PushSubscriptionUpdateManyWithWhereWithoutUserInput = {
+    where: PushSubscriptionScalarWhereInput
+    data: XOR<PushSubscriptionUpdateManyMutationInput, PushSubscriptionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PushSubscriptionScalarWhereInput = {
+    AND?: PushSubscriptionScalarWhereInput | PushSubscriptionScalarWhereInput[]
+    OR?: PushSubscriptionScalarWhereInput[]
+    NOT?: PushSubscriptionScalarWhereInput | PushSubscriptionScalarWhereInput[]
+    id?: StringFilter<"PushSubscription"> | string
+    userId?: StringFilter<"PushSubscription"> | string
+    endpoint?: StringFilter<"PushSubscription"> | string
+    p256dhKey?: StringFilter<"PushSubscription"> | string
+    authKey?: StringFilter<"PushSubscription"> | string
+    createdAt?: DateTimeFilter<"PushSubscription"> | Date | string
+  }
+
   export type UserCreateWithoutWalletInput = {
     id?: string
     email: string
@@ -48586,6 +55461,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -48608,6 +55485,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -48646,6 +55525,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -48668,6 +55549,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWalletTransactionsInput = {
@@ -48690,6 +55573,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletTransactionsInput = {
@@ -48712,6 +55597,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletTransactionsInput = {
@@ -48794,6 +55681,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedWalletActionsInput = {
@@ -48816,6 +55705,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedWalletActionsInput = {
@@ -48883,6 +55774,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
@@ -48905,6 +55798,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutWalletTransactionsInput = {
@@ -48999,6 +55894,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedWalletActionsInput = {
@@ -49021,6 +55918,8 @@ export namespace Prisma {
     incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type IncentiveGrantUpsertWithoutWalletTransactionInput = {
@@ -49078,6 +55977,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLocationsInput = {
@@ -49100,6 +56001,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLocationsInput = {
@@ -49177,6 +56080,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLocationsInput = {
@@ -49199,6 +56104,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutUsersInput = {
@@ -49266,6 +56173,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -49288,6 +56197,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -49326,6 +56237,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -49348,6 +56261,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -49370,6 +56285,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -49392,6 +56309,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -49430,6 +56349,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -49452,6 +56373,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationCreateWithoutMenusInput = {
@@ -49714,6 +56637,43 @@ export namespace Prisma {
     create: XOR<CouponCreateWithoutPromotionBannersInput, CouponUncheckedCreateWithoutPromotionBannersInput>
   }
 
+  export type MarketingTemplateCreateWithoutPromotionBannersInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutMarketingTemplatesInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateUncheckedCreateWithoutPromotionBannersInput = {
+    id?: string
+    organizationId?: string | null
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateCreateOrConnectWithoutPromotionBannersInput = {
+    where: MarketingTemplateWhereUniqueInput
+    create: XOR<MarketingTemplateCreateWithoutPromotionBannersInput, MarketingTemplateUncheckedCreateWithoutPromotionBannersInput>
+  }
+
   export type MenuPromotionBannerCreateWithoutPromotionBannerInput = {
     id?: string
     sortOrder?: number
@@ -49793,6 +56753,49 @@ export namespace Prisma {
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutCouponNestedInput
   }
 
+  export type MarketingTemplateUpsertWithoutPromotionBannersInput = {
+    update: XOR<MarketingTemplateUpdateWithoutPromotionBannersInput, MarketingTemplateUncheckedUpdateWithoutPromotionBannersInput>
+    create: XOR<MarketingTemplateCreateWithoutPromotionBannersInput, MarketingTemplateUncheckedCreateWithoutPromotionBannersInput>
+    where?: MarketingTemplateWhereInput
+  }
+
+  export type MarketingTemplateUpdateToOneWithWhereWithoutPromotionBannersInput = {
+    where?: MarketingTemplateWhereInput
+    data: XOR<MarketingTemplateUpdateWithoutPromotionBannersInput, MarketingTemplateUncheckedUpdateWithoutPromotionBannersInput>
+  }
+
+  export type MarketingTemplateUpdateWithoutPromotionBannersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutMarketingTemplatesNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type MarketingTemplateUncheckedUpdateWithoutPromotionBannersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
   export type MenuPromotionBannerUpsertWithWhereUniqueWithoutPromotionBannerInput = {
     where: MenuPromotionBannerWhereUniqueInput
     update: XOR<MenuPromotionBannerUpdateWithoutPromotionBannerInput, MenuPromotionBannerUncheckedUpdateWithoutPromotionBannerInput>
@@ -49846,9 +56849,11 @@ export namespace Prisma {
     subtitle?: string | null
     imageUrl?: string | null
     isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     coupon?: CouponCreateNestedOneWithoutPromotionBannersInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutPromotionBannersInput
   }
 
   export type PromotionBannerUncheckedCreateWithoutMenuAssignmentsInput = {
@@ -49858,6 +56863,8 @@ export namespace Prisma {
     imageUrl?: string | null
     couponId?: string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -49921,9 +56928,11 @@ export namespace Prisma {
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coupon?: CouponUpdateOneWithoutPromotionBannersNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutPromotionBannersNestedInput
   }
 
   export type PromotionBannerUncheckedUpdateWithoutMenuAssignmentsInput = {
@@ -49933,6 +56942,8 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     couponId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -50297,6 +57308,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -50319,6 +57332,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -50519,6 +57534,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -50541,6 +57558,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutOrdersInput = {
@@ -50869,8 +57888,10 @@ export namespace Prisma {
     subtitle?: string | null
     imageUrl?: string | null
     isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutPromotionBannersInput
     menuAssignments?: MenuPromotionBannerCreateNestedManyWithoutPromotionBannerInput
   }
 
@@ -50880,6 +57901,8 @@ export namespace Prisma {
     subtitle?: string | null
     imageUrl?: string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     menuAssignments?: MenuPromotionBannerUncheckedCreateNestedManyWithoutPromotionBannerInput
@@ -51061,6 +58084,8 @@ export namespace Prisma {
     imageUrl?: StringNullableFilter<"PromotionBanner"> | string | null
     couponId?: StringNullableFilter<"PromotionBanner"> | string | null
     isActive?: BoolFilter<"PromotionBanner"> | boolean
+    marketingTemplateId?: StringNullableFilter<"PromotionBanner"> | string | null
+    templateSnapshot?: JsonNullableFilter<"PromotionBanner">
     createdAt?: DateTimeFilter<"PromotionBanner"> | Date | string
     updatedAt?: DateTimeFilter<"PromotionBanner"> | Date | string
   }
@@ -51136,6 +58161,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCouponRedemptionsInput = {
@@ -51158,6 +58185,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCouponRedemptionsInput = {
@@ -51308,6 +58337,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCouponRedemptionsInput = {
@@ -51330,6 +58361,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutCouponRedemptionsInput = {
@@ -51603,6 +58636,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSegmentsInput = {
@@ -51619,6 +58654,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSegmentsInput = {
@@ -51637,9 +58674,11 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutInAppMessagesInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutInAppMessagesInput
     readBy?: InAppMessageReadCreateNestedManyWithoutMessageInput
   }
 
@@ -51655,6 +58694,8 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     readBy?: InAppMessageReadUncheckedCreateNestedManyWithoutMessageInput
@@ -51754,6 +58795,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PushNotificationCreateWithoutSegmentInput = {
+    id?: string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutPushNotificationsInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutPushNotificationsInput
+    logs?: PushNotificationLogCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationUncheckedCreateWithoutSegmentInput = {
+    id?: string
+    organizationId: string
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: PushNotificationLogUncheckedCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationCreateOrConnectWithoutSegmentInput = {
+    where: PushNotificationWhereUniqueInput
+    create: XOR<PushNotificationCreateWithoutSegmentInput, PushNotificationUncheckedCreateWithoutSegmentInput>
+  }
+
+  export type PushNotificationCreateManySegmentInputEnvelope = {
+    data: PushNotificationCreateManySegmentInput | PushNotificationCreateManySegmentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutSegmentsInput = {
     update: XOR<OrganizationUpdateWithoutSegmentsInput, OrganizationUncheckedUpdateWithoutSegmentsInput>
     create: XOR<OrganizationCreateWithoutSegmentsInput, OrganizationUncheckedCreateWithoutSegmentsInput>
@@ -51779,6 +58864,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSegmentsInput = {
@@ -51795,6 +58882,8 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type InAppMessageUpsertWithWhereUniqueWithoutSegmentInput = {
@@ -51845,6 +58934,22 @@ export namespace Prisma {
     data: XOR<SegmentIncentiveUpdateManyMutationInput, SegmentIncentiveUncheckedUpdateManyWithoutSegmentInput>
   }
 
+  export type PushNotificationUpsertWithWhereUniqueWithoutSegmentInput = {
+    where: PushNotificationWhereUniqueInput
+    update: XOR<PushNotificationUpdateWithoutSegmentInput, PushNotificationUncheckedUpdateWithoutSegmentInput>
+    create: XOR<PushNotificationCreateWithoutSegmentInput, PushNotificationUncheckedCreateWithoutSegmentInput>
+  }
+
+  export type PushNotificationUpdateWithWhereUniqueWithoutSegmentInput = {
+    where: PushNotificationWhereUniqueInput
+    data: XOR<PushNotificationUpdateWithoutSegmentInput, PushNotificationUncheckedUpdateWithoutSegmentInput>
+  }
+
+  export type PushNotificationUpdateManyWithWhereWithoutSegmentInput = {
+    where: PushNotificationScalarWhereInput
+    data: XOR<PushNotificationUpdateManyMutationInput, PushNotificationUncheckedUpdateManyWithoutSegmentInput>
+  }
+
   export type OrganizationCreateWithoutInAppMessagesInput = {
     id?: string
     name: string
@@ -51859,6 +58964,8 @@ export namespace Prisma {
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutInAppMessagesInput = {
@@ -51875,6 +58982,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutInAppMessagesInput = {
@@ -51893,6 +59002,7 @@ export namespace Prisma {
     organization: OrganizationCreateNestedOneWithoutSegmentsInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateWithoutInAppMessagesInput = {
@@ -51906,11 +59016,49 @@ export namespace Prisma {
     updatedAt?: Date | string
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentCreateOrConnectWithoutInAppMessagesInput = {
     where: CustomerSegmentWhereUniqueInput
     create: XOR<CustomerSegmentCreateWithoutInAppMessagesInput, CustomerSegmentUncheckedCreateWithoutInAppMessagesInput>
+  }
+
+  export type MarketingTemplateCreateWithoutInAppMessagesInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutMarketingTemplatesInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateUncheckedCreateWithoutInAppMessagesInput = {
+    id?: string
+    organizationId?: string | null
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateCreateOrConnectWithoutInAppMessagesInput = {
+    where: MarketingTemplateWhereUniqueInput
+    create: XOR<MarketingTemplateCreateWithoutInAppMessagesInput, MarketingTemplateUncheckedCreateWithoutInAppMessagesInput>
   }
 
   export type InAppMessageReadCreateWithoutMessageInput = {
@@ -51960,6 +59108,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutInAppMessagesInput = {
@@ -51976,6 +59126,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutInAppMessagesInput = {
@@ -52000,6 +59152,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateWithoutInAppMessagesInput = {
@@ -52013,6 +59166,50 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutSegmentNestedInput
+  }
+
+  export type MarketingTemplateUpsertWithoutInAppMessagesInput = {
+    update: XOR<MarketingTemplateUpdateWithoutInAppMessagesInput, MarketingTemplateUncheckedUpdateWithoutInAppMessagesInput>
+    create: XOR<MarketingTemplateCreateWithoutInAppMessagesInput, MarketingTemplateUncheckedCreateWithoutInAppMessagesInput>
+    where?: MarketingTemplateWhereInput
+  }
+
+  export type MarketingTemplateUpdateToOneWithWhereWithoutInAppMessagesInput = {
+    where?: MarketingTemplateWhereInput
+    data: XOR<MarketingTemplateUpdateWithoutInAppMessagesInput, MarketingTemplateUncheckedUpdateWithoutInAppMessagesInput>
+  }
+
+  export type MarketingTemplateUpdateWithoutInAppMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutMarketingTemplatesNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type MarketingTemplateUncheckedUpdateWithoutInAppMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
   }
 
   export type InAppMessageReadUpsertWithWhereUniqueWithoutMessageInput = {
@@ -52052,10 +59249,12 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutInAppMessagesInput
     segment: CustomerSegmentCreateNestedOneWithoutInAppMessagesInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutInAppMessagesInput
   }
 
   export type InAppMessageUncheckedCreateWithoutReadByInput = {
@@ -52071,6 +59270,8 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -52102,10 +59303,12 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutInAppMessagesNestedInput
     segment?: CustomerSegmentUpdateOneRequiredWithoutInAppMessagesNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutInAppMessagesNestedInput
   }
 
   export type InAppMessageUncheckedUpdateWithoutReadByInput = {
@@ -52121,6 +59324,8 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -52139,6 +59344,8 @@ export namespace Prisma {
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutWorkflowsInput = {
@@ -52155,6 +59362,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutWorkflowsInput = {
@@ -52173,6 +59382,7 @@ export namespace Prisma {
     organization: OrganizationCreateNestedOneWithoutSegmentsInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateWithoutWorkflowsInput = {
@@ -52186,6 +59396,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
     segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentCreateOrConnectWithoutWorkflowsInput = {
@@ -52244,6 +59455,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutWorkflowsInput = {
@@ -52260,6 +59473,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutWorkflowsInput = {
@@ -52284,6 +59499,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateWithoutWorkflowsInput = {
@@ -52297,6 +59513,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type WorkflowExecutionLogUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -52413,6 +59630,8 @@ export namespace Prisma {
     segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSegmentIncentivesInput = {
@@ -52429,6 +59648,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSegmentIncentivesInput = {
@@ -52447,6 +59668,7 @@ export namespace Prisma {
     organization: OrganizationCreateNestedOneWithoutSegmentsInput
     inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentUncheckedCreateWithoutSegmentIncentivesInput = {
@@ -52460,6 +59682,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
     workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutSegmentInput
   }
 
   export type CustomerSegmentCreateOrConnectWithoutSegmentIncentivesInput = {
@@ -52577,6 +59800,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSegmentIncentivesInput = {
@@ -52593,6 +59818,8 @@ export namespace Prisma {
     segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutSegmentIncentivesInput = {
@@ -52617,6 +59844,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
     inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateWithoutSegmentIncentivesInput = {
@@ -52630,6 +59858,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type CouponUpsertWithoutSegmentIncentivesInput = {
@@ -52705,6 +59934,858 @@ export namespace Prisma {
     data: XOR<IncentiveGrantUpdateManyMutationInput, IncentiveGrantUncheckedUpdateManyWithoutSegmentIncentiveInput>
   }
 
+  export type OrganizationCreateWithoutMarketingTemplatesInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationCreateNestedManyWithoutOrganizationInput
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutMarketingTemplatesInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutMarketingTemplatesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutMarketingTemplatesInput, OrganizationUncheckedCreateWithoutMarketingTemplatesInput>
+  }
+
+  export type InAppMessageCreateWithoutMarketingTemplateInput = {
+    id?: string
+    title?: string | null
+    body: string
+    linkUrl?: string | null
+    displayPlace?: string
+    displayType?: string
+    slotId?: string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutInAppMessagesInput
+    segment: CustomerSegmentCreateNestedOneWithoutInAppMessagesInput
+    readBy?: InAppMessageReadCreateNestedManyWithoutMessageInput
+  }
+
+  export type InAppMessageUncheckedCreateWithoutMarketingTemplateInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    title?: string | null
+    body: string
+    linkUrl?: string | null
+    displayPlace?: string
+    displayType?: string
+    slotId?: string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: InAppMessageReadUncheckedCreateNestedManyWithoutMessageInput
+  }
+
+  export type InAppMessageCreateOrConnectWithoutMarketingTemplateInput = {
+    where: InAppMessageWhereUniqueInput
+    create: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput>
+  }
+
+  export type InAppMessageCreateManyMarketingTemplateInputEnvelope = {
+    data: InAppMessageCreateManyMarketingTemplateInput | InAppMessageCreateManyMarketingTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PromotionBannerCreateWithoutMarketingTemplateInput = {
+    id?: string
+    title: string
+    subtitle?: string | null
+    imageUrl?: string | null
+    isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coupon?: CouponCreateNestedOneWithoutPromotionBannersInput
+    menuAssignments?: MenuPromotionBannerCreateNestedManyWithoutPromotionBannerInput
+  }
+
+  export type PromotionBannerUncheckedCreateWithoutMarketingTemplateInput = {
+    id?: string
+    title: string
+    subtitle?: string | null
+    imageUrl?: string | null
+    couponId?: string | null
+    isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    menuAssignments?: MenuPromotionBannerUncheckedCreateNestedManyWithoutPromotionBannerInput
+  }
+
+  export type PromotionBannerCreateOrConnectWithoutMarketingTemplateInput = {
+    where: PromotionBannerWhereUniqueInput
+    create: XOR<PromotionBannerCreateWithoutMarketingTemplateInput, PromotionBannerUncheckedCreateWithoutMarketingTemplateInput>
+  }
+
+  export type PromotionBannerCreateManyMarketingTemplateInputEnvelope = {
+    data: PromotionBannerCreateManyMarketingTemplateInput | PromotionBannerCreateManyMarketingTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PushNotificationCreateWithoutMarketingTemplateInput = {
+    id?: string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutPushNotificationsInput
+    segment: CustomerSegmentCreateNestedOneWithoutPushNotificationsInput
+    logs?: PushNotificationLogCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationUncheckedCreateWithoutMarketingTemplateInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: PushNotificationLogUncheckedCreateNestedManyWithoutPushNotificationInput
+  }
+
+  export type PushNotificationCreateOrConnectWithoutMarketingTemplateInput = {
+    where: PushNotificationWhereUniqueInput
+    create: XOR<PushNotificationCreateWithoutMarketingTemplateInput, PushNotificationUncheckedCreateWithoutMarketingTemplateInput>
+  }
+
+  export type PushNotificationCreateManyMarketingTemplateInputEnvelope = {
+    data: PushNotificationCreateManyMarketingTemplateInput | PushNotificationCreateManyMarketingTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationUpsertWithoutMarketingTemplatesInput = {
+    update: XOR<OrganizationUpdateWithoutMarketingTemplatesInput, OrganizationUncheckedUpdateWithoutMarketingTemplatesInput>
+    create: XOR<OrganizationCreateWithoutMarketingTemplatesInput, OrganizationUncheckedCreateWithoutMarketingTemplatesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutMarketingTemplatesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutMarketingTemplatesInput, OrganizationUncheckedUpdateWithoutMarketingTemplatesInput>
+  }
+
+  export type OrganizationUpdateWithoutMarketingTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUpdateManyWithoutOrganizationNestedInput
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutMarketingTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type InAppMessageUpsertWithWhereUniqueWithoutMarketingTemplateInput = {
+    where: InAppMessageWhereUniqueInput
+    update: XOR<InAppMessageUpdateWithoutMarketingTemplateInput, InAppMessageUncheckedUpdateWithoutMarketingTemplateInput>
+    create: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput>
+  }
+
+  export type InAppMessageUpdateWithWhereUniqueWithoutMarketingTemplateInput = {
+    where: InAppMessageWhereUniqueInput
+    data: XOR<InAppMessageUpdateWithoutMarketingTemplateInput, InAppMessageUncheckedUpdateWithoutMarketingTemplateInput>
+  }
+
+  export type InAppMessageUpdateManyWithWhereWithoutMarketingTemplateInput = {
+    where: InAppMessageScalarWhereInput
+    data: XOR<InAppMessageUpdateManyMutationInput, InAppMessageUncheckedUpdateManyWithoutMarketingTemplateInput>
+  }
+
+  export type PromotionBannerUpsertWithWhereUniqueWithoutMarketingTemplateInput = {
+    where: PromotionBannerWhereUniqueInput
+    update: XOR<PromotionBannerUpdateWithoutMarketingTemplateInput, PromotionBannerUncheckedUpdateWithoutMarketingTemplateInput>
+    create: XOR<PromotionBannerCreateWithoutMarketingTemplateInput, PromotionBannerUncheckedCreateWithoutMarketingTemplateInput>
+  }
+
+  export type PromotionBannerUpdateWithWhereUniqueWithoutMarketingTemplateInput = {
+    where: PromotionBannerWhereUniqueInput
+    data: XOR<PromotionBannerUpdateWithoutMarketingTemplateInput, PromotionBannerUncheckedUpdateWithoutMarketingTemplateInput>
+  }
+
+  export type PromotionBannerUpdateManyWithWhereWithoutMarketingTemplateInput = {
+    where: PromotionBannerScalarWhereInput
+    data: XOR<PromotionBannerUpdateManyMutationInput, PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateInput>
+  }
+
+  export type PushNotificationUpsertWithWhereUniqueWithoutMarketingTemplateInput = {
+    where: PushNotificationWhereUniqueInput
+    update: XOR<PushNotificationUpdateWithoutMarketingTemplateInput, PushNotificationUncheckedUpdateWithoutMarketingTemplateInput>
+    create: XOR<PushNotificationCreateWithoutMarketingTemplateInput, PushNotificationUncheckedCreateWithoutMarketingTemplateInput>
+  }
+
+  export type PushNotificationUpdateWithWhereUniqueWithoutMarketingTemplateInput = {
+    where: PushNotificationWhereUniqueInput
+    data: XOR<PushNotificationUpdateWithoutMarketingTemplateInput, PushNotificationUncheckedUpdateWithoutMarketingTemplateInput>
+  }
+
+  export type PushNotificationUpdateManyWithWhereWithoutMarketingTemplateInput = {
+    where: PushNotificationScalarWhereInput
+    data: XOR<PushNotificationUpdateManyMutationInput, PushNotificationUncheckedUpdateManyWithoutMarketingTemplateInput>
+  }
+
+  export type OrganizationCreateWithoutPushNotificationsInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationCreateNestedManyWithoutOrganizationInput
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutPushNotificationsInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutPushNotificationsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutPushNotificationsInput, OrganizationUncheckedCreateWithoutPushNotificationsInput>
+  }
+
+  export type CustomerSegmentCreateWithoutPushNotificationsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    rulesCombination?: string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutSegmentsInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutSegmentInput
+    workflows?: MarketingWorkflowCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutSegmentInput
+  }
+
+  export type CustomerSegmentUncheckedCreateWithoutPushNotificationsInput = {
+    id?: string
+    organizationId: string
+    name: string
+    description?: string | null
+    rulesCombination?: string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutSegmentInput
+    workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutSegmentInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutSegmentInput
+  }
+
+  export type CustomerSegmentCreateOrConnectWithoutPushNotificationsInput = {
+    where: CustomerSegmentWhereUniqueInput
+    create: XOR<CustomerSegmentCreateWithoutPushNotificationsInput, CustomerSegmentUncheckedCreateWithoutPushNotificationsInput>
+  }
+
+  export type MarketingTemplateCreateWithoutPushNotificationsInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutMarketingTemplatesInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateUncheckedCreateWithoutPushNotificationsInput = {
+    id?: string
+    organizationId?: string | null
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
+  }
+
+  export type MarketingTemplateCreateOrConnectWithoutPushNotificationsInput = {
+    where: MarketingTemplateWhereUniqueInput
+    create: XOR<MarketingTemplateCreateWithoutPushNotificationsInput, MarketingTemplateUncheckedCreateWithoutPushNotificationsInput>
+  }
+
+  export type PushNotificationLogCreateWithoutPushNotificationInput = {
+    id?: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+    user: UserCreateNestedOneWithoutPushNotificationLogsInput
+  }
+
+  export type PushNotificationLogUncheckedCreateWithoutPushNotificationInput = {
+    id?: string
+    userId: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+  }
+
+  export type PushNotificationLogCreateOrConnectWithoutPushNotificationInput = {
+    where: PushNotificationLogWhereUniqueInput
+    create: XOR<PushNotificationLogCreateWithoutPushNotificationInput, PushNotificationLogUncheckedCreateWithoutPushNotificationInput>
+  }
+
+  export type PushNotificationLogCreateManyPushNotificationInputEnvelope = {
+    data: PushNotificationLogCreateManyPushNotificationInput | PushNotificationLogCreateManyPushNotificationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationUpsertWithoutPushNotificationsInput = {
+    update: XOR<OrganizationUpdateWithoutPushNotificationsInput, OrganizationUncheckedUpdateWithoutPushNotificationsInput>
+    create: XOR<OrganizationCreateWithoutPushNotificationsInput, OrganizationUncheckedCreateWithoutPushNotificationsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutPushNotificationsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutPushNotificationsInput, OrganizationUncheckedUpdateWithoutPushNotificationsInput>
+  }
+
+  export type OrganizationUpdateWithoutPushNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUpdateManyWithoutOrganizationNestedInput
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutPushNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type CustomerSegmentUpsertWithoutPushNotificationsInput = {
+    update: XOR<CustomerSegmentUpdateWithoutPushNotificationsInput, CustomerSegmentUncheckedUpdateWithoutPushNotificationsInput>
+    create: XOR<CustomerSegmentCreateWithoutPushNotificationsInput, CustomerSegmentUncheckedCreateWithoutPushNotificationsInput>
+    where?: CustomerSegmentWhereInput
+  }
+
+  export type CustomerSegmentUpdateToOneWithWhereWithoutPushNotificationsInput = {
+    where?: CustomerSegmentWhereInput
+    data: XOR<CustomerSegmentUpdateWithoutPushNotificationsInput, CustomerSegmentUncheckedUpdateWithoutPushNotificationsInput>
+  }
+
+  export type CustomerSegmentUpdateWithoutPushNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rulesCombination?: StringFieldUpdateOperationsInput | string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutSegmentsNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
+    workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
+  }
+
+  export type CustomerSegmentUncheckedUpdateWithoutPushNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    rulesCombination?: StringFieldUpdateOperationsInput | string
+    rules?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
+    workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
+  }
+
+  export type MarketingTemplateUpsertWithoutPushNotificationsInput = {
+    update: XOR<MarketingTemplateUpdateWithoutPushNotificationsInput, MarketingTemplateUncheckedUpdateWithoutPushNotificationsInput>
+    create: XOR<MarketingTemplateCreateWithoutPushNotificationsInput, MarketingTemplateUncheckedCreateWithoutPushNotificationsInput>
+    where?: MarketingTemplateWhereInput
+  }
+
+  export type MarketingTemplateUpdateToOneWithWhereWithoutPushNotificationsInput = {
+    where?: MarketingTemplateWhereInput
+    data: XOR<MarketingTemplateUpdateWithoutPushNotificationsInput, MarketingTemplateUncheckedUpdateWithoutPushNotificationsInput>
+  }
+
+  export type MarketingTemplateUpdateWithoutPushNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutMarketingTemplatesNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type MarketingTemplateUncheckedUpdateWithoutPushNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type PushNotificationLogUpsertWithWhereUniqueWithoutPushNotificationInput = {
+    where: PushNotificationLogWhereUniqueInput
+    update: XOR<PushNotificationLogUpdateWithoutPushNotificationInput, PushNotificationLogUncheckedUpdateWithoutPushNotificationInput>
+    create: XOR<PushNotificationLogCreateWithoutPushNotificationInput, PushNotificationLogUncheckedCreateWithoutPushNotificationInput>
+  }
+
+  export type PushNotificationLogUpdateWithWhereUniqueWithoutPushNotificationInput = {
+    where: PushNotificationLogWhereUniqueInput
+    data: XOR<PushNotificationLogUpdateWithoutPushNotificationInput, PushNotificationLogUncheckedUpdateWithoutPushNotificationInput>
+  }
+
+  export type PushNotificationLogUpdateManyWithWhereWithoutPushNotificationInput = {
+    where: PushNotificationLogScalarWhereInput
+    data: XOR<PushNotificationLogUpdateManyMutationInput, PushNotificationLogUncheckedUpdateManyWithoutPushNotificationInput>
+  }
+
+  export type PushNotificationCreateWithoutLogsInput = {
+    id?: string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutPushNotificationsInput
+    segment: CustomerSegmentCreateNestedOneWithoutPushNotificationsInput
+    marketingTemplate?: MarketingTemplateCreateNestedOneWithoutPushNotificationsInput
+  }
+
+  export type PushNotificationUncheckedCreateWithoutLogsInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PushNotificationCreateOrConnectWithoutLogsInput = {
+    where: PushNotificationWhereUniqueInput
+    create: XOR<PushNotificationCreateWithoutLogsInput, PushNotificationUncheckedCreateWithoutLogsInput>
+  }
+
+  export type UserCreateWithoutPushNotificationLogsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPushNotificationLogsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPushNotificationLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPushNotificationLogsInput, UserUncheckedCreateWithoutPushNotificationLogsInput>
+  }
+
+  export type PushNotificationUpsertWithoutLogsInput = {
+    update: XOR<PushNotificationUpdateWithoutLogsInput, PushNotificationUncheckedUpdateWithoutLogsInput>
+    create: XOR<PushNotificationCreateWithoutLogsInput, PushNotificationUncheckedCreateWithoutLogsInput>
+    where?: PushNotificationWhereInput
+  }
+
+  export type PushNotificationUpdateToOneWithWhereWithoutLogsInput = {
+    where?: PushNotificationWhereInput
+    data: XOR<PushNotificationUpdateWithoutLogsInput, PushNotificationUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type PushNotificationUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPushNotificationsNestedInput
+    segment?: CustomerSegmentUpdateOneRequiredWithoutPushNotificationsNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutPushNotificationsNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutPushNotificationLogsInput = {
+    update: XOR<UserUpdateWithoutPushNotificationLogsInput, UserUncheckedUpdateWithoutPushNotificationLogsInput>
+    create: XOR<UserCreateWithoutPushNotificationLogsInput, UserUncheckedCreateWithoutPushNotificationLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPushNotificationLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPushNotificationLogsInput, UserUncheckedUpdateWithoutPushNotificationLogsInput>
+  }
+
+  export type UserUpdateWithoutPushNotificationLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPushNotificationLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutPushSubscriptionsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPushSubscriptionsInput, UserUncheckedCreateWithoutPushSubscriptionsInput>
+  }
+
+  export type UserUpsertWithoutPushSubscriptionsInput = {
+    update: XOR<UserUpdateWithoutPushSubscriptionsInput, UserUncheckedUpdateWithoutPushSubscriptionsInput>
+    create: XOR<UserCreateWithoutPushSubscriptionsInput, UserUncheckedCreateWithoutPushSubscriptionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPushSubscriptionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPushSubscriptionsInput, UserUncheckedUpdateWithoutPushSubscriptionsInput>
+  }
+
+  export type UserUpdateWithoutPushSubscriptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type SegmentIncentiveCreateWithoutGrantsInput = {
     id?: string
     name?: string | null
@@ -52766,6 +60847,8 @@ export namespace Prisma {
     wallet?: WalletCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIncentiveGrantsInput = {
@@ -52788,6 +60871,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
     walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
     performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIncentiveGrantsInput = {
@@ -52955,6 +61040,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncentiveGrantsInput = {
@@ -52977,6 +61064,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CouponUpsertWithoutIncentiveGrantsInput = {
@@ -53120,6 +61209,8 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -53150,6 +61241,35 @@ export namespace Prisma {
     maxGrantsPerUser?: number
     displayChannel?: string
     isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MarketingTemplateCreateManyOrganizationInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PushNotificationCreateManyOrganizationInput = {
+    id?: string
+    segmentId: string
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -53221,6 +61341,8 @@ export namespace Prisma {
     wallet?: WalletUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -53243,6 +61365,8 @@ export namespace Prisma {
     wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
     walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
     performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -53268,6 +61392,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateWithoutOrganizationInput = {
@@ -53281,6 +61406,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutSegmentNestedInput
     workflows?: MarketingWorkflowUncheckedUpdateManyWithoutSegmentNestedInput
     segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutSegmentNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutSegmentNestedInput
   }
 
   export type CustomerSegmentUncheckedUpdateManyWithoutOrganizationInput = {
@@ -53304,9 +61430,11 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     segment?: CustomerSegmentUpdateOneRequiredWithoutInAppMessagesNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutInAppMessagesNestedInput
     readBy?: InAppMessageReadUpdateManyWithoutMessageNestedInput
   }
 
@@ -53322,6 +61450,8 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readBy?: InAppMessageReadUncheckedUpdateManyWithoutMessageNestedInput
@@ -53339,6 +61469,8 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -53433,6 +61565,101 @@ export namespace Prisma {
     maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
     displayChannel?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type MarketingTemplateUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+  }
+
+  export type MarketingTemplateUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    segment?: CustomerSegmentUpdateOneRequiredWithoutPushNotificationsNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutPushNotificationsNestedInput
+    logs?: PushNotificationLogUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PushNotificationLogUncheckedUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -54010,6 +62237,21 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type PushNotificationLogCreateManyUserInput = {
+    id?: string
+    pushNotificationId: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+  }
+
+  export type PushSubscriptionCreateManyUserInput = {
+    id?: string
+    endpoint: string
+    p256dhKey: string
+    authKey: string
+    createdAt?: Date | string
+  }
+
   export type UserLocationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54324,6 +62566,51 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
     incentiveGrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pushNotification?: PushNotificationUpdateOneRequiredWithoutLogsNestedInput
+  }
+
+  export type PushNotificationLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pushNotificationId?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pushNotificationId?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushSubscriptionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    p256dhKey?: StringFieldUpdateOperationsInput | string
+    authKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushSubscriptionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    p256dhKey?: StringFieldUpdateOperationsInput | string
+    authKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushSubscriptionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    p256dhKey?: StringFieldUpdateOperationsInput | string
+    authKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -54768,6 +63055,8 @@ export namespace Prisma {
     subtitle?: string | null
     imageUrl?: string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -54887,8 +63176,10 @@ export namespace Prisma {
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutPromotionBannersNestedInput
     menuAssignments?: MenuPromotionBannerUpdateManyWithoutPromotionBannerNestedInput
   }
 
@@ -54898,6 +63189,8 @@ export namespace Prisma {
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     menuAssignments?: MenuPromotionBannerUncheckedUpdateManyWithoutPromotionBannerNestedInput
@@ -54909,6 +63202,8 @@ export namespace Prisma {
     subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -54925,6 +63220,8 @@ export namespace Prisma {
     startDate?: Date | string
     endDate?: Date | string | null
     isActive?: boolean
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -54959,6 +63256,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type PushNotificationCreateManySegmentInput = {
+    id?: string
+    organizationId: string
+    marketingTemplateId?: string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type InAppMessageUpdateWithoutSegmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54970,9 +63283,11 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutInAppMessagesNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutInAppMessagesNestedInput
     readBy?: InAppMessageReadUpdateManyWithoutMessageNestedInput
   }
 
@@ -54988,6 +63303,8 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readBy?: InAppMessageReadUncheckedUpdateManyWithoutMessageNestedInput
@@ -55005,6 +63322,8 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -55099,6 +63418,56 @@ export namespace Prisma {
     maxGrantsPerUser?: IntFieldUpdateOperationsInput | number
     displayChannel?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationUpdateWithoutSegmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPushNotificationsNestedInput
+    marketingTemplate?: MarketingTemplateUpdateOneWithoutPushNotificationsNestedInput
+    logs?: PushNotificationLogUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateWithoutSegmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PushNotificationLogUncheckedUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateManyWithoutSegmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    marketingTemplateId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -55205,6 +63574,224 @@ export namespace Prisma {
     redeemedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type InAppMessageCreateManyMarketingTemplateInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    title?: string | null
+    body: string
+    linkUrl?: string | null
+    displayPlace?: string
+    displayType?: string
+    slotId?: string | null
+    startDate?: Date | string
+    endDate?: Date | string | null
+    isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PromotionBannerCreateManyMarketingTemplateInput = {
+    id?: string
+    title: string
+    subtitle?: string | null
+    imageUrl?: string | null
+    couponId?: string | null
+    isActive?: boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PushNotificationCreateManyMarketingTemplateInput = {
+    id?: string
+    organizationId: string
+    segmentId: string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle: string
+    pushBody: string
+    deepLink?: string | null
+    status?: $Enums.PushNotificationStatus
+    scheduledAt?: Date | string | null
+    sentAt?: Date | string | null
+    totalRecipients?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InAppMessageUpdateWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutInAppMessagesNestedInput
+    segment?: CustomerSegmentUpdateOneRequiredWithoutInAppMessagesNestedInput
+    readBy?: InAppMessageReadUpdateManyWithoutMessageNestedInput
+  }
+
+  export type InAppMessageUncheckedUpdateWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: InAppMessageReadUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
+  export type InAppMessageUncheckedUpdateManyWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    displayPlace?: StringFieldUpdateOperationsInput | string
+    displayType?: StringFieldUpdateOperationsInput | string
+    slotId?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PromotionBannerUpdateWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coupon?: CouponUpdateOneWithoutPromotionBannersNestedInput
+    menuAssignments?: MenuPromotionBannerUpdateManyWithoutPromotionBannerNestedInput
+  }
+
+  export type PromotionBannerUncheckedUpdateWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    menuAssignments?: MenuPromotionBannerUncheckedUpdateManyWithoutPromotionBannerNestedInput
+  }
+
+  export type PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationUpdateWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPushNotificationsNestedInput
+    segment?: CustomerSegmentUpdateOneRequiredWithoutPushNotificationsNestedInput
+    logs?: PushNotificationLogUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PushNotificationLogUncheckedUpdateManyWithoutPushNotificationNestedInput
+  }
+
+  export type PushNotificationUncheckedUpdateManyWithoutMarketingTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    segmentId?: StringFieldUpdateOperationsInput | string
+    templateSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    pushTitle?: StringFieldUpdateOperationsInput | string
+    pushBody?: StringFieldUpdateOperationsInput | string
+    deepLink?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPushNotificationStatusFieldUpdateOperationsInput | $Enums.PushNotificationStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalRecipients?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationLogCreateManyPushNotificationInput = {
+    id?: string
+    userId: string
+    status: $Enums.PushDeliveryStatus
+    sentAt?: Date | string
+  }
+
+  export type PushNotificationLogUpdateWithoutPushNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPushNotificationLogsNestedInput
+  }
+
+  export type PushNotificationLogUncheckedUpdateWithoutPushNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushNotificationLogUncheckedUpdateManyWithoutPushNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumPushDeliveryStatusFieldUpdateOperationsInput | $Enums.PushDeliveryStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -55270,6 +63857,14 @@ export namespace Prisma {
      * @deprecated Use SegmentIncentiveCountOutputTypeDefaultArgs instead
      */
     export type SegmentIncentiveCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SegmentIncentiveCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MarketingTemplateCountOutputTypeDefaultArgs instead
+     */
+    export type MarketingTemplateCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MarketingTemplateCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PushNotificationCountOutputTypeDefaultArgs instead
+     */
+    export type PushNotificationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PushNotificationCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OrganizationDefaultArgs instead
      */
@@ -55386,6 +63981,22 @@ export namespace Prisma {
      * @deprecated Use SegmentIncentiveDefaultArgs instead
      */
     export type SegmentIncentiveArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SegmentIncentiveDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MarketingTemplateDefaultArgs instead
+     */
+    export type MarketingTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MarketingTemplateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PushNotificationDefaultArgs instead
+     */
+    export type PushNotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PushNotificationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PushNotificationLogDefaultArgs instead
+     */
+    export type PushNotificationLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PushNotificationLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PushSubscriptionDefaultArgs instead
+     */
+    export type PushSubscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PushSubscriptionDefaultArgs<ExtArgs>
     /**
      * @deprecated Use IncentiveGrantDefaultArgs instead
      */

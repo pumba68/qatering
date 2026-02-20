@@ -24,6 +24,7 @@ const SECTIONS = [
   { id: 'wallet', label: 'Guthaben & Wallet', icon: '💰' },
   { id: 'billing', label: 'Vertragspartner-Abrechnung', icon: '🧾' },
   { id: 'promotions', label: 'Promotions', icon: '🏷️' },
+  { id: 'marketing-editor', label: 'Marketing-Editor & Push', icon: '✉️' },
   { id: 'design', label: 'Design Guidelines', icon: '🎨' },
   { id: 'setup', label: 'Setup & Installation', icon: '🚀' },
 ] as const
@@ -165,11 +166,29 @@ export default function WikiPage() {
                         <td className="py-3 px-2">Top-5-Schnellzugriff, Sheet „Alle Gerichte“ (optional)</td>
                         <td className="py-3 px-2">—</td>
                       </tr>
-                      <tr>
+                      <tr className="border-b border-border/50">
                         <td className="py-3 px-2 font-medium text-foreground">Menu-View Optimization</td>
                         <td className="py-3 px-2">✅ Umgesetzt</td>
                         <td className="py-3 px-2">—</td>
                         <td className="py-3 px-2">—</td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-7 Template-Bibliothek</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">—</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
+                      </tr>
+                      <tr className="border-b border-border/50">
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-8 Block-Editor</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">—</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-2 font-medium text-foreground">PROJ-10 In-App / Push-Integration</td>
+                        <td className="py-3 px-2">✅ Vollständig</td>
+                        <td className="py-3 px-2">VAPID-Keys in .env konfigurieren für Push-Versand</td>
+                        <td className="py-3 px-2"><span className="text-green-600 dark:text-green-400">✅ Implementiert</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -557,6 +576,331 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                   <p className="text-muted-foreground">
                     <strong className="text-foreground">2. Motto-Banner:</strong> Wiederverwendbare PromotionBanner (Titel, Untertitel, Bild); pro Menü (KW/Jahr/Location) zuweisbar und sortierbar. Oberhalb des Speiseplans als Karussell (PromotionBannerCarousel), optional schließbar (Session).
                   </p>
+                </div>
+              </section>
+            )}
+
+            {/* Marketing-Editor & Push (PROJ-7 / PROJ-8 / PROJ-10) */}
+            {show('marketing-editor') && (
+              <section className="bg-card rounded-2xl border border-border/50 p-6 md:p-8 space-y-10">
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground mb-1">✉️ Marketing-Editor &amp; Kanalausspieltung</h2>
+                  <p className="text-muted-foreground text-sm">
+                    Anleitung für Admins – Template-Bibliothek (PROJ-7), Block-Editor (PROJ-8) und In-App / Push-Versand (PROJ-10).
+                  </p>
+                </div>
+
+                {/* ── ABSCHNITT 1: Überblick ── */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">Überblick: Wie alles zusammenhängt</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Das Marketing-System der Plattform besteht aus drei aufeinander aufbauenden Schichten:
+                  </p>
+                  <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
+                    <li><strong className="text-foreground">Template-Bibliothek</strong> – zentrale Verwaltung aller Marketing-Vorlagen unter <code className="bg-muted px-1 rounded">/admin/marketing/templates</code></li>
+                    <li><strong className="text-foreground">Block-Editor</strong> – visueller Drag-&-Drop-Editor zum Gestalten der Vorlagen</li>
+                    <li><strong className="text-foreground">Kanalausspieltung</strong> – Veröffentlichen als In-App Banner/Popup oder als Push-Benachrichtigung</li>
+                  </ol>
+                  <div className="mt-4 rounded-xl bg-violet-50 dark:bg-violet-950/20 border border-violet-200 dark:border-violet-800 p-4 text-sm text-violet-800 dark:text-violet-200">
+                    <strong>Tipp:</strong> Der typische Arbeitsablauf ist: Vorlage erstellen → im Block-Editor gestalten → speichern → „Veröffentlichen" klicken → Kanal und Segment auswählen → bestätigen.
+                  </div>
+                </div>
+
+                {/* ── ABSCHNITT 2: Template-Bibliothek ── */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">1. Template-Bibliothek</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Erreichbar unter <strong className="text-foreground">Marketing → Vorlagen</strong> im Admin-Bereich. Nur für ADMIN und SUPER_ADMIN sichtbar.
+                  </p>
+
+                  <h4 className="font-semibold text-foreground mb-2">Was Sie hier sehen</h4>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground mb-4">
+                    <li>Alle Ihre eigenen Vorlagen als Karten mit Vorschau, Name, Typ-Badge und letztem Änderungsdatum</li>
+                    <li>Vorinstallierte <strong className="text-foreground">Starter-Vorlagen</strong> (schreibgeschützt, können aber dupliziert werden)</li>
+                    <li>Filter nach Typ (E-Mail, In-App Banner, Promotion-Banner, Push) und Status (Aktiv / Archiviert)</li>
+                    <li>Suche nach Name und Sortierung (zuletzt geändert, Name A–Z, Erstellungsdatum)</li>
+                  </ul>
+
+                  <h4 className="font-semibold text-foreground mb-2">Neue Vorlage erstellen</h4>
+                  <ol className="list-decimal list-inside space-y-2 text-muted-foreground mb-4">
+                    <li>Klicken Sie auf <strong className="text-foreground">„+ Neu erstellen"</strong> (oben rechts)</li>
+                    <li>Wählen Sie den Typ: <strong>E-Mail</strong>, <strong>In-App Banner</strong>, <strong>Promotion-Banner</strong> oder <strong>Push-Nachricht</strong></li>
+                    <li>Wählen Sie den Startpunkt: leeres Template oder eine Starter-Vorlage als Basis</li>
+                    <li>Sie werden automatisch in den Block-Editor weitergeleitet</li>
+                  </ol>
+
+                  <h4 className="font-semibold text-foreground mb-2">Aktionen pro Vorlage (⋮-Menü)</h4>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Aktion</th>
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Beschreibung</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        <tr className="border-b border-border/50">
+                          <td className="py-2 px-2 font-medium text-foreground">Bearbeiten</td>
+                          <td className="py-2 px-2">Öffnet die Vorlage im Block-Editor</td>
+                        </tr>
+                        <tr className="border-b border-border/50">
+                          <td className="py-2 px-2 font-medium text-foreground">Duplizieren</td>
+                          <td className="py-2 px-2">Erstellt eine Kopie mit dem Suffix „(Kopie)" – ideal für Varianten</td>
+                        </tr>
+                        <tr className="border-b border-border/50">
+                          <td className="py-2 px-2 font-medium text-foreground">Archivieren</td>
+                          <td className="py-2 px-2">Entfernt die Vorlage aus der aktiven Ansicht (kein Datenverlust)</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2 px-2 font-medium text-foreground">Löschen</td>
+                          <td className="py-2 px-2">Endgültig löschen – nur möglich wenn die Vorlage nicht in einem aktiven Workflow verwendet wird</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="mt-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 p-4 text-sm text-amber-800 dark:text-amber-200">
+                    <strong>Hinweis zu Starter-Vorlagen:</strong> Diese sind schreibgeschützt. Wenn Sie eine Starter-Vorlage öffnen, erscheint oben ein gelber Hinweis. Klicken Sie auf „Duplizieren &amp; bearbeiten", um eine eigene bearbeitbare Kopie zu erstellen.
+                  </div>
+                </div>
+
+                {/* ── ABSCHNITT 3: Block-Editor ── */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">2. Block-Editor</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Der visuelle Editor öffnet sich automatisch nach dem Erstellen oder Bearbeiten einer Vorlage. Er ist in drei Bereiche unterteilt:
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="rounded-xl border border-border/50 bg-muted/30 p-4">
+                      <p className="font-semibold text-foreground mb-1">← Linke Spalte</p>
+                      <p className="text-sm text-muted-foreground">Block-Palette mit allen verfügbaren Elementen. Blöcke per Drag &amp; Drop in die Canvas ziehen.</p>
+                    </div>
+                    <div className="rounded-xl border border-violet-300 dark:border-violet-700 bg-violet-50/50 dark:bg-violet-950/20 p-4">
+                      <p className="font-semibold text-foreground mb-1">↕ Mitte: Canvas</p>
+                      <p className="text-sm text-muted-foreground">Live-Vorschau Ihrer Vorlage. Blöcke per Drag Handle (⠿) umsortieren, per Klick auswählen.</p>
+                    </div>
+                    <div className="rounded-xl border border-border/50 bg-muted/30 p-4">
+                      <p className="font-semibold text-foreground mb-1">Rechte Spalte →</p>
+                      <p className="text-sm text-muted-foreground">Eigenschaften-Panel. Zeigt Einstellungen des ausgewählten Blocks – oder globale Stil-Einstellungen.</p>
+                    </div>
+                  </div>
+
+                  <h4 className="font-semibold text-foreground mb-2">Verfügbare Block-Typen</h4>
+                  <div className="overflow-x-auto mb-4">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Block</th>
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Einstellbar</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Headline</td><td className="py-2 px-2">Text, Ebene (H1/H2/H3), Farbe, Ausrichtung</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Text</td><td className="py-2 px-2">Rich-Text (fett, kursiv, unterstrichen, Links), Schriftgröße, Farbe</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Bild</td><td className="py-2 px-2">URL oder Upload, Alt-Text, Ausrichtung, Breite, Link bei Klick</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Button / CTA</td><td className="py-2 px-2">Beschriftung, URL, Hintergrundfarbe, Textfarbe, Ausrichtung</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Spacer</td><td className="py-2 px-2">Höhe in Pixeln</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Trennlinie</td><td className="py-2 px-2">Farbe, Stärke, Stil (durchgezogen, gestrichelt, gepunktet)</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">2-Spalten-Layout</td><td className="py-2 px-2">Spaltenverteilung (50/50, 33/67, 67/33), eigene Blöcke pro Spalte</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">3-Spalten-Layout</td><td className="py-2 px-2">Drei gleichbreite Spalten mit je eigenen Blöcken</td></tr>
+                        <tr><td className="py-2 px-2 font-medium text-foreground">Coupon-Block</td><td className="py-2 px-2">Coupon aus der Datenbank wählen, Code-Darstellung, CTA-Text</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <h4 className="font-semibold text-foreground mb-2">Personalisierungs-Platzhalter</h4>
+                  <p className="text-muted-foreground mb-2">
+                    In Text- und Headline-Blöcken können Sie Variablen einsetzen, die beim Ausspielen individuell befüllt werden:
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {['{{Vorname}}', '{{Nachname}}', '{{E-Mail}}', '{{Standort}}', '{{Gericht_des_Tages}}', '{{Coupon_Code}}', '{{Datum}}'].map((v) => (
+                      <code key={v} className="bg-violet-100 dark:bg-violet-900/30 text-violet-800 dark:text-violet-200 px-2 py-0.5 rounded text-xs font-mono">{v}</code>
+                    ))}
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    In der Editor-Vorschau werden Platzhalter mit Beispieldaten gefüllt (z. B. <code className="bg-muted px-1 rounded">{'{{Vorname}}'}</code> → „Max"). Beim tatsächlichen Versand werden die echten Nutzerdaten eingesetzt.
+                  </p>
+
+                  <h4 className="font-semibold text-foreground mb-2">Globale Stile</h4>
+                  <p className="text-muted-foreground mb-4">
+                    Klicken Sie in der Topbar auf das <strong>Pinsel-Icon (🎨)</strong>, um globale Einstellungen zu öffnen: Hintergrundfarbe, Primärfarbe, Schriftart und Innenabstand der Canvas.
+                  </p>
+
+                  <h4 className="font-semibold text-foreground mb-2">Tastenkürzel &amp; Toolbar</h4>
+                  <div className="overflow-x-auto mb-4">
+                    <table className="w-full text-sm border-collapse">
+                      <tbody className="text-muted-foreground">
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-mono text-foreground">Strg + S</td><td className="py-2 px-2">Manuell speichern</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-mono text-foreground">Strg + Z</td><td className="py-2 px-2">Rückgängig (bis zu 20 Schritte)</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-mono text-foreground">Strg + Y</td><td className="py-2 px-2">Wiederholen</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-mono text-foreground">Monitor-Icon</td><td className="py-2 px-2">Desktop-Vorschau (600 px)</td></tr>
+                        <tr><td className="py-2 px-2 font-mono text-foreground">Smartphone-Icon</td><td className="py-2 px-2">Mobile-Vorschau (375 px)</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p className="text-muted-foreground text-sm">
+                    Der Editor speichert automatisch alle 60 Sekunden (Autosave), wenn die Vorlage geändert wurde. Den Speicher-Status sehen Sie im Topbar-Button (✓ Gespeichert / ⏳ Speichern…).
+                  </p>
+                </div>
+
+                {/* ── ABSCHNITT 4: Veröffentlichen ── */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">3. Vorlage veröffentlichen</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Klicken Sie im Block-Editor auf <strong className="text-foreground">„Veröffentlichen"</strong> (lila Button oben rechts). Ein 3-Schritt-Dialog öffnet sich:
+                  </p>
+
+                  <div className="space-y-4 mb-6">
+                    <div className="flex gap-4 items-start">
+                      <div className="shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-200 flex items-center justify-center font-bold text-sm">1</div>
+                      <div>
+                        <p className="font-semibold text-foreground">Kanal wählen</p>
+                        <p className="text-sm text-muted-foreground">Wählen Sie zwischen <strong>In-App Banner / Popup</strong> (Anzeige innerhalb der App) und <strong>Push-Benachrichtigung</strong> (Geräte-Benachrichtigung außerhalb der App).</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-200 flex items-center justify-center font-bold text-sm">2</div>
+                      <div>
+                        <p className="font-semibold text-foreground">Konfiguration</p>
+                        <p className="text-sm text-muted-foreground">Je nach Kanal unterschiedliche Einstellungen (siehe Tabellen unten).</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-200 flex items-center justify-center font-bold text-sm">3</div>
+                      <div>
+                        <p className="font-semibold text-foreground">Bestätigung</p>
+                        <p className="text-sm text-muted-foreground">Zusammenfassung aller Einstellungen. Klicken Sie auf „Veröffentlichen" (In-App) oder „Jetzt senden" (Push), um die Aktion abzuschließen.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h4 className="font-semibold text-foreground mb-2">Konfiguration: In-App Banner / Popup</h4>
+                  <div className="overflow-x-auto mb-6">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Einstellung</th>
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Beschreibung</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Segment *</td><td className="py-2 px-2">Welche Kundengruppe soll die Nachricht sehen?</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Anzeigeort</td><td className="py-2 px-2">Menü, Dashboard oder Wallet – auf welcher App-Seite erscheint der Banner?</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Anzeigetyp</td><td className="py-2 px-2"><strong>Banner</strong> = eingebettet in die Seite; <strong>Popup</strong> = modales Overlay mit Schließen-Button</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Startdatum</td><td className="py-2 px-2">Ab wann soll der Banner erscheinen? (leer = sofort)</td></tr>
+                        <tr><td className="py-2 px-2 font-medium text-foreground">Enddatum</td><td className="py-2 px-2">Bis wann soll der Banner erscheinen? (leer = unbegrenzt)</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <h4 className="font-semibold text-foreground mb-2">Konfiguration: Push-Benachrichtigung</h4>
+                  <div className="overflow-x-auto mb-4">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Einstellung</th>
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Beschreibung</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Segment *</td><td className="py-2 px-2">Zielgruppe der Push-Nachricht</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Titel *</td><td className="py-2 px-2">Überschrift der Push-Nachricht – max. 65 Zeichen</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Nachricht *</td><td className="py-2 px-2">Inhalt der Benachrichtigung – max. 200 Zeichen</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 font-medium text-foreground">Deep-Link</td><td className="py-2 px-2">Optional: App-Seite, die beim Tippen der Benachrichtigung geöffnet wird (z. B. <code className="bg-muted px-1 rounded">/menu</code>)</td></tr>
+                        <tr><td className="py-2 px-2 font-medium text-foreground">Versandzeitpunkt</td><td className="py-2 px-2">Leer lassen = sofort versenden; Datum/Uhrzeit eingeben = geplanter Versand</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="rounded-xl bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 p-4 text-sm text-blue-800 dark:text-blue-200">
+                    <strong>Wichtig bei Push:</strong> Push-Benachrichtigungen erreichen nur Nutzer, die in ihrem Browser Benachrichtigungen erlaubt haben. Nutzer ohne Erlaubnis werden automatisch ausgeschlossen – kein Fehler, nur eine Information im Ergebnis.
+                  </div>
+                </div>
+
+                {/* ── ABSCHNITT 5: Snapshot-Prinzip ── */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">4. Snapshot-Prinzip: Änderungen am Template nach Veröffentlichung</h3>
+                  <p className="text-muted-foreground mb-3">
+                    Beim Veröffentlichen wird der aktuelle Inhalt der Vorlage als <strong className="text-foreground">Snapshot</strong> (Momentaufnahme) gespeichert. Das bedeutet:
+                  </p>
+                  <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                    <li>Nachträgliche Änderungen an der Vorlage im Block-Editor <strong className="text-foreground">beeinflussen laufende Kampagnen nicht</strong></li>
+                    <li>Der bereits ausgespielte Banner oder die gesendete Push-Nachricht zeigt weiterhin den Inhalt zum Zeitpunkt der Veröffentlichung</li>
+                    <li>Wenn Sie den aktualisierten Inhalt ausspielen möchten, veröffentlichen Sie die Vorlage einfach erneut</li>
+                  </ul>
+                </div>
+
+                {/* ── ABSCHNITT 6: Monitoring ── */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">5. Monitoring &amp; Verwaltung</h3>
+
+                  <h4 className="font-semibold text-foreground mb-2">In-App Nachrichten verwalten</h4>
+                  <p className="text-muted-foreground mb-3">
+                    Unter <strong className="text-foreground">Marketing → In-App Nachrichten</strong> (<code className="bg-muted px-1 rounded">/admin/marketing/inapp</code>) sehen Sie alle aktiven und geplanten Banner und Popups.
+                  </p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground mb-4">
+                    <li><strong className="text-foreground">Filtern</strong> nach Typ (Banner/Popup/Slot) und Status (Aktiv/Inaktiv)</li>
+                    <li><strong className="text-foreground">Deaktivieren</strong> eines aktiven Banners sofort per Klick (Strom-Icon)</li>
+                    <li><strong className="text-foreground">Löschen</strong> einer Nachricht (Mülleimer-Icon)</li>
+                    <li>Status-Badge: <span className="text-green-600 dark:text-green-400">Aktiv</span>, <span className="text-amber-600 dark:text-amber-400">Abgelaufen</span> oder <span className="text-muted-foreground">Inaktiv</span></li>
+                  </ul>
+
+                  <h4 className="font-semibold text-foreground mb-2">Push-Kampagnen verwalten</h4>
+                  <p className="text-muted-foreground mb-3">
+                    Unter <strong className="text-foreground">Marketing → Push-Benachrichtigungen</strong> (<code className="bg-muted px-1 rounded">/admin/marketing/push</code>) sehen Sie alle Push-Kampagnen.
+                  </p>
+                  <div className="overflow-x-auto mb-4">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Status</th>
+                          <th className="text-left py-2 px-2 font-medium text-foreground">Bedeutung</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 text-foreground font-medium">Entwurf</td><td className="py-2 px-2">Kampagne erstellt, noch nicht versendet</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 text-blue-600 dark:text-blue-400 font-medium">Geplant</td><td className="py-2 px-2">Versand zu einem bestimmten Zeitpunkt vorgesehen</td></tr>
+                        <tr className="border-b border-border/50"><td className="py-2 px-2 text-green-600 dark:text-green-400 font-medium">Gesendet</td><td className="py-2 px-2">Erfolgreich an alle Empfänger mit Push-Erlaubnis versendet</td></tr>
+                        <tr><td className="py-2 px-2 text-red-600 dark:text-red-400 font-medium">Fehler</td><td className="py-2 px-2">Versand fehlgeschlagen – bitte Support kontaktieren</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="text-muted-foreground text-sm">
+                    Kampagnen mit Status „Entwurf" oder „Geplant" können über den <strong>„Jetzt senden"</strong>-Button sofort versendet werden.
+                  </p>
+                </div>
+
+                {/* ── ABSCHNITT 7: Häufige Fragen ── */}
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">6. Häufige Fragen</h3>
+                  <div className="space-y-4 text-muted-foreground">
+                    <div>
+                      <p className="font-semibold text-foreground">Kann ich dasselbe Template für mehrere Kanäle verwenden?</p>
+                      <p>Ja. Sie können eine Vorlage als In-App Banner und zusätzlich als Push-Nachricht veröffentlichen. Jede Veröffentlichung erzeugt einen eigenen Snapshot.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Was passiert, wenn zwei Banner für denselben Anzeigeort und dasselbe Segment aktiv sind?</p>
+                      <p>Die Plattform zeigt beim Aktivieren eine Warnung. Der ältere Banner wird automatisch deaktiviert, oder Sie können die Priorität manuell festlegen.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Können Kunden Banner dauerhaft ausblenden?</p>
+                      <p>Kunden können Banner und Popups mit dem ✕-Button schließen. Die Nachricht wird dann nicht erneut angezeigt. Bei Popups gibt es optional eine „Nicht mehr anzeigen"-Checkbox.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Das Segment für meine Kampagne hat keine Mitglieder – was passiert?</p>
+                      <p>Der Banner wird angelegt, aber nie angezeigt. Die Plattform weist in der Monitoring-Ansicht darauf hin. Prüfen Sie die Segmentregeln unter <code className="bg-muted px-1 rounded">Marketing → Kundensegmente</code>.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Push-Versand schlägt fehl mit „VAPID nicht konfiguriert"?</p>
+                      <p>Für Push-Benachrichtigungen müssen die Umgebungsvariablen <code className="bg-muted px-1 rounded">VAPID_PUBLIC_KEY</code>, <code className="bg-muted px-1 rounded">VAPID_PRIVATE_KEY</code> und <code className="bg-muted px-1 rounded">VAPID_SUBJECT</code> gesetzt sein. VAPID-Keys können mit <code className="bg-muted px-1 rounded">npx web-push generate-vapid-keys</code> generiert werden.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">Ich habe die Vorlage nach der Veröffentlichung verändert – wie aktualisiere ich den aktiven Banner?</p>
+                      <p>Öffnen Sie den Editor, gestalten Sie die Vorlage nach Wunsch, speichern Sie und klicken Sie erneut auf „Veröffentlichen". Der neue Snapshot wird dann als neue Nachricht angelegt (der alte Banner bleibt aktiv bis Sie ihn manuell deaktivieren).</p>
+                    </div>
+                  </div>
                 </div>
               </section>
             )}

@@ -22,11 +22,14 @@ model Organization {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  locations     Location[]
-  users         User[]
-  segments      CustomerSegment[]
-  inAppMessages InAppMessage[]
-  workflows     MarketingWorkflow[]
+  locations          Location[]
+  users              User[]
+  segments           CustomerSegment[]
+  inAppMessages      InAppMessage[]
+  workflows          MarketingWorkflow[]
+  segmentIncentives  SegmentIncentive[]
+  marketingTemplates MarketingTemplate[]
+  pushNotifications  PushNotification[]
 
   @@map("organizations")
 }
@@ -51,8 +54,46 @@ model Company {
 
   employees CompanyEmployee[]
   orders    Order[]
+  invoices  CompanyInvoice[]
 
   @@map("companies")
+}
+
+// Monatsrechnung pro Vertragspartner (Zuschusskosten)
+model CompanyInvoice {
+  id          String    @id @default(cuid())
+  companyId   String
+  year        Int // Abrechnungsjahr
+  month       Int // Abrechnungsmonat 1–12
+  status      String    @default("DRAFT") @db.VarChar(20) // DRAFT | INVOICED | PAID
+  totalAmount Decimal   @db.Decimal(10, 2) // Summe Zuschusskosten
+  invoicedAt  DateTime? // Zeitpunkt PDF-Export / „Rechnung gestellt“
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  company Company              @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  items   CompanyInvoiceItem[]
+
+  @@unique([companyId, year, month])
+  @@index([companyId])
+  @@index([status])
+  @@map("company_invoices")
+}
+
+// Einzelposten der Monatsrechnung (Bestellnummer, Datum, Mitarbeiter, Summe)
+model CompanyInvoiceItem {
+  id               String   @id @default(cuid())
+  companyInvoiceId String
+  orderId          String   @unique // Jede Bestellung nur auf einer Rechnung
+  orderNumber      String   @db.VarChar(50) // z. B. pickupCode für Anzeige
+  orderDate        DateTime // Bestelldatum
+  employeeName     String   @db.VarChar(200) // Name des bestellenden Mitarbeiters
+  amount           Decimal  @db.Decimal(10, 2) // Zuschussbetrag
+
+  companyInvoice CompanyInvoice @relation(fields: [companyInvoiceId], references: [id], onDelete: Cascade)
+
+  @@index([companyInvoiceId])
+  @@map("company_invoice_items")
 }
 
 // Zuordnung: Company -> Employee (User ist Mitarbeiter eines Unternehmens)
@@ -118,16 +159,19 @@ model User {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
-  organization           Organization?       @relation(fields: [organizationId], references: [id])
+  organization           Organization?         @relation(fields: [organizationId], references: [id])
   locations              UserLocation[]
   companyEmployees       CompanyEmployee[]
   orders                 Order[]
   sessions               Session[]
   accounts               Account[]
   couponRedemptions      CouponRedemption[]
+  incentiveGrants        IncentiveGrant[]
   wallet                 Wallet?
   walletTransactions     WalletTransaction[]
-  performedWalletActions WalletTransaction[] @relation("WalletAudit")
+  performedWalletActions WalletTransaction[]   @relation("WalletAudit")
+  pushNotificationLogs   PushNotificationLog[]
+  pushSubscriptions      PushSubscription[]
 
   @@map("users")
 }
@@ -149,23 +193,26 @@ enum WalletTransactionType {
   ORDER_PAYMENT // Bestellzahlung
   REFUND // Erstattung (Stornierung)
   ADJUSTMENT // Admin-Anpassung
+  INCENTIVE // PROJ-4e: Guthaben-Incentive (Segment)
 }
 
 model WalletTransaction {
-  id            String                @id @default(cuid())
-  userId        String
-  type          WalletTransactionType
-  amount        Decimal               @db.Decimal(10, 2) // + Gutschrift, - Abbuchung
-  balanceBefore Decimal               @db.Decimal(10, 2)
-  balanceAfter  Decimal               @db.Decimal(10, 2)
-  description   String?               @db.Text
-  orderId       String?
-  performedById String? // Admin bei TOP_UP/ADJUSTMENT
-  createdAt     DateTime              @default(now())
+  id               String                @id @default(cuid())
+  userId           String
+  type             WalletTransactionType
+  amount           Decimal               @db.Decimal(10, 2) // + Gutschrift, - Abbuchung
+  balanceBefore    Decimal               @db.Decimal(10, 2)
+  balanceAfter     Decimal               @db.Decimal(10, 2)
+  description      String?               @db.Text
+  orderId          String?
+  performedById    String? // Admin bei TOP_UP/ADJUSTMENT
+  incentiveGrantId String?               @unique // PROJ-4e: Bei INCENTIVE-Transaktion (1:1)
+  createdAt        DateTime              @default(now())
 
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  order       Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  performedBy User?  @relation("WalletAudit", fields: [performedById], references: [id], onDelete: SetNull)
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order          Order?          @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  performedBy    User?           @relation("WalletAudit", fields: [performedById], references: [id], onDelete: SetNull)
+  incentiveGrant IncentiveGrant? @relation(fields: [incentiveGrantId], references: [id], onDelete: SetNull)
 
   @@index([userId])
   @@index([orderId])
@@ -256,15 +303,21 @@ model Menu {
 
 // Wiederverwendbare Motto-/Promotion-Banner (z. B. "Bayerische Woche", "Italian Week")
 model PromotionBanner {
-  id        String   @id @default(cuid())
-  title     String   @db.VarChar(200)
-  subtitle  String?  @db.VarChar(500)
-  imageUrl  String?  @db.Text
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                  String   @id @default(cuid())
+  title               String   @db.VarChar(200)
+  subtitle            String?  @db.VarChar(500)
+  imageUrl            String?  @db.Text
+  couponId            String? // PROJ-4e: Optionaler Coupon für dezenten Hinweis (z. B. "Code BAYERN10")
+  isActive            Boolean  @default(true)
+  // PROJ-10: Optionale Block-Editor Verknüpfung
+  marketingTemplateId String?
+  templateSnapshot    Json? // Snapshot des Template-Inhalts bei Zuweisung
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  menuAssignments MenuPromotionBanner[]
+  coupon            Coupon?               @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  marketingTemplate MarketingTemplate?    @relation("PromotionBannerTemplate", fields: [marketingTemplateId], references: [id], onDelete: SetNull)
+  menuAssignments   MenuPromotionBanner[]
 
   @@map("promotion_banners")
 }
@@ -368,6 +421,7 @@ model Order {
   @@index([locationId])
   @@index([pickupCode])
   @@index([pickupDate])
+  @@index([employerCompanyId, createdAt])
   @@map("orders")
 }
 
@@ -415,9 +469,12 @@ model Coupon {
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
 
-  location     Location?          @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  freeItemDish Dish?              @relation(fields: [freeItemDishId], references: [id])
-  redemptions  CouponRedemption[]
+  location          Location?          @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  freeItemDish      Dish?              @relation(fields: [freeItemDishId], references: [id])
+  redemptions       CouponRedemption[]
+  incentiveGrants   IncentiveGrant[] // Personalisierte Coupons (von SegmentIncentive erzeugt)
+  segmentIncentives SegmentIncentive[] // Vorlage für Incentive (couponId)
+  promotionBanners  PromotionBanner[] // PROJ-4e: Banner mit Coupon-Hinweis
 
   @@index([code, isActive])
   @@index([locationId])
@@ -495,9 +552,11 @@ model CustomerSegment {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  organization  Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  inAppMessages InAppMessage[]
-  workflows     MarketingWorkflow[]
+  organization      Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  inAppMessages     InAppMessage[]
+  workflows         MarketingWorkflow[]
+  segmentIncentives SegmentIncentive[]
+  pushNotifications PushNotification[]
 
   @@unique([organizationId, name])
   @@index([organizationId])
@@ -505,27 +564,36 @@ model CustomerSegment {
 }
 
 // In-App-Nachricht: segmentbezogen, Zeitraum, Anzeigeort
+// displayType: POPUP = Modal/Overlay, BANNER = Karte auf Seite, SLOT = dynamischer Platz (slotId)
+// slotId: z.B. menu_top, menu_sidebar, dashboard_hero, wallet_top, popup_after_login
 model InAppMessage {
-  id             String    @id @default(cuid())
-  organizationId String
-  segmentId      String
-  title          String?   @db.VarChar(200)
-  body           String    @db.Text
-  linkUrl        String?   @db.Text
-  displayPlace   String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard
-  startDate      DateTime  @default(now())
-  endDate        DateTime?
-  isActive       Boolean   @default(true)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id                  String    @id @default(cuid())
+  organizationId      String
+  segmentId           String
+  title               String?   @db.VarChar(200)
+  body                String    @db.Text
+  linkUrl             String?   @db.Text
+  displayPlace        String    @default("menu") @db.VarChar(50) // menu | wallet | dashboard (Seite für BANNER)
+  displayType         String    @default("BANNER") @db.VarChar(20) // POPUP | BANNER | SLOT
+  slotId              String?   @db.VarChar(80) // z.B. menu_top, popup_after_login (bei SLOT oder POPUP)
+  startDate           DateTime  @default(now())
+  endDate             DateTime?
+  isActive            Boolean   @default(true)
+  // PROJ-10: Optionale Block-Editor Verknüpfung (nullable → kein Breaking Change)
+  marketingTemplateId String?
+  templateSnapshot    Json? // Snapshot des Template-Inhalts bei Aktivierung
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
-  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  segment      CustomerSegment    @relation(fields: [segmentId], references: [id], onDelete: Cascade)
-  readBy       InAppMessageRead[]
+  organization      Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment           CustomerSegment    @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  marketingTemplate MarketingTemplate? @relation("InAppMessageTemplate", fields: [marketingTemplateId], references: [id], onDelete: SetNull)
+  readBy            InAppMessageRead[]
 
   @@index([organizationId])
   @@index([segmentId])
   @@index([isActive, startDate, endDate])
+  @@index([displayType, slotId])
   @@map("in_app_messages")
 }
 
@@ -581,4 +649,165 @@ model WorkflowExecutionLog {
   @@index([workflowId])
   @@index([executedAt])
   @@map("workflow_execution_logs")
+}
+
+// PROJ-4e: Incentive = Segment-Verknüpfung zu Coupon oder Guthaben
+model SegmentIncentive {
+  id                String    @id @default(cuid())
+  organizationId    String
+  segmentId         String
+  name              String?   @db.VarChar(200) // Anzeigename (z. B. "Stammkunden-Belohnung")
+  incentiveType     String    @db.VarChar(20) // COUPON | WALLET_CREDIT
+  couponId          String? // Bei COUPON: Vorlage (oder bei personalisiert: wird pro User erzeugt)
+  personaliseCoupon Boolean   @default(false) // Pro User eigener Code
+  walletAmount      Decimal?  @db.Decimal(10, 2) // Bei WALLET_CREDIT: Betrag in €
+  startDate         DateTime  @default(now())
+  endDate           DateTime?
+  maxGrantsPerUser  Int       @default(1)
+  displayChannel    String    @default("BOTH") @db.VarChar(20) // EMAIL | IN_APP | BOTH
+  isActive          Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  organization Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment      CustomerSegment  @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  coupon       Coupon?          @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  grants       IncentiveGrant[]
+
+  @@index([organizationId])
+  @@index([segmentId])
+  @@index([isActive, startDate, endDate])
+  @@map("segment_incentives")
+}
+
+// PROJ-7/8: Marketing Template Library & Block-Editor
+enum MarketingTemplateType {
+  EMAIL
+  IN_APP_BANNER
+  PROMOTION_BANNER
+  PUSH
+}
+
+enum MarketingTemplateStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+model MarketingTemplate {
+  id             String                  @id @default(cuid())
+  organizationId String? // null = plattformweite Starter-Templates
+  name           String                  @db.VarChar(200)
+  type           MarketingTemplateType
+  content        Json                    @default("{}") // Block-Editor JSON
+  status         MarketingTemplateStatus @default(ACTIVE)
+  isStarter      Boolean                 @default(false)
+  isFavorite     Boolean                 @default(false)
+  thumbnailUrl   String?                 @db.Text
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  organization      Organization?      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  // PROJ-10: Back-relations
+  inAppMessages     InAppMessage[]     @relation("InAppMessageTemplate")
+  promotionBanners  PromotionBanner[]  @relation("PromotionBannerTemplate")
+  pushNotifications PushNotification[]
+
+  @@index([organizationId, type, status])
+  @@index([isStarter])
+  @@map("marketing_templates")
+}
+
+// PROJ-10: Push-Benachrichtigungen ─────────────────────────────────────────────
+
+enum PushNotificationStatus {
+  DRAFT
+  SCHEDULED
+  SENT
+  FAILED
+}
+
+enum PushDeliveryStatus {
+  SENT
+  DELIVERED
+  FAILED
+}
+
+model PushNotification {
+  id                  String                 @id @default(cuid())
+  organizationId      String
+  segmentId           String
+  marketingTemplateId String?
+  templateSnapshot    Json? // Snapshot des Template-Inhalts bei Versand
+  pushTitle           String                 @db.VarChar(65)
+  pushBody            String                 @db.VarChar(200)
+  deepLink            String?                @db.VarChar(500) // In-App Deep-Link URL
+  status              PushNotificationStatus @default(DRAFT)
+  scheduledAt         DateTime? // null = sofort senden
+  sentAt              DateTime?
+  totalRecipients     Int                    @default(0)
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
+
+  organization      Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  segment           CustomerSegment       @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+  marketingTemplate MarketingTemplate?    @relation(fields: [marketingTemplateId], references: [id], onDelete: SetNull)
+  logs              PushNotificationLog[]
+
+  @@index([organizationId, status])
+  @@index([segmentId])
+  @@map("push_notifications")
+}
+
+model PushNotificationLog {
+  id                 String             @id @default(cuid())
+  pushNotificationId String
+  userId             String
+  status             PushDeliveryStatus
+  sentAt             DateTime           @default(now())
+
+  pushNotification PushNotification @relation(fields: [pushNotificationId], references: [id], onDelete: Cascade)
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([pushNotificationId, userId])
+  @@index([pushNotificationId])
+  @@map("push_notification_logs")
+}
+
+// PROJ-10: Browser Push-Subscriptions (VAPID)
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @db.Text
+  p256dhKey String   @db.Text
+  authKey   String   @db.Text
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, endpoint])
+  @@index([userId])
+  @@map("push_subscriptions")
+}
+
+// PROJ-4e: Wer hat welchen Incentive erhalten?
+model IncentiveGrant {
+  id                  String    @id @default(cuid())
+  segmentIncentiveId  String
+  userId              String
+  grantedAt           DateTime  @default(now())
+  couponCode          String?   @db.VarChar(80) // Code für User (bei COUPON)
+  couponId            String? // Bei personalisiert: erzeugter Coupon
+  walletTransactionId String? // Bei WALLET_CREDIT
+  redeemedAt          DateTime? // Zeitpunkt der Einlösung (bei Coupon, aus CouponRedemption)
+  redeemedOrderId     String? // Bei Coupon-Einlösung
+
+  segmentIncentive  SegmentIncentive   @relation(fields: [segmentIncentiveId], references: [id], onDelete: Cascade)
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  coupon            Coupon?            @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  walletTransaction WalletTransaction?
+
+  @@unique([segmentIncentiveId, userId])
+  @@index([userId])
+  @@index([segmentIncentiveId])
+  @@map("incentive_grants")
 }

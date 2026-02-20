@@ -2,6 +2,7 @@ import { requireRole } from '@/lib/auth-helpers'
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/admin/AppSidebar'
 import { AdminShell } from '@/components/admin/AdminShell'
+import { Toaster } from 'sonner'
 
 export default async function AdminLayout({
   children,
@@ -16,6 +17,7 @@ export default async function AdminLayout({
       <SidebarInset>
         <AdminShell>{children}</AdminShell>
       </SidebarInset>
+      <Toaster richColors position="top-right" />
     </SidebarProvider>
   )
 }

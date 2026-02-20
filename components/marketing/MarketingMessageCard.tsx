@@ -48,9 +48,17 @@ export function MarketingMessageCard({
         </div>
       </CardHeader>
       <CardContent className="pt-0 space-y-3">
-        <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-          {message.body}
-        </p>
+        {message.templateSnapshot?.html ? (
+          // Block-Editor template: render pre-built server-side HTML
+          <div
+            className="text-sm overflow-hidden"
+            dangerouslySetInnerHTML={{ __html: message.templateSnapshot.html }}
+          />
+        ) : (
+          <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+            {message.body}
+          </p>
+        )}
         {message.linkUrl && (
           <a
             href={message.linkUrl}

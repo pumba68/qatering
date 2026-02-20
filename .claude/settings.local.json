@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(taskkill:*)",
+      "Bash(ls:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(node -e:*)",
+      "Bash(npx next build:*)",
+      "Bash(git -C \"c:/Users/Administrator/Desktop/qatering/qatering\" ls-files)",
+      "Bash(git -C \"c:/Users/Administrator/Desktop/qatering/qatering\" ls-files app/api/admin/marketing/)",
+      "Bash(git -C \"c:/Users/Administrator/Desktop/qatering/qatering\" log --oneline --grep=\"PROJ-\" -15)",
+      "Bash(npx prisma db push:*)",
+      "Bash(del /F /Q \"c:\\\\Users\\\\Administrator\\\\Desktop\\\\qatering\\\\qatering\\\\src\\\\generated\\\\prisma\\\\query_engine-windows.dll.node.tmp*\")",
+      "Bash(del /F /Q \"c:\\\\Users\\\\Administrator\\\\Desktop\\\\qatering\\\\qatering\\\\src\\\\generated\\\\prisma\\\\query_engine-windows.dll.node\")",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

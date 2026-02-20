@@ -283,6 +283,8 @@ exports.Prisma.PromotionBannerScalarFieldEnum = {
   imageUrl: 'imageUrl',
   couponId: 'couponId',
   isActive: 'isActive',
+  marketingTemplateId: 'marketingTemplateId',
+  templateSnapshot: 'templateSnapshot',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -424,6 +426,8 @@ exports.Prisma.InAppMessageScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   isActive: 'isActive',
+  marketingTemplateId: 'marketingTemplateId',
+  templateSnapshot: 'templateSnapshot',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -474,6 +478,54 @@ exports.Prisma.SegmentIncentiveScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MarketingTemplateScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  type: 'type',
+  content: 'content',
+  status: 'status',
+  isStarter: 'isStarter',
+  isFavorite: 'isFavorite',
+  thumbnailUrl: 'thumbnailUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PushNotificationScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  segmentId: 'segmentId',
+  marketingTemplateId: 'marketingTemplateId',
+  templateSnapshot: 'templateSnapshot',
+  pushTitle: 'pushTitle',
+  pushBody: 'pushBody',
+  deepLink: 'deepLink',
+  status: 'status',
+  scheduledAt: 'scheduledAt',
+  sentAt: 'sentAt',
+  totalRecipients: 'totalRecipients',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PushNotificationLogScalarFieldEnum = {
+  id: 'id',
+  pushNotificationId: 'pushNotificationId',
+  userId: 'userId',
+  status: 'status',
+  sentAt: 'sentAt'
+};
+
+exports.Prisma.PushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  endpoint: 'endpoint',
+  p256dhKey: 'p256dhKey',
+  authKey: 'authKey',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.IncentiveGrantScalarFieldEnum = {
@@ -567,6 +619,31 @@ exports.MetadataType = exports.$Enums.MetadataType = {
   DISH_CATEGORY: 'DISH_CATEGORY'
 };
 
+exports.MarketingTemplateType = exports.$Enums.MarketingTemplateType = {
+  EMAIL: 'EMAIL',
+  IN_APP_BANNER: 'IN_APP_BANNER',
+  PROMOTION_BANNER: 'PROMOTION_BANNER',
+  PUSH: 'PUSH'
+};
+
+exports.MarketingTemplateStatus = exports.$Enums.MarketingTemplateStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+};
+
+exports.PushNotificationStatus = exports.$Enums.PushNotificationStatus = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  SENT: 'SENT',
+  FAILED: 'FAILED'
+};
+
+exports.PushDeliveryStatus = exports.$Enums.PushDeliveryStatus = {
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED'
+};
+
 exports.Prisma.ModelName = {
   Organization: 'Organization',
   Company: 'Company',
@@ -597,6 +674,10 @@ exports.Prisma.ModelName = {
   MarketingWorkflow: 'MarketingWorkflow',
   WorkflowExecutionLog: 'WorkflowExecutionLog',
   SegmentIncentive: 'SegmentIncentive',
+  MarketingTemplate: 'MarketingTemplate',
+  PushNotification: 'PushNotification',
+  PushNotificationLog: 'PushNotificationLog',
+  PushSubscription: 'PushSubscription',
   IncentiveGrant: 'IncentiveGrant'
 };
 

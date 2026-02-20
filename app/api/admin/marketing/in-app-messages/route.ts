@@ -2,11 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { z } from 'zod'
+import type { Prisma } from '@/src/generated/prisma'
+import { renderTemplateToHtml } from '@/lib/template-renderer'
+import type { TemplateContent } from '@/components/marketing/editor/editor-types'
 
 const inAppMessageSchema = z.object({
   segmentId: z.string().min(1, 'Segment ist erforderlich'),
   title: z.string().max(200).optional().nullable(),
-  body: z.string().min(1, 'Inhalt ist erforderlich'),
+  body: z.string().optional().nullable(),
+  // If templateId is provided, body is optional
+  templateId: z.string().optional().nullable(),
   linkUrl: z.string().url().optional().nullable().or(z.literal('')),
   displayPlace: z.enum(['menu', 'wallet', 'dashboard']).default('menu'),
   displayType: z.enum(['POPUP', 'BANNER', 'SLOT']).optional().default('BANNER'),
@@ -14,7 +19,10 @@ const inAppMessageSchema = z.object({
   startDate: z.string().optional(),
   endDate: z.string().optional().nullable(),
   isActive: z.boolean().optional().default(true),
-})
+}).refine(
+  (data) => data.templateId || (data.body && data.body.length > 0),
+  { message: 'Entweder templateId oder body muss angegeben werden', path: ['body'] }
+)
 
 /** GET: Alle In-App-Nachrichten der Organisation */
 export async function GET(request: NextRequest) {
@@ -91,12 +99,32 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Resolve template if provided
+    let templateSnapshot: Prisma.InputJsonValue | undefined = undefined
+    let resolvedTitle = validated.title ?? null
+    let resolvedBody = validated.body ?? ''
+
+    if (validated.templateId) {
+      const template = await prisma.marketingTemplate.findFirst({
+        where: { id: validated.templateId, organizationId: ctx.organizationId },
+      })
+      if (!template) {
+        return NextResponse.json({ error: 'Template nicht gefunden' }, { status: 404 })
+      }
+      const content = template.content as unknown as TemplateContent
+      // Create a snapshot of the rendered HTML + raw JSON at publish time
+      const html = renderTemplateToHtml(content, {})
+      templateSnapshot = { html, raw: template.content } as Prisma.InputJsonValue
+      if (!resolvedTitle) resolvedTitle = template.name
+      if (!resolvedBody) resolvedBody = template.name
+    }
+
     const message = await prisma.inAppMessage.create({
       data: {
         organizationId: ctx.organizationId,
         segmentId: validated.segmentId,
-        title: validated.title ?? null,
-        body: validated.body,
+        title: resolvedTitle,
+        body: resolvedBody,
         linkUrl: validated.linkUrl && validated.linkUrl !== '' ? validated.linkUrl : null,
         displayPlace: validated.displayPlace,
         displayType: validated.displayType ?? 'BANNER',
@@ -104,6 +132,8 @@ export async function POST(request: NextRequest) {
         startDate: validated.startDate ? new Date(validated.startDate) : new Date(),
         endDate: validated.endDate ? new Date(validated.endDate) : null,
         isActive: validated.isActive ?? true,
+        marketingTemplateId: validated.templateId ?? null,
+        ...(templateSnapshot !== undefined && { templateSnapshot }),
       },
       include: {
         segment: { select: { id: true, name: true } },

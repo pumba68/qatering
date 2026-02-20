@@ -15,6 +15,8 @@ export interface InAppMessageItem {
   isActive: boolean
   segment: { id: string; name: string }
   read: boolean
+  /** Rendered HTML snapshot from Block-Editor template (if template-based) */
+  templateSnapshot?: { html: string; raw?: unknown } | null
 }
 
 export function useInAppMessages(

@@ -22,6 +22,8 @@ import {
   Mail,
   Zap,
   Receipt,
+  LayoutTemplate,
+  BellRing,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -89,6 +91,9 @@ const menuGroups = [
       { title: 'Kundensegmente', url: '/admin/marketing/segments', icon: Users2 },
       { title: 'Kampagnen', url: '/admin/marketing/campaigns', icon: Mail },
       { title: 'Automation', url: '/admin/marketing/automation', icon: Zap },
+      { title: 'Vorlagen', url: '/admin/marketing/templates', icon: LayoutTemplate },
+      { title: 'In-App Nachrichten', url: '/admin/marketing/inapp', icon: Megaphone },
+      { title: 'Push-Benachrichtigungen', url: '/admin/marketing/push', icon: BellRing },
     ],
   },
   {
