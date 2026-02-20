@@ -602,7 +602,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                     <li><strong className="text-foreground">Kanalausspieltung</strong> – Veröffentlichen als In-App Banner/Popup oder als Push-Benachrichtigung</li>
                   </ol>
                   <div className="mt-4 rounded-xl bg-violet-50 dark:bg-violet-950/20 border border-violet-200 dark:border-violet-800 p-4 text-sm text-violet-800 dark:text-violet-200">
-                    <strong>Tipp:</strong> Der typische Arbeitsablauf ist: Vorlage erstellen → im Block-Editor gestalten → speichern → „Veröffentlichen" klicken → Kanal und Segment auswählen → bestätigen.
+                    <strong>Tipp:</strong> Der typische Arbeitsablauf ist: Vorlage erstellen → im Block-Editor gestalten → speichern → „Veröffentlichen&ldquo; klicken → Kanal und Segment auswählen → bestätigen.
                   </div>
                 </div>
 
@@ -623,7 +623,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
 
                   <h4 className="font-semibold text-foreground mb-2">Neue Vorlage erstellen</h4>
                   <ol className="list-decimal list-inside space-y-2 text-muted-foreground mb-4">
-                    <li>Klicken Sie auf <strong className="text-foreground">„+ Neu erstellen"</strong> (oben rechts)</li>
+                    <li>Klicken Sie auf <strong className="text-foreground">„+ Neu erstellen&ldquo;</strong> (oben rechts)</li>
                     <li>Wählen Sie den Typ: <strong>E-Mail</strong>, <strong>In-App Banner</strong>, <strong>Promotion-Banner</strong> oder <strong>Push-Nachricht</strong></li>
                     <li>Wählen Sie den Startpunkt: leeres Template oder eine Starter-Vorlage als Basis</li>
                     <li>Sie werden automatisch in den Block-Editor weitergeleitet</li>
@@ -645,7 +645,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                         </tr>
                         <tr className="border-b border-border/50">
                           <td className="py-2 px-2 font-medium text-foreground">Duplizieren</td>
-                          <td className="py-2 px-2">Erstellt eine Kopie mit dem Suffix „(Kopie)" – ideal für Varianten</td>
+                          <td className="py-2 px-2">Erstellt eine Kopie mit dem Suffix „(Kopie)&ldquo; – ideal für Varianten</td>
                         </tr>
                         <tr className="border-b border-border/50">
                           <td className="py-2 px-2 font-medium text-foreground">Archivieren</td>
@@ -660,7 +660,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                   </div>
 
                   <div className="mt-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 p-4 text-sm text-amber-800 dark:text-amber-200">
-                    <strong>Hinweis zu Starter-Vorlagen:</strong> Diese sind schreibgeschützt. Wenn Sie eine Starter-Vorlage öffnen, erscheint oben ein gelber Hinweis. Klicken Sie auf „Duplizieren &amp; bearbeiten", um eine eigene bearbeitbare Kopie zu erstellen.
+                    <strong>Hinweis zu Starter-Vorlagen:</strong> Diese sind schreibgeschützt. Wenn Sie eine Starter-Vorlage öffnen, erscheint oben ein gelber Hinweis. Klicken Sie auf „Duplizieren &amp; bearbeiten&ldquo;, um eine eigene bearbeitbare Kopie zu erstellen.
                   </div>
                 </div>
 
@@ -719,7 +719,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                     ))}
                   </div>
                   <p className="text-muted-foreground text-sm mb-4">
-                    In der Editor-Vorschau werden Platzhalter mit Beispieldaten gefüllt (z. B. <code className="bg-muted px-1 rounded">{'{{Vorname}}'}</code> → „Max"). Beim tatsächlichen Versand werden die echten Nutzerdaten eingesetzt.
+                    In der Editor-Vorschau werden Platzhalter mit Beispieldaten gefüllt (z. B. <code className="bg-muted px-1 rounded">{'{{Vorname}}'}</code> → „Max&ldquo;). Beim tatsächlichen Versand werden die echten Nutzerdaten eingesetzt.
                   </p>
 
                   <h4 className="font-semibold text-foreground mb-2">Globale Stile</h4>
@@ -749,7 +749,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                 <div>
                   <h3 className="text-xl font-semibold text-foreground mb-3">3. Vorlage veröffentlichen</h3>
                   <p className="text-muted-foreground mb-4">
-                    Klicken Sie im Block-Editor auf <strong className="text-foreground">„Veröffentlichen"</strong> (lila Button oben rechts). Ein 3-Schritt-Dialog öffnet sich:
+                    Klicken Sie im Block-Editor auf <strong className="text-foreground">„Veröffentlichen&ldquo;</strong> (lila Button oben rechts). Ein 3-Schritt-Dialog öffnet sich:
                   </p>
 
                   <div className="space-y-4 mb-6">
@@ -771,7 +771,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                       <div className="shrink-0 w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-200 flex items-center justify-center font-bold text-sm">3</div>
                       <div>
                         <p className="font-semibold text-foreground">Bestätigung</p>
-                        <p className="text-sm text-muted-foreground">Zusammenfassung aller Einstellungen. Klicken Sie auf „Veröffentlichen" (In-App) oder „Jetzt senden" (Push), um die Aktion abzuschließen.</p>
+                        <p className="text-sm text-muted-foreground">Zusammenfassung aller Einstellungen. Klicken Sie auf „Veröffentlichen&ldquo; (In-App) oder „Jetzt senden&ldquo; (Push), um die Aktion abzuschließen.</p>
                       </div>
                     </div>
                   </div>
@@ -868,7 +868,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                     </table>
                   </div>
                   <p className="text-muted-foreground text-sm">
-                    Kampagnen mit Status „Entwurf" oder „Geplant" können über den <strong>„Jetzt senden"</strong>-Button sofort versendet werden.
+                    Kampagnen mit Status „Entwurf&ldquo; oder „Geplant&ldquo; können über den <strong>„Jetzt senden&ldquo;</strong>-Button sofort versendet werden.
                   </p>
                 </div>
 
@@ -886,19 +886,19 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                     </div>
                     <div>
                       <p className="font-semibold text-foreground">Können Kunden Banner dauerhaft ausblenden?</p>
-                      <p>Kunden können Banner und Popups mit dem ✕-Button schließen. Die Nachricht wird dann nicht erneut angezeigt. Bei Popups gibt es optional eine „Nicht mehr anzeigen"-Checkbox.</p>
+                      <p>Kunden können Banner und Popups mit dem ✕-Button schließen. Die Nachricht wird dann nicht erneut angezeigt. Bei Popups gibt es optional eine „Nicht mehr anzeigen&ldquo;-Checkbox.</p>
                     </div>
                     <div>
                       <p className="font-semibold text-foreground">Das Segment für meine Kampagne hat keine Mitglieder – was passiert?</p>
                       <p>Der Banner wird angelegt, aber nie angezeigt. Die Plattform weist in der Monitoring-Ansicht darauf hin. Prüfen Sie die Segmentregeln unter <code className="bg-muted px-1 rounded">Marketing → Kundensegmente</code>.</p>
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">Push-Versand schlägt fehl mit „VAPID nicht konfiguriert"?</p>
+                      <p className="font-semibold text-foreground">Push-Versand schlägt fehl mit „VAPID nicht konfiguriert&ldquo;?</p>
                       <p>Für Push-Benachrichtigungen müssen die Umgebungsvariablen <code className="bg-muted px-1 rounded">VAPID_PUBLIC_KEY</code>, <code className="bg-muted px-1 rounded">VAPID_PRIVATE_KEY</code> und <code className="bg-muted px-1 rounded">VAPID_SUBJECT</code> gesetzt sein. VAPID-Keys können mit <code className="bg-muted px-1 rounded">npx web-push generate-vapid-keys</code> generiert werden.</p>
                     </div>
                     <div>
                       <p className="font-semibold text-foreground">Ich habe die Vorlage nach der Veröffentlichung verändert – wie aktualisiere ich den aktiven Banner?</p>
-                      <p>Öffnen Sie den Editor, gestalten Sie die Vorlage nach Wunsch, speichern Sie und klicken Sie erneut auf „Veröffentlichen". Der neue Snapshot wird dann als neue Nachricht angelegt (der alte Banner bleibt aktiv bis Sie ihn manuell deaktivieren).</p>
+                      <p>Öffnen Sie den Editor, gestalten Sie die Vorlage nach Wunsch, speichern Sie und klicken Sie erneut auf „Veröffentlichen&ldquo;. Der neue Snapshot wird dann als neue Nachricht angelegt (der alte Banner bleibt aktiv bis Sie ihn manuell deaktivieren).</p>
                     </div>
                   </div>
                 </div>
