@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminContext } from '@/lib/admin-helpers'
 import { prisma } from '@/lib/prisma'
-import { encryptConfig, invalidateActiveProvidersCache } from '@/lib/payment-config'
+import { encryptConfig, getProviderConfig, invalidateActiveProvidersCache, type PaymentProvider } from '@/lib/payment-config'
 
 const VALID_PROVIDERS = ['stripe', 'paypal', 'sumup'] as const
 type ValidProvider = (typeof VALID_PROVIDERS)[number]
@@ -39,10 +39,19 @@ export async function PUT(
     return NextResponse.json({ error: 'Ungültige Daten' }, { status: 400 })
   }
 
+  // Merge with existing decrypted config to avoid persisting masked placeholder values (•)
+  const existing = await getProviderConfig(organizationId, provider as PaymentProvider)
+  const mergedConfig: Record<string, unknown> = { ...(existing?.config ?? {}) }
+  for (const [k, v] of Object.entries(config)) {
+    // Skip masked values — they contain the bullet character • (U+2022)
+    if (typeof v === 'string' && v.includes('\u2022')) continue
+    mergedConfig[k] = v
+  }
+
   // Encrypt the config JSON
   let configJson: string
   try {
-    configJson = encryptConfig(JSON.stringify(config))
+    configJson = encryptConfig(JSON.stringify(mergedConfig))
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Verschlüsselung fehlgeschlagen'
     console.error('[payments PUT] encryptConfig failed:', message)

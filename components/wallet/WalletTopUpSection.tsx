@@ -31,7 +31,7 @@ function PaymentForm({
     setSubmitting(true)
     setErrorMsg(null)
 
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       redirect: 'if_required',
     })
@@ -42,17 +42,23 @@ function PaymentForm({
       return
     }
 
-    // Payment succeeded — poll for wallet update (webhook may take a moment)
-    toast.success(`+${amount} € werden aufgeladen…`)
-    // Give webhook 2 seconds to process
-    await new Promise((r) => setTimeout(r, 2000))
-
-    // Fetch updated balance
+    // Payment confirmed client-side — verify server-side and credit wallet immediately
     try {
-      const res = await fetch('/api/wallet')
-      const data = await res.json() as { balance: number }
-      onSuccess(data.balance)
+      const res = await fetch('/api/payments/stripe/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentIntentId: paymentIntent?.id }),
+      })
+      const data = await res.json() as { success?: boolean; balance?: number; error?: string }
+      if (!res.ok || data.error) {
+        // Verify failed — webhook will handle it as fallback
+        toast.info('Zahlung eingegangen, Guthaben wird in Kürze aktualisiert.')
+        onSuccess()
+      } else {
+        onSuccess(data.balance)
+      }
     } catch {
+      toast.info('Zahlung eingegangen, Guthaben wird in Kürze aktualisiert.')
       onSuccess()
     }
   }
