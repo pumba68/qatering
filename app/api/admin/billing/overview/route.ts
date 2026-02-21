@@ -17,6 +17,10 @@ export async function GET() {
         id: true,
         name: true,
         contractNumber: true,
+        sepaIban: true,
+        sepaBic: true,
+        sepaMandateReference: true,
+        sepaMandateDate: true,
         _count: { select: { orders: true } },
       },
     })
@@ -46,6 +50,7 @@ export async function GET() {
         return {
           ...c,
           openBalance: Math.round(openBalance * 100) / 100,
+          sepaComplete: !!(c.sepaIban && c.sepaBic && c.sepaMandateReference && c.sepaMandateDate),
         }
       })
     )

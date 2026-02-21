@@ -17,6 +17,8 @@ import {
   Download,
   RefreshCw,
   Zap,
+  Landmark,
+  Save,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -268,6 +270,161 @@ function ProviderCard({
   )
 }
 
+// ── SepaField (reusable inline-edit row) ─────────────────────────────────────
+function SepaField({
+  label,
+  value,
+  placeholder,
+  onSave,
+}: {
+  label: string
+  value: string
+  placeholder: string
+  onSave: (val: string | null) => Promise<void>
+}) {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState('')
+  const [saving, setSaving] = useState(false)
+
+  return (
+    <div className="space-y-1">
+      <Label className="text-xs text-muted-foreground">{label}</Label>
+      {editing ? (
+        <div className="flex gap-2">
+          <Input
+            value={draft}
+            onChange={(e) => setDraft(e.target.value.toUpperCase())}
+            placeholder={placeholder}
+            className="font-mono text-sm h-8"
+            autoFocus
+          />
+          <Button size="sm" className="h-8" disabled={saving} onClick={async () => {
+            setSaving(true)
+            try { await onSave(draft || null); setEditing(false) }
+            finally { setSaving(false) }
+          }}>
+            {saving ? <Loader2 className="h-3 w-3 animate-spin" /> : <Save className="h-3 w-3" />}
+          </Button>
+          <Button size="sm" variant="outline" className="h-8" onClick={() => setEditing(false)}>
+            <XCircle className="h-3 w-3" />
+          </Button>
+        </div>
+      ) : (
+        <div className="flex items-center gap-2">
+          {value ? (
+            <>
+              <code className="flex-1 rounded bg-muted px-3 py-1.5 text-sm font-mono text-foreground">
+                {value}
+              </code>
+              <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+            </>
+          ) : (
+            <code className="flex-1 rounded bg-muted px-3 py-1.5 text-sm font-mono text-muted-foreground">
+              (nicht konfiguriert)
+            </code>
+          )}
+          <Button variant="ghost" size="sm" onClick={() => { setEditing(true); setDraft(value) }} className="shrink-0">
+            <Pencil className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── SepaCreditorCard ──────────────────────────────────────────────────────────
+function SepaCreditorCard() {
+  const [settings, setSettings] = useState({ sepaCreditorId: '', sepaIban: '', sepaBic: '' })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/admin/settings/sepa')
+      .then((r) => r.json())
+      .then((d) => {
+        setSettings({
+          sepaCreditorId: d.sepaCreditorId ?? '',
+          sepaIban: d.sepaIban ?? '',
+          sepaBic: d.sepaBic ?? '',
+        })
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
+
+  const saveField = async (field: string, val: string | null) => {
+    const res = await fetch('/api/admin/settings/sepa', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ [field]: val }),
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error || 'Fehler')
+    setSettings((prev) => ({ ...prev, [field]: data[field] ?? '' }))
+    toast.success('Gespeichert')
+  }
+
+  const isComplete = !!(settings.sepaCreditorId && settings.sepaIban && settings.sepaBic)
+
+  return (
+    <Card>
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Landmark className="h-5 w-5 text-purple-500" />
+            <CardTitle className="text-base">SEPA Direct Debit – Betreiber-Einstellungen</CardTitle>
+          </div>
+          {!loading && (
+            isComplete ? (
+              <span className="flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
+                <CheckCircle2 className="h-3.5 w-3.5" /> Vollständig
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400">
+                <XCircle className="h-3.5 w-3.5" /> Unvollständig
+              </span>
+            )
+          )}
+        </div>
+        <CardDescription>
+          Diese Daten werden in alle SEPA Direct Debit Dateien (pain.008) eingetragen. Alle drei Felder
+          sind Pflicht um SEPA-Lastschriften generieren zu können.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {loading ? (
+          <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+        ) : (
+          <>
+            <SepaField
+              label="Gläubiger-ID (Creditor Identifier)"
+              value={settings.sepaCreditorId}
+              placeholder="DE98ZZZ09999999999"
+              onSave={(v) => saveField('sepaCreditorId', v)}
+            />
+            <SepaField
+              label="Betreiber-IBAN (Empfängerkonto für Lastschriften)"
+              value={settings.sepaIban}
+              placeholder="DE89370400440532013000"
+              onSave={(v) => saveField('sepaIban', v)}
+            />
+            <SepaField
+              label="Betreiber-BIC"
+              value={settings.sepaBic}
+              placeholder="DEUTDEDB"
+              onSave={(v) => saveField('sepaBic', v)}
+            />
+            {!isComplete && (
+              <p className="text-xs text-amber-600 dark:text-amber-400 pt-1">
+                Bitte alle drei Felder ausfüllen um SEPA Direct Debit Dateien generieren zu können.
+              </p>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export default function PaymentSettingsPage() {
   const [providers, setProviders] = useState<ProviderData[]>([])
@@ -362,6 +519,9 @@ export default function PaymentSettingsPage() {
             Konfigurieren Sie Ihre Payment-Provider und verwalten Sie API-Keys.
           </p>
         </div>
+
+        {/* SEPA Gläubiger-ID */}
+        <SepaCreditorCard />
 
         {/* Stripe */}
         <ProviderCard

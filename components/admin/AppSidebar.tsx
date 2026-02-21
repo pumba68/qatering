@@ -98,6 +98,14 @@ const menuGroups = [
     ],
   },
   {
+    id: 'finanzen',
+    label: 'Finanzen',
+    items: [
+      { title: 'Guthaben verwalten', url: '/admin/wallet', icon: Wallet },
+      { title: 'Zahlungen', url: '/admin/zahlungen', icon: Receipt },
+    ],
+  },
+  {
     id: 'verwaltung',
     label: 'Verwaltung',
     items: [
@@ -105,8 +113,6 @@ const menuGroups = [
       { title: 'Unternehmen', url: '/admin/companies', icon: Building2 },
       { title: 'Vertragspartner-Abrechnung', url: '/admin/billing', icon: Receipt },
       { title: 'Nutzer', url: '/admin/users', icon: Users },
-      { title: 'Guthaben aufladen', url: '/admin/wallet/top-up', icon: Coins },
-      { title: 'Guthaben verwalten', url: '/admin/wallet/balances', icon: Wallet },
     ],
   },
   {
@@ -114,7 +120,7 @@ const menuGroups = [
     label: 'System',
     items: [
       { title: 'Einstellungen', url: '/admin/settings', icon: Settings },
-      { title: 'Zahlungen', url: '/admin/settings/payments', icon: CreditCard },
+      { title: 'Zahleinstellungen', url: '/admin/settings/payments', icon: CreditCard },
     ],
   },
 ]

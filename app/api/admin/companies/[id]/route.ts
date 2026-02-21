@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminRole } from '@/lib/admin-helpers'
 import { z } from 'zod'
 import { Decimal } from '@/src/generated/prisma/runtime/library'
+import { validateIban, validateBic } from '@/lib/sepa/validation'
 
 const subsidyTypeEnum = z.enum(['NONE', 'PERCENTAGE', 'FIXED'])
 
@@ -15,6 +16,11 @@ const updateCompanySchema = z.object({
   subsidyMaxPerDay: z.number().optional().nullable(),
   validFrom: z.string().optional().nullable(),
   validUntil: z.string().optional().nullable(),
+  // SEPA fields (PROJ-15)
+  sepaIban: z.string().max(34).optional().nullable(),
+  sepaBic: z.string().max(11).optional().nullable(),
+  sepaMandateReference: z.string().max(35).optional().nullable(),
+  sepaMandateDate: z.string().optional().nullable(),
 })
 
 // GET: Einzelnes Unternehmen abrufen (mit Mitarbeitern)
@@ -109,6 +115,25 @@ export async function PATCH(
       }
     }
 
+    // SEPA validation
+    if (validated.sepaIban != null && validated.sepaIban !== '') {
+      const ibanErr = validateIban(validated.sepaIban)
+      if (ibanErr) return NextResponse.json({ error: `Ungültige IBAN: ${ibanErr}` }, { status: 400 })
+    }
+    if (validated.sepaBic != null && validated.sepaBic !== '') {
+      const bicErr = validateBic(validated.sepaBic)
+      if (bicErr) return NextResponse.json({ error: `Ungültiger BIC: ${bicErr}` }, { status: 400 })
+    }
+    if (validated.sepaMandateDate != null && validated.sepaMandateDate !== '') {
+      const d = new Date(validated.sepaMandateDate)
+      if (isNaN(d.getTime())) {
+        return NextResponse.json({ error: 'Ungültiges Mandatsdatum.' }, { status: 400 })
+      }
+      if (d > new Date()) {
+        return NextResponse.json({ error: 'Mandatsdatum darf nicht in der Zukunft liegen.' }, { status: 400 })
+      }
+    }
+
     const updateData: Record<string, unknown> = {}
     if (validated.name !== undefined) updateData.name = validated.name
     if (validated.contractNumber !== undefined) updateData.contractNumber = validated.contractNumber
@@ -124,6 +149,15 @@ export async function PATCH(
       updateData.validFrom = validated.validFrom ? new Date(validated.validFrom) : null
     if (validated.validUntil !== undefined)
       updateData.validUntil = validated.validUntil ? new Date(validated.validUntil) : null
+    // SEPA fields
+    if (validated.sepaIban !== undefined)
+      updateData.sepaIban = validated.sepaIban ? validated.sepaIban.replace(/\s/g, '').toUpperCase() : null
+    if (validated.sepaBic !== undefined)
+      updateData.sepaBic = validated.sepaBic ? validated.sepaBic.replace(/\s/g, '').toUpperCase() : null
+    if (validated.sepaMandateReference !== undefined)
+      updateData.sepaMandateReference = validated.sepaMandateReference || null
+    if (validated.sepaMandateDate !== undefined)
+      updateData.sepaMandateDate = validated.sepaMandateDate ? new Date(validated.sepaMandateDate) : null
 
     const company = await prisma.company.update({
       where: { id },

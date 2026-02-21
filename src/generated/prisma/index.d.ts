@@ -29,6 +29,16 @@ export type Company = $Result.DefaultSelection<Prisma.$CompanyPayload>
  */
 export type CompanyInvoice = $Result.DefaultSelection<Prisma.$CompanyInvoicePayload>
 /**
+ * Model SepaSubmission
+ * 
+ */
+export type SepaSubmission = $Result.DefaultSelection<Prisma.$SepaSubmissionPayload>
+/**
+ * Model SepaSubmissionInvoice
+ * 
+ */
+export type SepaSubmissionInvoice = $Result.DefaultSelection<Prisma.$SepaSubmissionInvoicePayload>
+/**
  * Model CompanyInvoiceItem
  * 
  */
@@ -498,6 +508,26 @@ export class PrismaClient<
     * ```
     */
   get companyInvoice(): Prisma.CompanyInvoiceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.sepaSubmission`: Exposes CRUD operations for the **SepaSubmission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SepaSubmissions
+    * const sepaSubmissions = await prisma.sepaSubmission.findMany()
+    * ```
+    */
+  get sepaSubmission(): Prisma.SepaSubmissionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.sepaSubmissionInvoice`: Exposes CRUD operations for the **SepaSubmissionInvoice** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SepaSubmissionInvoices
+    * const sepaSubmissionInvoices = await prisma.sepaSubmissionInvoice.findMany()
+    * ```
+    */
+  get sepaSubmissionInvoice(): Prisma.SepaSubmissionInvoiceDelegate<ExtArgs>;
 
   /**
    * `prisma.companyInvoiceItem`: Exposes CRUD operations for the **CompanyInvoiceItem** model.
@@ -1262,6 +1292,8 @@ export namespace Prisma {
     Organization: 'Organization',
     Company: 'Company',
     CompanyInvoice: 'CompanyInvoice',
+    SepaSubmission: 'SepaSubmission',
+    SepaSubmissionInvoice: 'SepaSubmissionInvoice',
     CompanyInvoiceItem: 'CompanyInvoiceItem',
     CompanyEmployee: 'CompanyEmployee',
     Location: 'Location',
@@ -1309,7 +1341,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant"
+      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1520,6 +1552,146 @@ export namespace Prisma {
           count: {
             args: Prisma.CompanyInvoiceCountArgs<ExtArgs>
             result: $Utils.Optional<CompanyInvoiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      SepaSubmission: {
+        payload: Prisma.$SepaSubmissionPayload<ExtArgs>
+        fields: Prisma.SepaSubmissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SepaSubmissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SepaSubmissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>
+          }
+          findFirst: {
+            args: Prisma.SepaSubmissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SepaSubmissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>
+          }
+          findMany: {
+            args: Prisma.SepaSubmissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>[]
+          }
+          create: {
+            args: Prisma.SepaSubmissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>
+          }
+          createMany: {
+            args: Prisma.SepaSubmissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SepaSubmissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>[]
+          }
+          delete: {
+            args: Prisma.SepaSubmissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>
+          }
+          update: {
+            args: Prisma.SepaSubmissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SepaSubmissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SepaSubmissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SepaSubmissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionPayload>
+          }
+          aggregate: {
+            args: Prisma.SepaSubmissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSepaSubmission>
+          }
+          groupBy: {
+            args: Prisma.SepaSubmissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SepaSubmissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SepaSubmissionCountArgs<ExtArgs>
+            result: $Utils.Optional<SepaSubmissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      SepaSubmissionInvoice: {
+        payload: Prisma.$SepaSubmissionInvoicePayload<ExtArgs>
+        fields: Prisma.SepaSubmissionInvoiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SepaSubmissionInvoiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SepaSubmissionInvoiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>
+          }
+          findFirst: {
+            args: Prisma.SepaSubmissionInvoiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SepaSubmissionInvoiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>
+          }
+          findMany: {
+            args: Prisma.SepaSubmissionInvoiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>[]
+          }
+          create: {
+            args: Prisma.SepaSubmissionInvoiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>
+          }
+          createMany: {
+            args: Prisma.SepaSubmissionInvoiceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SepaSubmissionInvoiceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>[]
+          }
+          delete: {
+            args: Prisma.SepaSubmissionInvoiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>
+          }
+          update: {
+            args: Prisma.SepaSubmissionInvoiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>
+          }
+          deleteMany: {
+            args: Prisma.SepaSubmissionInvoiceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SepaSubmissionInvoiceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SepaSubmissionInvoiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SepaSubmissionInvoicePayload>
+          }
+          aggregate: {
+            args: Prisma.SepaSubmissionInvoiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSepaSubmissionInvoice>
+          }
+          groupBy: {
+            args: Prisma.SepaSubmissionInvoiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SepaSubmissionInvoiceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SepaSubmissionInvoiceCountArgs<ExtArgs>
+            result: $Utils.Optional<SepaSubmissionInvoiceCountAggregateOutputType> | number
           }
         }
       }
@@ -4030,12 +4202,14 @@ export namespace Prisma {
     employees: number
     orders: number
     invoices: number
+    sepaSubmissions: number
   }
 
   export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | CompanyCountOutputTypeCountEmployeesArgs
     orders?: boolean | CompanyCountOutputTypeCountOrdersArgs
     invoices?: boolean | CompanyCountOutputTypeCountInvoicesArgs
+    sepaSubmissions?: boolean | CompanyCountOutputTypeCountSepaSubmissionsArgs
   }
 
   // Custom InputTypes
@@ -4070,6 +4244,13 @@ export namespace Prisma {
     where?: CompanyInvoiceWhereInput
   }
 
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountSepaSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SepaSubmissionWhereInput
+  }
+
 
   /**
    * Count Type CompanyInvoiceCountOutputType
@@ -4077,10 +4258,12 @@ export namespace Prisma {
 
   export type CompanyInvoiceCountOutputType = {
     items: number
+    sepaSubmissions: number
   }
 
   export type CompanyInvoiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | CompanyInvoiceCountOutputTypeCountItemsArgs
+    sepaSubmissions?: boolean | CompanyInvoiceCountOutputTypeCountSepaSubmissionsArgs
   }
 
   // Custom InputTypes
@@ -4099,6 +4282,44 @@ export namespace Prisma {
    */
   export type CompanyInvoiceCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CompanyInvoiceItemWhereInput
+  }
+
+  /**
+   * CompanyInvoiceCountOutputType without action
+   */
+  export type CompanyInvoiceCountOutputTypeCountSepaSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SepaSubmissionInvoiceWhereInput
+  }
+
+
+  /**
+   * Count Type SepaSubmissionCountOutputType
+   */
+
+  export type SepaSubmissionCountOutputType = {
+    invoices: number
+  }
+
+  export type SepaSubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invoices?: boolean | SepaSubmissionCountOutputTypeCountInvoicesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SepaSubmissionCountOutputType without action
+   */
+  export type SepaSubmissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionCountOutputType
+     */
+    select?: SepaSubmissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SepaSubmissionCountOutputType without action
+   */
+  export type SepaSubmissionCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SepaSubmissionInvoiceWhereInput
   }
 
 
@@ -4791,6 +5012,9 @@ export namespace Prisma {
     logoUrl: string | null
     primaryColor: string | null
     secondaryColor: string | null
+    sepaCreditorId: string | null
+    sepaIban: string | null
+    sepaBic: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4802,6 +5026,9 @@ export namespace Prisma {
     logoUrl: string | null
     primaryColor: string | null
     secondaryColor: string | null
+    sepaCreditorId: string | null
+    sepaIban: string | null
+    sepaBic: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4813,6 +5040,9 @@ export namespace Prisma {
     logoUrl: number
     primaryColor: number
     secondaryColor: number
+    sepaCreditorId: number
+    sepaIban: number
+    sepaBic: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4826,6 +5056,9 @@ export namespace Prisma {
     logoUrl?: true
     primaryColor?: true
     secondaryColor?: true
+    sepaCreditorId?: true
+    sepaIban?: true
+    sepaBic?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4837,6 +5070,9 @@ export namespace Prisma {
     logoUrl?: true
     primaryColor?: true
     secondaryColor?: true
+    sepaCreditorId?: true
+    sepaIban?: true
+    sepaBic?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4848,6 +5084,9 @@ export namespace Prisma {
     logoUrl?: true
     primaryColor?: true
     secondaryColor?: true
+    sepaCreditorId?: true
+    sepaIban?: true
+    sepaBic?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4932,6 +5171,9 @@ export namespace Prisma {
     logoUrl: string | null
     primaryColor: string | null
     secondaryColor: string | null
+    sepaCreditorId: string | null
+    sepaIban: string | null
+    sepaBic: string | null
     createdAt: Date
     updatedAt: Date
     _count: OrganizationCountAggregateOutputType | null
@@ -4960,6 +5202,9 @@ export namespace Prisma {
     logoUrl?: boolean
     primaryColor?: boolean
     secondaryColor?: boolean
+    sepaCreditorId?: boolean
+    sepaIban?: boolean
+    sepaBic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     locations?: boolean | Organization$locationsArgs<ExtArgs>
@@ -4981,6 +5226,9 @@ export namespace Prisma {
     logoUrl?: boolean
     primaryColor?: boolean
     secondaryColor?: boolean
+    sepaCreditorId?: boolean
+    sepaIban?: boolean
+    sepaBic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["organization"]>
@@ -4992,6 +5240,9 @@ export namespace Prisma {
     logoUrl?: boolean
     primaryColor?: boolean
     secondaryColor?: boolean
+    sepaCreditorId?: boolean
+    sepaIban?: boolean
+    sepaBic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -5030,6 +5281,9 @@ export namespace Prisma {
       logoUrl: string | null
       primaryColor: string | null
       secondaryColor: string | null
+      sepaCreditorId: string | null
+      sepaIban: string | null
+      sepaBic: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["organization"]>
@@ -5440,6 +5694,9 @@ export namespace Prisma {
     readonly logoUrl: FieldRef<"Organization", 'String'>
     readonly primaryColor: FieldRef<"Organization", 'String'>
     readonly secondaryColor: FieldRef<"Organization", 'String'>
+    readonly sepaCreditorId: FieldRef<"Organization", 'String'>
+    readonly sepaIban: FieldRef<"Organization", 'String'>
+    readonly sepaBic: FieldRef<"Organization", 'String'>
     readonly createdAt: FieldRef<"Organization", 'DateTime'>
     readonly updatedAt: FieldRef<"Organization", 'DateTime'>
   }
@@ -5982,6 +6239,10 @@ export namespace Prisma {
     subsidyMaxPerDay: Decimal | null
     validFrom: Date | null
     validUntil: Date | null
+    sepaIban: string | null
+    sepaBic: string | null
+    sepaMandateReference: string | null
+    sepaMandateDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5996,6 +6257,10 @@ export namespace Prisma {
     subsidyMaxPerDay: Decimal | null
     validFrom: Date | null
     validUntil: Date | null
+    sepaIban: string | null
+    sepaBic: string | null
+    sepaMandateReference: string | null
+    sepaMandateDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6010,6 +6275,10 @@ export namespace Prisma {
     subsidyMaxPerDay: number
     validFrom: number
     validUntil: number
+    sepaIban: number
+    sepaBic: number
+    sepaMandateReference: number
+    sepaMandateDate: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6036,6 +6305,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: true
     validFrom?: true
     validUntil?: true
+    sepaIban?: true
+    sepaBic?: true
+    sepaMandateReference?: true
+    sepaMandateDate?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6050,6 +6323,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: true
     validFrom?: true
     validUntil?: true
+    sepaIban?: true
+    sepaBic?: true
+    sepaMandateReference?: true
+    sepaMandateDate?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6064,6 +6341,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: true
     validFrom?: true
     validUntil?: true
+    sepaIban?: true
+    sepaBic?: true
+    sepaMandateReference?: true
+    sepaMandateDate?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6165,6 +6446,10 @@ export namespace Prisma {
     subsidyMaxPerDay: Decimal | null
     validFrom: Date | null
     validUntil: Date | null
+    sepaIban: string | null
+    sepaBic: string | null
+    sepaMandateReference: string | null
+    sepaMandateDate: Date | null
     createdAt: Date
     updatedAt: Date
     _count: CompanyCountAggregateOutputType | null
@@ -6198,11 +6483,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: boolean
     validFrom?: boolean
     validUntil?: boolean
+    sepaIban?: boolean
+    sepaBic?: boolean
+    sepaMandateReference?: boolean
+    sepaMandateDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     employees?: boolean | Company$employeesArgs<ExtArgs>
     orders?: boolean | Company$ordersArgs<ExtArgs>
     invoices?: boolean | Company$invoicesArgs<ExtArgs>
+    sepaSubmissions?: boolean | Company$sepaSubmissionsArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -6216,6 +6506,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: boolean
     validFrom?: boolean
     validUntil?: boolean
+    sepaIban?: boolean
+    sepaBic?: boolean
+    sepaMandateReference?: boolean
+    sepaMandateDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["company"]>
@@ -6230,6 +6524,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: boolean
     validFrom?: boolean
     validUntil?: boolean
+    sepaIban?: boolean
+    sepaBic?: boolean
+    sepaMandateReference?: boolean
+    sepaMandateDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -6238,6 +6536,7 @@ export namespace Prisma {
     employees?: boolean | Company$employeesArgs<ExtArgs>
     orders?: boolean | Company$ordersArgs<ExtArgs>
     invoices?: boolean | Company$invoicesArgs<ExtArgs>
+    sepaSubmissions?: boolean | Company$sepaSubmissionsArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6248,6 +6547,7 @@ export namespace Prisma {
       employees: Prisma.$CompanyEmployeePayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
       invoices: Prisma.$CompanyInvoicePayload<ExtArgs>[]
+      sepaSubmissions: Prisma.$SepaSubmissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6259,6 +6559,10 @@ export namespace Prisma {
       subsidyMaxPerDay: Prisma.Decimal | null
       validFrom: Date | null
       validUntil: Date | null
+      sepaIban: string | null
+      sepaBic: string | null
+      sepaMandateReference: string | null
+      sepaMandateDate: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["company"]>
@@ -6628,6 +6932,7 @@ export namespace Prisma {
     employees<T extends Company$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Company$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyEmployeePayload<ExtArgs>, T, "findMany"> | Null>
     orders<T extends Company$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Company$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany"> | Null>
     invoices<T extends Company$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Company$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvoicePayload<ExtArgs>, T, "findMany"> | Null>
+    sepaSubmissions<T extends Company$sepaSubmissionsArgs<ExtArgs> = {}>(args?: Subset<T, Company$sepaSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6666,6 +6971,10 @@ export namespace Prisma {
     readonly subsidyMaxPerDay: FieldRef<"Company", 'Decimal'>
     readonly validFrom: FieldRef<"Company", 'DateTime'>
     readonly validUntil: FieldRef<"Company", 'DateTime'>
+    readonly sepaIban: FieldRef<"Company", 'String'>
+    readonly sepaBic: FieldRef<"Company", 'String'>
+    readonly sepaMandateReference: FieldRef<"Company", 'String'>
+    readonly sepaMandateDate: FieldRef<"Company", 'DateTime'>
     readonly createdAt: FieldRef<"Company", 'DateTime'>
     readonly updatedAt: FieldRef<"Company", 'DateTime'>
   }
@@ -7042,6 +7351,26 @@ export namespace Prisma {
   }
 
   /**
+   * Company.sepaSubmissions
+   */
+  export type Company$sepaSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    where?: SepaSubmissionWhereInput
+    orderBy?: SepaSubmissionOrderByWithRelationInput | SepaSubmissionOrderByWithRelationInput[]
+    cursor?: SepaSubmissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SepaSubmissionScalarFieldEnum | SepaSubmissionScalarFieldEnum[]
+  }
+
+  /**
    * Company without action
    */
   export type CompanyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7296,6 +7625,7 @@ export namespace Prisma {
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     items?: boolean | CompanyInvoice$itemsArgs<ExtArgs>
+    sepaSubmissions?: boolean | CompanyInvoice$sepaSubmissionsArgs<ExtArgs>
     _count?: boolean | CompanyInvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyInvoice"]>
 
@@ -7327,6 +7657,7 @@ export namespace Prisma {
   export type CompanyInvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     items?: boolean | CompanyInvoice$itemsArgs<ExtArgs>
+    sepaSubmissions?: boolean | CompanyInvoice$sepaSubmissionsArgs<ExtArgs>
     _count?: boolean | CompanyInvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CompanyInvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7338,6 +7669,7 @@ export namespace Prisma {
     objects: {
       company: Prisma.$CompanyPayload<ExtArgs>
       items: Prisma.$CompanyInvoiceItemPayload<ExtArgs>[]
+      sepaSubmissions: Prisma.$SepaSubmissionInvoicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7715,6 +8047,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     items<T extends CompanyInvoice$itemsArgs<ExtArgs> = {}>(args?: Subset<T, CompanyInvoice$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyInvoiceItemPayload<ExtArgs>, T, "findMany"> | Null>
+    sepaSubmissions<T extends CompanyInvoice$sepaSubmissionsArgs<ExtArgs> = {}>(args?: Subset<T, CompanyInvoice$sepaSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8091,6 +8424,26 @@ export namespace Prisma {
   }
 
   /**
+   * CompanyInvoice.sepaSubmissions
+   */
+  export type CompanyInvoice$sepaSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    where?: SepaSubmissionInvoiceWhereInput
+    orderBy?: SepaSubmissionInvoiceOrderByWithRelationInput | SepaSubmissionInvoiceOrderByWithRelationInput[]
+    cursor?: SepaSubmissionInvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SepaSubmissionInvoiceScalarFieldEnum | SepaSubmissionInvoiceScalarFieldEnum[]
+  }
+
+  /**
    * CompanyInvoice without action
    */
   export type CompanyInvoiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8102,6 +8455,1962 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CompanyInvoiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SepaSubmission
+   */
+
+  export type AggregateSepaSubmission = {
+    _count: SepaSubmissionCountAggregateOutputType | null
+    _avg: SepaSubmissionAvgAggregateOutputType | null
+    _sum: SepaSubmissionSumAggregateOutputType | null
+    _min: SepaSubmissionMinAggregateOutputType | null
+    _max: SepaSubmissionMaxAggregateOutputType | null
+  }
+
+  export type SepaSubmissionAvgAggregateOutputType = {
+    totalAmount: Decimal | null
+  }
+
+  export type SepaSubmissionSumAggregateOutputType = {
+    totalAmount: Decimal | null
+  }
+
+  export type SepaSubmissionMinAggregateOutputType = {
+    id: string | null
+    companyId: string | null
+    organizationId: string | null
+    generatedAt: Date | null
+    totalAmount: Decimal | null
+    dueDate: Date | null
+    seqType: string | null
+    createdById: string | null
+    source: string | null
+  }
+
+  export type SepaSubmissionMaxAggregateOutputType = {
+    id: string | null
+    companyId: string | null
+    organizationId: string | null
+    generatedAt: Date | null
+    totalAmount: Decimal | null
+    dueDate: Date | null
+    seqType: string | null
+    createdById: string | null
+    source: string | null
+  }
+
+  export type SepaSubmissionCountAggregateOutputType = {
+    id: number
+    companyId: number
+    organizationId: number
+    generatedAt: number
+    totalAmount: number
+    dueDate: number
+    seqType: number
+    createdById: number
+    source: number
+    _all: number
+  }
+
+
+  export type SepaSubmissionAvgAggregateInputType = {
+    totalAmount?: true
+  }
+
+  export type SepaSubmissionSumAggregateInputType = {
+    totalAmount?: true
+  }
+
+  export type SepaSubmissionMinAggregateInputType = {
+    id?: true
+    companyId?: true
+    organizationId?: true
+    generatedAt?: true
+    totalAmount?: true
+    dueDate?: true
+    seqType?: true
+    createdById?: true
+    source?: true
+  }
+
+  export type SepaSubmissionMaxAggregateInputType = {
+    id?: true
+    companyId?: true
+    organizationId?: true
+    generatedAt?: true
+    totalAmount?: true
+    dueDate?: true
+    seqType?: true
+    createdById?: true
+    source?: true
+  }
+
+  export type SepaSubmissionCountAggregateInputType = {
+    id?: true
+    companyId?: true
+    organizationId?: true
+    generatedAt?: true
+    totalAmount?: true
+    dueDate?: true
+    seqType?: true
+    createdById?: true
+    source?: true
+    _all?: true
+  }
+
+  export type SepaSubmissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SepaSubmission to aggregate.
+     */
+    where?: SepaSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissions to fetch.
+     */
+    orderBy?: SepaSubmissionOrderByWithRelationInput | SepaSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SepaSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SepaSubmissions
+    **/
+    _count?: true | SepaSubmissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SepaSubmissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SepaSubmissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SepaSubmissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SepaSubmissionMaxAggregateInputType
+  }
+
+  export type GetSepaSubmissionAggregateType<T extends SepaSubmissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSepaSubmission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSepaSubmission[P]>
+      : GetScalarType<T[P], AggregateSepaSubmission[P]>
+  }
+
+
+
+
+  export type SepaSubmissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SepaSubmissionWhereInput
+    orderBy?: SepaSubmissionOrderByWithAggregationInput | SepaSubmissionOrderByWithAggregationInput[]
+    by: SepaSubmissionScalarFieldEnum[] | SepaSubmissionScalarFieldEnum
+    having?: SepaSubmissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SepaSubmissionCountAggregateInputType | true
+    _avg?: SepaSubmissionAvgAggregateInputType
+    _sum?: SepaSubmissionSumAggregateInputType
+    _min?: SepaSubmissionMinAggregateInputType
+    _max?: SepaSubmissionMaxAggregateInputType
+  }
+
+  export type SepaSubmissionGroupByOutputType = {
+    id: string
+    companyId: string
+    organizationId: string
+    generatedAt: Date
+    totalAmount: Decimal
+    dueDate: Date
+    seqType: string
+    createdById: string
+    source: string
+    _count: SepaSubmissionCountAggregateOutputType | null
+    _avg: SepaSubmissionAvgAggregateOutputType | null
+    _sum: SepaSubmissionSumAggregateOutputType | null
+    _min: SepaSubmissionMinAggregateOutputType | null
+    _max: SepaSubmissionMaxAggregateOutputType | null
+  }
+
+  type GetSepaSubmissionGroupByPayload<T extends SepaSubmissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SepaSubmissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SepaSubmissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SepaSubmissionGroupByOutputType[P]>
+            : GetScalarType<T[P], SepaSubmissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SepaSubmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyId?: boolean
+    organizationId?: boolean
+    generatedAt?: boolean
+    totalAmount?: boolean
+    dueDate?: boolean
+    seqType?: boolean
+    createdById?: boolean
+    source?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+    invoices?: boolean | SepaSubmission$invoicesArgs<ExtArgs>
+    _count?: boolean | SepaSubmissionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sepaSubmission"]>
+
+  export type SepaSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyId?: boolean
+    organizationId?: boolean
+    generatedAt?: boolean
+    totalAmount?: boolean
+    dueDate?: boolean
+    seqType?: boolean
+    createdById?: boolean
+    source?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sepaSubmission"]>
+
+  export type SepaSubmissionSelectScalar = {
+    id?: boolean
+    companyId?: boolean
+    organizationId?: boolean
+    generatedAt?: boolean
+    totalAmount?: boolean
+    dueDate?: boolean
+    seqType?: boolean
+    createdById?: boolean
+    source?: boolean
+  }
+
+  export type SepaSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+    invoices?: boolean | SepaSubmission$invoicesArgs<ExtArgs>
+    _count?: boolean | SepaSubmissionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SepaSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+
+  export type $SepaSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SepaSubmission"
+    objects: {
+      company: Prisma.$CompanyPayload<ExtArgs>
+      invoices: Prisma.$SepaSubmissionInvoicePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      companyId: string
+      organizationId: string
+      generatedAt: Date
+      totalAmount: Prisma.Decimal
+      dueDate: Date
+      seqType: string
+      createdById: string
+      source: string
+    }, ExtArgs["result"]["sepaSubmission"]>
+    composites: {}
+  }
+
+  type SepaSubmissionGetPayload<S extends boolean | null | undefined | SepaSubmissionDefaultArgs> = $Result.GetResult<Prisma.$SepaSubmissionPayload, S>
+
+  type SepaSubmissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SepaSubmissionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SepaSubmissionCountAggregateInputType | true
+    }
+
+  export interface SepaSubmissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SepaSubmission'], meta: { name: 'SepaSubmission' } }
+    /**
+     * Find zero or one SepaSubmission that matches the filter.
+     * @param {SepaSubmissionFindUniqueArgs} args - Arguments to find a SepaSubmission
+     * @example
+     * // Get one SepaSubmission
+     * const sepaSubmission = await prisma.sepaSubmission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SepaSubmissionFindUniqueArgs>(args: SelectSubset<T, SepaSubmissionFindUniqueArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SepaSubmission that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SepaSubmissionFindUniqueOrThrowArgs} args - Arguments to find a SepaSubmission
+     * @example
+     * // Get one SepaSubmission
+     * const sepaSubmission = await prisma.sepaSubmission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SepaSubmissionFindUniqueOrThrowArgs>(args: SelectSubset<T, SepaSubmissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SepaSubmission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionFindFirstArgs} args - Arguments to find a SepaSubmission
+     * @example
+     * // Get one SepaSubmission
+     * const sepaSubmission = await prisma.sepaSubmission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SepaSubmissionFindFirstArgs>(args?: SelectSubset<T, SepaSubmissionFindFirstArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SepaSubmission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionFindFirstOrThrowArgs} args - Arguments to find a SepaSubmission
+     * @example
+     * // Get one SepaSubmission
+     * const sepaSubmission = await prisma.sepaSubmission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SepaSubmissionFindFirstOrThrowArgs>(args?: SelectSubset<T, SepaSubmissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SepaSubmissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SepaSubmissions
+     * const sepaSubmissions = await prisma.sepaSubmission.findMany()
+     * 
+     * // Get first 10 SepaSubmissions
+     * const sepaSubmissions = await prisma.sepaSubmission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sepaSubmissionWithIdOnly = await prisma.sepaSubmission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SepaSubmissionFindManyArgs>(args?: SelectSubset<T, SepaSubmissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SepaSubmission.
+     * @param {SepaSubmissionCreateArgs} args - Arguments to create a SepaSubmission.
+     * @example
+     * // Create one SepaSubmission
+     * const SepaSubmission = await prisma.sepaSubmission.create({
+     *   data: {
+     *     // ... data to create a SepaSubmission
+     *   }
+     * })
+     * 
+     */
+    create<T extends SepaSubmissionCreateArgs>(args: SelectSubset<T, SepaSubmissionCreateArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SepaSubmissions.
+     * @param {SepaSubmissionCreateManyArgs} args - Arguments to create many SepaSubmissions.
+     * @example
+     * // Create many SepaSubmissions
+     * const sepaSubmission = await prisma.sepaSubmission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SepaSubmissionCreateManyArgs>(args?: SelectSubset<T, SepaSubmissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SepaSubmissions and returns the data saved in the database.
+     * @param {SepaSubmissionCreateManyAndReturnArgs} args - Arguments to create many SepaSubmissions.
+     * @example
+     * // Create many SepaSubmissions
+     * const sepaSubmission = await prisma.sepaSubmission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SepaSubmissions and only return the `id`
+     * const sepaSubmissionWithIdOnly = await prisma.sepaSubmission.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SepaSubmissionCreateManyAndReturnArgs>(args?: SelectSubset<T, SepaSubmissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SepaSubmission.
+     * @param {SepaSubmissionDeleteArgs} args - Arguments to delete one SepaSubmission.
+     * @example
+     * // Delete one SepaSubmission
+     * const SepaSubmission = await prisma.sepaSubmission.delete({
+     *   where: {
+     *     // ... filter to delete one SepaSubmission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SepaSubmissionDeleteArgs>(args: SelectSubset<T, SepaSubmissionDeleteArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SepaSubmission.
+     * @param {SepaSubmissionUpdateArgs} args - Arguments to update one SepaSubmission.
+     * @example
+     * // Update one SepaSubmission
+     * const sepaSubmission = await prisma.sepaSubmission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SepaSubmissionUpdateArgs>(args: SelectSubset<T, SepaSubmissionUpdateArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SepaSubmissions.
+     * @param {SepaSubmissionDeleteManyArgs} args - Arguments to filter SepaSubmissions to delete.
+     * @example
+     * // Delete a few SepaSubmissions
+     * const { count } = await prisma.sepaSubmission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SepaSubmissionDeleteManyArgs>(args?: SelectSubset<T, SepaSubmissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SepaSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SepaSubmissions
+     * const sepaSubmission = await prisma.sepaSubmission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SepaSubmissionUpdateManyArgs>(args: SelectSubset<T, SepaSubmissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SepaSubmission.
+     * @param {SepaSubmissionUpsertArgs} args - Arguments to update or create a SepaSubmission.
+     * @example
+     * // Update or create a SepaSubmission
+     * const sepaSubmission = await prisma.sepaSubmission.upsert({
+     *   create: {
+     *     // ... data to create a SepaSubmission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SepaSubmission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SepaSubmissionUpsertArgs>(args: SelectSubset<T, SepaSubmissionUpsertArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SepaSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionCountArgs} args - Arguments to filter SepaSubmissions to count.
+     * @example
+     * // Count the number of SepaSubmissions
+     * const count = await prisma.sepaSubmission.count({
+     *   where: {
+     *     // ... the filter for the SepaSubmissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SepaSubmissionCountArgs>(
+      args?: Subset<T, SepaSubmissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SepaSubmissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SepaSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SepaSubmissionAggregateArgs>(args: Subset<T, SepaSubmissionAggregateArgs>): Prisma.PrismaPromise<GetSepaSubmissionAggregateType<T>>
+
+    /**
+     * Group by SepaSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SepaSubmissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SepaSubmissionGroupByArgs['orderBy'] }
+        : { orderBy?: SepaSubmissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SepaSubmissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSepaSubmissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SepaSubmission model
+   */
+  readonly fields: SepaSubmissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SepaSubmission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SepaSubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    invoices<T extends SepaSubmission$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, SepaSubmission$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SepaSubmission model
+   */ 
+  interface SepaSubmissionFieldRefs {
+    readonly id: FieldRef<"SepaSubmission", 'String'>
+    readonly companyId: FieldRef<"SepaSubmission", 'String'>
+    readonly organizationId: FieldRef<"SepaSubmission", 'String'>
+    readonly generatedAt: FieldRef<"SepaSubmission", 'DateTime'>
+    readonly totalAmount: FieldRef<"SepaSubmission", 'Decimal'>
+    readonly dueDate: FieldRef<"SepaSubmission", 'DateTime'>
+    readonly seqType: FieldRef<"SepaSubmission", 'String'>
+    readonly createdById: FieldRef<"SepaSubmission", 'String'>
+    readonly source: FieldRef<"SepaSubmission", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SepaSubmission findUnique
+   */
+  export type SepaSubmissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmission to fetch.
+     */
+    where: SepaSubmissionWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmission findUniqueOrThrow
+   */
+  export type SepaSubmissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmission to fetch.
+     */
+    where: SepaSubmissionWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmission findFirst
+   */
+  export type SepaSubmissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmission to fetch.
+     */
+    where?: SepaSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissions to fetch.
+     */
+    orderBy?: SepaSubmissionOrderByWithRelationInput | SepaSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SepaSubmissions.
+     */
+    cursor?: SepaSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SepaSubmissions.
+     */
+    distinct?: SepaSubmissionScalarFieldEnum | SepaSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * SepaSubmission findFirstOrThrow
+   */
+  export type SepaSubmissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmission to fetch.
+     */
+    where?: SepaSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissions to fetch.
+     */
+    orderBy?: SepaSubmissionOrderByWithRelationInput | SepaSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SepaSubmissions.
+     */
+    cursor?: SepaSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SepaSubmissions.
+     */
+    distinct?: SepaSubmissionScalarFieldEnum | SepaSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * SepaSubmission findMany
+   */
+  export type SepaSubmissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmissions to fetch.
+     */
+    where?: SepaSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissions to fetch.
+     */
+    orderBy?: SepaSubmissionOrderByWithRelationInput | SepaSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SepaSubmissions.
+     */
+    cursor?: SepaSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissions.
+     */
+    skip?: number
+    distinct?: SepaSubmissionScalarFieldEnum | SepaSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * SepaSubmission create
+   */
+  export type SepaSubmissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SepaSubmission.
+     */
+    data: XOR<SepaSubmissionCreateInput, SepaSubmissionUncheckedCreateInput>
+  }
+
+  /**
+   * SepaSubmission createMany
+   */
+  export type SepaSubmissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SepaSubmissions.
+     */
+    data: SepaSubmissionCreateManyInput | SepaSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SepaSubmission createManyAndReturn
+   */
+  export type SepaSubmissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SepaSubmissions.
+     */
+    data: SepaSubmissionCreateManyInput | SepaSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SepaSubmission update
+   */
+  export type SepaSubmissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SepaSubmission.
+     */
+    data: XOR<SepaSubmissionUpdateInput, SepaSubmissionUncheckedUpdateInput>
+    /**
+     * Choose, which SepaSubmission to update.
+     */
+    where: SepaSubmissionWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmission updateMany
+   */
+  export type SepaSubmissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SepaSubmissions.
+     */
+    data: XOR<SepaSubmissionUpdateManyMutationInput, SepaSubmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which SepaSubmissions to update
+     */
+    where?: SepaSubmissionWhereInput
+  }
+
+  /**
+   * SepaSubmission upsert
+   */
+  export type SepaSubmissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SepaSubmission to update in case it exists.
+     */
+    where: SepaSubmissionWhereUniqueInput
+    /**
+     * In case the SepaSubmission found by the `where` argument doesn't exist, create a new SepaSubmission with this data.
+     */
+    create: XOR<SepaSubmissionCreateInput, SepaSubmissionUncheckedCreateInput>
+    /**
+     * In case the SepaSubmission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SepaSubmissionUpdateInput, SepaSubmissionUncheckedUpdateInput>
+  }
+
+  /**
+   * SepaSubmission delete
+   */
+  export type SepaSubmissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter which SepaSubmission to delete.
+     */
+    where: SepaSubmissionWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmission deleteMany
+   */
+  export type SepaSubmissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SepaSubmissions to delete
+     */
+    where?: SepaSubmissionWhereInput
+  }
+
+  /**
+   * SepaSubmission.invoices
+   */
+  export type SepaSubmission$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    where?: SepaSubmissionInvoiceWhereInput
+    orderBy?: SepaSubmissionInvoiceOrderByWithRelationInput | SepaSubmissionInvoiceOrderByWithRelationInput[]
+    cursor?: SepaSubmissionInvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SepaSubmissionInvoiceScalarFieldEnum | SepaSubmissionInvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * SepaSubmission without action
+   */
+  export type SepaSubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmission
+     */
+    select?: SepaSubmissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SepaSubmissionInvoice
+   */
+
+  export type AggregateSepaSubmissionInvoice = {
+    _count: SepaSubmissionInvoiceCountAggregateOutputType | null
+    _min: SepaSubmissionInvoiceMinAggregateOutputType | null
+    _max: SepaSubmissionInvoiceMaxAggregateOutputType | null
+  }
+
+  export type SepaSubmissionInvoiceMinAggregateOutputType = {
+    id: string | null
+    sepaSubmissionId: string | null
+    companyInvoiceId: string | null
+  }
+
+  export type SepaSubmissionInvoiceMaxAggregateOutputType = {
+    id: string | null
+    sepaSubmissionId: string | null
+    companyInvoiceId: string | null
+  }
+
+  export type SepaSubmissionInvoiceCountAggregateOutputType = {
+    id: number
+    sepaSubmissionId: number
+    companyInvoiceId: number
+    _all: number
+  }
+
+
+  export type SepaSubmissionInvoiceMinAggregateInputType = {
+    id?: true
+    sepaSubmissionId?: true
+    companyInvoiceId?: true
+  }
+
+  export type SepaSubmissionInvoiceMaxAggregateInputType = {
+    id?: true
+    sepaSubmissionId?: true
+    companyInvoiceId?: true
+  }
+
+  export type SepaSubmissionInvoiceCountAggregateInputType = {
+    id?: true
+    sepaSubmissionId?: true
+    companyInvoiceId?: true
+    _all?: true
+  }
+
+  export type SepaSubmissionInvoiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SepaSubmissionInvoice to aggregate.
+     */
+    where?: SepaSubmissionInvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissionInvoices to fetch.
+     */
+    orderBy?: SepaSubmissionInvoiceOrderByWithRelationInput | SepaSubmissionInvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SepaSubmissionInvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissionInvoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissionInvoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SepaSubmissionInvoices
+    **/
+    _count?: true | SepaSubmissionInvoiceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SepaSubmissionInvoiceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SepaSubmissionInvoiceMaxAggregateInputType
+  }
+
+  export type GetSepaSubmissionInvoiceAggregateType<T extends SepaSubmissionInvoiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateSepaSubmissionInvoice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSepaSubmissionInvoice[P]>
+      : GetScalarType<T[P], AggregateSepaSubmissionInvoice[P]>
+  }
+
+
+
+
+  export type SepaSubmissionInvoiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SepaSubmissionInvoiceWhereInput
+    orderBy?: SepaSubmissionInvoiceOrderByWithAggregationInput | SepaSubmissionInvoiceOrderByWithAggregationInput[]
+    by: SepaSubmissionInvoiceScalarFieldEnum[] | SepaSubmissionInvoiceScalarFieldEnum
+    having?: SepaSubmissionInvoiceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SepaSubmissionInvoiceCountAggregateInputType | true
+    _min?: SepaSubmissionInvoiceMinAggregateInputType
+    _max?: SepaSubmissionInvoiceMaxAggregateInputType
+  }
+
+  export type SepaSubmissionInvoiceGroupByOutputType = {
+    id: string
+    sepaSubmissionId: string
+    companyInvoiceId: string
+    _count: SepaSubmissionInvoiceCountAggregateOutputType | null
+    _min: SepaSubmissionInvoiceMinAggregateOutputType | null
+    _max: SepaSubmissionInvoiceMaxAggregateOutputType | null
+  }
+
+  type GetSepaSubmissionInvoiceGroupByPayload<T extends SepaSubmissionInvoiceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SepaSubmissionInvoiceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SepaSubmissionInvoiceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SepaSubmissionInvoiceGroupByOutputType[P]>
+            : GetScalarType<T[P], SepaSubmissionInvoiceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SepaSubmissionInvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sepaSubmissionId?: boolean
+    companyInvoiceId?: boolean
+    sepaSubmission?: boolean | SepaSubmissionDefaultArgs<ExtArgs>
+    companyInvoice?: boolean | CompanyInvoiceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sepaSubmissionInvoice"]>
+
+  export type SepaSubmissionInvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sepaSubmissionId?: boolean
+    companyInvoiceId?: boolean
+    sepaSubmission?: boolean | SepaSubmissionDefaultArgs<ExtArgs>
+    companyInvoice?: boolean | CompanyInvoiceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sepaSubmissionInvoice"]>
+
+  export type SepaSubmissionInvoiceSelectScalar = {
+    id?: boolean
+    sepaSubmissionId?: boolean
+    companyInvoiceId?: boolean
+  }
+
+  export type SepaSubmissionInvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sepaSubmission?: boolean | SepaSubmissionDefaultArgs<ExtArgs>
+    companyInvoice?: boolean | CompanyInvoiceDefaultArgs<ExtArgs>
+  }
+  export type SepaSubmissionInvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sepaSubmission?: boolean | SepaSubmissionDefaultArgs<ExtArgs>
+    companyInvoice?: boolean | CompanyInvoiceDefaultArgs<ExtArgs>
+  }
+
+  export type $SepaSubmissionInvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SepaSubmissionInvoice"
+    objects: {
+      sepaSubmission: Prisma.$SepaSubmissionPayload<ExtArgs>
+      companyInvoice: Prisma.$CompanyInvoicePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      sepaSubmissionId: string
+      companyInvoiceId: string
+    }, ExtArgs["result"]["sepaSubmissionInvoice"]>
+    composites: {}
+  }
+
+  type SepaSubmissionInvoiceGetPayload<S extends boolean | null | undefined | SepaSubmissionInvoiceDefaultArgs> = $Result.GetResult<Prisma.$SepaSubmissionInvoicePayload, S>
+
+  type SepaSubmissionInvoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SepaSubmissionInvoiceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SepaSubmissionInvoiceCountAggregateInputType | true
+    }
+
+  export interface SepaSubmissionInvoiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SepaSubmissionInvoice'], meta: { name: 'SepaSubmissionInvoice' } }
+    /**
+     * Find zero or one SepaSubmissionInvoice that matches the filter.
+     * @param {SepaSubmissionInvoiceFindUniqueArgs} args - Arguments to find a SepaSubmissionInvoice
+     * @example
+     * // Get one SepaSubmissionInvoice
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SepaSubmissionInvoiceFindUniqueArgs>(args: SelectSubset<T, SepaSubmissionInvoiceFindUniqueArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SepaSubmissionInvoice that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SepaSubmissionInvoiceFindUniqueOrThrowArgs} args - Arguments to find a SepaSubmissionInvoice
+     * @example
+     * // Get one SepaSubmissionInvoice
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SepaSubmissionInvoiceFindUniqueOrThrowArgs>(args: SelectSubset<T, SepaSubmissionInvoiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SepaSubmissionInvoice that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionInvoiceFindFirstArgs} args - Arguments to find a SepaSubmissionInvoice
+     * @example
+     * // Get one SepaSubmissionInvoice
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SepaSubmissionInvoiceFindFirstArgs>(args?: SelectSubset<T, SepaSubmissionInvoiceFindFirstArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SepaSubmissionInvoice that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionInvoiceFindFirstOrThrowArgs} args - Arguments to find a SepaSubmissionInvoice
+     * @example
+     * // Get one SepaSubmissionInvoice
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SepaSubmissionInvoiceFindFirstOrThrowArgs>(args?: SelectSubset<T, SepaSubmissionInvoiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SepaSubmissionInvoices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionInvoiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SepaSubmissionInvoices
+     * const sepaSubmissionInvoices = await prisma.sepaSubmissionInvoice.findMany()
+     * 
+     * // Get first 10 SepaSubmissionInvoices
+     * const sepaSubmissionInvoices = await prisma.sepaSubmissionInvoice.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sepaSubmissionInvoiceWithIdOnly = await prisma.sepaSubmissionInvoice.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SepaSubmissionInvoiceFindManyArgs>(args?: SelectSubset<T, SepaSubmissionInvoiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SepaSubmissionInvoice.
+     * @param {SepaSubmissionInvoiceCreateArgs} args - Arguments to create a SepaSubmissionInvoice.
+     * @example
+     * // Create one SepaSubmissionInvoice
+     * const SepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.create({
+     *   data: {
+     *     // ... data to create a SepaSubmissionInvoice
+     *   }
+     * })
+     * 
+     */
+    create<T extends SepaSubmissionInvoiceCreateArgs>(args: SelectSubset<T, SepaSubmissionInvoiceCreateArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SepaSubmissionInvoices.
+     * @param {SepaSubmissionInvoiceCreateManyArgs} args - Arguments to create many SepaSubmissionInvoices.
+     * @example
+     * // Create many SepaSubmissionInvoices
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SepaSubmissionInvoiceCreateManyArgs>(args?: SelectSubset<T, SepaSubmissionInvoiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SepaSubmissionInvoices and returns the data saved in the database.
+     * @param {SepaSubmissionInvoiceCreateManyAndReturnArgs} args - Arguments to create many SepaSubmissionInvoices.
+     * @example
+     * // Create many SepaSubmissionInvoices
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SepaSubmissionInvoices and only return the `id`
+     * const sepaSubmissionInvoiceWithIdOnly = await prisma.sepaSubmissionInvoice.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SepaSubmissionInvoiceCreateManyAndReturnArgs>(args?: SelectSubset<T, SepaSubmissionInvoiceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SepaSubmissionInvoice.
+     * @param {SepaSubmissionInvoiceDeleteArgs} args - Arguments to delete one SepaSubmissionInvoice.
+     * @example
+     * // Delete one SepaSubmissionInvoice
+     * const SepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.delete({
+     *   where: {
+     *     // ... filter to delete one SepaSubmissionInvoice
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SepaSubmissionInvoiceDeleteArgs>(args: SelectSubset<T, SepaSubmissionInvoiceDeleteArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SepaSubmissionInvoice.
+     * @param {SepaSubmissionInvoiceUpdateArgs} args - Arguments to update one SepaSubmissionInvoice.
+     * @example
+     * // Update one SepaSubmissionInvoice
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SepaSubmissionInvoiceUpdateArgs>(args: SelectSubset<T, SepaSubmissionInvoiceUpdateArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SepaSubmissionInvoices.
+     * @param {SepaSubmissionInvoiceDeleteManyArgs} args - Arguments to filter SepaSubmissionInvoices to delete.
+     * @example
+     * // Delete a few SepaSubmissionInvoices
+     * const { count } = await prisma.sepaSubmissionInvoice.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SepaSubmissionInvoiceDeleteManyArgs>(args?: SelectSubset<T, SepaSubmissionInvoiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SepaSubmissionInvoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionInvoiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SepaSubmissionInvoices
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SepaSubmissionInvoiceUpdateManyArgs>(args: SelectSubset<T, SepaSubmissionInvoiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SepaSubmissionInvoice.
+     * @param {SepaSubmissionInvoiceUpsertArgs} args - Arguments to update or create a SepaSubmissionInvoice.
+     * @example
+     * // Update or create a SepaSubmissionInvoice
+     * const sepaSubmissionInvoice = await prisma.sepaSubmissionInvoice.upsert({
+     *   create: {
+     *     // ... data to create a SepaSubmissionInvoice
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SepaSubmissionInvoice we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SepaSubmissionInvoiceUpsertArgs>(args: SelectSubset<T, SepaSubmissionInvoiceUpsertArgs<ExtArgs>>): Prisma__SepaSubmissionInvoiceClient<$Result.GetResult<Prisma.$SepaSubmissionInvoicePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SepaSubmissionInvoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionInvoiceCountArgs} args - Arguments to filter SepaSubmissionInvoices to count.
+     * @example
+     * // Count the number of SepaSubmissionInvoices
+     * const count = await prisma.sepaSubmissionInvoice.count({
+     *   where: {
+     *     // ... the filter for the SepaSubmissionInvoices we want to count
+     *   }
+     * })
+    **/
+    count<T extends SepaSubmissionInvoiceCountArgs>(
+      args?: Subset<T, SepaSubmissionInvoiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SepaSubmissionInvoiceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SepaSubmissionInvoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionInvoiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SepaSubmissionInvoiceAggregateArgs>(args: Subset<T, SepaSubmissionInvoiceAggregateArgs>): Prisma.PrismaPromise<GetSepaSubmissionInvoiceAggregateType<T>>
+
+    /**
+     * Group by SepaSubmissionInvoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SepaSubmissionInvoiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SepaSubmissionInvoiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SepaSubmissionInvoiceGroupByArgs['orderBy'] }
+        : { orderBy?: SepaSubmissionInvoiceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SepaSubmissionInvoiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSepaSubmissionInvoiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SepaSubmissionInvoice model
+   */
+  readonly fields: SepaSubmissionInvoiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SepaSubmissionInvoice.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SepaSubmissionInvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sepaSubmission<T extends SepaSubmissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SepaSubmissionDefaultArgs<ExtArgs>>): Prisma__SepaSubmissionClient<$Result.GetResult<Prisma.$SepaSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    companyInvoice<T extends CompanyInvoiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyInvoiceDefaultArgs<ExtArgs>>): Prisma__CompanyInvoiceClient<$Result.GetResult<Prisma.$CompanyInvoicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SepaSubmissionInvoice model
+   */ 
+  interface SepaSubmissionInvoiceFieldRefs {
+    readonly id: FieldRef<"SepaSubmissionInvoice", 'String'>
+    readonly sepaSubmissionId: FieldRef<"SepaSubmissionInvoice", 'String'>
+    readonly companyInvoiceId: FieldRef<"SepaSubmissionInvoice", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SepaSubmissionInvoice findUnique
+   */
+  export type SepaSubmissionInvoiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmissionInvoice to fetch.
+     */
+    where: SepaSubmissionInvoiceWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmissionInvoice findUniqueOrThrow
+   */
+  export type SepaSubmissionInvoiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmissionInvoice to fetch.
+     */
+    where: SepaSubmissionInvoiceWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmissionInvoice findFirst
+   */
+  export type SepaSubmissionInvoiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmissionInvoice to fetch.
+     */
+    where?: SepaSubmissionInvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissionInvoices to fetch.
+     */
+    orderBy?: SepaSubmissionInvoiceOrderByWithRelationInput | SepaSubmissionInvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SepaSubmissionInvoices.
+     */
+    cursor?: SepaSubmissionInvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissionInvoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissionInvoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SepaSubmissionInvoices.
+     */
+    distinct?: SepaSubmissionInvoiceScalarFieldEnum | SepaSubmissionInvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * SepaSubmissionInvoice findFirstOrThrow
+   */
+  export type SepaSubmissionInvoiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmissionInvoice to fetch.
+     */
+    where?: SepaSubmissionInvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissionInvoices to fetch.
+     */
+    orderBy?: SepaSubmissionInvoiceOrderByWithRelationInput | SepaSubmissionInvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SepaSubmissionInvoices.
+     */
+    cursor?: SepaSubmissionInvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissionInvoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissionInvoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SepaSubmissionInvoices.
+     */
+    distinct?: SepaSubmissionInvoiceScalarFieldEnum | SepaSubmissionInvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * SepaSubmissionInvoice findMany
+   */
+  export type SepaSubmissionInvoiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which SepaSubmissionInvoices to fetch.
+     */
+    where?: SepaSubmissionInvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SepaSubmissionInvoices to fetch.
+     */
+    orderBy?: SepaSubmissionInvoiceOrderByWithRelationInput | SepaSubmissionInvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SepaSubmissionInvoices.
+     */
+    cursor?: SepaSubmissionInvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SepaSubmissionInvoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SepaSubmissionInvoices.
+     */
+    skip?: number
+    distinct?: SepaSubmissionInvoiceScalarFieldEnum | SepaSubmissionInvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * SepaSubmissionInvoice create
+   */
+  export type SepaSubmissionInvoiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SepaSubmissionInvoice.
+     */
+    data: XOR<SepaSubmissionInvoiceCreateInput, SepaSubmissionInvoiceUncheckedCreateInput>
+  }
+
+  /**
+   * SepaSubmissionInvoice createMany
+   */
+  export type SepaSubmissionInvoiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SepaSubmissionInvoices.
+     */
+    data: SepaSubmissionInvoiceCreateManyInput | SepaSubmissionInvoiceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SepaSubmissionInvoice createManyAndReturn
+   */
+  export type SepaSubmissionInvoiceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SepaSubmissionInvoices.
+     */
+    data: SepaSubmissionInvoiceCreateManyInput | SepaSubmissionInvoiceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SepaSubmissionInvoice update
+   */
+  export type SepaSubmissionInvoiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SepaSubmissionInvoice.
+     */
+    data: XOR<SepaSubmissionInvoiceUpdateInput, SepaSubmissionInvoiceUncheckedUpdateInput>
+    /**
+     * Choose, which SepaSubmissionInvoice to update.
+     */
+    where: SepaSubmissionInvoiceWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmissionInvoice updateMany
+   */
+  export type SepaSubmissionInvoiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SepaSubmissionInvoices.
+     */
+    data: XOR<SepaSubmissionInvoiceUpdateManyMutationInput, SepaSubmissionInvoiceUncheckedUpdateManyInput>
+    /**
+     * Filter which SepaSubmissionInvoices to update
+     */
+    where?: SepaSubmissionInvoiceWhereInput
+  }
+
+  /**
+   * SepaSubmissionInvoice upsert
+   */
+  export type SepaSubmissionInvoiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SepaSubmissionInvoice to update in case it exists.
+     */
+    where: SepaSubmissionInvoiceWhereUniqueInput
+    /**
+     * In case the SepaSubmissionInvoice found by the `where` argument doesn't exist, create a new SepaSubmissionInvoice with this data.
+     */
+    create: XOR<SepaSubmissionInvoiceCreateInput, SepaSubmissionInvoiceUncheckedCreateInput>
+    /**
+     * In case the SepaSubmissionInvoice was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SepaSubmissionInvoiceUpdateInput, SepaSubmissionInvoiceUncheckedUpdateInput>
+  }
+
+  /**
+   * SepaSubmissionInvoice delete
+   */
+  export type SepaSubmissionInvoiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
+    /**
+     * Filter which SepaSubmissionInvoice to delete.
+     */
+    where: SepaSubmissionInvoiceWhereUniqueInput
+  }
+
+  /**
+   * SepaSubmissionInvoice deleteMany
+   */
+  export type SepaSubmissionInvoiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SepaSubmissionInvoices to delete
+     */
+    where?: SepaSubmissionInvoiceWhereInput
+  }
+
+  /**
+   * SepaSubmissionInvoice without action
+   */
+  export type SepaSubmissionInvoiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SepaSubmissionInvoice
+     */
+    select?: SepaSubmissionInvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SepaSubmissionInvoiceInclude<ExtArgs> | null
   }
 
 
@@ -41440,6 +43749,9 @@ export namespace Prisma {
     logoUrl: 'logoUrl',
     primaryColor: 'primaryColor',
     secondaryColor: 'secondaryColor',
+    sepaCreditorId: 'sepaCreditorId',
+    sepaIban: 'sepaIban',
+    sepaBic: 'sepaBic',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -41457,6 +43769,10 @@ export namespace Prisma {
     subsidyMaxPerDay: 'subsidyMaxPerDay',
     validFrom: 'validFrom',
     validUntil: 'validUntil',
+    sepaIban: 'sepaIban',
+    sepaBic: 'sepaBic',
+    sepaMandateReference: 'sepaMandateReference',
+    sepaMandateDate: 'sepaMandateDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -41477,6 +43793,30 @@ export namespace Prisma {
   };
 
   export type CompanyInvoiceScalarFieldEnum = (typeof CompanyInvoiceScalarFieldEnum)[keyof typeof CompanyInvoiceScalarFieldEnum]
+
+
+  export const SepaSubmissionScalarFieldEnum: {
+    id: 'id',
+    companyId: 'companyId',
+    organizationId: 'organizationId',
+    generatedAt: 'generatedAt',
+    totalAmount: 'totalAmount',
+    dueDate: 'dueDate',
+    seqType: 'seqType',
+    createdById: 'createdById',
+    source: 'source'
+  };
+
+  export type SepaSubmissionScalarFieldEnum = (typeof SepaSubmissionScalarFieldEnum)[keyof typeof SepaSubmissionScalarFieldEnum]
+
+
+  export const SepaSubmissionInvoiceScalarFieldEnum: {
+    id: 'id',
+    sepaSubmissionId: 'sepaSubmissionId',
+    companyInvoiceId: 'companyInvoiceId'
+  };
+
+  export type SepaSubmissionInvoiceScalarFieldEnum = (typeof SepaSubmissionInvoiceScalarFieldEnum)[keyof typeof SepaSubmissionInvoiceScalarFieldEnum]
 
 
   export const CompanyInvoiceItemScalarFieldEnum: {
@@ -42272,6 +44612,9 @@ export namespace Prisma {
     logoUrl?: StringNullableFilter<"Organization"> | string | null
     primaryColor?: StringNullableFilter<"Organization"> | string | null
     secondaryColor?: StringNullableFilter<"Organization"> | string | null
+    sepaCreditorId?: StringNullableFilter<"Organization"> | string | null
+    sepaIban?: StringNullableFilter<"Organization"> | string | null
+    sepaBic?: StringNullableFilter<"Organization"> | string | null
     createdAt?: DateTimeFilter<"Organization"> | Date | string
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     locations?: LocationListRelationFilter
@@ -42292,6 +44635,9 @@ export namespace Prisma {
     logoUrl?: SortOrderInput | SortOrder
     primaryColor?: SortOrderInput | SortOrder
     secondaryColor?: SortOrderInput | SortOrder
+    sepaCreditorId?: SortOrderInput | SortOrder
+    sepaIban?: SortOrderInput | SortOrder
+    sepaBic?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     locations?: LocationOrderByRelationAggregateInput
@@ -42315,6 +44661,9 @@ export namespace Prisma {
     logoUrl?: StringNullableFilter<"Organization"> | string | null
     primaryColor?: StringNullableFilter<"Organization"> | string | null
     secondaryColor?: StringNullableFilter<"Organization"> | string | null
+    sepaCreditorId?: StringNullableFilter<"Organization"> | string | null
+    sepaIban?: StringNullableFilter<"Organization"> | string | null
+    sepaBic?: StringNullableFilter<"Organization"> | string | null
     createdAt?: DateTimeFilter<"Organization"> | Date | string
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     locations?: LocationListRelationFilter
@@ -42335,6 +44684,9 @@ export namespace Prisma {
     logoUrl?: SortOrderInput | SortOrder
     primaryColor?: SortOrderInput | SortOrder
     secondaryColor?: SortOrderInput | SortOrder
+    sepaCreditorId?: SortOrderInput | SortOrder
+    sepaIban?: SortOrderInput | SortOrder
+    sepaBic?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: OrganizationCountOrderByAggregateInput
@@ -42352,6 +44704,9 @@ export namespace Prisma {
     logoUrl?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     primaryColor?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     secondaryColor?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    sepaCreditorId?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    sepaIban?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    sepaBic?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
   }
@@ -42369,11 +44724,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: DecimalNullableFilter<"Company"> | Decimal | DecimalJsLike | number | string | null
     validFrom?: DateTimeNullableFilter<"Company"> | Date | string | null
     validUntil?: DateTimeNullableFilter<"Company"> | Date | string | null
+    sepaIban?: StringNullableFilter<"Company"> | string | null
+    sepaBic?: StringNullableFilter<"Company"> | string | null
+    sepaMandateReference?: StringNullableFilter<"Company"> | string | null
+    sepaMandateDate?: DateTimeNullableFilter<"Company"> | Date | string | null
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     employees?: CompanyEmployeeListRelationFilter
     orders?: OrderListRelationFilter
     invoices?: CompanyInvoiceListRelationFilter
+    sepaSubmissions?: SepaSubmissionListRelationFilter
   }
 
   export type CompanyOrderByWithRelationInput = {
@@ -42386,11 +44746,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: SortOrderInput | SortOrder
     validFrom?: SortOrderInput | SortOrder
     validUntil?: SortOrderInput | SortOrder
+    sepaIban?: SortOrderInput | SortOrder
+    sepaBic?: SortOrderInput | SortOrder
+    sepaMandateReference?: SortOrderInput | SortOrder
+    sepaMandateDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     employees?: CompanyEmployeeOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
     invoices?: CompanyInvoiceOrderByRelationAggregateInput
+    sepaSubmissions?: SepaSubmissionOrderByRelationAggregateInput
   }
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -42406,11 +44771,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: DecimalNullableFilter<"Company"> | Decimal | DecimalJsLike | number | string | null
     validFrom?: DateTimeNullableFilter<"Company"> | Date | string | null
     validUntil?: DateTimeNullableFilter<"Company"> | Date | string | null
+    sepaIban?: StringNullableFilter<"Company"> | string | null
+    sepaBic?: StringNullableFilter<"Company"> | string | null
+    sepaMandateReference?: StringNullableFilter<"Company"> | string | null
+    sepaMandateDate?: DateTimeNullableFilter<"Company"> | Date | string | null
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     employees?: CompanyEmployeeListRelationFilter
     orders?: OrderListRelationFilter
     invoices?: CompanyInvoiceListRelationFilter
+    sepaSubmissions?: SepaSubmissionListRelationFilter
   }, "id">
 
   export type CompanyOrderByWithAggregationInput = {
@@ -42423,6 +44793,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: SortOrderInput | SortOrder
     validFrom?: SortOrderInput | SortOrder
     validUntil?: SortOrderInput | SortOrder
+    sepaIban?: SortOrderInput | SortOrder
+    sepaBic?: SortOrderInput | SortOrder
+    sepaMandateReference?: SortOrderInput | SortOrder
+    sepaMandateDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CompanyCountOrderByAggregateInput
@@ -42445,6 +44819,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: DecimalNullableWithAggregatesFilter<"Company"> | Decimal | DecimalJsLike | number | string | null
     validFrom?: DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
     validUntil?: DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
+    sepaIban?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    sepaBic?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    sepaMandateReference?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    sepaMandateDate?: DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
   }
@@ -42464,6 +44842,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CompanyInvoice"> | Date | string
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
     items?: CompanyInvoiceItemListRelationFilter
+    sepaSubmissions?: SepaSubmissionInvoiceListRelationFilter
   }
 
   export type CompanyInvoiceOrderByWithRelationInput = {
@@ -42478,6 +44857,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
     items?: CompanyInvoiceItemOrderByRelationAggregateInput
+    sepaSubmissions?: SepaSubmissionInvoiceOrderByRelationAggregateInput
   }
 
   export type CompanyInvoiceWhereUniqueInput = Prisma.AtLeast<{
@@ -42496,6 +44876,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CompanyInvoice"> | Date | string
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
     items?: CompanyInvoiceItemListRelationFilter
+    sepaSubmissions?: SepaSubmissionInvoiceListRelationFilter
   }, "id" | "companyId_year_month">
 
   export type CompanyInvoiceOrderByWithAggregationInput = {
@@ -42528,6 +44909,135 @@ export namespace Prisma {
     invoicedAt?: DateTimeNullableWithAggregatesFilter<"CompanyInvoice"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"CompanyInvoice"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CompanyInvoice"> | Date | string
+  }
+
+  export type SepaSubmissionWhereInput = {
+    AND?: SepaSubmissionWhereInput | SepaSubmissionWhereInput[]
+    OR?: SepaSubmissionWhereInput[]
+    NOT?: SepaSubmissionWhereInput | SepaSubmissionWhereInput[]
+    id?: StringFilter<"SepaSubmission"> | string
+    companyId?: StringFilter<"SepaSubmission"> | string
+    organizationId?: StringFilter<"SepaSubmission"> | string
+    generatedAt?: DateTimeFilter<"SepaSubmission"> | Date | string
+    totalAmount?: DecimalFilter<"SepaSubmission"> | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFilter<"SepaSubmission"> | Date | string
+    seqType?: StringFilter<"SepaSubmission"> | string
+    createdById?: StringFilter<"SepaSubmission"> | string
+    source?: StringFilter<"SepaSubmission"> | string
+    company?: XOR<CompanyRelationFilter, CompanyWhereInput>
+    invoices?: SepaSubmissionInvoiceListRelationFilter
+  }
+
+  export type SepaSubmissionOrderByWithRelationInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    organizationId?: SortOrder
+    generatedAt?: SortOrder
+    totalAmount?: SortOrder
+    dueDate?: SortOrder
+    seqType?: SortOrder
+    createdById?: SortOrder
+    source?: SortOrder
+    company?: CompanyOrderByWithRelationInput
+    invoices?: SepaSubmissionInvoiceOrderByRelationAggregateInput
+  }
+
+  export type SepaSubmissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SepaSubmissionWhereInput | SepaSubmissionWhereInput[]
+    OR?: SepaSubmissionWhereInput[]
+    NOT?: SepaSubmissionWhereInput | SepaSubmissionWhereInput[]
+    companyId?: StringFilter<"SepaSubmission"> | string
+    organizationId?: StringFilter<"SepaSubmission"> | string
+    generatedAt?: DateTimeFilter<"SepaSubmission"> | Date | string
+    totalAmount?: DecimalFilter<"SepaSubmission"> | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFilter<"SepaSubmission"> | Date | string
+    seqType?: StringFilter<"SepaSubmission"> | string
+    createdById?: StringFilter<"SepaSubmission"> | string
+    source?: StringFilter<"SepaSubmission"> | string
+    company?: XOR<CompanyRelationFilter, CompanyWhereInput>
+    invoices?: SepaSubmissionInvoiceListRelationFilter
+  }, "id">
+
+  export type SepaSubmissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    organizationId?: SortOrder
+    generatedAt?: SortOrder
+    totalAmount?: SortOrder
+    dueDate?: SortOrder
+    seqType?: SortOrder
+    createdById?: SortOrder
+    source?: SortOrder
+    _count?: SepaSubmissionCountOrderByAggregateInput
+    _avg?: SepaSubmissionAvgOrderByAggregateInput
+    _max?: SepaSubmissionMaxOrderByAggregateInput
+    _min?: SepaSubmissionMinOrderByAggregateInput
+    _sum?: SepaSubmissionSumOrderByAggregateInput
+  }
+
+  export type SepaSubmissionScalarWhereWithAggregatesInput = {
+    AND?: SepaSubmissionScalarWhereWithAggregatesInput | SepaSubmissionScalarWhereWithAggregatesInput[]
+    OR?: SepaSubmissionScalarWhereWithAggregatesInput[]
+    NOT?: SepaSubmissionScalarWhereWithAggregatesInput | SepaSubmissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SepaSubmission"> | string
+    companyId?: StringWithAggregatesFilter<"SepaSubmission"> | string
+    organizationId?: StringWithAggregatesFilter<"SepaSubmission"> | string
+    generatedAt?: DateTimeWithAggregatesFilter<"SepaSubmission"> | Date | string
+    totalAmount?: DecimalWithAggregatesFilter<"SepaSubmission"> | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeWithAggregatesFilter<"SepaSubmission"> | Date | string
+    seqType?: StringWithAggregatesFilter<"SepaSubmission"> | string
+    createdById?: StringWithAggregatesFilter<"SepaSubmission"> | string
+    source?: StringWithAggregatesFilter<"SepaSubmission"> | string
+  }
+
+  export type SepaSubmissionInvoiceWhereInput = {
+    AND?: SepaSubmissionInvoiceWhereInput | SepaSubmissionInvoiceWhereInput[]
+    OR?: SepaSubmissionInvoiceWhereInput[]
+    NOT?: SepaSubmissionInvoiceWhereInput | SepaSubmissionInvoiceWhereInput[]
+    id?: StringFilter<"SepaSubmissionInvoice"> | string
+    sepaSubmissionId?: StringFilter<"SepaSubmissionInvoice"> | string
+    companyInvoiceId?: StringFilter<"SepaSubmissionInvoice"> | string
+    sepaSubmission?: XOR<SepaSubmissionRelationFilter, SepaSubmissionWhereInput>
+    companyInvoice?: XOR<CompanyInvoiceRelationFilter, CompanyInvoiceWhereInput>
+  }
+
+  export type SepaSubmissionInvoiceOrderByWithRelationInput = {
+    id?: SortOrder
+    sepaSubmissionId?: SortOrder
+    companyInvoiceId?: SortOrder
+    sepaSubmission?: SepaSubmissionOrderByWithRelationInput
+    companyInvoice?: CompanyInvoiceOrderByWithRelationInput
+  }
+
+  export type SepaSubmissionInvoiceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    sepaSubmissionId_companyInvoiceId?: SepaSubmissionInvoiceSepaSubmissionIdCompanyInvoiceIdCompoundUniqueInput
+    AND?: SepaSubmissionInvoiceWhereInput | SepaSubmissionInvoiceWhereInput[]
+    OR?: SepaSubmissionInvoiceWhereInput[]
+    NOT?: SepaSubmissionInvoiceWhereInput | SepaSubmissionInvoiceWhereInput[]
+    sepaSubmissionId?: StringFilter<"SepaSubmissionInvoice"> | string
+    companyInvoiceId?: StringFilter<"SepaSubmissionInvoice"> | string
+    sepaSubmission?: XOR<SepaSubmissionRelationFilter, SepaSubmissionWhereInput>
+    companyInvoice?: XOR<CompanyInvoiceRelationFilter, CompanyInvoiceWhereInput>
+  }, "id" | "sepaSubmissionId_companyInvoiceId">
+
+  export type SepaSubmissionInvoiceOrderByWithAggregationInput = {
+    id?: SortOrder
+    sepaSubmissionId?: SortOrder
+    companyInvoiceId?: SortOrder
+    _count?: SepaSubmissionInvoiceCountOrderByAggregateInput
+    _max?: SepaSubmissionInvoiceMaxOrderByAggregateInput
+    _min?: SepaSubmissionInvoiceMinOrderByAggregateInput
+  }
+
+  export type SepaSubmissionInvoiceScalarWhereWithAggregatesInput = {
+    AND?: SepaSubmissionInvoiceScalarWhereWithAggregatesInput | SepaSubmissionInvoiceScalarWhereWithAggregatesInput[]
+    OR?: SepaSubmissionInvoiceScalarWhereWithAggregatesInput[]
+    NOT?: SepaSubmissionInvoiceScalarWhereWithAggregatesInput | SepaSubmissionInvoiceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SepaSubmissionInvoice"> | string
+    sepaSubmissionId?: StringWithAggregatesFilter<"SepaSubmissionInvoice"> | string
+    companyInvoiceId?: StringWithAggregatesFilter<"SepaSubmissionInvoice"> | string
   }
 
   export type CompanyInvoiceItemWhereInput = {
@@ -45218,6 +47728,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -45238,6 +47751,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -45258,6 +47774,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -45278,6 +47797,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -45298,6 +47820,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -45309,6 +47834,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -45320,6 +47848,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -45334,11 +47865,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: CompanyEmployeeCreateNestedManyWithoutCompanyInput
     orders?: OrderCreateNestedManyWithoutEmployerCompanyInput
     invoices?: CompanyInvoiceCreateNestedManyWithoutCompanyInput
+    sepaSubmissions?: SepaSubmissionCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateInput = {
@@ -45351,11 +47887,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: CompanyEmployeeUncheckedCreateNestedManyWithoutCompanyInput
     orders?: OrderUncheckedCreateNestedManyWithoutEmployerCompanyInput
     invoices?: CompanyInvoiceUncheckedCreateNestedManyWithoutCompanyInput
+    sepaSubmissions?: SepaSubmissionUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUpdateInput = {
@@ -45368,11 +47909,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: CompanyEmployeeUpdateManyWithoutCompanyNestedInput
     orders?: OrderUpdateManyWithoutEmployerCompanyNestedInput
     invoices?: CompanyInvoiceUpdateManyWithoutCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateInput = {
@@ -45385,11 +47931,16 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: CompanyEmployeeUncheckedUpdateManyWithoutCompanyNestedInput
     orders?: OrderUncheckedUpdateManyWithoutEmployerCompanyNestedInput
     invoices?: CompanyInvoiceUncheckedUpdateManyWithoutCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyCreateManyInput = {
@@ -45402,6 +47953,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -45416,6 +47971,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -45430,6 +47989,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -45445,6 +48008,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutInvoicesInput
     items?: CompanyInvoiceItemCreateNestedManyWithoutCompanyInvoiceInput
+    sepaSubmissions?: SepaSubmissionInvoiceCreateNestedManyWithoutCompanyInvoiceInput
   }
 
   export type CompanyInvoiceUncheckedCreateInput = {
@@ -45458,6 +48022,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: CompanyInvoiceItemUncheckedCreateNestedManyWithoutCompanyInvoiceInput
+    sepaSubmissions?: SepaSubmissionInvoiceUncheckedCreateNestedManyWithoutCompanyInvoiceInput
   }
 
   export type CompanyInvoiceUpdateInput = {
@@ -45471,6 +48036,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutInvoicesNestedInput
     items?: CompanyInvoiceItemUpdateManyWithoutCompanyInvoiceNestedInput
+    sepaSubmissions?: SepaSubmissionInvoiceUpdateManyWithoutCompanyInvoiceNestedInput
   }
 
   export type CompanyInvoiceUncheckedUpdateInput = {
@@ -45484,6 +48050,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: CompanyInvoiceItemUncheckedUpdateManyWithoutCompanyInvoiceNestedInput
+    sepaSubmissions?: SepaSubmissionInvoiceUncheckedUpdateManyWithoutCompanyInvoiceNestedInput
   }
 
   export type CompanyInvoiceCreateManyInput = {
@@ -45519,6 +48086,133 @@ export namespace Prisma {
     invoicedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SepaSubmissionCreateInput = {
+    id?: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+    company: CompanyCreateNestedOneWithoutSepaSubmissionsInput
+    invoices?: SepaSubmissionInvoiceCreateNestedManyWithoutSepaSubmissionInput
+  }
+
+  export type SepaSubmissionUncheckedCreateInput = {
+    id?: string
+    companyId: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+    invoices?: SepaSubmissionInvoiceUncheckedCreateNestedManyWithoutSepaSubmissionInput
+  }
+
+  export type SepaSubmissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    company?: CompanyUpdateOneRequiredWithoutSepaSubmissionsNestedInput
+    invoices?: SepaSubmissionInvoiceUpdateManyWithoutSepaSubmissionNestedInput
+  }
+
+  export type SepaSubmissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    invoices?: SepaSubmissionInvoiceUncheckedUpdateManyWithoutSepaSubmissionNestedInput
+  }
+
+  export type SepaSubmissionCreateManyInput = {
+    id?: string
+    companyId: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+  }
+
+  export type SepaSubmissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SepaSubmissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SepaSubmissionInvoiceCreateInput = {
+    id?: string
+    sepaSubmission: SepaSubmissionCreateNestedOneWithoutInvoicesInput
+    companyInvoice: CompanyInvoiceCreateNestedOneWithoutSepaSubmissionsInput
+  }
+
+  export type SepaSubmissionInvoiceUncheckedCreateInput = {
+    id?: string
+    sepaSubmissionId: string
+    companyInvoiceId: string
+  }
+
+  export type SepaSubmissionInvoiceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sepaSubmission?: SepaSubmissionUpdateOneRequiredWithoutInvoicesNestedInput
+    companyInvoice?: CompanyInvoiceUpdateOneRequiredWithoutSepaSubmissionsNestedInput
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sepaSubmissionId?: StringFieldUpdateOperationsInput | string
+    companyInvoiceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SepaSubmissionInvoiceCreateManyInput = {
+    id?: string
+    sepaSubmissionId: string
+    companyInvoiceId: string
+  }
+
+  export type SepaSubmissionInvoiceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sepaSubmissionId?: StringFieldUpdateOperationsInput | string
+    companyInvoiceId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CompanyInvoiceItemCreateInput = {
@@ -48529,6 +51223,9 @@ export namespace Prisma {
     logoUrl?: SortOrder
     primaryColor?: SortOrder
     secondaryColor?: SortOrder
+    sepaCreditorId?: SortOrder
+    sepaIban?: SortOrder
+    sepaBic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -48540,6 +51237,9 @@ export namespace Prisma {
     logoUrl?: SortOrder
     primaryColor?: SortOrder
     secondaryColor?: SortOrder
+    sepaCreditorId?: SortOrder
+    sepaIban?: SortOrder
+    sepaBic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -48551,6 +51251,9 @@ export namespace Prisma {
     logoUrl?: SortOrder
     primaryColor?: SortOrder
     secondaryColor?: SortOrder
+    sepaCreditorId?: SortOrder
+    sepaIban?: SortOrder
+    sepaBic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -48657,6 +51360,12 @@ export namespace Prisma {
     none?: CompanyInvoiceWhereInput
   }
 
+  export type SepaSubmissionListRelationFilter = {
+    every?: SepaSubmissionWhereInput
+    some?: SepaSubmissionWhereInput
+    none?: SepaSubmissionWhereInput
+  }
+
   export type CompanyEmployeeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -48666,6 +51375,10 @@ export namespace Prisma {
   }
 
   export type CompanyInvoiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SepaSubmissionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -48679,6 +51392,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: SortOrder
     validFrom?: SortOrder
     validUntil?: SortOrder
+    sepaIban?: SortOrder
+    sepaBic?: SortOrder
+    sepaMandateReference?: SortOrder
+    sepaMandateDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -48698,6 +51415,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: SortOrder
     validFrom?: SortOrder
     validUntil?: SortOrder
+    sepaIban?: SortOrder
+    sepaBic?: SortOrder
+    sepaMandateReference?: SortOrder
+    sepaMandateDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -48712,6 +51433,10 @@ export namespace Prisma {
     subsidyMaxPerDay?: SortOrder
     validFrom?: SortOrder
     validUntil?: SortOrder
+    sepaIban?: SortOrder
+    sepaBic?: SortOrder
+    sepaMandateReference?: SortOrder
+    sepaMandateDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -48802,7 +51527,17 @@ export namespace Prisma {
     none?: CompanyInvoiceItemWhereInput
   }
 
+  export type SepaSubmissionInvoiceListRelationFilter = {
+    every?: SepaSubmissionInvoiceWhereInput
+    some?: SepaSubmissionInvoiceWhereInput
+    none?: SepaSubmissionInvoiceWhereInput
+  }
+
   export type CompanyInvoiceItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SepaSubmissionInvoiceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -48892,9 +51627,81 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type SepaSubmissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    organizationId?: SortOrder
+    generatedAt?: SortOrder
+    totalAmount?: SortOrder
+    dueDate?: SortOrder
+    seqType?: SortOrder
+    createdById?: SortOrder
+    source?: SortOrder
+  }
+
+  export type SepaSubmissionAvgOrderByAggregateInput = {
+    totalAmount?: SortOrder
+  }
+
+  export type SepaSubmissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    organizationId?: SortOrder
+    generatedAt?: SortOrder
+    totalAmount?: SortOrder
+    dueDate?: SortOrder
+    seqType?: SortOrder
+    createdById?: SortOrder
+    source?: SortOrder
+  }
+
+  export type SepaSubmissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    organizationId?: SortOrder
+    generatedAt?: SortOrder
+    totalAmount?: SortOrder
+    dueDate?: SortOrder
+    seqType?: SortOrder
+    createdById?: SortOrder
+    source?: SortOrder
+  }
+
+  export type SepaSubmissionSumOrderByAggregateInput = {
+    totalAmount?: SortOrder
+  }
+
+  export type SepaSubmissionRelationFilter = {
+    is?: SepaSubmissionWhereInput
+    isNot?: SepaSubmissionWhereInput
+  }
+
   export type CompanyInvoiceRelationFilter = {
     is?: CompanyInvoiceWhereInput
     isNot?: CompanyInvoiceWhereInput
+  }
+
+  export type SepaSubmissionInvoiceSepaSubmissionIdCompanyInvoiceIdCompoundUniqueInput = {
+    sepaSubmissionId: string
+    companyInvoiceId: string
+  }
+
+  export type SepaSubmissionInvoiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    sepaSubmissionId?: SortOrder
+    companyInvoiceId?: SortOrder
+  }
+
+  export type SepaSubmissionInvoiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    sepaSubmissionId?: SortOrder
+    companyInvoiceId?: SortOrder
+  }
+
+  export type SepaSubmissionInvoiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    sepaSubmissionId?: SortOrder
+    companyInvoiceId?: SortOrder
   }
 
   export type CompanyInvoiceItemCountOrderByAggregateInput = {
@@ -51283,6 +54090,13 @@ export namespace Prisma {
     connect?: CompanyInvoiceWhereUniqueInput | CompanyInvoiceWhereUniqueInput[]
   }
 
+  export type SepaSubmissionCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<SepaSubmissionCreateWithoutCompanyInput, SepaSubmissionUncheckedCreateWithoutCompanyInput> | SepaSubmissionCreateWithoutCompanyInput[] | SepaSubmissionUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SepaSubmissionCreateOrConnectWithoutCompanyInput | SepaSubmissionCreateOrConnectWithoutCompanyInput[]
+    createMany?: SepaSubmissionCreateManyCompanyInputEnvelope
+    connect?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+  }
+
   export type CompanyEmployeeUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: XOR<CompanyEmployeeCreateWithoutCompanyInput, CompanyEmployeeUncheckedCreateWithoutCompanyInput> | CompanyEmployeeCreateWithoutCompanyInput[] | CompanyEmployeeUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: CompanyEmployeeCreateOrConnectWithoutCompanyInput | CompanyEmployeeCreateOrConnectWithoutCompanyInput[]
@@ -51302,6 +54116,13 @@ export namespace Prisma {
     connectOrCreate?: CompanyInvoiceCreateOrConnectWithoutCompanyInput | CompanyInvoiceCreateOrConnectWithoutCompanyInput[]
     createMany?: CompanyInvoiceCreateManyCompanyInputEnvelope
     connect?: CompanyInvoiceWhereUniqueInput | CompanyInvoiceWhereUniqueInput[]
+  }
+
+  export type SepaSubmissionUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<SepaSubmissionCreateWithoutCompanyInput, SepaSubmissionUncheckedCreateWithoutCompanyInput> | SepaSubmissionCreateWithoutCompanyInput[] | SepaSubmissionUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SepaSubmissionCreateOrConnectWithoutCompanyInput | SepaSubmissionCreateOrConnectWithoutCompanyInput[]
+    createMany?: SepaSubmissionCreateManyCompanyInputEnvelope
+    connect?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -51366,6 +54187,20 @@ export namespace Prisma {
     deleteMany?: CompanyInvoiceScalarWhereInput | CompanyInvoiceScalarWhereInput[]
   }
 
+  export type SepaSubmissionUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<SepaSubmissionCreateWithoutCompanyInput, SepaSubmissionUncheckedCreateWithoutCompanyInput> | SepaSubmissionCreateWithoutCompanyInput[] | SepaSubmissionUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SepaSubmissionCreateOrConnectWithoutCompanyInput | SepaSubmissionCreateOrConnectWithoutCompanyInput[]
+    upsert?: SepaSubmissionUpsertWithWhereUniqueWithoutCompanyInput | SepaSubmissionUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: SepaSubmissionCreateManyCompanyInputEnvelope
+    set?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    disconnect?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    delete?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    connect?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    update?: SepaSubmissionUpdateWithWhereUniqueWithoutCompanyInput | SepaSubmissionUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: SepaSubmissionUpdateManyWithWhereWithoutCompanyInput | SepaSubmissionUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: SepaSubmissionScalarWhereInput | SepaSubmissionScalarWhereInput[]
+  }
+
   export type CompanyEmployeeUncheckedUpdateManyWithoutCompanyNestedInput = {
     create?: XOR<CompanyEmployeeCreateWithoutCompanyInput, CompanyEmployeeUncheckedCreateWithoutCompanyInput> | CompanyEmployeeCreateWithoutCompanyInput[] | CompanyEmployeeUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: CompanyEmployeeCreateOrConnectWithoutCompanyInput | CompanyEmployeeCreateOrConnectWithoutCompanyInput[]
@@ -51408,6 +54243,20 @@ export namespace Prisma {
     deleteMany?: CompanyInvoiceScalarWhereInput | CompanyInvoiceScalarWhereInput[]
   }
 
+  export type SepaSubmissionUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<SepaSubmissionCreateWithoutCompanyInput, SepaSubmissionUncheckedCreateWithoutCompanyInput> | SepaSubmissionCreateWithoutCompanyInput[] | SepaSubmissionUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: SepaSubmissionCreateOrConnectWithoutCompanyInput | SepaSubmissionCreateOrConnectWithoutCompanyInput[]
+    upsert?: SepaSubmissionUpsertWithWhereUniqueWithoutCompanyInput | SepaSubmissionUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: SepaSubmissionCreateManyCompanyInputEnvelope
+    set?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    disconnect?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    delete?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    connect?: SepaSubmissionWhereUniqueInput | SepaSubmissionWhereUniqueInput[]
+    update?: SepaSubmissionUpdateWithWhereUniqueWithoutCompanyInput | SepaSubmissionUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: SepaSubmissionUpdateManyWithWhereWithoutCompanyInput | SepaSubmissionUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: SepaSubmissionScalarWhereInput | SepaSubmissionScalarWhereInput[]
+  }
+
   export type CompanyCreateNestedOneWithoutInvoicesInput = {
     create?: XOR<CompanyCreateWithoutInvoicesInput, CompanyUncheckedCreateWithoutInvoicesInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutInvoicesInput
@@ -51421,11 +54270,25 @@ export namespace Prisma {
     connect?: CompanyInvoiceItemWhereUniqueInput | CompanyInvoiceItemWhereUniqueInput[]
   }
 
+  export type SepaSubmissionInvoiceCreateNestedManyWithoutCompanyInvoiceInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput> | SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput | SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput[]
+    createMany?: SepaSubmissionInvoiceCreateManyCompanyInvoiceInputEnvelope
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+  }
+
   export type CompanyInvoiceItemUncheckedCreateNestedManyWithoutCompanyInvoiceInput = {
     create?: XOR<CompanyInvoiceItemCreateWithoutCompanyInvoiceInput, CompanyInvoiceItemUncheckedCreateWithoutCompanyInvoiceInput> | CompanyInvoiceItemCreateWithoutCompanyInvoiceInput[] | CompanyInvoiceItemUncheckedCreateWithoutCompanyInvoiceInput[]
     connectOrCreate?: CompanyInvoiceItemCreateOrConnectWithoutCompanyInvoiceInput | CompanyInvoiceItemCreateOrConnectWithoutCompanyInvoiceInput[]
     createMany?: CompanyInvoiceItemCreateManyCompanyInvoiceInputEnvelope
     connect?: CompanyInvoiceItemWhereUniqueInput | CompanyInvoiceItemWhereUniqueInput[]
+  }
+
+  export type SepaSubmissionInvoiceUncheckedCreateNestedManyWithoutCompanyInvoiceInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput> | SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput | SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput[]
+    createMany?: SepaSubmissionInvoiceCreateManyCompanyInvoiceInputEnvelope
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -51466,6 +54329,20 @@ export namespace Prisma {
     deleteMany?: CompanyInvoiceItemScalarWhereInput | CompanyInvoiceItemScalarWhereInput[]
   }
 
+  export type SepaSubmissionInvoiceUpdateManyWithoutCompanyInvoiceNestedInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput> | SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput | SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput[]
+    upsert?: SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutCompanyInvoiceInput | SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutCompanyInvoiceInput[]
+    createMany?: SepaSubmissionInvoiceCreateManyCompanyInvoiceInputEnvelope
+    set?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    disconnect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    delete?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    update?: SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutCompanyInvoiceInput | SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutCompanyInvoiceInput[]
+    updateMany?: SepaSubmissionInvoiceUpdateManyWithWhereWithoutCompanyInvoiceInput | SepaSubmissionInvoiceUpdateManyWithWhereWithoutCompanyInvoiceInput[]
+    deleteMany?: SepaSubmissionInvoiceScalarWhereInput | SepaSubmissionInvoiceScalarWhereInput[]
+  }
+
   export type CompanyInvoiceItemUncheckedUpdateManyWithoutCompanyInvoiceNestedInput = {
     create?: XOR<CompanyInvoiceItemCreateWithoutCompanyInvoiceInput, CompanyInvoiceItemUncheckedCreateWithoutCompanyInvoiceInput> | CompanyInvoiceItemCreateWithoutCompanyInvoiceInput[] | CompanyInvoiceItemUncheckedCreateWithoutCompanyInvoiceInput[]
     connectOrCreate?: CompanyInvoiceItemCreateOrConnectWithoutCompanyInvoiceInput | CompanyInvoiceItemCreateOrConnectWithoutCompanyInvoiceInput[]
@@ -51478,6 +54355,104 @@ export namespace Prisma {
     update?: CompanyInvoiceItemUpdateWithWhereUniqueWithoutCompanyInvoiceInput | CompanyInvoiceItemUpdateWithWhereUniqueWithoutCompanyInvoiceInput[]
     updateMany?: CompanyInvoiceItemUpdateManyWithWhereWithoutCompanyInvoiceInput | CompanyInvoiceItemUpdateManyWithWhereWithoutCompanyInvoiceInput[]
     deleteMany?: CompanyInvoiceItemScalarWhereInput | CompanyInvoiceItemScalarWhereInput[]
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateManyWithoutCompanyInvoiceNestedInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput> | SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput | SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput[]
+    upsert?: SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutCompanyInvoiceInput | SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutCompanyInvoiceInput[]
+    createMany?: SepaSubmissionInvoiceCreateManyCompanyInvoiceInputEnvelope
+    set?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    disconnect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    delete?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    update?: SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutCompanyInvoiceInput | SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutCompanyInvoiceInput[]
+    updateMany?: SepaSubmissionInvoiceUpdateManyWithWhereWithoutCompanyInvoiceInput | SepaSubmissionInvoiceUpdateManyWithWhereWithoutCompanyInvoiceInput[]
+    deleteMany?: SepaSubmissionInvoiceScalarWhereInput | SepaSubmissionInvoiceScalarWhereInput[]
+  }
+
+  export type CompanyCreateNestedOneWithoutSepaSubmissionsInput = {
+    create?: XOR<CompanyCreateWithoutSepaSubmissionsInput, CompanyUncheckedCreateWithoutSepaSubmissionsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutSepaSubmissionsInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type SepaSubmissionInvoiceCreateNestedManyWithoutSepaSubmissionInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput> | SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput | SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput[]
+    createMany?: SepaSubmissionInvoiceCreateManySepaSubmissionInputEnvelope
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+  }
+
+  export type SepaSubmissionInvoiceUncheckedCreateNestedManyWithoutSepaSubmissionInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput> | SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput | SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput[]
+    createMany?: SepaSubmissionInvoiceCreateManySepaSubmissionInputEnvelope
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+  }
+
+  export type CompanyUpdateOneRequiredWithoutSepaSubmissionsNestedInput = {
+    create?: XOR<CompanyCreateWithoutSepaSubmissionsInput, CompanyUncheckedCreateWithoutSepaSubmissionsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutSepaSubmissionsInput
+    upsert?: CompanyUpsertWithoutSepaSubmissionsInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutSepaSubmissionsInput, CompanyUpdateWithoutSepaSubmissionsInput>, CompanyUncheckedUpdateWithoutSepaSubmissionsInput>
+  }
+
+  export type SepaSubmissionInvoiceUpdateManyWithoutSepaSubmissionNestedInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput> | SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput | SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput[]
+    upsert?: SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutSepaSubmissionInput | SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutSepaSubmissionInput[]
+    createMany?: SepaSubmissionInvoiceCreateManySepaSubmissionInputEnvelope
+    set?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    disconnect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    delete?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    update?: SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutSepaSubmissionInput | SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutSepaSubmissionInput[]
+    updateMany?: SepaSubmissionInvoiceUpdateManyWithWhereWithoutSepaSubmissionInput | SepaSubmissionInvoiceUpdateManyWithWhereWithoutSepaSubmissionInput[]
+    deleteMany?: SepaSubmissionInvoiceScalarWhereInput | SepaSubmissionInvoiceScalarWhereInput[]
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateManyWithoutSepaSubmissionNestedInput = {
+    create?: XOR<SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput> | SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput[] | SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput[]
+    connectOrCreate?: SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput | SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput[]
+    upsert?: SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutSepaSubmissionInput | SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutSepaSubmissionInput[]
+    createMany?: SepaSubmissionInvoiceCreateManySepaSubmissionInputEnvelope
+    set?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    disconnect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    delete?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    connect?: SepaSubmissionInvoiceWhereUniqueInput | SepaSubmissionInvoiceWhereUniqueInput[]
+    update?: SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutSepaSubmissionInput | SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutSepaSubmissionInput[]
+    updateMany?: SepaSubmissionInvoiceUpdateManyWithWhereWithoutSepaSubmissionInput | SepaSubmissionInvoiceUpdateManyWithWhereWithoutSepaSubmissionInput[]
+    deleteMany?: SepaSubmissionInvoiceScalarWhereInput | SepaSubmissionInvoiceScalarWhereInput[]
+  }
+
+  export type SepaSubmissionCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<SepaSubmissionCreateWithoutInvoicesInput, SepaSubmissionUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: SepaSubmissionCreateOrConnectWithoutInvoicesInput
+    connect?: SepaSubmissionWhereUniqueInput
+  }
+
+  export type CompanyInvoiceCreateNestedOneWithoutSepaSubmissionsInput = {
+    create?: XOR<CompanyInvoiceCreateWithoutSepaSubmissionsInput, CompanyInvoiceUncheckedCreateWithoutSepaSubmissionsInput>
+    connectOrCreate?: CompanyInvoiceCreateOrConnectWithoutSepaSubmissionsInput
+    connect?: CompanyInvoiceWhereUniqueInput
+  }
+
+  export type SepaSubmissionUpdateOneRequiredWithoutInvoicesNestedInput = {
+    create?: XOR<SepaSubmissionCreateWithoutInvoicesInput, SepaSubmissionUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: SepaSubmissionCreateOrConnectWithoutInvoicesInput
+    upsert?: SepaSubmissionUpsertWithoutInvoicesInput
+    connect?: SepaSubmissionWhereUniqueInput
+    update?: XOR<XOR<SepaSubmissionUpdateToOneWithWhereWithoutInvoicesInput, SepaSubmissionUpdateWithoutInvoicesInput>, SepaSubmissionUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type CompanyInvoiceUpdateOneRequiredWithoutSepaSubmissionsNestedInput = {
+    create?: XOR<CompanyInvoiceCreateWithoutSepaSubmissionsInput, CompanyInvoiceUncheckedCreateWithoutSepaSubmissionsInput>
+    connectOrCreate?: CompanyInvoiceCreateOrConnectWithoutSepaSubmissionsInput
+    upsert?: CompanyInvoiceUpsertWithoutSepaSubmissionsInput
+    connect?: CompanyInvoiceWhereUniqueInput
+    update?: XOR<XOR<CompanyInvoiceUpdateToOneWithWhereWithoutSepaSubmissionsInput, CompanyInvoiceUpdateWithoutSepaSubmissionsInput>, CompanyInvoiceUncheckedUpdateWithoutSepaSubmissionsInput>
   }
 
   export type CompanyInvoiceCreateNestedOneWithoutItemsInput = {
@@ -55362,6 +58337,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: CompanyInvoiceItemCreateNestedManyWithoutCompanyInvoiceInput
+    sepaSubmissions?: SepaSubmissionInvoiceCreateNestedManyWithoutCompanyInvoiceInput
   }
 
   export type CompanyInvoiceUncheckedCreateWithoutCompanyInput = {
@@ -55374,6 +58350,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: CompanyInvoiceItemUncheckedCreateNestedManyWithoutCompanyInvoiceInput
+    sepaSubmissions?: SepaSubmissionInvoiceUncheckedCreateNestedManyWithoutCompanyInvoiceInput
   }
 
   export type CompanyInvoiceCreateOrConnectWithoutCompanyInput = {
@@ -55383,6 +58360,40 @@ export namespace Prisma {
 
   export type CompanyInvoiceCreateManyCompanyInputEnvelope = {
     data: CompanyInvoiceCreateManyCompanyInput | CompanyInvoiceCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SepaSubmissionCreateWithoutCompanyInput = {
+    id?: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+    invoices?: SepaSubmissionInvoiceCreateNestedManyWithoutSepaSubmissionInput
+  }
+
+  export type SepaSubmissionUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+    invoices?: SepaSubmissionInvoiceUncheckedCreateNestedManyWithoutSepaSubmissionInput
+  }
+
+  export type SepaSubmissionCreateOrConnectWithoutCompanyInput = {
+    where: SepaSubmissionWhereUniqueInput
+    create: XOR<SepaSubmissionCreateWithoutCompanyInput, SepaSubmissionUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type SepaSubmissionCreateManyCompanyInputEnvelope = {
+    data: SepaSubmissionCreateManyCompanyInput | SepaSubmissionCreateManyCompanyInput[]
     skipDuplicates?: boolean
   }
 
@@ -55490,6 +58501,37 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CompanyInvoice"> | Date | string
   }
 
+  export type SepaSubmissionUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: SepaSubmissionWhereUniqueInput
+    update: XOR<SepaSubmissionUpdateWithoutCompanyInput, SepaSubmissionUncheckedUpdateWithoutCompanyInput>
+    create: XOR<SepaSubmissionCreateWithoutCompanyInput, SepaSubmissionUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type SepaSubmissionUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: SepaSubmissionWhereUniqueInput
+    data: XOR<SepaSubmissionUpdateWithoutCompanyInput, SepaSubmissionUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type SepaSubmissionUpdateManyWithWhereWithoutCompanyInput = {
+    where: SepaSubmissionScalarWhereInput
+    data: XOR<SepaSubmissionUpdateManyMutationInput, SepaSubmissionUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type SepaSubmissionScalarWhereInput = {
+    AND?: SepaSubmissionScalarWhereInput | SepaSubmissionScalarWhereInput[]
+    OR?: SepaSubmissionScalarWhereInput[]
+    NOT?: SepaSubmissionScalarWhereInput | SepaSubmissionScalarWhereInput[]
+    id?: StringFilter<"SepaSubmission"> | string
+    companyId?: StringFilter<"SepaSubmission"> | string
+    organizationId?: StringFilter<"SepaSubmission"> | string
+    generatedAt?: DateTimeFilter<"SepaSubmission"> | Date | string
+    totalAmount?: DecimalFilter<"SepaSubmission"> | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFilter<"SepaSubmission"> | Date | string
+    seqType?: StringFilter<"SepaSubmission"> | string
+    createdById?: StringFilter<"SepaSubmission"> | string
+    source?: StringFilter<"SepaSubmission"> | string
+  }
+
   export type CompanyCreateWithoutInvoicesInput = {
     id?: string
     name: string
@@ -55500,10 +58542,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: CompanyEmployeeCreateNestedManyWithoutCompanyInput
     orders?: OrderCreateNestedManyWithoutEmployerCompanyInput
+    sepaSubmissions?: SepaSubmissionCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutInvoicesInput = {
@@ -55516,10 +58563,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: CompanyEmployeeUncheckedCreateNestedManyWithoutCompanyInput
     orders?: OrderUncheckedCreateNestedManyWithoutEmployerCompanyInput
+    sepaSubmissions?: SepaSubmissionUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutInvoicesInput = {
@@ -55555,6 +58607,26 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput = {
+    id?: string
+    sepaSubmission: SepaSubmissionCreateNestedOneWithoutInvoicesInput
+  }
+
+  export type SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput = {
+    id?: string
+    sepaSubmissionId: string
+  }
+
+  export type SepaSubmissionInvoiceCreateOrConnectWithoutCompanyInvoiceInput = {
+    where: SepaSubmissionInvoiceWhereUniqueInput
+    create: XOR<SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput>
+  }
+
+  export type SepaSubmissionInvoiceCreateManyCompanyInvoiceInputEnvelope = {
+    data: SepaSubmissionInvoiceCreateManyCompanyInvoiceInput | SepaSubmissionInvoiceCreateManyCompanyInvoiceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CompanyUpsertWithoutInvoicesInput = {
     update: XOR<CompanyUpdateWithoutInvoicesInput, CompanyUncheckedUpdateWithoutInvoicesInput>
     create: XOR<CompanyCreateWithoutInvoicesInput, CompanyUncheckedCreateWithoutInvoicesInput>
@@ -55576,10 +58648,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: CompanyEmployeeUpdateManyWithoutCompanyNestedInput
     orders?: OrderUpdateManyWithoutEmployerCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutInvoicesInput = {
@@ -55592,10 +58669,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: CompanyEmployeeUncheckedUpdateManyWithoutCompanyNestedInput
     orders?: OrderUncheckedUpdateManyWithoutEmployerCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyInvoiceItemUpsertWithWhereUniqueWithoutCompanyInvoiceInput = {
@@ -55627,6 +58709,299 @@ export namespace Prisma {
     amount?: DecimalFilter<"CompanyInvoiceItem"> | Decimal | DecimalJsLike | number | string
   }
 
+  export type SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutCompanyInvoiceInput = {
+    where: SepaSubmissionInvoiceWhereUniqueInput
+    update: XOR<SepaSubmissionInvoiceUpdateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedUpdateWithoutCompanyInvoiceInput>
+    create: XOR<SepaSubmissionInvoiceCreateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedCreateWithoutCompanyInvoiceInput>
+  }
+
+  export type SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutCompanyInvoiceInput = {
+    where: SepaSubmissionInvoiceWhereUniqueInput
+    data: XOR<SepaSubmissionInvoiceUpdateWithoutCompanyInvoiceInput, SepaSubmissionInvoiceUncheckedUpdateWithoutCompanyInvoiceInput>
+  }
+
+  export type SepaSubmissionInvoiceUpdateManyWithWhereWithoutCompanyInvoiceInput = {
+    where: SepaSubmissionInvoiceScalarWhereInput
+    data: XOR<SepaSubmissionInvoiceUpdateManyMutationInput, SepaSubmissionInvoiceUncheckedUpdateManyWithoutCompanyInvoiceInput>
+  }
+
+  export type SepaSubmissionInvoiceScalarWhereInput = {
+    AND?: SepaSubmissionInvoiceScalarWhereInput | SepaSubmissionInvoiceScalarWhereInput[]
+    OR?: SepaSubmissionInvoiceScalarWhereInput[]
+    NOT?: SepaSubmissionInvoiceScalarWhereInput | SepaSubmissionInvoiceScalarWhereInput[]
+    id?: StringFilter<"SepaSubmissionInvoice"> | string
+    sepaSubmissionId?: StringFilter<"SepaSubmissionInvoice"> | string
+    companyInvoiceId?: StringFilter<"SepaSubmissionInvoice"> | string
+  }
+
+  export type CompanyCreateWithoutSepaSubmissionsInput = {
+    id?: string
+    name: string
+    contractNumber?: string | null
+    isActive?: boolean
+    subsidyType?: $Enums.SubsidyType
+    subsidyValue?: Decimal | DecimalJsLike | number | string | null
+    subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
+    validFrom?: Date | string | null
+    validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employees?: CompanyEmployeeCreateNestedManyWithoutCompanyInput
+    orders?: OrderCreateNestedManyWithoutEmployerCompanyInput
+    invoices?: CompanyInvoiceCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutSepaSubmissionsInput = {
+    id?: string
+    name: string
+    contractNumber?: string | null
+    isActive?: boolean
+    subsidyType?: $Enums.SubsidyType
+    subsidyValue?: Decimal | DecimalJsLike | number | string | null
+    subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
+    validFrom?: Date | string | null
+    validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employees?: CompanyEmployeeUncheckedCreateNestedManyWithoutCompanyInput
+    orders?: OrderUncheckedCreateNestedManyWithoutEmployerCompanyInput
+    invoices?: CompanyInvoiceUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutSepaSubmissionsInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutSepaSubmissionsInput, CompanyUncheckedCreateWithoutSepaSubmissionsInput>
+  }
+
+  export type SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput = {
+    id?: string
+    companyInvoice: CompanyInvoiceCreateNestedOneWithoutSepaSubmissionsInput
+  }
+
+  export type SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput = {
+    id?: string
+    companyInvoiceId: string
+  }
+
+  export type SepaSubmissionInvoiceCreateOrConnectWithoutSepaSubmissionInput = {
+    where: SepaSubmissionInvoiceWhereUniqueInput
+    create: XOR<SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput>
+  }
+
+  export type SepaSubmissionInvoiceCreateManySepaSubmissionInputEnvelope = {
+    data: SepaSubmissionInvoiceCreateManySepaSubmissionInput | SepaSubmissionInvoiceCreateManySepaSubmissionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanyUpsertWithoutSepaSubmissionsInput = {
+    update: XOR<CompanyUpdateWithoutSepaSubmissionsInput, CompanyUncheckedUpdateWithoutSepaSubmissionsInput>
+    create: XOR<CompanyCreateWithoutSepaSubmissionsInput, CompanyUncheckedCreateWithoutSepaSubmissionsInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutSepaSubmissionsInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutSepaSubmissionsInput, CompanyUncheckedUpdateWithoutSepaSubmissionsInput>
+  }
+
+  export type CompanyUpdateWithoutSepaSubmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contractNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    subsidyType?: EnumSubsidyTypeFieldUpdateOperationsInput | $Enums.SubsidyType
+    subsidyValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: CompanyEmployeeUpdateManyWithoutCompanyNestedInput
+    orders?: OrderUpdateManyWithoutEmployerCompanyNestedInput
+    invoices?: CompanyInvoiceUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutSepaSubmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contractNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    subsidyType?: EnumSubsidyTypeFieldUpdateOperationsInput | $Enums.SubsidyType
+    subsidyValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: CompanyEmployeeUncheckedUpdateManyWithoutCompanyNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutEmployerCompanyNestedInput
+    invoices?: CompanyInvoiceUncheckedUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type SepaSubmissionInvoiceUpsertWithWhereUniqueWithoutSepaSubmissionInput = {
+    where: SepaSubmissionInvoiceWhereUniqueInput
+    update: XOR<SepaSubmissionInvoiceUpdateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedUpdateWithoutSepaSubmissionInput>
+    create: XOR<SepaSubmissionInvoiceCreateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedCreateWithoutSepaSubmissionInput>
+  }
+
+  export type SepaSubmissionInvoiceUpdateWithWhereUniqueWithoutSepaSubmissionInput = {
+    where: SepaSubmissionInvoiceWhereUniqueInput
+    data: XOR<SepaSubmissionInvoiceUpdateWithoutSepaSubmissionInput, SepaSubmissionInvoiceUncheckedUpdateWithoutSepaSubmissionInput>
+  }
+
+  export type SepaSubmissionInvoiceUpdateManyWithWhereWithoutSepaSubmissionInput = {
+    where: SepaSubmissionInvoiceScalarWhereInput
+    data: XOR<SepaSubmissionInvoiceUpdateManyMutationInput, SepaSubmissionInvoiceUncheckedUpdateManyWithoutSepaSubmissionInput>
+  }
+
+  export type SepaSubmissionCreateWithoutInvoicesInput = {
+    id?: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+    company: CompanyCreateNestedOneWithoutSepaSubmissionsInput
+  }
+
+  export type SepaSubmissionUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    companyId: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+  }
+
+  export type SepaSubmissionCreateOrConnectWithoutInvoicesInput = {
+    where: SepaSubmissionWhereUniqueInput
+    create: XOR<SepaSubmissionCreateWithoutInvoicesInput, SepaSubmissionUncheckedCreateWithoutInvoicesInput>
+  }
+
+  export type CompanyInvoiceCreateWithoutSepaSubmissionsInput = {
+    id?: string
+    year: number
+    month: number
+    status?: string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    invoicedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    company: CompanyCreateNestedOneWithoutInvoicesInput
+    items?: CompanyInvoiceItemCreateNestedManyWithoutCompanyInvoiceInput
+  }
+
+  export type CompanyInvoiceUncheckedCreateWithoutSepaSubmissionsInput = {
+    id?: string
+    companyId: string
+    year: number
+    month: number
+    status?: string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    invoicedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: CompanyInvoiceItemUncheckedCreateNestedManyWithoutCompanyInvoiceInput
+  }
+
+  export type CompanyInvoiceCreateOrConnectWithoutSepaSubmissionsInput = {
+    where: CompanyInvoiceWhereUniqueInput
+    create: XOR<CompanyInvoiceCreateWithoutSepaSubmissionsInput, CompanyInvoiceUncheckedCreateWithoutSepaSubmissionsInput>
+  }
+
+  export type SepaSubmissionUpsertWithoutInvoicesInput = {
+    update: XOR<SepaSubmissionUpdateWithoutInvoicesInput, SepaSubmissionUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<SepaSubmissionCreateWithoutInvoicesInput, SepaSubmissionUncheckedCreateWithoutInvoicesInput>
+    where?: SepaSubmissionWhereInput
+  }
+
+  export type SepaSubmissionUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: SepaSubmissionWhereInput
+    data: XOR<SepaSubmissionUpdateWithoutInvoicesInput, SepaSubmissionUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type SepaSubmissionUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    company?: CompanyUpdateOneRequiredWithoutSepaSubmissionsNestedInput
+  }
+
+  export type SepaSubmissionUncheckedUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CompanyInvoiceUpsertWithoutSepaSubmissionsInput = {
+    update: XOR<CompanyInvoiceUpdateWithoutSepaSubmissionsInput, CompanyInvoiceUncheckedUpdateWithoutSepaSubmissionsInput>
+    create: XOR<CompanyInvoiceCreateWithoutSepaSubmissionsInput, CompanyInvoiceUncheckedCreateWithoutSepaSubmissionsInput>
+    where?: CompanyInvoiceWhereInput
+  }
+
+  export type CompanyInvoiceUpdateToOneWithWhereWithoutSepaSubmissionsInput = {
+    where?: CompanyInvoiceWhereInput
+    data: XOR<CompanyInvoiceUpdateWithoutSepaSubmissionsInput, CompanyInvoiceUncheckedUpdateWithoutSepaSubmissionsInput>
+  }
+
+  export type CompanyInvoiceUpdateWithoutSepaSubmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    invoicedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    company?: CompanyUpdateOneRequiredWithoutInvoicesNestedInput
+    items?: CompanyInvoiceItemUpdateManyWithoutCompanyInvoiceNestedInput
+  }
+
+  export type CompanyInvoiceUncheckedUpdateWithoutSepaSubmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    invoicedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: CompanyInvoiceItemUncheckedUpdateManyWithoutCompanyInvoiceNestedInput
+  }
+
   export type CompanyInvoiceCreateWithoutItemsInput = {
     id?: string
     year: number
@@ -55637,6 +59012,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutInvoicesInput
+    sepaSubmissions?: SepaSubmissionInvoiceCreateNestedManyWithoutCompanyInvoiceInput
   }
 
   export type CompanyInvoiceUncheckedCreateWithoutItemsInput = {
@@ -55649,6 +59025,7 @@ export namespace Prisma {
     invoicedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sepaSubmissions?: SepaSubmissionInvoiceUncheckedCreateNestedManyWithoutCompanyInvoiceInput
   }
 
   export type CompanyInvoiceCreateOrConnectWithoutItemsInput = {
@@ -55677,6 +59054,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutInvoicesNestedInput
+    sepaSubmissions?: SepaSubmissionInvoiceUpdateManyWithoutCompanyInvoiceNestedInput
   }
 
   export type CompanyInvoiceUncheckedUpdateWithoutItemsInput = {
@@ -55689,6 +59067,7 @@ export namespace Prisma {
     invoicedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sepaSubmissions?: SepaSubmissionInvoiceUncheckedUpdateManyWithoutCompanyInvoiceNestedInput
   }
 
   export type CompanyCreateWithoutEmployeesInput = {
@@ -55701,10 +59080,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orders?: OrderCreateNestedManyWithoutEmployerCompanyInput
     invoices?: CompanyInvoiceCreateNestedManyWithoutCompanyInput
+    sepaSubmissions?: SepaSubmissionCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutEmployeesInput = {
@@ -55717,10 +59101,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     orders?: OrderUncheckedCreateNestedManyWithoutEmployerCompanyInput
     invoices?: CompanyInvoiceUncheckedCreateNestedManyWithoutCompanyInput
+    sepaSubmissions?: SepaSubmissionUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutEmployeesInput = {
@@ -55804,10 +59193,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUpdateManyWithoutEmployerCompanyNestedInput
     invoices?: CompanyInvoiceUpdateManyWithoutCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutEmployeesInput = {
@@ -55820,10 +59214,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUncheckedUpdateManyWithoutEmployerCompanyNestedInput
     invoices?: CompanyInvoiceUncheckedUpdateManyWithoutCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type UserUpsertWithoutCompanyEmployeesInput = {
@@ -55894,6 +59293,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutOrganizationInput
@@ -55913,6 +59315,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
@@ -56122,6 +59527,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutOrganizationNestedInput
@@ -56141,6 +59549,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -56272,6 +59683,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -56291,6 +59705,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -56733,6 +60150,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -56752,6 +60172,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -59100,10 +62523,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: CompanyEmployeeCreateNestedManyWithoutCompanyInput
     invoices?: CompanyInvoiceCreateNestedManyWithoutCompanyInput
+    sepaSubmissions?: SepaSubmissionCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutOrdersInput = {
@@ -59116,10 +62544,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: Decimal | DecimalJsLike | number | string | null
     validFrom?: Date | string | null
     validUntil?: Date | string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    sepaMandateReference?: string | null
+    sepaMandateDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: CompanyEmployeeUncheckedCreateNestedManyWithoutCompanyInput
     invoices?: CompanyInvoiceUncheckedCreateNestedManyWithoutCompanyInput
+    sepaSubmissions?: SepaSubmissionUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutOrdersInput = {
@@ -59326,10 +62759,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: CompanyEmployeeUpdateManyWithoutCompanyNestedInput
     invoices?: CompanyInvoiceUpdateManyWithoutCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutOrdersInput = {
@@ -59342,10 +62780,15 @@ export namespace Prisma {
     subsidyMaxPerDay?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     validFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateReference?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaMandateDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: CompanyEmployeeUncheckedUpdateManyWithoutCompanyNestedInput
     invoices?: CompanyInvoiceUncheckedUpdateManyWithoutCompanyNestedInput
+    sepaSubmissions?: SepaSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type WalletTransactionUpsertWithWhereUniqueWithoutOrderInput = {
@@ -60299,6 +63742,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -60318,6 +63764,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -60529,6 +63978,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -60548,6 +64000,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -60631,6 +64086,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -60650,6 +64108,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -60777,6 +64238,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -60796,6 +64260,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -61015,6 +64482,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -61034,6 +64504,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -61128,6 +64601,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -61147,6 +64623,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -61305,6 +64784,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -61324,6 +64806,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -61477,6 +64962,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -61496,6 +64984,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -61627,6 +65118,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -61646,6 +65140,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -61809,6 +65306,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -61828,6 +65328,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -61895,6 +65398,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -61914,6 +65420,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -62043,6 +65552,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -62062,6 +65574,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -62495,6 +66010,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationCreateNestedManyWithoutOrganizationInput
@@ -62514,6 +66032,9 @@ export namespace Prisma {
     logoUrl?: string | null
     primaryColor?: string | null
     secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
@@ -62604,6 +66125,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUpdateManyWithoutOrganizationNestedInput
@@ -62623,6 +66147,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -63668,6 +67195,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SepaSubmissionCreateManyCompanyInput = {
+    id?: string
+    organizationId: string
+    generatedAt?: Date | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    dueDate: Date | string
+    seqType: string
+    createdById: string
+    source: string
+  }
+
   export type CompanyEmployeeUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     employeeNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63783,6 +67321,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: CompanyInvoiceItemUpdateManyWithoutCompanyInvoiceNestedInput
+    sepaSubmissions?: SepaSubmissionInvoiceUpdateManyWithoutCompanyInvoiceNestedInput
   }
 
   export type CompanyInvoiceUncheckedUpdateWithoutCompanyInput = {
@@ -63795,6 +67334,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: CompanyInvoiceItemUncheckedUpdateManyWithoutCompanyInvoiceNestedInput
+    sepaSubmissions?: SepaSubmissionInvoiceUncheckedUpdateManyWithoutCompanyInvoiceNestedInput
   }
 
   export type CompanyInvoiceUncheckedUpdateManyWithoutCompanyInput = {
@@ -63808,6 +67348,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SepaSubmissionUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    invoices?: SepaSubmissionInvoiceUpdateManyWithoutSepaSubmissionNestedInput
+  }
+
+  export type SepaSubmissionUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    invoices?: SepaSubmissionInvoiceUncheckedUpdateManyWithoutSepaSubmissionNestedInput
+  }
+
+  export type SepaSubmissionUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    seqType?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+  }
+
   export type CompanyInvoiceItemCreateManyCompanyInvoiceInput = {
     id?: string
     orderId: string
@@ -63815,6 +67390,11 @@ export namespace Prisma {
     orderDate: Date | string
     employeeName: string
     amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type SepaSubmissionInvoiceCreateManyCompanyInvoiceInput = {
+    id?: string
+    sepaSubmissionId: string
   }
 
   export type CompanyInvoiceItemUpdateWithoutCompanyInvoiceInput = {
@@ -63842,6 +67422,41 @@ export namespace Prisma {
     orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
     employeeName?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type SepaSubmissionInvoiceUpdateWithoutCompanyInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sepaSubmission?: SepaSubmissionUpdateOneRequiredWithoutInvoicesNestedInput
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateWithoutCompanyInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sepaSubmissionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateManyWithoutCompanyInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sepaSubmissionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SepaSubmissionInvoiceCreateManySepaSubmissionInput = {
+    id?: string
+    companyInvoiceId: string
+  }
+
+  export type SepaSubmissionInvoiceUpdateWithoutSepaSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyInvoice?: CompanyInvoiceUpdateOneRequiredWithoutSepaSubmissionsNestedInput
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateWithoutSepaSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyInvoiceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SepaSubmissionInvoiceUncheckedUpdateManyWithoutSepaSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyInvoiceId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MenuCreateManyLocationInput = {
@@ -65830,6 +69445,10 @@ export namespace Prisma {
      */
     export type CompanyInvoiceCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CompanyInvoiceCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use SepaSubmissionCountOutputTypeDefaultArgs instead
+     */
+    export type SepaSubmissionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SepaSubmissionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use LocationCountOutputTypeDefaultArgs instead
      */
     export type LocationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LocationCountOutputTypeDefaultArgs<ExtArgs>
@@ -65897,6 +69516,14 @@ export namespace Prisma {
      * @deprecated Use CompanyInvoiceDefaultArgs instead
      */
     export type CompanyInvoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CompanyInvoiceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SepaSubmissionDefaultArgs instead
+     */
+    export type SepaSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SepaSubmissionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SepaSubmissionInvoiceDefaultArgs instead
+     */
+    export type SepaSubmissionInvoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SepaSubmissionInvoiceDefaultArgs<ExtArgs>
     /**
      * @deprecated Use CompanyInvoiceItemDefaultArgs instead
      */

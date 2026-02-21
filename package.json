@@ -64,6 +64,7 @@
     "react-dom": "^18",
     "react-grid-layout": "^2.2.2",
     "react-hook-form": "^7.49.2",
+    "react-markdown": "^10.1.0",
     "recharts": "^2.15.4",
     "sonner": "^2.0.7",
     "stripe": "^20.3.1",
@@ -71,6 +72,7 @@
     "tailwindcss-animate": "^1.0.7",
     "web-push": "^3.6.7",
     "ws": "^8.19.0",
+    "xmlbuilder2": "^4.0.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {

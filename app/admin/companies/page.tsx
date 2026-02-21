@@ -37,8 +37,9 @@ import {
   Th,
   Td,
   TableContainer,
+  Divider,
 } from '@chakra-ui/react'
-import { Plus, Trash2, Edit2, Users, UserPlus } from 'lucide-react'
+import { Plus, Trash2, Edit2, Users, UserPlus, Landmark, CheckCircle, AlertCircle } from 'lucide-react'
 
 type SubsidyType = 'NONE' | 'PERCENTAGE' | 'FIXED'
 
@@ -52,7 +53,16 @@ interface Company {
   subsidyMaxPerDay: number | null
   validFrom: string | null
   validUntil: string | null
+  // SEPA fields
+  sepaIban: string | null
+  sepaBic: string | null
+  sepaMandateReference: string | null
+  sepaMandateDate: string | null
   _count?: { employees: number }
+}
+
+function sepaComplete(c: Company): boolean {
+  return !!(c.sepaIban && c.sepaBic && c.sepaMandateReference && c.sepaMandateDate)
 }
 
 interface CompanyEmployee {
@@ -284,6 +294,20 @@ export default function CompaniesPage() {
                       )}
                     </HStack>
 
+                    <HStack fontSize="xs" color="gray.500" spacing={2}>
+                      {sepaComplete(company) ? (
+                        <HStack spacing={1}>
+                          <CheckCircle size={12} color="green" />
+                          <Text>SEPA</Text>
+                        </HStack>
+                      ) : (
+                        <HStack spacing={1}>
+                          <AlertCircle size={12} color="orange" />
+                          <Text>SEPA fehlt</Text>
+                        </HStack>
+                      )}
+                    </HStack>
+
                     <HStack spacing={2}>
                       <Button
                         size="sm"
@@ -402,6 +426,10 @@ function CompanyFormModal({
     subsidyMaxPerDay: company?.subsidyMaxPerDay?.toString() || '',
     validFrom: company?.validFrom ? new Date(company.validFrom).toISOString().split('T')[0] : '',
     validUntil: company?.validUntil ? new Date(company.validUntil).toISOString().split('T')[0] : '',
+    sepaIban: company?.sepaIban || '',
+    sepaBic: company?.sepaBic || '',
+    sepaMandateReference: company?.sepaMandateReference || '',
+    sepaMandateDate: company?.sepaMandateDate ? new Date(company.sepaMandateDate).toISOString().split('T')[0] : '',
   })
   const [isSaving, setIsSaving] = useState(false)
 
@@ -416,6 +444,10 @@ function CompanyFormModal({
         subsidyMaxPerDay: company.subsidyMaxPerDay?.toString() || '',
         validFrom: company.validFrom ? new Date(company.validFrom).toISOString().split('T')[0] : '',
         validUntil: company.validUntil ? new Date(company.validUntil).toISOString().split('T')[0] : '',
+        sepaIban: company.sepaIban || '',
+        sepaBic: company.sepaBic || '',
+        sepaMandateReference: company.sepaMandateReference || '',
+        sepaMandateDate: company.sepaMandateDate ? new Date(company.sepaMandateDate).toISOString().split('T')[0] : '',
       })
     } else {
       setFormData({
@@ -427,6 +459,10 @@ function CompanyFormModal({
         subsidyMaxPerDay: '',
         validFrom: '',
         validUntil: '',
+        sepaIban: '',
+        sepaBic: '',
+        sepaMandateReference: '',
+        sepaMandateDate: '',
       })
     }
   }, [company, isOpen])
@@ -444,6 +480,10 @@ function CompanyFormModal({
         subsidyMaxPerDay: formData.subsidyMaxPerDay ? parseFloat(formData.subsidyMaxPerDay) : null,
         validFrom: formData.validFrom || null,
         validUntil: formData.validUntil || null,
+        sepaIban: formData.sepaIban || null,
+        sepaBic: formData.sepaBic || null,
+        sepaMandateReference: formData.sepaMandateReference || null,
+        sepaMandateDate: formData.sepaMandateDate || null,
       }
       const url = company ? `/api/admin/companies/${company.id}` : '/api/admin/companies'
       const method = company ? 'PATCH' : 'POST'
@@ -563,6 +603,63 @@ function CompanyFormModal({
                   />
                 </Flex>
               </FormControl>
+
+              <Divider />
+
+              {/* SEPA Section */}
+              <VStack align="start" spacing={1} width="100%">
+                <HStack spacing={2}>
+                  <Landmark size={16} />
+                  <Text fontWeight="semibold" fontSize="sm">SEPA / Bankverbindung</Text>
+                </HStack>
+                <Text fontSize="xs" color="gray.500">
+                  Für SEPA Direct Debit Lastschriften. Alle Felder optional – müssen vollständig sein für SEPA-Generierung.
+                </Text>
+              </VStack>
+
+              <FormControl>
+                <FormLabel fontSize="sm">IBAN</FormLabel>
+                <Input
+                  value={formData.sepaIban}
+                  onChange={(e) => setFormData({ ...formData, sepaIban: e.target.value.toUpperCase() })}
+                  placeholder="z.B. DE89370400440532013000"
+                  fontFamily="mono"
+                  fontSize="sm"
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel fontSize="sm">BIC / SWIFT</FormLabel>
+                <Input
+                  value={formData.sepaBic}
+                  onChange={(e) => setFormData({ ...formData, sepaBic: e.target.value.toUpperCase() })}
+                  placeholder="z.B. DEUTDEDB"
+                  fontFamily="mono"
+                  fontSize="sm"
+                />
+              </FormControl>
+
+              <HStack width="100%" spacing={4}>
+                <FormControl>
+                  <FormLabel fontSize="sm">Mandatsreferenz (max. 35 Zeichen)</FormLabel>
+                  <Input
+                    value={formData.sepaMandateReference}
+                    onChange={(e) => setFormData({ ...formData, sepaMandateReference: e.target.value.slice(0, 35) })}
+                    placeholder="z.B. MAND-2024-001"
+                    fontSize="sm"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel fontSize="sm">Mandatsdatum</FormLabel>
+                  <Input
+                    type="date"
+                    value={formData.sepaMandateDate}
+                    max={new Date().toISOString().split('T')[0]}
+                    onChange={(e) => setFormData({ ...formData, sepaMandateDate: e.target.value })}
+                    fontSize="sm"
+                  />
+                </FormControl>
+              </HStack>
             </VStack>
           </ModalBody>
           <ModalFooter>

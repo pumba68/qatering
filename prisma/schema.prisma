@@ -19,6 +19,12 @@ model Organization {
   logoUrl     String?
   primaryColor String? @default("#3b82f6")
   secondaryColor String? @default("#1e40af")
+
+  // SEPA Einstellungen des Betreibers (Kreditor) für SEPA Direct Debit
+  sepaCreditorId String? @db.VarChar(35) // Gläubiger-ID, z.B. DE98ZZZ09999999999
+  sepaIban       String? @db.VarChar(34) // Betreiber-IBAN (Empfängerkonto)
+  sepaBic        String? @db.VarChar(11) // Betreiber-BIC
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -50,12 +56,19 @@ model Company {
   validFrom        DateTime?   // Optional: Vertragsbeginn
   validUntil       DateTime?   // Optional: Vertragsende
 
+  // SEPA Direct Debit - Bankverbindung & Lastschriftmandat (PROJ-15)
+  sepaIban              String?   @db.VarChar(34)  // IBAN des Vertragspartners (Schuldner)
+  sepaBic               String?   @db.VarChar(11)  // BIC/SWIFT des Vertragspartners
+  sepaMandateReference  String?   @db.VarChar(35)  // Eindeutige Mandatsreferenz
+  sepaMandateDate       DateTime? // Datum der Mandatsunterzeichnung
+
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
 
   employees        CompanyEmployee[]
   orders           Order[]
-  invoices        CompanyInvoice[]
+  invoices         CompanyInvoice[]
+  sepaSubmissions  SepaSubmission[]
 
   @@map("companies")
 }
@@ -65,20 +78,54 @@ model CompanyInvoice {
   id              String    @id @default(cuid())
   companyId       String
   year            Int       // Abrechnungsjahr
-  month           Int       // Abrechnungsmonat 1–12
-  status          String    @default("DRAFT") @db.VarChar(20) // DRAFT | INVOICED | PAID
+  month           Int       // Abrechnungsmonat 1-12
+  status          String    @default("DRAFT") @db.VarChar(20) // DRAFT | INVOICED | SEPA_SUBMITTED | PAID
   totalAmount     Decimal   @db.Decimal(10, 2) // Summe Zuschusskosten
-  invoicedAt      DateTime? // Zeitpunkt PDF-Export / „Rechnung gestellt“
+  invoicedAt      DateTime? // Zeitpunkt PDF-Export / „Rechnung gestellt"
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
   company         Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
   items           CompanyInvoiceItem[]
+  sepaSubmissions SepaSubmissionInvoice[]
 
   @@unique([companyId, year, month])
   @@index([companyId])
   @@index([status])
   @@map("company_invoices")
+}
+
+// SEPA Direct Debit Generierungsprotokoll (PROJ-16)
+model SepaSubmission {
+  id             String    @id @default(cuid())
+  companyId      String
+  organizationId String
+  generatedAt    DateTime  @default(now())
+  totalAmount    Decimal   @db.Decimal(10, 2)
+  dueDate        DateTime
+  seqType        String    @db.VarChar(4)  // FRST | RCUR
+  createdById    String    // Admin-User ID
+  source         String    @db.VarChar(20) // INVOICED | OPEN_BALANCE
+
+  company        Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  invoices       SepaSubmissionInvoice[]
+
+  @@index([companyId])
+  @@index([organizationId])
+  @@map("sepa_submissions")
+}
+
+// Verbindungstabelle: SepaSubmission ↔ CompanyInvoice
+model SepaSubmissionInvoice {
+  id               String         @id @default(cuid())
+  sepaSubmissionId String
+  companyInvoiceId String
+
+  sepaSubmission   SepaSubmission @relation(fields: [sepaSubmissionId], references: [id], onDelete: Cascade)
+  companyInvoice   CompanyInvoice @relation(fields: [companyInvoiceId], references: [id], onDelete: Cascade)
+
+  @@unique([sepaSubmissionId, companyInvoiceId])
+  @@map("sepa_submission_invoices")
 }
 
 // Einzelposten der Monatsrechnung (Bestellnummer, Datum, Mitarbeiter, Summe)

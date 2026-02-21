@@ -129,6 +129,9 @@ exports.Prisma.OrganizationScalarFieldEnum = {
   logoUrl: 'logoUrl',
   primaryColor: 'primaryColor',
   secondaryColor: 'secondaryColor',
+  sepaCreditorId: 'sepaCreditorId',
+  sepaIban: 'sepaIban',
+  sepaBic: 'sepaBic',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -143,6 +146,10 @@ exports.Prisma.CompanyScalarFieldEnum = {
   subsidyMaxPerDay: 'subsidyMaxPerDay',
   validFrom: 'validFrom',
   validUntil: 'validUntil',
+  sepaIban: 'sepaIban',
+  sepaBic: 'sepaBic',
+  sepaMandateReference: 'sepaMandateReference',
+  sepaMandateDate: 'sepaMandateDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -157,6 +164,24 @@ exports.Prisma.CompanyInvoiceScalarFieldEnum = {
   invoicedAt: 'invoicedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SepaSubmissionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  organizationId: 'organizationId',
+  generatedAt: 'generatedAt',
+  totalAmount: 'totalAmount',
+  dueDate: 'dueDate',
+  seqType: 'seqType',
+  createdById: 'createdById',
+  source: 'source'
+};
+
+exports.Prisma.SepaSubmissionInvoiceScalarFieldEnum = {
+  id: 'id',
+  sepaSubmissionId: 'sepaSubmissionId',
+  companyInvoiceId: 'companyInvoiceId'
 };
 
 exports.Prisma.CompanyInvoiceItemScalarFieldEnum = {
@@ -660,6 +685,8 @@ exports.Prisma.ModelName = {
   Organization: 'Organization',
   Company: 'Company',
   CompanyInvoice: 'CompanyInvoice',
+  SepaSubmission: 'SepaSubmission',
+  SepaSubmissionInvoice: 'SepaSubmissionInvoice',
   CompanyInvoiceItem: 'CompanyInvoiceItem',
   CompanyEmployee: 'CompanyEmployee',
   Location: 'Location',
