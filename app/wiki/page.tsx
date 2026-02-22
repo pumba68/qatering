@@ -800,7 +800,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                   </p>
                   <ul className="list-disc list-inside text-muted-foreground space-y-1.5">
                     <li><strong className="text-foreground">✅ Vollständig</strong> – Alle vier SEPA-Felder sind gepflegt. Lastschrift kann generiert werden.</li>
-                    <li><strong className="text-foreground">⚠ Fehlt</strong> – Mindestens ein Pflichtfeld fehlt. Der „Generieren"-Button im Modal ist deaktiviert.</li>
+                    <li><strong className="text-foreground">⚠ Fehlt</strong> – Mindestens ein Pflichtfeld fehlt. Der &bdquo;Generieren&ldquo;-Button im Modal ist deaktiviert.</li>
                   </ul>
                 </div>
 
@@ -810,13 +810,13 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                   <ol className="list-decimal list-inside space-y-4 text-muted-foreground">
                     <li>
                       <strong className="text-foreground">SEPA-Lastschrift-Button klicken</strong><br />
-                      <span className="ml-5 block mt-1">In der Tabelle „Offene Salden" (Finanzen → Abrechnung) klicken Sie in der gewünschten Zeile auf <strong className="text-foreground">„SEPA-Lastschrift"</strong>. Das Modal öffnet sich.</span>
+                      <span className="ml-5 block mt-1">In der Tabelle &bdquo;Offene Salden&ldquo; (Finanzen → Abrechnung) klicken Sie in der gewünschten Zeile auf <strong className="text-foreground">&bdquo;SEPA-Lastschrift&ldquo;</strong>. Das Modal öffnet sich.</span>
                     </li>
                     <li>
                       <strong className="text-foreground">Quelle wählen</strong><br />
                       <span className="ml-5 block mt-1">
                         <span className="inline-block bg-muted rounded px-2 py-0.5 text-xs font-medium text-foreground mr-2">INVOICED-Rechnungen</span>
-                        Zieht alle Rechnungen mit Status „Rechnung gestellt" ein – präzise Kontrolle, welche Perioden abgebucht werden.<br />
+                        Zieht alle Rechnungen mit Status &bdquo;Rechnung gestellt&ldquo; ein – präzise Kontrolle, welche Perioden abgebucht werden.<br />
                         <span className="inline-block bg-muted rounded px-2 py-0.5 text-xs font-medium text-foreground mr-2 mt-1">Offener Saldo</span>
                         Fasst alle noch nicht abgerechneten Bestellungen zusammen – das System erstellt automatisch eine interne Rechnung.
                       </span>
@@ -833,8 +833,8 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                       <span className="ml-5 block mt-1">SEPA CORE erfordert mindestens <strong className="text-foreground">5 Werktage Vorlaufzeit</strong>. Das System berechnet automatisch das frühestmögliche Datum und sperrt frühere Eingaben.</span>
                     </li>
                     <li>
-                      <strong className="text-foreground">„Generieren &amp; Herunterladen" klicken</strong><br />
-                      <span className="ml-5 block mt-1">Der Browser lädt automatisch eine <code className="bg-muted px-1 rounded text-xs">sepa-lastschrift-{'{UnternehmenName}'}-{'{YYYY-MM-DD}'}.xml</code> herunter. Die enthaltenen Rechnungen erhalten den Status <strong className="text-foreground">„SEPA eingereicht"</strong>.</span>
+                      <strong className="text-foreground">&bdquo;Generieren &amp; Herunterladen&ldquo; klicken</strong><br />
+                      <span className="ml-5 block mt-1">Der Browser lädt automatisch eine <code className="bg-muted px-1 rounded text-xs">sepa-lastschrift-{'{UnternehmenName}'}-{'{YYYY-MM-DD}'}.xml</code> herunter. Die enthaltenen Rechnungen erhalten den Status <strong className="text-foreground">&bdquo;SEPA eingereicht&ldquo;</strong>.</span>
                     </li>
                     <li>
                       <strong className="text-foreground">XML bei der Bank einreichen</strong><br />
@@ -842,7 +842,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                     </li>
                     <li>
                       <strong className="text-foreground">Zahlungseingang als bezahlt markieren</strong><br />
-                      <span className="ml-5 block mt-1">Sobald das Geld auf Ihrem Konto eingegangen ist, markieren Sie die Rechnung unter <strong className="text-foreground">Finanzen → Abrechnung → Rechnungen</strong> manuell als <strong className="text-foreground">„Bezahlt"</strong>.</span>
+                      <span className="ml-5 block mt-1">Sobald das Geld auf Ihrem Konto eingegangen ist, markieren Sie die Rechnung unter <strong className="text-foreground">Finanzen → Abrechnung → Rechnungen</strong> manuell als <strong className="text-foreground">&bdquo;Bezahlt&ldquo;</strong>.</span>
                     </li>
                   </ol>
                 </div>
@@ -910,7 +910,7 @@ features/             # Feature-Docs (Menu-Planner, Schaltzentrale, Promotions)`
                       },
                     ].map(({ msg, solution }) => (
                       <div key={msg} className="rounded-xl border border-border/50 p-4">
-                        <p className="font-medium text-foreground mb-1">„{msg}"</p>
+                        <p className="font-medium text-foreground mb-1">&bdquo;{msg}&ldquo;</p>
                         <p className="text-sm text-muted-foreground">{solution}</p>
                       </div>
                     ))}

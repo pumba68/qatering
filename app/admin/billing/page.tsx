@@ -394,7 +394,7 @@ export default function AdminBillingPage() {
       <Card className="rounded-2xl border-border/50">
         <CardHeader>
           <CardTitle>Rechnung erstellen</CardTitle>
-          <CardDescription>Vertragspartner und Abrechnungsmonat wählen, dann Rechnung anlegen (Entwurf). Anschließend PDF exportieren → Status „Rechnung gestellt".</CardDescription>
+          <CardDescription>Vertragspartner und Abrechnungsmonat wählen, dann Rechnung anlegen (Entwurf). Anschließend PDF exportieren → Status &bdquo;Rechnung gestellt&ldquo;.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-wrap items-end gap-4">
           <div className="grid gap-2">
@@ -448,7 +448,7 @@ export default function AdminBillingPage() {
       <Card className="rounded-2xl border-border/50">
         <CardHeader>
           <CardTitle>Rechnungen</CardTitle>
-          <CardDescription>Rechnungen des gewählten Vertragspartners. PDF exportieren setzt Status auf „Rechnung gestellt".</CardDescription>
+          <CardDescription>Rechnungen des gewählten Vertragspartners. PDF exportieren setzt Status auf &bdquo;Rechnung gestellt&ldquo;.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-2 mb-4">
