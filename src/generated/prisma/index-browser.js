@@ -230,7 +230,21 @@ exports.Prisma.UserScalarFieldEnum = {
   organizationId: 'organizationId',
   marketingEmailConsent: 'marketingEmailConsent',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  customerId: 'customerId',
+  isAnonymous: 'isAnonymous',
+  mergedIntoId: 'mergedIntoId'
+};
+
+exports.Prisma.CustomerIdentifierScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  value: 'value',
+  source: 'source',
+  isActive: 'isActive',
+  addedAt: 'addedAt',
+  removedAt: 'removedAt'
 };
 
 exports.Prisma.WalletScalarFieldEnum = {
@@ -372,6 +386,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   pickedUpAt: 'pickedUpAt',
+  channel: 'channel',
   couponCode: 'couponCode',
   discountAmount: 'discountAmount',
   finalAmount: 'finalAmount',
@@ -413,6 +428,9 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   menuItemId: 'menuItemId',
   quantity: 'quantity',
   price: 'price',
+  productNameSnapshot: 'productNameSnapshot',
+  productCategorySnapshot: 'productCategorySnapshot',
+  unitPriceSnapshot: 'unitPriceSnapshot',
   createdAt: 'createdAt'
 };
 
@@ -656,6 +674,14 @@ exports.UserRole = exports.$Enums.UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN'
 };
 
+exports.CustomerIdentifierType = exports.$Enums.CustomerIdentifierType = {
+  APP_ID: 'APP_ID',
+  EMPLOYEE_ID: 'EMPLOYEE_ID',
+  BADGE_ID: 'BADGE_ID',
+  DEVICE_ID: 'DEVICE_ID',
+  EXTERNAL_ID: 'EXTERNAL_ID'
+};
+
 exports.WalletTransactionType = exports.$Enums.WalletTransactionType = {
   TOP_UP: 'TOP_UP',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
@@ -679,6 +705,14 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   COMPLETED: 'COMPLETED',
   FAILED: 'FAILED',
   REFUNDED: 'REFUNDED'
+};
+
+exports.OrderChannel = exports.$Enums.OrderChannel = {
+  APP: 'APP',
+  WEB: 'WEB',
+  TERMINAL: 'TERMINAL',
+  KASSE: 'KASSE',
+  ADMIN: 'ADMIN'
 };
 
 exports.CouponType = exports.$Enums.CouponType = {
@@ -746,6 +780,7 @@ exports.Prisma.ModelName = {
   CompanyEmployee: 'CompanyEmployee',
   Location: 'Location',
   User: 'User',
+  CustomerIdentifier: 'CustomerIdentifier',
   Wallet: 'Wallet',
   WalletTransaction: 'WalletTransaction',
   UserLocation: 'UserLocation',

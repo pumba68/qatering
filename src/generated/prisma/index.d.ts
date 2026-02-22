@@ -59,6 +59,11 @@ export type Location = $Result.DefaultSelection<Prisma.$LocationPayload>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model CustomerIdentifier
+ * 
+ */
+export type CustomerIdentifier = $Result.DefaultSelection<Prisma.$CustomerIdentifierPayload>
+/**
  * Model Wallet
  * 
  */
@@ -232,6 +237,17 @@ export const UserRole: {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
+export const CustomerIdentifierType: {
+  APP_ID: 'APP_ID',
+  EMPLOYEE_ID: 'EMPLOYEE_ID',
+  BADGE_ID: 'BADGE_ID',
+  DEVICE_ID: 'DEVICE_ID',
+  EXTERNAL_ID: 'EXTERNAL_ID'
+};
+
+export type CustomerIdentifierType = (typeof CustomerIdentifierType)[keyof typeof CustomerIdentifierType]
+
+
 export const WalletTransactionType: {
   TOP_UP: 'TOP_UP',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
@@ -264,6 +280,17 @@ export const PaymentStatus: {
 };
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const OrderChannel: {
+  APP: 'APP',
+  WEB: 'WEB',
+  TERMINAL: 'TERMINAL',
+  KASSE: 'KASSE',
+  ADMIN: 'ADMIN'
+};
+
+export type OrderChannel = (typeof OrderChannel)[keyof typeof OrderChannel]
 
 
 export const CouponType: {
@@ -354,6 +381,10 @@ export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
 
+export type CustomerIdentifierType = $Enums.CustomerIdentifierType
+
+export const CustomerIdentifierType: typeof $Enums.CustomerIdentifierType
+
 export type WalletTransactionType = $Enums.WalletTransactionType
 
 export const WalletTransactionType: typeof $Enums.WalletTransactionType
@@ -365,6 +396,10 @@ export const OrderStatus: typeof $Enums.OrderStatus
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
+
+export type OrderChannel = $Enums.OrderChannel
+
+export const OrderChannel: typeof $Enums.OrderChannel
 
 export type CouponType = $Enums.CouponType
 
@@ -610,6 +645,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.customerIdentifier`: Exposes CRUD operations for the **CustomerIdentifier** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerIdentifiers
+    * const customerIdentifiers = await prisma.customerIdentifier.findMany()
+    * ```
+    */
+  get customerIdentifier(): Prisma.CustomerIdentifierDelegate<ExtArgs>;
 
   /**
    * `prisma.wallet`: Exposes CRUD operations for the **Wallet** model.
@@ -1360,6 +1405,7 @@ export namespace Prisma {
     CompanyEmployee: 'CompanyEmployee',
     Location: 'Location',
     User: 'User',
+    CustomerIdentifier: 'CustomerIdentifier',
     Wallet: 'Wallet',
     WalletTransaction: 'WalletTransaction',
     UserLocation: 'UserLocation',
@@ -1405,7 +1451,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
+      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2036,6 +2082,76 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerIdentifier: {
+        payload: Prisma.$CustomerIdentifierPayload<ExtArgs>
+        fields: Prisma.CustomerIdentifierFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerIdentifierFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerIdentifierFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerIdentifierFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerIdentifierFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>
+          }
+          findMany: {
+            args: Prisma.CustomerIdentifierFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>[]
+          }
+          create: {
+            args: Prisma.CustomerIdentifierCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>
+          }
+          createMany: {
+            args: Prisma.CustomerIdentifierCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerIdentifierCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerIdentifierDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>
+          }
+          update: {
+            args: Prisma.CustomerIdentifierUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerIdentifierDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerIdentifierUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CustomerIdentifierUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerIdentifierPayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerIdentifierAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerIdentifier>
+          }
+          groupBy: {
+            args: Prisma.CustomerIdentifierGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerIdentifierGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerIdentifierCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerIdentifierCountAggregateOutputType> | number
           }
         }
       }
@@ -4613,6 +4729,7 @@ export namespace Prisma {
     paymentConfigChanges: number
     emailCampaignsCreated: number
     emailCampaignLogs: number
+    customerIdentifiers: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4630,6 +4747,7 @@ export namespace Prisma {
     paymentConfigChanges?: boolean | UserCountOutputTypeCountPaymentConfigChangesArgs
     emailCampaignsCreated?: boolean | UserCountOutputTypeCountEmailCampaignsCreatedArgs
     emailCampaignLogs?: boolean | UserCountOutputTypeCountEmailCampaignLogsArgs
+    customerIdentifiers?: boolean | UserCountOutputTypeCountCustomerIdentifiersArgs
   }
 
   // Custom InputTypes
@@ -4739,6 +4857,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountEmailCampaignLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmailCampaignLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCustomerIdentifiersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerIdentifierWhereInput
   }
 
 
@@ -13846,6 +13971,9 @@ export namespace Prisma {
     marketingEmailConsent: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    customerId: string | null
+    isAnonymous: boolean | null
+    mergedIntoId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -13859,6 +13987,9 @@ export namespace Prisma {
     marketingEmailConsent: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    customerId: string | null
+    isAnonymous: boolean | null
+    mergedIntoId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -13872,6 +14003,9 @@ export namespace Prisma {
     marketingEmailConsent: number
     createdAt: number
     updatedAt: number
+    customerId: number
+    isAnonymous: number
+    mergedIntoId: number
     _all: number
   }
 
@@ -13887,6 +14021,9 @@ export namespace Prisma {
     marketingEmailConsent?: true
     createdAt?: true
     updatedAt?: true
+    customerId?: true
+    isAnonymous?: true
+    mergedIntoId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -13900,6 +14037,9 @@ export namespace Prisma {
     marketingEmailConsent?: true
     createdAt?: true
     updatedAt?: true
+    customerId?: true
+    isAnonymous?: true
+    mergedIntoId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -13913,6 +14053,9 @@ export namespace Prisma {
     marketingEmailConsent?: true
     createdAt?: true
     updatedAt?: true
+    customerId?: true
+    isAnonymous?: true
+    mergedIntoId?: true
     _all?: true
   }
 
@@ -13999,6 +14142,9 @@ export namespace Prisma {
     marketingEmailConsent: boolean
     createdAt: Date
     updatedAt: Date
+    customerId: string | null
+    isAnonymous: boolean
+    mergedIntoId: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -14029,6 +14175,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    customerId?: boolean
+    isAnonymous?: boolean
+    mergedIntoId?: boolean
     organization?: boolean | User$organizationArgs<ExtArgs>
     locations?: boolean | User$locationsArgs<ExtArgs>
     companyEmployees?: boolean | User$companyEmployeesArgs<ExtArgs>
@@ -14045,6 +14194,7 @@ export namespace Prisma {
     paymentConfigChanges?: boolean | User$paymentConfigChangesArgs<ExtArgs>
     emailCampaignsCreated?: boolean | User$emailCampaignsCreatedArgs<ExtArgs>
     emailCampaignLogs?: boolean | User$emailCampaignLogsArgs<ExtArgs>
+    customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -14059,6 +14209,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    customerId?: boolean
+    isAnonymous?: boolean
+    mergedIntoId?: boolean
     organization?: boolean | User$organizationArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -14073,6 +14226,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    customerId?: boolean
+    isAnonymous?: boolean
+    mergedIntoId?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14092,6 +14248,7 @@ export namespace Prisma {
     paymentConfigChanges?: boolean | User$paymentConfigChangesArgs<ExtArgs>
     emailCampaignsCreated?: boolean | User$emailCampaignsCreatedArgs<ExtArgs>
     emailCampaignLogs?: boolean | User$emailCampaignLogsArgs<ExtArgs>
+    customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14117,6 +14274,7 @@ export namespace Prisma {
       paymentConfigChanges: Prisma.$PaymentProviderConfigPayload<ExtArgs>[]
       emailCampaignsCreated: Prisma.$EmailCampaignPayload<ExtArgs>[]
       emailCampaignLogs: Prisma.$EmailCampaignLogPayload<ExtArgs>[]
+      customerIdentifiers: Prisma.$CustomerIdentifierPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14129,6 +14287,9 @@ export namespace Prisma {
       marketingEmailConsent: boolean
       createdAt: Date
       updatedAt: Date
+      customerId: string | null
+      isAnonymous: boolean
+      mergedIntoId: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -14509,6 +14670,7 @@ export namespace Prisma {
     paymentConfigChanges<T extends User$paymentConfigChangesArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentConfigChangesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findMany"> | Null>
     emailCampaignsCreated<T extends User$emailCampaignsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$emailCampaignsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignPayload<ExtArgs>, T, "findMany"> | Null>
     emailCampaignLogs<T extends User$emailCampaignLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailCampaignLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignLogPayload<ExtArgs>, T, "findMany"> | Null>
+    customerIdentifiers<T extends User$customerIdentifiersArgs<ExtArgs> = {}>(args?: Subset<T, User$customerIdentifiersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14548,6 +14710,9 @@ export namespace Prisma {
     readonly marketingEmailConsent: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly customerId: FieldRef<"User", 'String'>
+    readonly isAnonymous: FieldRef<"User", 'Boolean'>
+    readonly mergedIntoId: FieldRef<"User", 'String'>
   }
     
 
@@ -15176,6 +15341,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.customerIdentifiers
+   */
+  export type User$customerIdentifiersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    where?: CustomerIdentifierWhereInput
+    orderBy?: CustomerIdentifierOrderByWithRelationInput | CustomerIdentifierOrderByWithRelationInput[]
+    cursor?: CustomerIdentifierWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerIdentifierScalarFieldEnum | CustomerIdentifierScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15187,6 +15372,975 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerIdentifier
+   */
+
+  export type AggregateCustomerIdentifier = {
+    _count: CustomerIdentifierCountAggregateOutputType | null
+    _min: CustomerIdentifierMinAggregateOutputType | null
+    _max: CustomerIdentifierMaxAggregateOutputType | null
+  }
+
+  export type CustomerIdentifierMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.CustomerIdentifierType | null
+    value: string | null
+    source: string | null
+    isActive: boolean | null
+    addedAt: Date | null
+    removedAt: Date | null
+  }
+
+  export type CustomerIdentifierMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.CustomerIdentifierType | null
+    value: string | null
+    source: string | null
+    isActive: boolean | null
+    addedAt: Date | null
+    removedAt: Date | null
+  }
+
+  export type CustomerIdentifierCountAggregateOutputType = {
+    id: number
+    userId: number
+    type: number
+    value: number
+    source: number
+    isActive: number
+    addedAt: number
+    removedAt: number
+    _all: number
+  }
+
+
+  export type CustomerIdentifierMinAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    value?: true
+    source?: true
+    isActive?: true
+    addedAt?: true
+    removedAt?: true
+  }
+
+  export type CustomerIdentifierMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    value?: true
+    source?: true
+    isActive?: true
+    addedAt?: true
+    removedAt?: true
+  }
+
+  export type CustomerIdentifierCountAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    value?: true
+    source?: true
+    isActive?: true
+    addedAt?: true
+    removedAt?: true
+    _all?: true
+  }
+
+  export type CustomerIdentifierAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerIdentifier to aggregate.
+     */
+    where?: CustomerIdentifierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerIdentifiers to fetch.
+     */
+    orderBy?: CustomerIdentifierOrderByWithRelationInput | CustomerIdentifierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerIdentifierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerIdentifiers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerIdentifiers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerIdentifiers
+    **/
+    _count?: true | CustomerIdentifierCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerIdentifierMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerIdentifierMaxAggregateInputType
+  }
+
+  export type GetCustomerIdentifierAggregateType<T extends CustomerIdentifierAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerIdentifier]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerIdentifier[P]>
+      : GetScalarType<T[P], AggregateCustomerIdentifier[P]>
+  }
+
+
+
+
+  export type CustomerIdentifierGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerIdentifierWhereInput
+    orderBy?: CustomerIdentifierOrderByWithAggregationInput | CustomerIdentifierOrderByWithAggregationInput[]
+    by: CustomerIdentifierScalarFieldEnum[] | CustomerIdentifierScalarFieldEnum
+    having?: CustomerIdentifierScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerIdentifierCountAggregateInputType | true
+    _min?: CustomerIdentifierMinAggregateInputType
+    _max?: CustomerIdentifierMaxAggregateInputType
+  }
+
+  export type CustomerIdentifierGroupByOutputType = {
+    id: string
+    userId: string
+    type: $Enums.CustomerIdentifierType
+    value: string
+    source: string | null
+    isActive: boolean
+    addedAt: Date
+    removedAt: Date | null
+    _count: CustomerIdentifierCountAggregateOutputType | null
+    _min: CustomerIdentifierMinAggregateOutputType | null
+    _max: CustomerIdentifierMaxAggregateOutputType | null
+  }
+
+  type GetCustomerIdentifierGroupByPayload<T extends CustomerIdentifierGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerIdentifierGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerIdentifierGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerIdentifierGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerIdentifierGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerIdentifierSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    value?: boolean
+    source?: boolean
+    isActive?: boolean
+    addedAt?: boolean
+    removedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerIdentifier"]>
+
+  export type CustomerIdentifierSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    value?: boolean
+    source?: boolean
+    isActive?: boolean
+    addedAt?: boolean
+    removedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerIdentifier"]>
+
+  export type CustomerIdentifierSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    value?: boolean
+    source?: boolean
+    isActive?: boolean
+    addedAt?: boolean
+    removedAt?: boolean
+  }
+
+  export type CustomerIdentifierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CustomerIdentifierIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerIdentifierPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerIdentifier"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      type: $Enums.CustomerIdentifierType
+      value: string
+      source: string | null
+      isActive: boolean
+      addedAt: Date
+      removedAt: Date | null
+    }, ExtArgs["result"]["customerIdentifier"]>
+    composites: {}
+  }
+
+  type CustomerIdentifierGetPayload<S extends boolean | null | undefined | CustomerIdentifierDefaultArgs> = $Result.GetResult<Prisma.$CustomerIdentifierPayload, S>
+
+  type CustomerIdentifierCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CustomerIdentifierFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CustomerIdentifierCountAggregateInputType | true
+    }
+
+  export interface CustomerIdentifierDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerIdentifier'], meta: { name: 'CustomerIdentifier' } }
+    /**
+     * Find zero or one CustomerIdentifier that matches the filter.
+     * @param {CustomerIdentifierFindUniqueArgs} args - Arguments to find a CustomerIdentifier
+     * @example
+     * // Get one CustomerIdentifier
+     * const customerIdentifier = await prisma.customerIdentifier.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerIdentifierFindUniqueArgs>(args: SelectSubset<T, CustomerIdentifierFindUniqueArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CustomerIdentifier that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CustomerIdentifierFindUniqueOrThrowArgs} args - Arguments to find a CustomerIdentifier
+     * @example
+     * // Get one CustomerIdentifier
+     * const customerIdentifier = await prisma.customerIdentifier.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerIdentifierFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerIdentifierFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CustomerIdentifier that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerIdentifierFindFirstArgs} args - Arguments to find a CustomerIdentifier
+     * @example
+     * // Get one CustomerIdentifier
+     * const customerIdentifier = await prisma.customerIdentifier.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerIdentifierFindFirstArgs>(args?: SelectSubset<T, CustomerIdentifierFindFirstArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CustomerIdentifier that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerIdentifierFindFirstOrThrowArgs} args - Arguments to find a CustomerIdentifier
+     * @example
+     * // Get one CustomerIdentifier
+     * const customerIdentifier = await prisma.customerIdentifier.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerIdentifierFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerIdentifierFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CustomerIdentifiers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerIdentifierFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerIdentifiers
+     * const customerIdentifiers = await prisma.customerIdentifier.findMany()
+     * 
+     * // Get first 10 CustomerIdentifiers
+     * const customerIdentifiers = await prisma.customerIdentifier.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerIdentifierWithIdOnly = await prisma.customerIdentifier.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerIdentifierFindManyArgs>(args?: SelectSubset<T, CustomerIdentifierFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CustomerIdentifier.
+     * @param {CustomerIdentifierCreateArgs} args - Arguments to create a CustomerIdentifier.
+     * @example
+     * // Create one CustomerIdentifier
+     * const CustomerIdentifier = await prisma.customerIdentifier.create({
+     *   data: {
+     *     // ... data to create a CustomerIdentifier
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerIdentifierCreateArgs>(args: SelectSubset<T, CustomerIdentifierCreateArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CustomerIdentifiers.
+     * @param {CustomerIdentifierCreateManyArgs} args - Arguments to create many CustomerIdentifiers.
+     * @example
+     * // Create many CustomerIdentifiers
+     * const customerIdentifier = await prisma.customerIdentifier.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerIdentifierCreateManyArgs>(args?: SelectSubset<T, CustomerIdentifierCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerIdentifiers and returns the data saved in the database.
+     * @param {CustomerIdentifierCreateManyAndReturnArgs} args - Arguments to create many CustomerIdentifiers.
+     * @example
+     * // Create many CustomerIdentifiers
+     * const customerIdentifier = await prisma.customerIdentifier.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerIdentifiers and only return the `id`
+     * const customerIdentifierWithIdOnly = await prisma.customerIdentifier.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerIdentifierCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerIdentifierCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CustomerIdentifier.
+     * @param {CustomerIdentifierDeleteArgs} args - Arguments to delete one CustomerIdentifier.
+     * @example
+     * // Delete one CustomerIdentifier
+     * const CustomerIdentifier = await prisma.customerIdentifier.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerIdentifier
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerIdentifierDeleteArgs>(args: SelectSubset<T, CustomerIdentifierDeleteArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CustomerIdentifier.
+     * @param {CustomerIdentifierUpdateArgs} args - Arguments to update one CustomerIdentifier.
+     * @example
+     * // Update one CustomerIdentifier
+     * const customerIdentifier = await prisma.customerIdentifier.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerIdentifierUpdateArgs>(args: SelectSubset<T, CustomerIdentifierUpdateArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CustomerIdentifiers.
+     * @param {CustomerIdentifierDeleteManyArgs} args - Arguments to filter CustomerIdentifiers to delete.
+     * @example
+     * // Delete a few CustomerIdentifiers
+     * const { count } = await prisma.customerIdentifier.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerIdentifierDeleteManyArgs>(args?: SelectSubset<T, CustomerIdentifierDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerIdentifiers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerIdentifierUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerIdentifiers
+     * const customerIdentifier = await prisma.customerIdentifier.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerIdentifierUpdateManyArgs>(args: SelectSubset<T, CustomerIdentifierUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerIdentifier.
+     * @param {CustomerIdentifierUpsertArgs} args - Arguments to update or create a CustomerIdentifier.
+     * @example
+     * // Update or create a CustomerIdentifier
+     * const customerIdentifier = await prisma.customerIdentifier.upsert({
+     *   create: {
+     *     // ... data to create a CustomerIdentifier
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerIdentifier we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerIdentifierUpsertArgs>(args: SelectSubset<T, CustomerIdentifierUpsertArgs<ExtArgs>>): Prisma__CustomerIdentifierClient<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CustomerIdentifiers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerIdentifierCountArgs} args - Arguments to filter CustomerIdentifiers to count.
+     * @example
+     * // Count the number of CustomerIdentifiers
+     * const count = await prisma.customerIdentifier.count({
+     *   where: {
+     *     // ... the filter for the CustomerIdentifiers we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerIdentifierCountArgs>(
+      args?: Subset<T, CustomerIdentifierCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerIdentifierCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerIdentifier.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerIdentifierAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerIdentifierAggregateArgs>(args: Subset<T, CustomerIdentifierAggregateArgs>): Prisma.PrismaPromise<GetCustomerIdentifierAggregateType<T>>
+
+    /**
+     * Group by CustomerIdentifier.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerIdentifierGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerIdentifierGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerIdentifierGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerIdentifierGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerIdentifierGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerIdentifierGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerIdentifier model
+   */
+  readonly fields: CustomerIdentifierFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerIdentifier.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerIdentifierClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerIdentifier model
+   */ 
+  interface CustomerIdentifierFieldRefs {
+    readonly id: FieldRef<"CustomerIdentifier", 'String'>
+    readonly userId: FieldRef<"CustomerIdentifier", 'String'>
+    readonly type: FieldRef<"CustomerIdentifier", 'CustomerIdentifierType'>
+    readonly value: FieldRef<"CustomerIdentifier", 'String'>
+    readonly source: FieldRef<"CustomerIdentifier", 'String'>
+    readonly isActive: FieldRef<"CustomerIdentifier", 'Boolean'>
+    readonly addedAt: FieldRef<"CustomerIdentifier", 'DateTime'>
+    readonly removedAt: FieldRef<"CustomerIdentifier", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerIdentifier findUnique
+   */
+  export type CustomerIdentifierFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerIdentifier to fetch.
+     */
+    where: CustomerIdentifierWhereUniqueInput
+  }
+
+  /**
+   * CustomerIdentifier findUniqueOrThrow
+   */
+  export type CustomerIdentifierFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerIdentifier to fetch.
+     */
+    where: CustomerIdentifierWhereUniqueInput
+  }
+
+  /**
+   * CustomerIdentifier findFirst
+   */
+  export type CustomerIdentifierFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerIdentifier to fetch.
+     */
+    where?: CustomerIdentifierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerIdentifiers to fetch.
+     */
+    orderBy?: CustomerIdentifierOrderByWithRelationInput | CustomerIdentifierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerIdentifiers.
+     */
+    cursor?: CustomerIdentifierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerIdentifiers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerIdentifiers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerIdentifiers.
+     */
+    distinct?: CustomerIdentifierScalarFieldEnum | CustomerIdentifierScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerIdentifier findFirstOrThrow
+   */
+  export type CustomerIdentifierFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerIdentifier to fetch.
+     */
+    where?: CustomerIdentifierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerIdentifiers to fetch.
+     */
+    orderBy?: CustomerIdentifierOrderByWithRelationInput | CustomerIdentifierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerIdentifiers.
+     */
+    cursor?: CustomerIdentifierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerIdentifiers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerIdentifiers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerIdentifiers.
+     */
+    distinct?: CustomerIdentifierScalarFieldEnum | CustomerIdentifierScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerIdentifier findMany
+   */
+  export type CustomerIdentifierFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerIdentifiers to fetch.
+     */
+    where?: CustomerIdentifierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerIdentifiers to fetch.
+     */
+    orderBy?: CustomerIdentifierOrderByWithRelationInput | CustomerIdentifierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerIdentifiers.
+     */
+    cursor?: CustomerIdentifierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerIdentifiers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerIdentifiers.
+     */
+    skip?: number
+    distinct?: CustomerIdentifierScalarFieldEnum | CustomerIdentifierScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerIdentifier create
+   */
+  export type CustomerIdentifierCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerIdentifier.
+     */
+    data: XOR<CustomerIdentifierCreateInput, CustomerIdentifierUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerIdentifier createMany
+   */
+  export type CustomerIdentifierCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerIdentifiers.
+     */
+    data: CustomerIdentifierCreateManyInput | CustomerIdentifierCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerIdentifier createManyAndReturn
+   */
+  export type CustomerIdentifierCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CustomerIdentifiers.
+     */
+    data: CustomerIdentifierCreateManyInput | CustomerIdentifierCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerIdentifier update
+   */
+  export type CustomerIdentifierUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerIdentifier.
+     */
+    data: XOR<CustomerIdentifierUpdateInput, CustomerIdentifierUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerIdentifier to update.
+     */
+    where: CustomerIdentifierWhereUniqueInput
+  }
+
+  /**
+   * CustomerIdentifier updateMany
+   */
+  export type CustomerIdentifierUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerIdentifiers.
+     */
+    data: XOR<CustomerIdentifierUpdateManyMutationInput, CustomerIdentifierUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerIdentifiers to update
+     */
+    where?: CustomerIdentifierWhereInput
+  }
+
+  /**
+   * CustomerIdentifier upsert
+   */
+  export type CustomerIdentifierUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerIdentifier to update in case it exists.
+     */
+    where: CustomerIdentifierWhereUniqueInput
+    /**
+     * In case the CustomerIdentifier found by the `where` argument doesn't exist, create a new CustomerIdentifier with this data.
+     */
+    create: XOR<CustomerIdentifierCreateInput, CustomerIdentifierUncheckedCreateInput>
+    /**
+     * In case the CustomerIdentifier was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerIdentifierUpdateInput, CustomerIdentifierUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerIdentifier delete
+   */
+  export type CustomerIdentifierDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerIdentifier to delete.
+     */
+    where: CustomerIdentifierWhereUniqueInput
+  }
+
+  /**
+   * CustomerIdentifier deleteMany
+   */
+  export type CustomerIdentifierDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerIdentifiers to delete
+     */
+    where?: CustomerIdentifierWhereInput
+  }
+
+  /**
+   * CustomerIdentifier without action
+   */
+  export type CustomerIdentifierDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerIdentifier
+     */
+    select?: CustomerIdentifierSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIdentifierInclude<ExtArgs> | null
   }
 
 
@@ -26380,6 +27534,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     pickedUpAt: Date | null
+    channel: $Enums.OrderChannel | null
     couponCode: string | null
     discountAmount: Decimal | null
     finalAmount: Decimal | null
@@ -26403,6 +27558,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     pickedUpAt: Date | null
+    channel: $Enums.OrderChannel | null
     couponCode: string | null
     discountAmount: Decimal | null
     finalAmount: Decimal | null
@@ -26426,6 +27582,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     pickedUpAt: number
+    channel: number
     couponCode: number
     discountAmount: number
     finalAmount: number
@@ -26465,6 +27622,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     pickedUpAt?: true
+    channel?: true
     couponCode?: true
     discountAmount?: true
     finalAmount?: true
@@ -26488,6 +27646,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     pickedUpAt?: true
+    channel?: true
     couponCode?: true
     discountAmount?: true
     finalAmount?: true
@@ -26511,6 +27670,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     pickedUpAt?: true
+    channel?: true
     couponCode?: true
     discountAmount?: true
     finalAmount?: true
@@ -26621,6 +27781,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     pickedUpAt: Date | null
+    channel: $Enums.OrderChannel | null
     couponCode: string | null
     discountAmount: Decimal | null
     finalAmount: Decimal | null
@@ -26663,6 +27824,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     pickedUpAt?: boolean
+    channel?: boolean
     couponCode?: boolean
     discountAmount?: boolean
     finalAmount?: boolean
@@ -26693,6 +27855,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     pickedUpAt?: boolean
+    channel?: boolean
     couponCode?: boolean
     discountAmount?: boolean
     finalAmount?: boolean
@@ -26719,6 +27882,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     pickedUpAt?: boolean
+    channel?: boolean
     couponCode?: boolean
     discountAmount?: boolean
     finalAmount?: boolean
@@ -26767,6 +27931,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       pickedUpAt: Date | null
+      channel: $Enums.OrderChannel | null
       couponCode: string | null
       discountAmount: Prisma.Decimal | null
       finalAmount: Prisma.Decimal | null
@@ -27186,6 +28351,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
     readonly pickedUpAt: FieldRef<"Order", 'DateTime'>
+    readonly channel: FieldRef<"Order", 'OrderChannel'>
     readonly couponCode: FieldRef<"Order", 'String'>
     readonly discountAmount: FieldRef<"Order", 'Decimal'>
     readonly finalAmount: FieldRef<"Order", 'Decimal'>
@@ -29819,11 +30985,13 @@ export namespace Prisma {
   export type OrderItemAvgAggregateOutputType = {
     quantity: number | null
     price: Decimal | null
+    unitPriceSnapshot: Decimal | null
   }
 
   export type OrderItemSumAggregateOutputType = {
     quantity: number | null
     price: Decimal | null
+    unitPriceSnapshot: Decimal | null
   }
 
   export type OrderItemMinAggregateOutputType = {
@@ -29832,6 +31000,9 @@ export namespace Prisma {
     menuItemId: string | null
     quantity: number | null
     price: Decimal | null
+    productNameSnapshot: string | null
+    productCategorySnapshot: string | null
+    unitPriceSnapshot: Decimal | null
     createdAt: Date | null
   }
 
@@ -29841,6 +31012,9 @@ export namespace Prisma {
     menuItemId: string | null
     quantity: number | null
     price: Decimal | null
+    productNameSnapshot: string | null
+    productCategorySnapshot: string | null
+    unitPriceSnapshot: Decimal | null
     createdAt: Date | null
   }
 
@@ -29850,6 +31024,9 @@ export namespace Prisma {
     menuItemId: number
     quantity: number
     price: number
+    productNameSnapshot: number
+    productCategorySnapshot: number
+    unitPriceSnapshot: number
     createdAt: number
     _all: number
   }
@@ -29858,11 +31035,13 @@ export namespace Prisma {
   export type OrderItemAvgAggregateInputType = {
     quantity?: true
     price?: true
+    unitPriceSnapshot?: true
   }
 
   export type OrderItemSumAggregateInputType = {
     quantity?: true
     price?: true
+    unitPriceSnapshot?: true
   }
 
   export type OrderItemMinAggregateInputType = {
@@ -29871,6 +31050,9 @@ export namespace Prisma {
     menuItemId?: true
     quantity?: true
     price?: true
+    productNameSnapshot?: true
+    productCategorySnapshot?: true
+    unitPriceSnapshot?: true
     createdAt?: true
   }
 
@@ -29880,6 +31062,9 @@ export namespace Prisma {
     menuItemId?: true
     quantity?: true
     price?: true
+    productNameSnapshot?: true
+    productCategorySnapshot?: true
+    unitPriceSnapshot?: true
     createdAt?: true
   }
 
@@ -29889,6 +31074,9 @@ export namespace Prisma {
     menuItemId?: true
     quantity?: true
     price?: true
+    productNameSnapshot?: true
+    productCategorySnapshot?: true
+    unitPriceSnapshot?: true
     createdAt?: true
     _all?: true
   }
@@ -29985,6 +31173,9 @@ export namespace Prisma {
     menuItemId: string
     quantity: number
     price: Decimal
+    productNameSnapshot: string | null
+    productCategorySnapshot: string | null
+    unitPriceSnapshot: Decimal | null
     createdAt: Date
     _count: OrderItemCountAggregateOutputType | null
     _avg: OrderItemAvgAggregateOutputType | null
@@ -30013,6 +31204,9 @@ export namespace Prisma {
     menuItemId?: boolean
     quantity?: boolean
     price?: boolean
+    productNameSnapshot?: boolean
+    productCategorySnapshot?: boolean
+    unitPriceSnapshot?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     menuItem?: boolean | MenuItemDefaultArgs<ExtArgs>
@@ -30024,6 +31218,9 @@ export namespace Prisma {
     menuItemId?: boolean
     quantity?: boolean
     price?: boolean
+    productNameSnapshot?: boolean
+    productCategorySnapshot?: boolean
+    unitPriceSnapshot?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     menuItem?: boolean | MenuItemDefaultArgs<ExtArgs>
@@ -30035,6 +31232,9 @@ export namespace Prisma {
     menuItemId?: boolean
     quantity?: boolean
     price?: boolean
+    productNameSnapshot?: boolean
+    productCategorySnapshot?: boolean
+    unitPriceSnapshot?: boolean
     createdAt?: boolean
   }
 
@@ -30059,6 +31259,9 @@ export namespace Prisma {
       menuItemId: string
       quantity: number
       price: Prisma.Decimal
+      productNameSnapshot: string | null
+      productCategorySnapshot: string | null
+      unitPriceSnapshot: Prisma.Decimal | null
       createdAt: Date
     }, ExtArgs["result"]["orderItem"]>
     composites: {}
@@ -30460,6 +31663,9 @@ export namespace Prisma {
     readonly menuItemId: FieldRef<"OrderItem", 'String'>
     readonly quantity: FieldRef<"OrderItem", 'Int'>
     readonly price: FieldRef<"OrderItem", 'Decimal'>
+    readonly productNameSnapshot: FieldRef<"OrderItem", 'String'>
+    readonly productCategorySnapshot: FieldRef<"OrderItem", 'String'>
+    readonly unitPriceSnapshot: FieldRef<"OrderItem", 'Decimal'>
     readonly createdAt: FieldRef<"OrderItem", 'DateTime'>
   }
     
@@ -46540,10 +47746,27 @@ export namespace Prisma {
     organizationId: 'organizationId',
     marketingEmailConsent: 'marketingEmailConsent',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    customerId: 'customerId',
+    isAnonymous: 'isAnonymous',
+    mergedIntoId: 'mergedIntoId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const CustomerIdentifierScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    value: 'value',
+    source: 'source',
+    isActive: 'isActive',
+    addedAt: 'addedAt',
+    removedAt: 'removedAt'
+  };
+
+  export type CustomerIdentifierScalarFieldEnum = (typeof CustomerIdentifierScalarFieldEnum)[keyof typeof CustomerIdentifierScalarFieldEnum]
 
 
   export const WalletScalarFieldEnum: {
@@ -46718,6 +47941,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     pickedUpAt: 'pickedUpAt',
+    channel: 'channel',
     couponCode: 'couponCode',
     discountAmount: 'discountAmount',
     finalAmount: 'finalAmount',
@@ -46768,6 +47992,9 @@ export namespace Prisma {
     menuItemId: 'menuItemId',
     quantity: 'quantity',
     price: 'price',
+    productNameSnapshot: 'productNameSnapshot',
+    productCategorySnapshot: 'productCategorySnapshot',
+    unitPriceSnapshot: 'unitPriceSnapshot',
     createdAt: 'createdAt'
   };
 
@@ -47169,6 +48396,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CustomerIdentifierType'
+   */
+  export type EnumCustomerIdentifierTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerIdentifierType'>
+    
+
+
+  /**
+   * Reference to a field of type 'CustomerIdentifierType[]'
+   */
+  export type ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerIdentifierType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'WalletTransactionType'
    */
   export type EnumWalletTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletTransactionType'>
@@ -47207,6 +48448,20 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentStatus[]'
    */
   export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'OrderChannel'
+   */
+  export type EnumOrderChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderChannel'>
+    
+
+
+  /**
+   * Reference to a field of type 'OrderChannel[]'
+   */
+  export type ListEnumOrderChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderChannel[]'>
     
 
 
@@ -48039,6 +49294,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    customerId?: StringNullableFilter<"User"> | string | null
+    isAnonymous?: BoolFilter<"User"> | boolean
+    mergedIntoId?: StringNullableFilter<"User"> | string | null
     organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
     locations?: UserLocationListRelationFilter
     companyEmployees?: CompanyEmployeeListRelationFilter
@@ -48055,6 +49313,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigListRelationFilter
     emailCampaignsCreated?: EmailCampaignListRelationFilter
     emailCampaignLogs?: EmailCampaignLogListRelationFilter
+    customerIdentifiers?: CustomerIdentifierListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -48068,6 +49327,9 @@ export namespace Prisma {
     marketingEmailConsent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrderInput | SortOrder
+    isAnonymous?: SortOrder
+    mergedIntoId?: SortOrderInput | SortOrder
     organization?: OrganizationOrderByWithRelationInput
     locations?: UserLocationOrderByRelationAggregateInput
     companyEmployees?: CompanyEmployeeOrderByRelationAggregateInput
@@ -48084,11 +49346,13 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigOrderByRelationAggregateInput
     emailCampaignsCreated?: EmailCampaignOrderByRelationAggregateInput
     emailCampaignLogs?: EmailCampaignLogOrderByRelationAggregateInput
+    customerIdentifiers?: CustomerIdentifierOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    customerId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -48100,6 +49364,8 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    isAnonymous?: BoolFilter<"User"> | boolean
+    mergedIntoId?: StringNullableFilter<"User"> | string | null
     organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
     locations?: UserLocationListRelationFilter
     companyEmployees?: CompanyEmployeeListRelationFilter
@@ -48116,7 +49382,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigListRelationFilter
     emailCampaignsCreated?: EmailCampaignListRelationFilter
     emailCampaignLogs?: EmailCampaignLogListRelationFilter
-  }, "id" | "email">
+    customerIdentifiers?: CustomerIdentifierListRelationFilter
+  }, "id" | "email" | "customerId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -48129,6 +49396,9 @@ export namespace Prisma {
     marketingEmailConsent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrderInput | SortOrder
+    isAnonymous?: SortOrder
+    mergedIntoId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -48148,6 +49418,79 @@ export namespace Prisma {
     marketingEmailConsent?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    customerId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isAnonymous?: BoolWithAggregatesFilter<"User"> | boolean
+    mergedIntoId?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type CustomerIdentifierWhereInput = {
+    AND?: CustomerIdentifierWhereInput | CustomerIdentifierWhereInput[]
+    OR?: CustomerIdentifierWhereInput[]
+    NOT?: CustomerIdentifierWhereInput | CustomerIdentifierWhereInput[]
+    id?: StringFilter<"CustomerIdentifier"> | string
+    userId?: StringFilter<"CustomerIdentifier"> | string
+    type?: EnumCustomerIdentifierTypeFilter<"CustomerIdentifier"> | $Enums.CustomerIdentifierType
+    value?: StringFilter<"CustomerIdentifier"> | string
+    source?: StringNullableFilter<"CustomerIdentifier"> | string | null
+    isActive?: BoolFilter<"CustomerIdentifier"> | boolean
+    addedAt?: DateTimeFilter<"CustomerIdentifier"> | Date | string
+    removedAt?: DateTimeNullableFilter<"CustomerIdentifier"> | Date | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type CustomerIdentifierOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    source?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    addedAt?: SortOrder
+    removedAt?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CustomerIdentifierWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CustomerIdentifierWhereInput | CustomerIdentifierWhereInput[]
+    OR?: CustomerIdentifierWhereInput[]
+    NOT?: CustomerIdentifierWhereInput | CustomerIdentifierWhereInput[]
+    userId?: StringFilter<"CustomerIdentifier"> | string
+    type?: EnumCustomerIdentifierTypeFilter<"CustomerIdentifier"> | $Enums.CustomerIdentifierType
+    value?: StringFilter<"CustomerIdentifier"> | string
+    source?: StringNullableFilter<"CustomerIdentifier"> | string | null
+    isActive?: BoolFilter<"CustomerIdentifier"> | boolean
+    addedAt?: DateTimeFilter<"CustomerIdentifier"> | Date | string
+    removedAt?: DateTimeNullableFilter<"CustomerIdentifier"> | Date | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type CustomerIdentifierOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    source?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    addedAt?: SortOrder
+    removedAt?: SortOrderInput | SortOrder
+    _count?: CustomerIdentifierCountOrderByAggregateInput
+    _max?: CustomerIdentifierMaxOrderByAggregateInput
+    _min?: CustomerIdentifierMinOrderByAggregateInput
+  }
+
+  export type CustomerIdentifierScalarWhereWithAggregatesInput = {
+    AND?: CustomerIdentifierScalarWhereWithAggregatesInput | CustomerIdentifierScalarWhereWithAggregatesInput[]
+    OR?: CustomerIdentifierScalarWhereWithAggregatesInput[]
+    NOT?: CustomerIdentifierScalarWhereWithAggregatesInput | CustomerIdentifierScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomerIdentifier"> | string
+    userId?: StringWithAggregatesFilter<"CustomerIdentifier"> | string
+    type?: EnumCustomerIdentifierTypeWithAggregatesFilter<"CustomerIdentifier"> | $Enums.CustomerIdentifierType
+    value?: StringWithAggregatesFilter<"CustomerIdentifier"> | string
+    source?: StringNullableWithAggregatesFilter<"CustomerIdentifier"> | string | null
+    isActive?: BoolWithAggregatesFilter<"CustomerIdentifier"> | boolean
+    addedAt?: DateTimeWithAggregatesFilter<"CustomerIdentifier"> | Date | string
+    removedAt?: DateTimeNullableWithAggregatesFilter<"CustomerIdentifier"> | Date | string | null
   }
 
   export type WalletWhereInput = {
@@ -49001,6 +50344,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     pickedUpAt?: DateTimeNullableFilter<"Order"> | Date | string | null
+    channel?: EnumOrderChannelNullableFilter<"Order"> | $Enums.OrderChannel | null
     couponCode?: StringNullableFilter<"Order"> | string | null
     discountAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     finalAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
@@ -49030,6 +50374,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     pickedUpAt?: SortOrderInput | SortOrder
+    channel?: SortOrderInput | SortOrder
     couponCode?: SortOrderInput | SortOrder
     discountAmount?: SortOrderInput | SortOrder
     finalAmount?: SortOrderInput | SortOrder
@@ -49062,6 +50407,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     pickedUpAt?: DateTimeNullableFilter<"Order"> | Date | string | null
+    channel?: EnumOrderChannelNullableFilter<"Order"> | $Enums.OrderChannel | null
     couponCode?: StringNullableFilter<"Order"> | string | null
     discountAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     finalAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
@@ -49091,6 +50437,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     pickedUpAt?: SortOrderInput | SortOrder
+    channel?: SortOrderInput | SortOrder
     couponCode?: SortOrderInput | SortOrder
     discountAmount?: SortOrderInput | SortOrder
     finalAmount?: SortOrderInput | SortOrder
@@ -49122,6 +50469,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     pickedUpAt?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+    channel?: EnumOrderChannelNullableWithAggregatesFilter<"Order"> | $Enums.OrderChannel | null
     couponCode?: StringNullableWithAggregatesFilter<"Order"> | string | null
     discountAmount?: DecimalNullableWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     finalAmount?: DecimalNullableWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
@@ -49332,6 +50680,9 @@ export namespace Prisma {
     menuItemId?: StringFilter<"OrderItem"> | string
     quantity?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: StringNullableFilter<"OrderItem"> | string | null
+    productCategorySnapshot?: StringNullableFilter<"OrderItem"> | string | null
+    unitPriceSnapshot?: DecimalNullableFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderRelationFilter, OrderWhereInput>
     menuItem?: XOR<MenuItemRelationFilter, MenuItemWhereInput>
@@ -49343,6 +50694,9 @@ export namespace Prisma {
     menuItemId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    productNameSnapshot?: SortOrderInput | SortOrder
+    productCategorySnapshot?: SortOrderInput | SortOrder
+    unitPriceSnapshot?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     order?: OrderOrderByWithRelationInput
     menuItem?: MenuItemOrderByWithRelationInput
@@ -49357,6 +50711,9 @@ export namespace Prisma {
     menuItemId?: StringFilter<"OrderItem"> | string
     quantity?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: StringNullableFilter<"OrderItem"> | string | null
+    productCategorySnapshot?: StringNullableFilter<"OrderItem"> | string | null
+    unitPriceSnapshot?: DecimalNullableFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderRelationFilter, OrderWhereInput>
     menuItem?: XOR<MenuItemRelationFilter, MenuItemWhereInput>
@@ -49368,6 +50725,9 @@ export namespace Prisma {
     menuItemId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    productNameSnapshot?: SortOrderInput | SortOrder
+    productCategorySnapshot?: SortOrderInput | SortOrder
+    unitPriceSnapshot?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OrderItemCountOrderByAggregateInput
     _avg?: OrderItemAvgOrderByAggregateInput
@@ -49385,6 +50745,9 @@ export namespace Prisma {
     menuItemId?: StringWithAggregatesFilter<"OrderItem"> | string
     quantity?: IntWithAggregatesFilter<"OrderItem"> | number
     price?: DecimalWithAggregatesFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+    productCategorySnapshot?: StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+    unitPriceSnapshot?: DecimalNullableWithAggregatesFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeWithAggregatesFilter<"OrderItem"> | Date | string
   }
 
@@ -51477,6 +52840,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -51493,6 +52859,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -51506,6 +52873,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -51521,6 +52891,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -51533,6 +52904,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -51549,6 +52923,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -51562,6 +52937,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -51577,6 +52955,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -51590,6 +52969,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -51602,6 +52984,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -51615,6 +53000,85 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerIdentifierCreateInput = {
+    id?: string
+    type: $Enums.CustomerIdentifierType
+    value: string
+    source?: string | null
+    isActive?: boolean
+    addedAt?: Date | string
+    removedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutCustomerIdentifiersInput
+  }
+
+  export type CustomerIdentifierUncheckedCreateInput = {
+    id?: string
+    userId: string
+    type: $Enums.CustomerIdentifierType
+    value: string
+    source?: string | null
+    isActive?: boolean
+    addedAt?: Date | string
+    removedAt?: Date | string | null
+  }
+
+  export type CustomerIdentifierUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomerIdentifierTypeFieldUpdateOperationsInput | $Enums.CustomerIdentifierType
+    value?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutCustomerIdentifiersNestedInput
+  }
+
+  export type CustomerIdentifierUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomerIdentifierTypeFieldUpdateOperationsInput | $Enums.CustomerIdentifierType
+    value?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerIdentifierCreateManyInput = {
+    id?: string
+    userId: string
+    type: $Enums.CustomerIdentifierType
+    value: string
+    source?: string | null
+    isActive?: boolean
+    addedAt?: Date | string
+    removedAt?: Date | string | null
+  }
+
+  export type CustomerIdentifierUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomerIdentifierTypeFieldUpdateOperationsInput | $Enums.CustomerIdentifierType
+    value?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerIdentifierUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomerIdentifierTypeFieldUpdateOperationsInput | $Enums.CustomerIdentifierType
+    value?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type WalletCreateInput = {
@@ -52500,6 +53964,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -52528,6 +53993,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -52552,6 +54018,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52580,6 +54047,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52606,6 +54074,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -52627,6 +54096,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52649,6 +54119,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52867,6 +54338,9 @@ export namespace Prisma {
     id?: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     menuItem: MenuItemCreateNestedOneWithoutOrderItemsInput
@@ -52878,6 +54352,9 @@ export namespace Prisma {
     menuItemId: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -52885,6 +54362,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     menuItem?: MenuItemUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -52896,6 +54376,9 @@ export namespace Prisma {
     menuItemId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -52905,6 +54388,9 @@ export namespace Prisma {
     menuItemId: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -52912,6 +54398,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -52921,6 +54410,9 @@ export namespace Prisma {
     menuItemId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -55260,6 +56752,12 @@ export namespace Prisma {
     none?: EmailCampaignLogWhereInput
   }
 
+  export type CustomerIdentifierListRelationFilter = {
+    every?: CustomerIdentifierWhereInput
+    some?: CustomerIdentifierWhereInput
+    none?: CustomerIdentifierWhereInput
+  }
+
   export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -55292,6 +56790,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type CustomerIdentifierOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -55303,6 +56805,9 @@ export namespace Prisma {
     marketingEmailConsent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrder
+    isAnonymous?: SortOrder
+    mergedIntoId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -55316,6 +56821,9 @@ export namespace Prisma {
     marketingEmailConsent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrder
+    isAnonymous?: SortOrder
+    mergedIntoId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -55329,6 +56837,9 @@ export namespace Prisma {
     marketingEmailConsent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    customerId?: SortOrder
+    isAnonymous?: SortOrder
+    mergedIntoId?: SortOrder
   }
 
   export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -55339,6 +56850,56 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type EnumCustomerIdentifierTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerIdentifierType | EnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerIdentifierTypeFilter<$PrismaModel> | $Enums.CustomerIdentifierType
+  }
+
+  export type CustomerIdentifierCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    source?: SortOrder
+    isActive?: SortOrder
+    addedAt?: SortOrder
+    removedAt?: SortOrder
+  }
+
+  export type CustomerIdentifierMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    source?: SortOrder
+    isActive?: SortOrder
+    addedAt?: SortOrder
+    removedAt?: SortOrder
+  }
+
+  export type CustomerIdentifierMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    source?: SortOrder
+    isActive?: SortOrder
+    addedAt?: SortOrder
+    removedAt?: SortOrder
+  }
+
+  export type EnumCustomerIdentifierTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerIdentifierType | EnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerIdentifierTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomerIdentifierType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomerIdentifierTypeFilter<$PrismaModel>
+    _max?: NestedEnumCustomerIdentifierTypeFilter<$PrismaModel>
   }
 
   export type WalletCountOrderByAggregateInput = {
@@ -55945,6 +57506,13 @@ export namespace Prisma {
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
   }
 
+  export type EnumOrderChannelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrderChannel | EnumOrderChannelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrderChannelNullableFilter<$PrismaModel> | $Enums.OrderChannel | null
+  }
+
   export type CompanyNullableRelationFilter = {
     is?: CompanyWhereInput | null
     isNot?: CompanyWhereInput | null
@@ -55966,6 +57534,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     pickedUpAt?: SortOrder
+    channel?: SortOrder
     couponCode?: SortOrder
     discountAmount?: SortOrder
     finalAmount?: SortOrder
@@ -55996,6 +57565,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     pickedUpAt?: SortOrder
+    channel?: SortOrder
     couponCode?: SortOrder
     discountAmount?: SortOrder
     finalAmount?: SortOrder
@@ -56019,6 +57589,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     pickedUpAt?: SortOrder
+    channel?: SortOrder
     couponCode?: SortOrder
     discountAmount?: SortOrder
     finalAmount?: SortOrder
@@ -56051,6 +57622,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+  }
+
+  export type EnumOrderChannelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrderChannel | EnumOrderChannelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrderChannelNullableWithAggregatesFilter<$PrismaModel> | $Enums.OrderChannel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumOrderChannelNullableFilter<$PrismaModel>
+    _max?: NestedEnumOrderChannelNullableFilter<$PrismaModel>
   }
 
   export type EnumCouponTypeFilter<$PrismaModel = never> = {
@@ -56217,12 +57798,16 @@ export namespace Prisma {
     menuItemId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    productNameSnapshot?: SortOrder
+    productCategorySnapshot?: SortOrder
+    unitPriceSnapshot?: SortOrder
     createdAt?: SortOrder
   }
 
   export type OrderItemAvgOrderByAggregateInput = {
     quantity?: SortOrder
     price?: SortOrder
+    unitPriceSnapshot?: SortOrder
   }
 
   export type OrderItemMaxOrderByAggregateInput = {
@@ -56231,6 +57816,9 @@ export namespace Prisma {
     menuItemId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    productNameSnapshot?: SortOrder
+    productCategorySnapshot?: SortOrder
+    unitPriceSnapshot?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -56240,12 +57828,16 @@ export namespace Prisma {
     menuItemId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    productNameSnapshot?: SortOrder
+    productCategorySnapshot?: SortOrder
+    unitPriceSnapshot?: SortOrder
     createdAt?: SortOrder
   }
 
   export type OrderItemSumOrderByAggregateInput = {
     quantity?: SortOrder
     price?: SortOrder
+    unitPriceSnapshot?: SortOrder
   }
 
   export type EnumMetadataTypeFilter<$PrismaModel = never> = {
@@ -58286,6 +59878,13 @@ export namespace Prisma {
     connect?: EmailCampaignLogWhereUniqueInput | EmailCampaignLogWhereUniqueInput[]
   }
 
+  export type CustomerIdentifierCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerIdentifierCreateWithoutUserInput, CustomerIdentifierUncheckedCreateWithoutUserInput> | CustomerIdentifierCreateWithoutUserInput[] | CustomerIdentifierUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerIdentifierCreateOrConnectWithoutUserInput | CustomerIdentifierCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerIdentifierCreateManyUserInputEnvelope
+    connect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+  }
+
   export type UserLocationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -58388,6 +59987,13 @@ export namespace Prisma {
     connectOrCreate?: EmailCampaignLogCreateOrConnectWithoutUserInput | EmailCampaignLogCreateOrConnectWithoutUserInput[]
     createMany?: EmailCampaignLogCreateManyUserInputEnvelope
     connect?: EmailCampaignLogWhereUniqueInput | EmailCampaignLogWhereUniqueInput[]
+  }
+
+  export type CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerIdentifierCreateWithoutUserInput, CustomerIdentifierUncheckedCreateWithoutUserInput> | CustomerIdentifierCreateWithoutUserInput[] | CustomerIdentifierUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerIdentifierCreateOrConnectWithoutUserInput | CustomerIdentifierCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerIdentifierCreateManyUserInputEnvelope
+    connect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -58610,6 +60216,20 @@ export namespace Prisma {
     deleteMany?: EmailCampaignLogScalarWhereInput | EmailCampaignLogScalarWhereInput[]
   }
 
+  export type CustomerIdentifierUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerIdentifierCreateWithoutUserInput, CustomerIdentifierUncheckedCreateWithoutUserInput> | CustomerIdentifierCreateWithoutUserInput[] | CustomerIdentifierUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerIdentifierCreateOrConnectWithoutUserInput | CustomerIdentifierCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerIdentifierUpsertWithWhereUniqueWithoutUserInput | CustomerIdentifierUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerIdentifierCreateManyUserInputEnvelope
+    set?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    disconnect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    delete?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    connect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    update?: CustomerIdentifierUpdateWithWhereUniqueWithoutUserInput | CustomerIdentifierUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerIdentifierUpdateManyWithWhereWithoutUserInput | CustomerIdentifierUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerIdentifierScalarWhereInput | CustomerIdentifierScalarWhereInput[]
+  }
+
   export type UserLocationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -58814,6 +60434,38 @@ export namespace Prisma {
     update?: EmailCampaignLogUpdateWithWhereUniqueWithoutUserInput | EmailCampaignLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: EmailCampaignLogUpdateManyWithWhereWithoutUserInput | EmailCampaignLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: EmailCampaignLogScalarWhereInput | EmailCampaignLogScalarWhereInput[]
+  }
+
+  export type CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerIdentifierCreateWithoutUserInput, CustomerIdentifierUncheckedCreateWithoutUserInput> | CustomerIdentifierCreateWithoutUserInput[] | CustomerIdentifierUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerIdentifierCreateOrConnectWithoutUserInput | CustomerIdentifierCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerIdentifierUpsertWithWhereUniqueWithoutUserInput | CustomerIdentifierUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerIdentifierCreateManyUserInputEnvelope
+    set?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    disconnect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    delete?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    connect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+    update?: CustomerIdentifierUpdateWithWhereUniqueWithoutUserInput | CustomerIdentifierUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerIdentifierUpdateManyWithWhereWithoutUserInput | CustomerIdentifierUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerIdentifierScalarWhereInput | CustomerIdentifierScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutCustomerIdentifiersInput = {
+    create?: XOR<UserCreateWithoutCustomerIdentifiersInput, UserUncheckedCreateWithoutCustomerIdentifiersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerIdentifiersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumCustomerIdentifierTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CustomerIdentifierType
+  }
+
+  export type UserUpdateOneRequiredWithoutCustomerIdentifiersNestedInput = {
+    create?: XOR<UserCreateWithoutCustomerIdentifiersInput, UserUncheckedCreateWithoutCustomerIdentifiersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerIdentifiersInput
+    upsert?: UserUpsertWithoutCustomerIdentifiersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCustomerIdentifiersInput, UserUpdateWithoutCustomerIdentifiersInput>, UserUncheckedUpdateWithoutCustomerIdentifiersInput>
   }
 
   export type UserCreateNestedOneWithoutWalletInput = {
@@ -59398,6 +61050,10 @@ export namespace Prisma {
 
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
     set?: $Enums.PaymentStatus
+  }
+
+  export type NullableEnumOrderChannelFieldUpdateOperationsInput = {
+    set?: $Enums.OrderChannel | null
   }
 
   export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
@@ -61142,6 +62798,23 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type NestedEnumCustomerIdentifierTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerIdentifierType | EnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerIdentifierTypeFilter<$PrismaModel> | $Enums.CustomerIdentifierType
+  }
+
+  export type NestedEnumCustomerIdentifierTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerIdentifierType | EnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerIdentifierTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomerIdentifierType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomerIdentifierTypeFilter<$PrismaModel>
+    _max?: NestedEnumCustomerIdentifierTypeFilter<$PrismaModel>
+  }
+
   export type NestedEnumWalletTransactionTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.WalletTransactionType | EnumWalletTransactionTypeFieldRefInput<$PrismaModel>
     in?: $Enums.WalletTransactionType[] | ListEnumWalletTransactionTypeFieldRefInput<$PrismaModel>
@@ -61200,6 +62873,13 @@ export namespace Prisma {
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
   }
 
+  export type NestedEnumOrderChannelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrderChannel | EnumOrderChannelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrderChannelNullableFilter<$PrismaModel> | $Enums.OrderChannel | null
+  }
+
   export type NestedEnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -61218,6 +62898,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumOrderChannelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrderChannel | EnumOrderChannelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrderChannel[] | ListEnumOrderChannelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrderChannelNullableWithAggregatesFilter<$PrismaModel> | $Enums.OrderChannel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumOrderChannelNullableFilter<$PrismaModel>
+    _max?: NestedEnumOrderChannelNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumCouponTypeFilter<$PrismaModel = never> = {
@@ -61432,6 +63122,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -61447,6 +63140,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -61459,6 +63153,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -61474,6 +63171,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -61893,6 +63591,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    customerId?: StringNullableFilter<"User"> | string | null
+    isAnonymous?: BoolFilter<"User"> | boolean
+    mergedIntoId?: StringNullableFilter<"User"> | string | null
   }
 
   export type CustomerSegmentUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -62219,6 +63920,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -62246,6 +63948,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -62401,6 +64104,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     pickedUpAt?: DateTimeNullableFilter<"Order"> | Date | string | null
+    channel?: EnumOrderChannelNullableFilter<"Order"> | $Enums.OrderChannel | null
     couponCode?: StringNullableFilter<"Order"> | string | null
     discountAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     finalAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
@@ -63065,6 +64769,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -63080,6 +64787,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyEmployeesInput = {
@@ -63093,6 +64801,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -63107,6 +64818,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyEmployeesInput = {
@@ -63188,6 +64900,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -63203,6 +64918,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyEmployeesInput = {
@@ -63216,6 +64932,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -63230,6 +64949,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutLocationsInput = {
@@ -63333,6 +65053,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -63359,6 +65080,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -63745,6 +65467,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -63771,6 +65494,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -64167,6 +65891,36 @@ export namespace Prisma {
 
   export type EmailCampaignLogCreateManyUserInputEnvelope = {
     data: EmailCampaignLogCreateManyUserInput | EmailCampaignLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerIdentifierCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.CustomerIdentifierType
+    value: string
+    source?: string | null
+    isActive?: boolean
+    addedAt?: Date | string
+    removedAt?: Date | string | null
+  }
+
+  export type CustomerIdentifierUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.CustomerIdentifierType
+    value: string
+    source?: string | null
+    isActive?: boolean
+    addedAt?: Date | string
+    removedAt?: Date | string | null
+  }
+
+  export type CustomerIdentifierCreateOrConnectWithoutUserInput = {
+    where: CustomerIdentifierWhereUniqueInput
+    create: XOR<CustomerIdentifierCreateWithoutUserInput, CustomerIdentifierUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerIdentifierCreateManyUserInputEnvelope = {
+    data: CustomerIdentifierCreateManyUserInput | CustomerIdentifierCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -64587,6 +66341,176 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"EmailCampaignLog"> | Date | string
   }
 
+  export type CustomerIdentifierUpsertWithWhereUniqueWithoutUserInput = {
+    where: CustomerIdentifierWhereUniqueInput
+    update: XOR<CustomerIdentifierUpdateWithoutUserInput, CustomerIdentifierUncheckedUpdateWithoutUserInput>
+    create: XOR<CustomerIdentifierCreateWithoutUserInput, CustomerIdentifierUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerIdentifierUpdateWithWhereUniqueWithoutUserInput = {
+    where: CustomerIdentifierWhereUniqueInput
+    data: XOR<CustomerIdentifierUpdateWithoutUserInput, CustomerIdentifierUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CustomerIdentifierUpdateManyWithWhereWithoutUserInput = {
+    where: CustomerIdentifierScalarWhereInput
+    data: XOR<CustomerIdentifierUpdateManyMutationInput, CustomerIdentifierUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CustomerIdentifierScalarWhereInput = {
+    AND?: CustomerIdentifierScalarWhereInput | CustomerIdentifierScalarWhereInput[]
+    OR?: CustomerIdentifierScalarWhereInput[]
+    NOT?: CustomerIdentifierScalarWhereInput | CustomerIdentifierScalarWhereInput[]
+    id?: StringFilter<"CustomerIdentifier"> | string
+    userId?: StringFilter<"CustomerIdentifier"> | string
+    type?: EnumCustomerIdentifierTypeFilter<"CustomerIdentifier"> | $Enums.CustomerIdentifierType
+    value?: StringFilter<"CustomerIdentifier"> | string
+    source?: StringNullableFilter<"CustomerIdentifier"> | string | null
+    isActive?: BoolFilter<"CustomerIdentifier"> | boolean
+    addedAt?: DateTimeFilter<"CustomerIdentifier"> | Date | string
+    removedAt?: DateTimeNullableFilter<"CustomerIdentifier"> | Date | string | null
+  }
+
+  export type UserCreateWithoutCustomerIdentifiersInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCustomerIdentifiersInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCustomerIdentifiersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCustomerIdentifiersInput, UserUncheckedCreateWithoutCustomerIdentifiersInput>
+  }
+
+  export type UserUpsertWithoutCustomerIdentifiersInput = {
+    update: XOR<UserUpdateWithoutCustomerIdentifiersInput, UserUncheckedUpdateWithoutCustomerIdentifiersInput>
+    create: XOR<UserCreateWithoutCustomerIdentifiersInput, UserUncheckedCreateWithoutCustomerIdentifiersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCustomerIdentifiersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCustomerIdentifiersInput, UserUncheckedUpdateWithoutCustomerIdentifiersInput>
+  }
+
+  export type UserUpdateWithoutCustomerIdentifiersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCustomerIdentifiersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutWalletInput = {
     id?: string
     email: string
@@ -64597,6 +66521,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -64612,6 +66539,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -64625,6 +66553,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -64639,6 +66570,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -64667,6 +66599,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -64682,6 +66617,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -64695,6 +66631,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -64709,6 +66648,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWalletTransactionsInput = {
@@ -64721,6 +66661,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -64736,6 +66679,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletTransactionsInput = {
@@ -64749,6 +66693,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -64763,6 +66710,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletTransactionsInput = {
@@ -64784,6 +66732,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -64811,6 +66760,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -64835,6 +66785,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -64850,6 +66803,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedWalletActionsInput = {
@@ -64863,6 +66817,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -64877,6 +66834,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedWalletActionsInput = {
@@ -64934,6 +66892,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -64949,6 +66910,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
@@ -64962,6 +66924,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -64976,6 +66941,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutWalletTransactionsInput = {
@@ -65003,6 +66969,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -65030,6 +66997,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -65060,6 +67028,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -65075,6 +67046,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedWalletActionsInput = {
@@ -65088,6 +67060,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -65102,6 +67077,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type IncentiveGrantUpsertWithoutWalletTransactionInput = {
@@ -65149,6 +67125,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -65164,6 +67143,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLocationsInput = {
@@ -65177,6 +67157,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -65191,6 +67174,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLocationsInput = {
@@ -65258,6 +67242,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -65273,6 +67260,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLocationsInput = {
@@ -65286,6 +67274,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -65300,6 +67291,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutUsersInput = {
@@ -65357,6 +67349,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -65372,6 +67367,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -65385,6 +67381,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -65399,6 +67398,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -65427,6 +67427,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -65442,6 +67445,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -65455,6 +67459,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -65469,6 +67476,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -65481,6 +67489,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -65496,6 +67507,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -65509,6 +67521,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -65523,6 +67538,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -65551,6 +67567,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -65566,6 +67585,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -65579,6 +67599,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -65593,6 +67616,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationCreateWithoutMenusInput = {
@@ -66258,6 +68282,9 @@ export namespace Prisma {
     id?: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
   }
@@ -66267,6 +68294,9 @@ export namespace Prisma {
     orderId: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -66389,6 +68419,9 @@ export namespace Prisma {
     menuItemId?: StringFilter<"OrderItem"> | string
     quantity?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: StringNullableFilter<"OrderItem"> | string | null
+    productCategorySnapshot?: StringNullableFilter<"OrderItem"> | string | null
+    unitPriceSnapshot?: DecimalNullableFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
   }
 
@@ -66532,6 +68565,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -66547,6 +68583,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -66560,6 +68597,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -66574,6 +68614,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -66624,6 +68665,9 @@ export namespace Prisma {
     id?: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     menuItem: MenuItemCreateNestedOneWithoutOrderItemsInput
   }
@@ -66633,6 +68677,9 @@ export namespace Prisma {
     menuItemId: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -66778,6 +68825,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -66793,6 +68843,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -66806,6 +68857,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -66820,6 +68874,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutOrdersInput = {
@@ -67421,6 +69476,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -67436,6 +69494,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCouponRedemptionsInput = {
@@ -67449,6 +69508,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -67463,6 +69525,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCouponRedemptionsInput = {
@@ -67484,6 +69547,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -67511,6 +69575,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -67603,6 +69668,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -67618,6 +69686,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCouponRedemptionsInput = {
@@ -67631,6 +69700,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -67645,6 +69717,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutCouponRedemptionsInput = {
@@ -67672,6 +69745,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -67699,6 +69773,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -67722,6 +69797,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -67749,6 +69825,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -67825,6 +69902,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -67852,6 +69930,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -70109,6 +72188,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -70124,6 +72206,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushNotificationLogsInput = {
@@ -70137,6 +72220,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -70151,6 +72237,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushNotificationLogsInput = {
@@ -70224,6 +72311,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -70239,6 +72329,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushNotificationLogsInput = {
@@ -70252,6 +72343,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -70266,6 +72360,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPushSubscriptionsInput = {
@@ -70278,6 +72373,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -70293,6 +72391,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -70306,6 +72405,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -70320,6 +72422,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -70348,6 +72451,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -70363,6 +72469,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -70376,6 +72483,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -70390,6 +72500,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutPaymentConfigsInput = {
@@ -70453,6 +72564,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -70468,6 +72582,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentConfigChangesInput = {
@@ -70481,6 +72596,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -70495,6 +72613,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentConfigChangesInput = {
@@ -70580,6 +72699,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -70595,6 +72717,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentConfigChangesInput = {
@@ -70608,6 +72731,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -70622,6 +72748,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SegmentIncentiveCreateWithoutGrantsInput = {
@@ -70675,6 +72802,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -70690,6 +72820,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIncentiveGrantsInput = {
@@ -70703,6 +72834,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -70717,6 +72851,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIncentiveGrantsInput = {
@@ -70878,6 +73013,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -70893,6 +73031,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncentiveGrantsInput = {
@@ -70906,6 +73045,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -70920,6 +73062,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CouponUpsertWithoutIncentiveGrantsInput = {
@@ -71161,6 +73304,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -71176,6 +73322,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignsCreatedInput = {
@@ -71189,6 +73336,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -71203,6 +73353,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignsCreatedInput = {
@@ -71416,6 +73567,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -71431,6 +73585,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignsCreatedInput = {
@@ -71444,6 +73599,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -71458,6 +73616,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EmailCampaignLogUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -71531,6 +73690,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     locations?: UserLocationCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
@@ -71546,6 +73708,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignLogsInput = {
@@ -71559,6 +73722,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
     locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
     companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -71573,6 +73739,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignLogsInput = {
@@ -71652,6 +73819,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
@@ -71667,6 +73837,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignLogsInput = {
@@ -71680,6 +73851,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -71694,6 +73868,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationCreateManyOrganizationInput = {
@@ -71719,6 +73894,9 @@ export namespace Prisma {
     marketingEmailConsent?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
   }
 
   export type CustomerSegmentCreateManyOrganizationInput = {
@@ -71896,6 +74074,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -71911,6 +74092,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -71923,6 +74105,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -71938,6 +74123,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -71950,6 +74136,9 @@ export namespace Prisma {
     marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CustomerSegmentUpdateWithoutOrganizationInput = {
@@ -72361,6 +74550,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -72436,6 +74626,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -72463,6 +74654,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -72488,6 +74680,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -72668,6 +74861,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -72751,6 +74945,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -72777,6 +74972,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -72802,6 +74998,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -72924,6 +75121,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     pickedUpAt?: Date | string | null
+    channel?: $Enums.OrderChannel | null
     couponCode?: string | null
     discountAmount?: Decimal | DecimalJsLike | number | string | null
     finalAmount?: Decimal | DecimalJsLike | number | string | null
@@ -73055,6 +75253,16 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type CustomerIdentifierCreateManyUserInput = {
+    id?: string
+    type: $Enums.CustomerIdentifierType
+    value: string
+    source?: string | null
+    isActive?: boolean
+    addedAt?: Date | string
+    removedAt?: Date | string | null
+  }
+
   export type UserLocationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73120,6 +75328,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -73146,6 +75355,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -73171,6 +75381,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pickedUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    channel?: NullableEnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel | null
     couponCode?: NullableStringFieldUpdateOperationsInput | string | null
     discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     finalAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -73554,6 +75765,36 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CustomerIdentifierUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomerIdentifierTypeFieldUpdateOperationsInput | $Enums.CustomerIdentifierType
+    value?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerIdentifierUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomerIdentifierTypeFieldUpdateOperationsInput | $Enums.CustomerIdentifierType
+    value?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerIdentifierUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomerIdentifierTypeFieldUpdateOperationsInput | $Enums.CustomerIdentifierType
+    value?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type MenuItemCreateManyMenuInput = {
     id?: string
     dishId: string
@@ -73669,6 +75910,9 @@ export namespace Prisma {
     orderId: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -73676,6 +75920,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
   }
@@ -73685,6 +75932,9 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -73693,6 +75943,9 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -73847,6 +76100,9 @@ export namespace Prisma {
     menuItemId: string
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: string | null
+    productCategorySnapshot?: string | null
+    unitPriceSnapshot?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
   }
 
@@ -73876,6 +76132,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     menuItem?: MenuItemUpdateOneRequiredWithoutOrderItemsNestedInput
   }
@@ -73885,6 +76144,9 @@ export namespace Prisma {
     menuItemId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -73893,6 +76155,9 @@ export namespace Prisma {
     menuItemId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    productNameSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    productCategorySnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    unitPriceSnapshot?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -75065,6 +77330,10 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CustomerIdentifierDefaultArgs instead
+     */
+    export type CustomerIdentifierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerIdentifierDefaultArgs<ExtArgs>
     /**
      * @deprecated Use WalletDefaultArgs instead
      */

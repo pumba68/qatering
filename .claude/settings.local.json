@@ -18,7 +18,8 @@
       "Bash(npx prisma migrate dev:*)",
       "Bash(npx prisma generate:*)",
       "Bash(tasklist:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(powershell -Command:*)"
     ]
   }
 }

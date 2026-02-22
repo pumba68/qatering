@@ -109,6 +109,7 @@ const menuGroups = [
     id: 'verwaltung',
     label: 'Verwaltung',
     items: [
+      { title: 'Kunden', url: '/admin/kunden', icon: Users2 },
       { title: 'Standorte', url: '/admin/locations', icon: Pin },
       { title: 'Unternehmen', url: '/admin/companies', icon: Building2 },
       { title: 'Vertragspartner-Abrechnung', url: '/admin/billing', icon: Receipt },

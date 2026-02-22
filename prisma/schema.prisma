@@ -208,6 +208,11 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  // PROJ-18: CDP Golden Record
+  customerId    String?  @unique @default(cuid()) // Stabile fachliche Kunden-ID (nie änderbar)
+  isAnonymous   Boolean  @default(false)          // Anonymes Profil-Flag
+  mergedIntoId  String?                           // Verweis auf Zielprofil bei Merge (null = aktiv)
+
   organization  Organization? @relation(fields: [organizationId], references: [id])
   locations     UserLocation[]
   companyEmployees CompanyEmployee[]
@@ -225,8 +230,37 @@ model User {
   // PROJ-9: Email campaigns
   emailCampaignsCreated EmailCampaign[]       @relation("EmailCampaignCreator")
   emailCampaignLogs     EmailCampaignLog[]    @relation("EmailCampaignLogs")
+  // PROJ-18: CDP Identifikatoren
+  customerIdentifiers CustomerIdentifier[]
 
   @@map("users")
+}
+
+// PROJ-18: CDP – Mehrfach-Identifikatoren pro Kunde
+enum CustomerIdentifierType {
+  APP_ID
+  EMPLOYEE_ID
+  BADGE_ID
+  DEVICE_ID
+  EXTERNAL_ID
+}
+
+model CustomerIdentifier {
+  id        String                 @id @default(cuid())
+  userId    String
+  type      CustomerIdentifierType
+  value     String
+  source    String?                // z.B. "HR-System", "Badge-Scanner"
+  isActive  Boolean                @default(true)
+  addedAt   DateTime               @default(now())
+  removedAt DateTime?
+
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([value])
+  @@index([type, isActive])
+  @@map("customer_identifiers")
 }
 
 // Guthaben-System (Wallet)
@@ -459,6 +493,9 @@ model Order {
   updatedAt       DateTime    @updatedAt
   pickedUpAt      DateTime?
 
+  // PROJ-19: Bestellkanal (woher die Bestellung kam)
+  channel         OrderChannel? @default(APP)
+
   user            User        @relation(fields: [userId], references: [id])
   location        Location    @relation(fields: [locationId], references: [id])
   items           OrderItem[]
@@ -473,11 +510,21 @@ model Order {
   walletTransactions WalletTransaction[]
 
   @@index([userId])
+  @@index([userId, createdAt]) // PROJ-19: Compound-Index für Bestellhistorie-Abfragen
   @@index([locationId])
   @@index([pickupCode])
   @@index([pickupDate])
   @@index([employerCompanyId, createdAt])
   @@map("orders")
+}
+
+// PROJ-19: Bestellkanal (über welchen Kanal die Bestellung aufgegeben wurde)
+enum OrderChannel {
+  APP       // Kunden-App
+  WEB       // Web-Browser
+  TERMINAL  // Self-Service-Terminal vor Ort
+  KASSE     // Manuelle Kassen-Eingabe
+  ADMIN     // Admin-Nutzer hat Bestellung angelegt
 }
 
 enum OrderStatus {
@@ -569,11 +616,19 @@ model OrderItem {
   menuItemId  String
   quantity    Int      @default(1)
   price       Decimal  @db.Decimal(10, 2) // Preis zum Zeitpunkt der Bestellung
+
+  // PROJ-19: Snapshot-Felder (werden beim Erstellen der Bestellung einmalig befüllt)
+  // Nullable für Rückwärtskompatibilität mit bestehenden Bestellungen
+  productNameSnapshot     String?          // Name des Produkts zum Bestellzeitpunkt
+  productCategorySnapshot String?          // Kategorie zum Bestellzeitpunkt
+  unitPriceSnapshot       Decimal?         @db.Decimal(10, 2) // Einzelpreis als expliziter Snapshot
+
   createdAt   DateTime @default(now())
 
   order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   menuItem    MenuItem @relation(fields: [menuItemId], references: [id])
-  
+
+  @@index([orderId])
   @@map("order_items")
 }
 
