@@ -12,6 +12,10 @@ const updateSchema = z.object({
   status: z.enum(['ACTIVE', 'ARCHIVED']).optional(),
   isFavorite: z.boolean().optional(),
   thumbnailUrl: z.string().optional().nullable(),
+  // PROJ-9: E-Mail-Einstellungen
+  subjectLine: z.string().max(80).optional().nullable(),
+  preheaderText: z.string().max(150).optional().nullable(),
+  senderName: z.string().max(100).optional().nullable(),
 })
 
 export async function GET(
@@ -78,6 +82,10 @@ export async function PUT(
         ...(parsed.data.status !== undefined && { status: parsed.data.status }),
         ...(parsed.data.isFavorite !== undefined && { isFavorite: parsed.data.isFavorite }),
         ...(parsed.data.thumbnailUrl !== undefined && { thumbnailUrl: parsed.data.thumbnailUrl }),
+        // PROJ-9: E-Mail-Einstellungen
+        ...(parsed.data.subjectLine !== undefined && { subjectLine: parsed.data.subjectLine }),
+        ...(parsed.data.preheaderText !== undefined && { preheaderText: parsed.data.preheaderText }),
+        ...(parsed.data.senderName !== undefined && { senderName: parsed.data.senderName }),
       },
     })
 

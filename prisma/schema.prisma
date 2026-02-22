@@ -37,6 +37,7 @@ model Organization {
   marketingTemplates MarketingTemplate[]
   pushNotifications  PushNotification[]
   paymentConfigs     PaymentProviderConfig[]
+  emailCampaigns     EmailCampaign[]          // PROJ-9
 
   @@map("organizations")
 }
@@ -221,6 +222,9 @@ model User {
   pushNotificationLogs PushNotificationLog[]
   pushSubscriptions    PushSubscription[]
   paymentConfigChanges PaymentProviderConfig[] @relation("PaymentConfigAudit")
+  // PROJ-9: Email campaigns
+  emailCampaignsCreated EmailCampaign[]       @relation("EmailCampaignCreator")
+  emailCampaignLogs     EmailCampaignLog[]    @relation("EmailCampaignLogs")
 
   @@map("users")
 }
@@ -608,6 +612,7 @@ model CustomerSegment {
   workflows         MarketingWorkflow[]
   segmentIncentives SegmentIncentive[]
   pushNotifications PushNotification[]
+  emailCampaigns    EmailCampaign[]    // PROJ-9
 
   @@unique([organizationId, name])
   @@index([organizationId])
@@ -754,6 +759,10 @@ model MarketingTemplate {
   isStarter      Boolean                 @default(false)
   isFavorite     Boolean                 @default(false)
   thumbnailUrl   String?                 @db.Text
+  // PROJ-9: E-Mail-spezifische Felder
+  subjectLine    String?                 @db.VarChar(80)
+  preheaderText  String?                 @db.VarChar(150)
+  senderName     String?                 @db.VarChar(100)
   createdAt      DateTime                @default(now())
   updatedAt      DateTime                @updatedAt
 
@@ -762,6 +771,8 @@ model MarketingTemplate {
   inAppMessages     InAppMessage[]      @relation("InAppMessageTemplate")
   promotionBanners  PromotionBanner[]   @relation("PromotionBannerTemplate")
   pushNotifications PushNotification[]
+  // PROJ-9: Email campaigns
+  emailCampaigns    EmailCampaign[]
 
   @@index([organizationId, type, status])
   @@index([isStarter])
@@ -879,4 +890,75 @@ model IncentiveGrant {
   @@index([userId])
   @@index([segmentIncentiveId])
   @@map("incentive_grants")
+}
+
+// PROJ-9: E-Mail-Kampagnen ─────────────────────────────────────────────────────
+
+enum EmailCampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  CANCELLED
+  FAILED
+}
+
+enum EmailDeliveryStatus {
+  PENDING
+  SENT
+  OPENED
+  CLICKED
+  BOUNCED
+  FAILED
+}
+
+model EmailCampaign {
+  id               String              @id @default(cuid())
+  organizationId   String
+  templateId       String?
+  templateSnapshot Json?               // Snapshot des Template-Inhalts zum Versandzeitpunkt
+  subjectLine      String              @db.VarChar(80)
+  preheaderText    String?             @db.VarChar(150)
+  senderName       String?             @db.VarChar(100)
+  segmentId        String?
+  scheduledAt      DateTime?
+  sentAt           DateTime?
+  status           EmailCampaignStatus @default(DRAFT)
+  totalRecipients  Int                 @default(0)
+  sentCount        Int                 @default(0)
+  failedCount      Int                 @default(0)
+  createdById      String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  template     MarketingTemplate?  @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  segment      CustomerSegment?    @relation(fields: [segmentId], references: [id], onDelete: SetNull)
+  createdBy    User?               @relation("EmailCampaignCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  logs         EmailCampaignLog[]
+
+  @@index([organizationId, status])
+  @@index([segmentId])
+  @@map("email_campaigns")
+}
+
+model EmailCampaignLog {
+  id            String              @id @default(cuid())
+  campaignId    String
+  userId        String?
+  email         String              @db.VarChar(255)
+  trackingToken String              @unique @default(cuid())
+  status        EmailDeliveryStatus @default(PENDING)
+  sentAt        DateTime?
+  openedAt      DateTime?
+  clickedAt     DateTime?
+  errorMessage  String?             @db.Text
+  createdAt     DateTime            @default(now())
+
+  campaign EmailCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user     User?         @relation("EmailCampaignLogs", fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([campaignId])
+  @@index([trackingToken])
+  @@map("email_campaign_logs")
 }

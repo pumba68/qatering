@@ -116,3 +116,206 @@ die Datei als „eingereicht" gilt – also vor dem tatsächlichen Einreichen be
 | Status-Update | Sofort bei Download | Erst bei Bestätigung |
 | XML gespeichert | Nein (Stream) | Ja (temporär in DB) |
 | Konfiguration | Im Modal per Aufruf | In Einstellungen gespeichert |
+
+---
+
+## Tech-Design (Solution Architect)
+
+### Bestehende Infrastruktur (Wiederverwendung)
+
+Folgendes existiert bereits und wird direkt genutzt:
+
+- **SEPA-XML-Generierung** → `lib/sepa/generatePain008.ts` (aus PROJ-16) – unverändert wiederverwendet
+- **SEPA-Validierung** → `lib/sepa/validation.ts` – prüft IBAN/BIC/Mandat-Vollständigkeit
+- **SepaSubmission + SepaSubmissionInvoice** → bereits in der Datenbank (Verlaufsdaten aus PROJ-16)
+- **Bestehende SEPA-API** → `GET /api/admin/billing/sepa` (History) bleibt unverändert
+- **Billing-Seite** → `/admin/billing/page.tsx` erhält neue Tab-Sektion (kein neues Route nötig)
+- **Organisation-Stammdaten** → `sepaCreditorId`, `sepaIban`, `sepaBic` bereits vorhanden
+
+---
+
+### Component-Struktur
+
+```
+/admin/settings/payments  (Einstellungs-Seite – erweitert)
+└── SEPA-Job Konfigurationskarte (NEU)
+    ├── Toggle: „Automatischen SEPA-Job aktivieren"
+    ├── Ausführungstag im Monat (Zahleneingabe 1–28)
+    ├── Datenquelle (Dropdown: INVOICED_INVOICES | OPEN_BALANCE)
+    ├── Standard-Sequenztyp (Radio: FRST | RCUR)
+    ├── Vorlaufzeit in Werktagen (Zahleneingabe, Standard: 5)
+    └── Speichern-Button
+
+/admin/billing  (Billing-Seite – erweitert)
+├── Alert-Banner: „X SEPA-Jobs warten auf Bestätigung" (nur wenn ausstehend)
+├── Tab „Ausstehende Jobs" (NEU – nur sichtbar wenn Jobs vorhanden)
+│   └── Job-Run-Karte (pro Cron-Lauf)
+│       ├── Kopfzeile: Datum, Gesamt-Betrag, Status
+│       └── Expandierbare Item-Liste (pro Vertragspartner)
+│           ├── Firmenname, Betrag, Rechnungsanzahl, IBAN (maskiert)
+│           ├── Button: „Herunterladen & Bestätigen" → XML-Download + Status CONFIRMED
+│           └── Button: „Ablehnen" → Status REJECTED (kein Download)
+└── Tab „Job-Verlauf" (NEU)
+    └── Tabelle: Datum | Status | Items gesamt | Bestätigt | Abgelehnt | Betrag
+```
+
+---
+
+### Daten-Model
+
+**Neue Datenbank-Tabelle: `SepaJobRun`**
+Repräsentiert einen einzelnen automatischen Cron-Lauf.
+
+```
+Jeder Job-Run speichert:
+- Eindeutige ID
+- Organisation (Verknüpfung)
+- Geplantes Datum (wann der Cron laufen sollte)
+- Tatsächliches Ausführungsdatum
+- Status: PENDING_REVIEW | PARTIALLY_CONFIRMED | COMPLETED | FAILED
+- Fehlermeldung (optional, bei FAILED)
+- Erstellt am
+```
+
+**Neue Datenbank-Tabelle: `SepaJobItem`**
+Eine Datei pro Vertragspartner innerhalb eines Job-Runs.
+
+```
+Jedes Job-Item speichert:
+- Eindeutige ID
+- Verknüpfung zu SepaJobRun
+- Verknüpfung zu Vertragspartner (Company)
+- SEPA-XML-Inhalt (temporär, bis bestätigt oder abgelaufen)
+- Gesamt-Betrag (Summe der enthaltenen Rechnungen)
+- Anzahl enthaltener Rechnungen
+- Status: PENDING | CONFIRMED | REJECTED | FAILED | EXPIRED
+- Fehlermeldung (optional, bei FAILED)
+- Bestätigt/Abgelehnt von (Admin-User, optional)
+- Bestätigt/Abgelehnt am (optional)
+```
+
+**Neue Felder auf `Organization`**
+(Werden in `/admin/settings/payments` gespeichert)
+
+```
+Organisation erhält zusätzlich:
+- sepaJobEnabled        → Ja/Nein (Standard: Nein)
+- sepaJobDay            → Tag im Monat 1–28 (Standard: 1)
+- sepaJobSource         → INVOICED_INVOICES oder OPEN_BALANCE
+- sepaJobSeqType        → FRST oder RCUR
+- sepaJobLeadDays       → Vorlaufzeit in Werktagen (Standard: 5)
+```
+
+**Bestehende Verknüpfung (unverändert)**
+Wenn ein Job-Item bestätigt wird → verknüpfte `CompanyInvoice`-Einträge wechseln Status zu `SEPA_SUBMITTED` (identisches Verhalten wie bei manuellem Download in PROJ-16).
+
+---
+
+### API-Endpunkte (Übersicht)
+
+| Endpoint | Methode | Zweck | Zugriff |
+|---|---|---|---|
+| `/api/admin/settings/billing/sepa-job` | PUT | Job-Konfiguration speichern | ADMIN |
+| `/api/admin/billing/sepa/jobs` | GET | Alle Job-Runs (mit Items) laden | ADMIN |
+| `/api/admin/billing/sepa/jobs/[jobRunId]/items/[itemId]/confirm` | POST | Item herunterladen + bestätigen | ADMIN |
+| `/api/admin/billing/sepa/jobs/[jobRunId]/items/[itemId]/reject` | POST | Item ablehnen | ADMIN |
+| `/api/admin/billing/sepa/jobs/run` | POST | Cron-Trigger (gesichert per Secret) | CRON / SUPER_ADMIN |
+| `/api/admin/billing/sepa/jobs/trigger` | POST | Manueller Test-Trigger | SUPER_ADMIN |
+
+---
+
+### Cron-Job Mechanismus
+
+**Vercel Cron** (neue Datei `vercel.json` im Projekt-Root):
+
+```
+Cron-Zeitplan: „0 6 1 * *"
+→ Jeden 1. des Monats um 06:00 UTC
+
+Cron ruft auf: /api/admin/billing/sepa/jobs/run
+Gesichert durch: CRON_SECRET (Bearer-Token im Authorization-Header)
+```
+
+**Job-Ablauf (sequenziell, Schritt für Schritt):**
+
+```
+1. Prüfen: Gibt es bereits einen offenen Job-Run (PENDING_REVIEW)?
+   → Ja: Abbrechen und loggen (Idempotenz-Schutz)
+   → Nein: Weiter
+
+2. Alle Organisationen mit sepaJobEnabled=true laden
+
+3. Pro Organisation:
+   a. Alle Vertragspartner mit vollständigen SEPA-Stammdaten laden
+   b. Pro Vertragspartner: SEPA-XML generieren (aus PROJ-16 Shared Service)
+   c. Bei Fehler beim Vertragspartner: Item als FAILED markieren, weiter mit nächstem
+   d. Alle Items in SepaJobItem speichern
+
+4. SepaJobRun abschließen:
+   → Mindestens 1 Item vorhanden: Status = PENDING_REVIEW
+   → 0 Items: Status = COMPLETED (nichts zu tun)
+   → Kompletter Fehler: Status = FAILED
+```
+
+---
+
+### Tech-Entscheidungen
+
+**Vercel Cron statt externem Scheduler**
+→ Bereits Teil der Vercel-Infrastruktur, keine zusätzlichen Kosten oder externe Abhängigkeiten.
+→ Einfache Konfiguration per `vercel.json`, kein separates Service-Setup nötig.
+
+**XML temporär in Datenbank speichern (nicht Object Storage)**
+→ Bei max. ~100 Vertragspartnern mit je ~30–50 KB XML = max. 5 MB temporäre Daten in Postgres.
+→ Kein S3/Vercel-Blob benötigt → weniger Infrastruktur-Komplexität für das MVP.
+→ Nach Bestätigung/Ablehnung wird der XML-Inhalt nicht mehr aktiv gebraucht (bleibt als Archiv).
+
+**Wiederverwendung `generatePain008()` aus PROJ-16**
+→ Identische SEPA-XML-Logik für manuell und automatisch → kein Code-Duplikat, kein Fehler-Risiko.
+
+**„Herunterladen & Bestätigen" als ein Schritt**
+→ Erzwingt, dass der Admin die Datei tatsächlich bekommt bevor der Status gesetzt wird.
+→ Verhindert versehentliches Bestätigen ohne Prüfung.
+
+**CRON_SECRET für Endpoint-Sicherung**
+→ Standard-Vercel-Pattern für Cron-geschützte Routen.
+→ Token wird als `CRON_SECRET` Environment Variable hinterlegt.
+
+**Items verfallen nach 60 Tagen automatisch (EXPIRED)**
+→ Verhindert, dass unbearbeitete Jobs dauerhaft in PENDING_REVIEW bleiben.
+→ Rechnungen bleiben unverändert (kein unbeabsichtigter Status-Wechsel).
+
+---
+
+### Dependencies (neue Pakete)
+
+Keine neuen Pakete nötig. Alles basiert auf bestehender Infrastruktur:
+
+- **Vercel Cron** → Konfiguration per `vercel.json` (kein npm-Paket)
+- **SEPA XML** → `lib/sepa/generatePain008.ts` (bereits vorhanden)
+- **Datenbank** → Prisma (bereits installiert)
+- **UI-Komponenten** → shadcn/ui, Tailwind CSS (bereits vorhanden)
+
+---
+
+### Migrations-Checkliste (für Entwickler)
+
+```
+□ Prisma Schema: SepaJobRun Tabelle anlegen
+□ Prisma Schema: SepaJobItem Tabelle anlegen
+□ Prisma Schema: Organization um sepaJob* Felder erweitern
+□ Prisma Migration ausführen (prisma migrate dev)
+□ vercel.json mit Cron-Config anlegen
+□ CRON_SECRET in Vercel Environment Variables hinterlegen
+□ API: /api/admin/billing/sepa/jobs/run (Cron-Handler)
+□ API: /api/admin/billing/sepa/jobs (GET Job-Liste)
+□ API: /api/admin/billing/sepa/jobs/[id]/items/[itemId]/confirm
+□ API: /api/admin/billing/sepa/jobs/[id]/items/[itemId]/reject
+□ API: /api/admin/billing/sepa/jobs/trigger (SUPER_ADMIN)
+□ API: /api/admin/settings/billing/sepa-job (PUT Konfiguration)
+□ UI: SEPA-Job Konfigurationskarte in /admin/settings/payments
+□ UI: Alert-Banner in /admin/billing
+□ UI: Tab „Ausstehende Jobs" in /admin/billing
+□ UI: Tab „Job-Verlauf" in /admin/billing
+□ EXPIRED-Job-Cleanup: Cron oder manuelle Bereinigung nach 60 Tagen
+```

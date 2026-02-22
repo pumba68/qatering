@@ -38,6 +38,8 @@ import {
 } from '@/components/ui/tooltip'
 import { toast } from 'sonner'
 
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Block,
   BlockType,
@@ -272,6 +274,14 @@ export default function TemplateEditorPage() {
   const [notFound, setNotFound] = React.useState(false)
   const [templateName, setTemplateName] = React.useState('Vorlage')
   const [isStarter, setIsStarter] = React.useState(false)
+  const [templateType, setTemplateType] = React.useState<string | null>(null)
+
+  // PROJ-9: E-Mail-Einstellungen
+  const [subjectLine, setSubjectLine] = React.useState('')
+  const [preheaderText, setPreheaderText] = React.useState('')
+  const [senderName, setSenderName] = React.useState('')
+  const [testMailEmail, setTestMailEmail] = React.useState('')
+  const [sendingTestMail, setSendingTestMail] = React.useState(false)
 
   const [blocks, setBlocksRaw] = React.useState<Block[]>([])
   const [globalStyle, setGlobalStyleRaw] = React.useState<GlobalStyle>(DEFAULT_GLOBAL_STYLE)
@@ -307,6 +317,10 @@ export default function TemplateEditorPage() {
         if (!data) return
         setTemplateName(data.name || 'Vorlage')
         setIsStarter(data.isStarter || false)
+        setTemplateType(data.type ?? null)
+        setSubjectLine(data.subjectLine ?? '')
+        setPreheaderText(data.preheaderText ?? '')
+        setSenderName(data.senderName ?? '')
 
         const content: Partial<TemplateContent> =
           typeof data.content === 'object' && data.content ? data.content : {}
@@ -395,7 +409,16 @@ export default function TemplateEditorPage() {
       const res = await fetch(`/api/admin/marketing/templates/${templateId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: templateName, content }),
+        body: JSON.stringify({
+          name: templateName,
+          content,
+          // PROJ-9: E-Mail-Einstellungen mitspeichern
+          ...(templateType === 'EMAIL' && {
+            subjectLine: subjectLine.trim() || null,
+            preheaderText: preheaderText.trim() || null,
+            senderName: senderName.trim() || null,
+          }),
+        }),
       })
       if (!res.ok) throw new Error('Save failed')
       setSaveStatus('saved')
@@ -407,7 +430,7 @@ export default function TemplateEditorPage() {
       if (!silent) toast.error('Speichern fehlgeschlagen')
       setTimeout(() => setSaveStatus('idle'), 3000)
     }
-  }, [blocks, globalStyle, templateId, templateName, isStarter])
+  }, [blocks, globalStyle, templateId, templateName, isStarter, templateType, subjectLine, preheaderText, senderName])
 
   // ── Autosave ──────────────────────────────────────────────────────────────
   React.useEffect(() => {
@@ -503,6 +526,35 @@ export default function TemplateEditorPage() {
   }, [setBlocks])
 
   const selectedBlock = blocks.find((b) => b.id === selectedBlockId) ?? null
+
+  // PROJ-9: Test-Mail senden
+  const handleSendTestMail = React.useCallback(async () => {
+    if (!testMailEmail.trim() || !subjectLine.trim()) {
+      toast.error('Bitte Betreff und Empfänger-E-Mail angeben.')
+      return
+    }
+    setSendingTestMail(true)
+    try {
+      const res = await fetch('/api/admin/marketing/email/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          templateId,
+          recipientEmail: testMailEmail.trim(),
+          subjectLine: subjectLine.trim(),
+          preheaderText: preheaderText.trim() || null,
+          senderName: senderName.trim() || null,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Versand fehlgeschlagen')
+      toast.success(`Test-Mail an ${testMailEmail} gesendet`)
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Fehler beim Senden')
+    } finally {
+      setSendingTestMail(false)
+    }
+  }, [testMailEmail, subjectLine, preheaderText, senderName, templateId])
 
   // ── Render states ─────────────────────────────────────────────────────────
   if (loading) {
@@ -600,8 +652,8 @@ export default function TemplateEditorPage() {
             />
           </main>
 
-          {/* Right: Properties Panel */}
-          <aside className="w-72 shrink-0 bg-white border-l border-gray-200 overflow-y-auto">
+          {/* Right: Properties Panel + E-Mail-Einstellungen */}
+          <aside className="w-72 shrink-0 bg-white border-l border-gray-200 overflow-y-auto flex flex-col">
             <PropertiesPanel
               selectedBlock={selectedBlock}
               globalStyle={globalStyle}
@@ -609,6 +661,77 @@ export default function TemplateEditorPage() {
               onBlockChange={handleBlockChange}
               onGlobalStyleChange={handleGlobalStyleChange}
             />
+
+            {/* PROJ-9: E-Mail-Einstellungen Panel – nur für E-Mail-Templates */}
+            {templateType === 'EMAIL' && (
+              <div className="border-t border-gray-200 p-4 space-y-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 flex items-center gap-1.5">
+                  <Send className="w-3.5 h-3.5" />
+                  E-Mail-Einstellungen
+                </p>
+
+                <div className="space-y-1">
+                  <Label className="text-xs text-gray-600">
+                    Betreff-Zeile *
+                    <span className="ml-1 text-gray-400">{subjectLine.length}/80</span>
+                  </Label>
+                  <Input
+                    value={subjectLine}
+                    onChange={(e) => setSubjectLine(e.target.value.slice(0, 80))}
+                    placeholder="Betreff der E-Mail"
+                    className="h-8 text-sm"
+                    disabled={isStarter}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <Label className="text-xs text-gray-600">
+                    Vorschau-Text
+                    <span className="ml-1 text-gray-400">{preheaderText.length}/150</span>
+                  </Label>
+                  <Textarea
+                    value={preheaderText}
+                    onChange={(e) => setPreheaderText(e.target.value.slice(0, 150))}
+                    placeholder="Kurzer Vorschautext im Posteingang…"
+                    className="text-sm resize-none"
+                    rows={2}
+                    disabled={isStarter}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <Label className="text-xs text-gray-600">Absender-Name</Label>
+                  <Input
+                    value={senderName}
+                    onChange={(e) => setSenderName(e.target.value.slice(0, 100))}
+                    placeholder="z. B. Demo Kantine"
+                    className="h-8 text-sm"
+                    disabled={isStarter}
+                  />
+                </div>
+
+                <div className="pt-2 border-t border-gray-100 space-y-2">
+                  <Label className="text-xs text-gray-600">Test-Mail senden</Label>
+                  <Input
+                    value={testMailEmail}
+                    onChange={(e) => setTestMailEmail(e.target.value)}
+                    placeholder="test@example.com"
+                    type="email"
+                    className="h-8 text-sm"
+                  />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="w-full gap-1.5 h-8 text-xs"
+                    onClick={handleSendTestMail}
+                    disabled={sendingTestMail || !testMailEmail.trim() || !subjectLine.trim()}
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    {sendingTestMail ? 'Wird gesendet…' : 'Test-Mail senden'}
+                  </Button>
+                </div>
+              </div>
+            )}
           </aside>
         </div>
 

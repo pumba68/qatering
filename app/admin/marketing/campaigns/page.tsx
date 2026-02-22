@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { Mail, MessageSquare, Gift, Plus, Pencil, Trash2, Send, Wallet, Ticket, Play } from 'lucide-react'
+import { Mail, MessageSquare, Gift, Plus, Pencil, Trash2, Send, Wallet, Ticket, Play, ChevronRight, X, Eye, MousePointerClick, BarChart3 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -17,7 +17,52 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { MARKETING_SLOT_IDS, DISPLAY_TYPE_LABELS } from '@/lib/marketing-slots'
+
+// ── Email campaign types ──────────────────────────────────────────────────────
+
+type EmailTemplate = { id: string; name: string; subjectLine: string | null; senderName: string | null; preheaderText: string | null }
+type EmailCampaign = {
+  id: string
+  subjectLine: string
+  senderName: string | null
+  status: string
+  totalRecipients: number
+  sentCount: number
+  failedCount: number
+  createdAt: string
+  scheduledAt: string | null
+  sentAt: string | null
+  template: { id: string; name: string } | null
+  segment: { id: string; name: string } | null
+  _count: { logs: number }
+}
+
+const EMAIL_STATUS_LABELS: Record<string, string> = {
+  DRAFT: 'Entwurf',
+  SCHEDULED: 'Geplant',
+  SENDING: 'Wird versendet',
+  SENT: 'Versendet',
+  CANCELLED: 'Storniert',
+  FAILED: 'Fehlgeschlagen',
+}
+
+const EMAIL_STATUS_COLORS: Record<string, string> = {
+  DRAFT: 'bg-gray-100 text-gray-700',
+  SCHEDULED: 'bg-blue-100 text-blue-700',
+  SENDING: 'bg-yellow-100 text-yellow-700',
+  SENT: 'bg-green-100 text-green-700',
+  CANCELLED: 'bg-gray-100 text-gray-500',
+  FAILED: 'bg-red-100 text-red-700',
+}
 
 type Segment = { id: string; name: string }
 type CouponOpt = { id: string; code: string; name: string; type: string } | null
@@ -57,9 +102,29 @@ export default function CampaignsPage() {
   const [messages, setMessages] = useState<InAppMessage[]>([])
   const [loadingSegments, setLoadingSegments] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
-  const [emailSending, setEmailSending] = useState(false)
-  const [emailForm, setEmailForm] = useState({ segmentId: '', subject: '', body: '' })
   const [messageSheetOpen, setMessageSheetOpen] = useState(false)
+
+  // ── Email Campaign State ───────────────────────────────────────────────────
+  const [emailCampaigns, setEmailCampaigns] = useState<EmailCampaign[]>([])
+  const [emailTemplates, setEmailTemplates] = useState<EmailTemplate[]>([])
+  const [loadingCampaigns, setLoadingCampaigns] = useState(true)
+  const [campaignDialogOpen, setCampaignDialogOpen] = useState(false)
+  const [campaignStep, setCampaignStep] = useState<1 | 2 | 3>(1)
+  const [launchForm, setLaunchForm] = useState({
+    templateId: '',
+    segmentId: '',
+    subjectLine: '',
+    preheaderText: '',
+    senderName: '',
+    sendMode: 'now' as 'now' | 'scheduled',
+    scheduledAt: '',
+  })
+  const [launching, setLaunching] = useState(false)
+  const [launchError, setLaunchError] = useState<string | null>(null)
+  const [detailCampaignId, setDetailCampaignId] = useState<string | null>(null)
+  const [campaignDetail, setCampaignDetail] = useState<(EmailCampaign & { logs?: { email: string; status: string; openedAt: string | null; clickedAt: string | null }[] }) | null>(null)
+  const [loadingDetail, setLoadingDetail] = useState(false)
+  const [cancellingId, setCancellingId] = useState<string | null>(null)
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null)
   const [messageForm, setMessageForm] = useState({
     segmentId: '',
@@ -155,6 +220,89 @@ export default function CampaignsPage() {
     }
   }, [])
 
+  // ── Email Campaign Fetches ─────────────────────────────────────────────────
+  const fetchEmailCampaigns = useCallback(async () => {
+    try {
+      setLoadingCampaigns(true)
+      const res = await fetch('/api/admin/marketing/email/campaigns')
+      const data = await res.json().catch(() => [])
+      if (!res.ok) throw new Error(data.error || 'Fehler')
+      setEmailCampaigns(Array.isArray(data) ? data : [])
+    } catch {
+      setEmailCampaigns([])
+    } finally {
+      setLoadingCampaigns(false)
+    }
+  }, [])
+
+  const fetchEmailTemplates = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/marketing/templates?type=EMAIL&status=ACTIVE')
+      const data = await res.json().catch(() => [])
+      if (!res.ok) return
+      setEmailTemplates(Array.isArray(data) ? data : [])
+    } catch {
+      setEmailTemplates([])
+    }
+  }, [])
+
+  const fetchCampaignDetail = useCallback(async (id: string) => {
+    setLoadingDetail(true)
+    try {
+      const res = await fetch(`/api/admin/marketing/email/campaigns/${id}`)
+      const data = await res.json().catch(() => null)
+      if (res.ok) setCampaignDetail(data)
+    } finally {
+      setLoadingDetail(false)
+    }
+  }, [])
+
+  const cancelCampaign = useCallback(async (id: string) => {
+    setCancellingId(id)
+    try {
+      const res = await fetch(`/api/admin/marketing/email/campaigns/${id}`, { method: 'DELETE' })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Fehler')
+      fetchEmailCampaigns()
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Fehler')
+    } finally {
+      setCancellingId(null)
+    }
+  }, [fetchEmailCampaigns])
+
+  const launchCampaign = useCallback(async () => {
+    if (!launchForm.templateId || !launchForm.subjectLine.trim()) {
+      setLaunchError('Template und Betreff sind erforderlich.')
+      return
+    }
+    setLaunching(true)
+    setLaunchError(null)
+    try {
+      const res = await fetch('/api/admin/marketing/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          templateId: launchForm.templateId,
+          segmentId: launchForm.segmentId || null,
+          subjectLine: launchForm.subjectLine.trim(),
+          preheaderText: launchForm.preheaderText.trim() || null,
+          senderName: launchForm.senderName.trim() || null,
+          scheduledAt: launchForm.sendMode === 'scheduled' && launchForm.scheduledAt ? launchForm.scheduledAt : null,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Fehler beim Starten')
+      setCampaignDialogOpen(false)
+      setCampaignStep(1)
+      fetchEmailCampaigns()
+    } catch (e) {
+      setLaunchError(e instanceof Error ? e.message : 'Fehler')
+    } finally {
+      setLaunching(false)
+    }
+  }, [launchForm, fetchEmailCampaigns])
+
   useEffect(() => {
     fetchIncentives()
   }, [fetchIncentives])
@@ -162,6 +310,15 @@ export default function CampaignsPage() {
   useEffect(() => {
     fetchCoupons()
   }, [fetchCoupons])
+
+  useEffect(() => {
+    fetchEmailCampaigns()
+    fetchEmailTemplates()
+  }, [fetchEmailCampaigns, fetchEmailTemplates])
+
+  useEffect(() => {
+    if (detailCampaignId) fetchCampaignDetail(detailCampaignId)
+  }, [detailCampaignId, fetchCampaignDetail])
 
   const openNewIncentive = () => {
     setEditingIncentiveId(null)
@@ -253,33 +410,6 @@ export default function CampaignsPage() {
       fetchIncentives()
     } catch (e) {
       alert(e instanceof Error ? e.message : 'Fehler')
-    }
-  }
-
-  const handleSendEmail = async () => {
-    if (!emailForm.segmentId || !emailForm.subject.trim() || !emailForm.body.trim()) {
-      setSaveError('Segment, Betreff und Inhalt sind erforderlich.')
-      return
-    }
-    setEmailSending(true)
-    setSaveError(null)
-    try {
-      const res = await fetch('/api/admin/marketing/email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          segmentId: emailForm.segmentId,
-          subject: emailForm.subject.trim(),
-          body: emailForm.body.trim(),
-        }),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) throw new Error(data.error || 'Versand fehlgeschlagen.')
-      setEmailForm({ segmentId: '', subject: '', body: '' })
-    } catch (e) {
-      setSaveError(e instanceof Error ? e.message : 'Fehler')
-    } finally {
-      setEmailSending(false)
     }
   }
 
@@ -415,53 +545,332 @@ export default function CampaignsPage() {
         </TabsList>
 
         <TabsContent value="email" className="space-y-4">
-          <Card className="rounded-2xl border-border/50">
-            <CardHeader>
-              <CardTitle>E-Mail an Segment senden</CardTitle>
-              <CardDescription>Nur Empfänger mit Marketing-Einwilligung erhalten die E-Mail.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid gap-2">
-                <Label>Segment</Label>
-                <select
-                  value={emailForm.segmentId}
-                  onChange={(e) => setEmailForm((f) => ({ ...f, segmentId: e.target.value }))}
-                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
-                >
-                  <option value="">— Segment wählen —</option>
-                  {segments.map((s) => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
-                </select>
+          {/* Header mit Kampagne starten Button */}
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              Nur Empfänger mit Marketing-Einwilligung erhalten E-Mails.
+            </p>
+            <Button
+              onClick={() => {
+                setCampaignStep(1)
+                setLaunchError(null)
+                setLaunchForm({
+                  templateId: emailTemplates[0]?.id ?? '',
+                  segmentId: '',
+                  subjectLine: emailTemplates[0]?.subjectLine ?? '',
+                  preheaderText: emailTemplates[0]?.preheaderText ?? '',
+                  senderName: emailTemplates[0]?.senderName ?? '',
+                  sendMode: 'now',
+                  scheduledAt: '',
+                })
+                setCampaignDialogOpen(true)
+              }}
+              className="gap-2 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600"
+            >
+              <Plus className="h-4 w-4" />
+              Kampagne starten
+            </Button>
+          </div>
+
+          {/* Kampagnen-Liste */}
+          {loadingCampaigns ? (
+            <Card className="rounded-2xl border-border/50">
+              <CardContent className="py-12 flex justify-center">
+                <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+              </CardContent>
+            </Card>
+          ) : emailCampaigns.length === 0 ? (
+            <Card className="rounded-2xl border-border/50">
+              <CardContent className="py-12 text-center text-muted-foreground">
+                Noch keine E-Mail-Kampagnen. Starten Sie Ihre erste Kampagne.
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-3">
+              {emailCampaigns.map((c) => {
+                const openRate = c.sentCount > 0 ? 0 : 0 // Wird via Logs berechnet
+                return (
+                  <Card key={c.id} className="rounded-2xl border border-border/50 hover:shadow-md transition-all">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <p className="font-medium truncate">{c.subjectLine}</p>
+                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${EMAIL_STATUS_COLORS[c.status] ?? 'bg-gray-100 text-gray-700'}`}>
+                              {EMAIL_STATUS_LABELS[c.status] ?? c.status}
+                            </span>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-0.5">
+                            {c.template?.name ?? 'Kein Template'}
+                            {c.segment ? ` · Segment: ${c.segment.name}` : ' · Alle Kunden'}
+                            {c.scheduledAt ? ` · Geplant: ${new Date(c.scheduledAt).toLocaleString('de-DE')}` : ''}
+                            {c.sentAt ? ` · Versendet: ${new Date(c.sentAt).toLocaleString('de-DE')}` : ''}
+                          </p>
+                          {(c.status === 'SENT' || c.status === 'FAILED') && (
+                            <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1"><Mail className="w-3 h-3" />{c.sentCount}/{c.totalRecipients}</span>
+                              <span className="flex items-center gap-1 text-green-600"><Eye className="w-3 h-3" />{c._count.logs > 0 ? '—' : '0'}</span>
+                              <span className="flex items-center gap-1 text-blue-600"><MousePointerClick className="w-3 h-3" />—</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex gap-1 shrink-0">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 px-2 text-xs gap-1"
+                            onClick={() => { setDetailCampaignId(c.id); setCampaignDetail(null) }}
+                          >
+                            <BarChart3 className="w-3.5 h-3.5" />
+                            Details
+                          </Button>
+                          {c.status === 'SCHEDULED' && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-8 px-2 text-xs text-destructive"
+                              onClick={() => cancelCampaign(c.id)}
+                              disabled={cancellingId === c.id}
+                            >
+                              <X className="w-3.5 h-3.5" />
+                              Stornieren
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+          )}
+
+          {/* Kampagne starten Dialog (3 Schritte) */}
+          <Dialog open={campaignDialogOpen} onOpenChange={setCampaignDialogOpen}>
+            <DialogContent className="sm:max-w-lg">
+              <DialogHeader>
+                <DialogTitle>Kampagne starten</DialogTitle>
+                <DialogDescription>
+                  Schritt {campaignStep} von 3 – {['Template wählen', 'Segment & Zeitpunkt', 'Bestätigen'][campaignStep - 1]}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="flex gap-1 mb-2">
+                {[1, 2, 3].map((s) => (
+                  <div key={s} className={`h-1 flex-1 rounded-full transition-colors ${campaignStep >= s ? 'bg-green-600' : 'bg-gray-200'}`} />
+                ))}
               </div>
-              <div className="grid gap-2">
-                <Label>Betreff</Label>
-                <Input
-                  value={emailForm.subject}
-                  onChange={(e) => setEmailForm((f) => ({ ...f, subject: e.target.value }))}
-                  placeholder="Betreff der E-Mail"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label>Inhalt</Label>
-                <Textarea
-                  value={emailForm.body}
-                  onChange={(e) => setEmailForm((f) => ({ ...f, body: e.target.value }))}
-                  placeholder="Nachrichtentext"
-                  rows={6}
-                />
-              </div>
-              {saveError && <p className="text-sm text-destructive">{saveError}</p>}
-              <Button
-                onClick={handleSendEmail}
-                disabled={emailSending || !emailForm.segmentId || !emailForm.subject.trim() || !emailForm.body.trim()}
-                className="rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 gap-2"
-              >
-                <Send className="h-4 w-4" />
-                {emailSending ? 'Wird gesendet…' : 'Senden (Stub)'}
-              </Button>
-            </CardContent>
-          </Card>
+
+              {/* Schritt 1: Template wählen */}
+              {campaignStep === 1 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>E-Mail-Template *</Label>
+                    {emailTemplates.length === 0 ? (
+                      <p className="text-sm text-muted-foreground p-3 rounded-lg border border-dashed border-border">
+                        Keine aktiven E-Mail-Templates vorhanden.
+                        <a href="/admin/marketing/templates" className="ml-1 text-green-600 underline">Template erstellen →</a>
+                      </p>
+                    ) : (
+                      <div className="space-y-2 max-h-48 overflow-y-auto">
+                        {emailTemplates.map((t) => (
+                          <button
+                            key={t.id}
+                            type="button"
+                            onClick={() => setLaunchForm((f) => ({
+                              ...f,
+                              templateId: t.id,
+                              subjectLine: t.subjectLine ?? f.subjectLine,
+                              preheaderText: t.preheaderText ?? f.preheaderText,
+                              senderName: t.senderName ?? f.senderName,
+                            }))}
+                            className={`w-full text-left p-3 rounded-lg border text-sm transition-colors ${launchForm.templateId === t.id ? 'border-green-500 bg-green-50' : 'border-border hover:border-green-300'}`}
+                          >
+                            <p className="font-medium">{t.name}</p>
+                            {t.subjectLine && <p className="text-xs text-muted-foreground mt-0.5">Betreff: {t.subjectLine}</p>}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Betreff-Zeile * <span className="text-gray-400 ml-1">{launchForm.subjectLine.length}/80</span></Label>
+                    <Input
+                      value={launchForm.subjectLine}
+                      onChange={(e) => setLaunchForm((f) => ({ ...f, subjectLine: e.target.value.slice(0, 80) }))}
+                      placeholder="Betreff der E-Mail"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Absender-Name</Label>
+                    <Input
+                      value={launchForm.senderName}
+                      onChange={(e) => setLaunchForm((f) => ({ ...f, senderName: e.target.value }))}
+                      placeholder="z. B. Demo Kantine"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Schritt 2: Segment & Zeitpunkt */}
+              {campaignStep === 2 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Ziel-Segment</Label>
+                    <select
+                      value={launchForm.segmentId}
+                      onChange={(e) => setLaunchForm((f) => ({ ...f, segmentId: e.target.value }))}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+                    >
+                      <option value="">— Alle Kunden mit Einwilligung —</option>
+                      {segments.map((s) => (
+                        <option key={s.id} value={s.id}>{s.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Versandzeitpunkt</Label>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setLaunchForm((f) => ({ ...f, sendMode: 'now' }))}
+                        className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition-colors ${launchForm.sendMode === 'now' ? 'border-green-500 bg-green-50 text-green-700' : 'border-border'}`}
+                      >
+                        Sofort senden
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setLaunchForm((f) => ({ ...f, sendMode: 'scheduled' }))}
+                        className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition-colors ${launchForm.sendMode === 'scheduled' ? 'border-green-500 bg-green-50 text-green-700' : 'border-border'}`}
+                      >
+                        Geplant
+                      </button>
+                    </div>
+                    {launchForm.sendMode === 'scheduled' && (
+                      <Input
+                        type="datetime-local"
+                        value={launchForm.scheduledAt}
+                        onChange={(e) => setLaunchForm((f) => ({ ...f, scheduledAt: e.target.value }))}
+                        min={new Date().toISOString().slice(0, 16)}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Schritt 3: Zusammenfassung */}
+              {campaignStep === 3 && (
+                <div className="space-y-3">
+                  <div className="rounded-lg border border-border bg-muted/30 p-4 space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Template:</span>
+                      <span className="font-medium">{emailTemplates.find((t) => t.id === launchForm.templateId)?.name ?? '—'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Betreff:</span>
+                      <span className="font-medium truncate max-w-[200px]">{launchForm.subjectLine}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Zielgruppe:</span>
+                      <span className="font-medium">{launchForm.segmentId ? segments.find((s) => s.id === launchForm.segmentId)?.name : 'Alle Kunden'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Versand:</span>
+                      <span className="font-medium">
+                        {launchForm.sendMode === 'now' ? 'Sofort' : launchForm.scheduledAt ? new Date(launchForm.scheduledAt).toLocaleString('de-DE') : '—'}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Diese Aktion kann nicht rückgängig gemacht werden. Nur Empfänger mit Marketing-Einwilligung erhalten die E-Mail.
+                  </p>
+                  {launchError && <p className="text-sm text-destructive">{launchError}</p>}
+                </div>
+              )}
+
+              <DialogFooter className="gap-2">
+                {campaignStep > 1 && (
+                  <Button variant="outline" onClick={() => setCampaignStep((s) => (s - 1) as 1 | 2 | 3)} disabled={launching}>
+                    Zurück
+                  </Button>
+                )}
+                {campaignStep < 3 ? (
+                  <Button
+                    onClick={() => {
+                      if (campaignStep === 1 && !launchForm.templateId) { setLaunchError('Bitte ein Template wählen.'); return }
+                      if (campaignStep === 1 && !launchForm.subjectLine.trim()) { setLaunchError('Betreff ist erforderlich.'); return }
+                      setLaunchError(null)
+                      setCampaignStep((s) => (s + 1) as 1 | 2 | 3)
+                    }}
+                    className="gap-1"
+                  >
+                    Weiter <ChevronRight className="w-4 h-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={launchCampaign}
+                    disabled={launching}
+                    className="bg-gradient-to-r from-green-600 to-emerald-600 gap-2"
+                  >
+                    <Send className="w-4 h-4" />
+                    {launching ? 'Wird gestartet…' : launchForm.sendMode === 'now' ? 'Kampagne jetzt starten' : 'Kampagne planen'}
+                  </Button>
+                )}
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* Kampagnen-Detail Dialog */}
+          <Dialog open={!!detailCampaignId} onOpenChange={(o) => { if (!o) setDetailCampaignId(null) }}>
+            <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Kampagnen-Details</DialogTitle>
+              </DialogHeader>
+              {loadingDetail ? (
+                <div className="py-12 flex justify-center">
+                  <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : campaignDetail ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="rounded-lg bg-muted/30 p-3">
+                      <p className="text-muted-foreground text-xs">Status</p>
+                      <p className="font-semibold mt-0.5">{EMAIL_STATUS_LABELS[campaignDetail.status] ?? campaignDetail.status}</p>
+                    </div>
+                    <div className="rounded-lg bg-muted/30 p-3">
+                      <p className="text-muted-foreground text-xs">Empfänger</p>
+                      <p className="font-semibold mt-0.5">{campaignDetail.sentCount} / {campaignDetail.totalRecipients}</p>
+                    </div>
+                    <div className="rounded-lg bg-muted/30 p-3">
+                      <p className="text-muted-foreground text-xs">Versendet am</p>
+                      <p className="font-semibold mt-0.5">{campaignDetail.sentAt ? new Date(campaignDetail.sentAt).toLocaleString('de-DE') : '—'}</p>
+                    </div>
+                    <div className="rounded-lg bg-muted/30 p-3">
+                      <p className="text-muted-foreground text-xs">Fehlgeschlagen</p>
+                      <p className="font-semibold mt-0.5 text-red-600">{campaignDetail.failedCount}</p>
+                    </div>
+                  </div>
+                  {campaignDetail.logs && campaignDetail.logs.length > 0 && (
+                    <div>
+                      <p className="text-sm font-medium mb-2">Empfänger-Log</p>
+                      <div className="space-y-1 max-h-64 overflow-y-auto">
+                        {campaignDetail.logs.map((log, i) => (
+                          <div key={i} className="flex items-center justify-between text-xs py-1.5 px-3 rounded-lg bg-muted/20 gap-2">
+                            <span className="truncate text-muted-foreground flex-1">{log.email}</span>
+                            <span className={`px-1.5 py-0.5 rounded font-medium ${EMAIL_STATUS_COLORS[log.status] ?? 'bg-gray-100 text-gray-700'}`}>
+                              {EMAIL_STATUS_LABELS[log.status] ?? log.status}
+                            </span>
+                            {log.openedAt && <Eye className="w-3 h-3 text-green-600 shrink-0" />}
+                            {log.clickedAt && <MousePointerClick className="w-3 h-3 text-blue-600 shrink-0" />}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : null}
+            </DialogContent>
+          </Dialog>
         </TabsContent>
 
         <TabsContent value="inapp" className="space-y-4">

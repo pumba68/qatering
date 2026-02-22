@@ -517,6 +517,9 @@ exports.Prisma.MarketingTemplateScalarFieldEnum = {
   isStarter: 'isStarter',
   isFavorite: 'isFavorite',
   thumbnailUrl: 'thumbnailUrl',
+  subjectLine: 'subjectLine',
+  preheaderText: 'preheaderText',
+  senderName: 'senderName',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -575,6 +578,40 @@ exports.Prisma.IncentiveGrantScalarFieldEnum = {
   walletTransactionId: 'walletTransactionId',
   redeemedAt: 'redeemedAt',
   redeemedOrderId: 'redeemedOrderId'
+};
+
+exports.Prisma.EmailCampaignScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  templateId: 'templateId',
+  templateSnapshot: 'templateSnapshot',
+  subjectLine: 'subjectLine',
+  preheaderText: 'preheaderText',
+  senderName: 'senderName',
+  segmentId: 'segmentId',
+  scheduledAt: 'scheduledAt',
+  sentAt: 'sentAt',
+  status: 'status',
+  totalRecipients: 'totalRecipients',
+  sentCount: 'sentCount',
+  failedCount: 'failedCount',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmailCampaignLogScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  userId: 'userId',
+  email: 'email',
+  trackingToken: 'trackingToken',
+  status: 'status',
+  sentAt: 'sentAt',
+  openedAt: 'openedAt',
+  clickedAt: 'clickedAt',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -681,6 +718,24 @@ exports.PushDeliveryStatus = exports.$Enums.PushDeliveryStatus = {
   FAILED: 'FAILED'
 };
 
+exports.EmailCampaignStatus = exports.$Enums.EmailCampaignStatus = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  SENDING: 'SENDING',
+  SENT: 'SENT',
+  CANCELLED: 'CANCELLED',
+  FAILED: 'FAILED'
+};
+
+exports.EmailDeliveryStatus = exports.$Enums.EmailDeliveryStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  OPENED: 'OPENED',
+  CLICKED: 'CLICKED',
+  BOUNCED: 'BOUNCED',
+  FAILED: 'FAILED'
+};
+
 exports.Prisma.ModelName = {
   Organization: 'Organization',
   Company: 'Company',
@@ -718,7 +773,9 @@ exports.Prisma.ModelName = {
   PushNotificationLog: 'PushNotificationLog',
   PushSubscription: 'PushSubscription',
   PaymentProviderConfig: 'PaymentProviderConfig',
-  IncentiveGrant: 'IncentiveGrant'
+  IncentiveGrant: 'IncentiveGrant',
+  EmailCampaign: 'EmailCampaign',
+  EmailCampaignLog: 'EmailCampaignLog'
 };
 
 /**
