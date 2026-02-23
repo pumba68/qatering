@@ -232,8 +232,166 @@ model User {
   emailCampaignLogs     EmailCampaignLog[]    @relation("EmailCampaignLogs")
   // PROJ-18: CDP Identifikatoren
   customerIdentifiers CustomerIdentifier[]
+  // PROJ-20: CDP Präferenzen
+  preferences         CustomerPreference[]
+  // PROJ-21: CDP Abgeleitete Merkmale
+  metrics             CustomerMetrics?
 
   @@map("users")
+}
+
+// PROJ-20: CDP – Präferenzen & Allergien
+enum PreferenceType {
+  EXPLICIT  // Aktiv eingegeben oder bestätigter Vorschlag
+  IMPLICIT  // Statistikwert (nur intern, nicht in dieser Tabelle gespeichert)
+}
+
+enum PreferenceSource {
+  USER    // Kunde hat selbst eingetragen
+  ADMIN   // Admin hat eingetragen (oder Vorschlag bestätigt)
+  SYSTEM  // Systemseitig berechnet (Background-Job)
+  DERIVED // Automatisch aus Bestellhistorie abgeleitet, noch unbestätigt
+}
+
+enum PreferenceAction {
+  ADDED     // Explizite Präferenz hinzugefügt
+  REMOVED   // Explizite Präferenz entfernt
+  CONFIRMED // Automatischer Vorschlag durch Admin bestätigt
+}
+
+model CustomerPreference {
+  id          String           @id @default(cuid())
+  userId      String
+  type        PreferenceType
+  key         String           // z.B. ALLERGEN_GLUTEN, DIET_VEGAN, ALLERGEN_CUSTOM
+  value       String?          // Freitextwert (z.B. bei ALLERGEN_CUSTOM)
+  source      PreferenceSource
+  confidence  Decimal?         @db.Decimal(4, 3) // 0.000–1.000 (nur für source=DERIVED)
+  ignored     Boolean          @default(false)    // DERIVED-Vorschlag dauerhaft ignoriert
+  updatedAt   DateTime         @updatedAt
+  updatedById String?
+
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, key])
+  @@index([userId, type])
+  @@map("customer_preferences")
+}
+
+model PreferenceAuditLog {
+  id            String           @id @default(cuid())
+  userId        String
+  action        PreferenceAction
+  key           String
+  value         String?
+  confidence    Decimal?         @db.Decimal(4, 3) // Snapshot des Konfidenzwerts bei CONFIRMED
+  changedById   String
+  changedByName String
+  changedAt     DateTime         @default(now())
+
+  @@index([userId, changedAt])
+  @@map("preference_audit_logs")
+}
+
+// PROJ-21: CDP – Abgeleitete Merkmale & Aktivitätsstatus
+
+enum ActivityStatus {
+  NEU
+  AKTIV
+  GELEGENTLICH
+  SCHLAFEND
+  ABGEWANDERT
+}
+
+enum CustomerTier {
+  STANDARD
+  BRONZE
+  SILBER
+  GOLD
+  PLATIN
+}
+
+enum RfmSegment {
+  NEW_CUSTOMER
+  CHAMPION
+  LOYAL
+  POTENTIAL
+  NEEDS_ATTENTION
+  AT_RISK
+  CANT_LOSE
+  HIBERNATING
+}
+
+enum TrendDirection {
+  WACHSEND
+  STABIL
+  RUECKLAEUFIG
+}
+
+model CustomerMetrics {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  organizationId String
+
+  // ─── Aktivität ─────────────────────────────────────────────────────────────
+  activityStatus        ActivityStatus
+  daysSinceLastOrder    Int?
+  daysSinceRegistration Int
+  preferredDayOfWeek    Int?    // 0=So, 1=Mo, ..., 6=Sa
+  preferredTimeSlot     String? // BREAKFAST | LUNCH | AFTERNOON | EVENING
+
+  // ─── Wert ──────────────────────────────────────────────────────────────────
+  ltv                   Decimal  @db.Decimal(10, 2)
+  avgOrderValue         Decimal  @db.Decimal(10, 2)
+  orderFrequencyPerWeek Decimal  @db.Decimal(6, 3)
+  spend30d              Decimal  @db.Decimal(10, 2)
+  totalOrders           Int
+  firstOrderAt          DateTime?
+  lastOrderAt           DateTime?
+  customerTier          CustomerTier
+
+  // ─── RFM ───────────────────────────────────────────────────────────────────
+  rfmR       Int        // 1–5
+  rfmF       Int        // 1–5
+  rfmM       Int        // 1–5
+  rfmSegment RfmSegment
+
+  // ─── Trend ─────────────────────────────────────────────────────────────────
+  frequencyTrend TrendDirection
+  spendTrend     TrendDirection
+  orders30d      Int
+  orders30dPrev  Int
+  spend30dPrev   Decimal @db.Decimal(10, 2)
+
+  // ─── Scores ────────────────────────────────────────────────────────────────
+  churnRiskScore Int  // 0–100
+  winBackScore   Int? // 0–100, nur für ABGEWANDERT
+  upsellScore    Int  // 0–100
+
+  // ─── Verhalten ─────────────────────────────────────────────────────────────
+  orderConsistencyScore Int?     // 0–100, null wenn < 3 Bestellungen
+  orderDiversityScore   Int      // 0–100
+  lunchRegularityPct    Decimal? @db.Decimal(4, 3) // 0.000–1.000
+  avgLeadTimeHours      Decimal? @db.Decimal(6, 1)
+
+  // ─── Engagement ────────────────────────────────────────────────────────────
+  couponUsageRate   Decimal @db.Decimal(4, 3) // 0.000–1.000
+  walletUsageRate   Decimal @db.Decimal(4, 3) // 0.000–1.000
+  primaryChannel    String?
+  channelLoyaltyPct Decimal @db.Decimal(4, 3) // 0.000–1.000
+
+  // ─── Meta ──────────────────────────────────────────────────────────────────
+  calculatedAt DateTime
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, activityStatus])
+  @@index([organizationId, customerTier])
+  @@index([organizationId, rfmSegment])
+  @@index([organizationId, churnRiskScore])
+  @@index([organizationId, calculatedAt])
+  @@map("customer_metrics")
 }
 
 // PROJ-18: CDP – Mehrfach-Identifikatoren pro Kunde

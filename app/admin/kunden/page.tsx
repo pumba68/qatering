@@ -39,6 +39,22 @@ import {
   HelpCircle,
   ChevronDown,
   ChevronUp,
+  // PROJ-20: Präferenzen
+  Leaf,
+  AlertTriangle,
+  Bot,
+  Check,
+  X,
+  Plus,
+  BarChart2,
+  Clock,
+  Utensils,
+  // PROJ-21: Merkmale
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  Activity,
+  Award,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -573,7 +589,7 @@ function BestellhistorieTab({ userId }: { userId: string }) {
 
 // ─── Drawer Tabs ─────────────────────────────────────────────────────────────
 
-const TABS = ['Übersicht', 'Bestellhistorie', 'Präferenzen', 'Merkmale'] as const
+const TABS = ['Übersicht', 'Bestellhistorie', 'Präferenzen', 'Merkmale', 'Segmente'] as const
 type Tab = typeof TABS[number]
 
 // ─── Drawer Content ───────────────────────────────────────────────────────────
@@ -793,28 +809,1185 @@ function CustomerDrawer({ customerId, onClose }: { customerId: string; onClose: 
             <BestellhistorieTab userId={data.id} />
           )}
 
-          {activeTab === 'Präferenzen' && (
-            <div className="px-6 py-5 flex flex-col items-center justify-center py-16 text-center">
-              <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-4">
-                <RefreshCw className="w-6 h-6 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-medium text-foreground">Präferenzen & Allergien</p>
-              <p className="text-xs text-muted-foreground mt-1">Wird in PROJ-20 implementiert</p>
-            </div>
+          {activeTab === 'Präferenzen' && data && (
+            <PraeferenzenTab userId={data.id} />
           )}
 
-          {activeTab === 'Merkmale' && (
-            <div className="px-6 py-5 flex flex-col items-center justify-center py-16 text-center">
-              <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-4">
-                <RefreshCw className="w-6 h-6 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-medium text-foreground">Abgeleitete Merkmale</p>
-              <p className="text-xs text-muted-foreground mt-1">Wird in PROJ-21 implementiert</p>
-            </div>
+          {activeTab === 'Merkmale' && data && (
+            <MerkmaleTab userId={data.id} />
+          )}
+
+          {activeTab === 'Segmente' && data && (
+            <SegmenteTab userId={data.id} />
           )}
         </>
       )}
     </SheetContent>
+  )
+}
+
+// ─── PROJ-21 Types ────────────────────────────────────────────────────────────
+
+interface CustomerMetricsData {
+  activityStatus: string
+  daysSinceLastOrder: number | null
+  daysSinceRegistration: number
+  preferredDayOfWeek: number | null
+  preferredTimeSlot: string | null
+  ltv: number
+  avgOrderValue: number
+  orderFrequencyPerWeek: number
+  spend30d: number
+  totalOrders: number
+  firstOrderAt: string | null
+  lastOrderAt: string | null
+  customerTier: string
+  rfmR: number
+  rfmF: number
+  rfmM: number
+  rfmSegment: string
+  frequencyTrend: string
+  spendTrend: string
+  orders30d: number
+  orders30dPrev: number
+  spend30dPrev: number
+  churnRiskScore: number
+  winBackScore: number | null
+  upsellScore: number
+  orderConsistencyScore: number | null
+  orderDiversityScore: number
+  lunchRegularityPct: number | null
+  avgLeadTimeHours: number | null
+  couponUsageRate: number
+  walletUsageRate: number
+  primaryChannel: string | null
+  channelLoyaltyPct: number
+  calculatedAt: string
+}
+
+// ─── PROJ-21 Helpers ──────────────────────────────────────────────────────────
+
+function activityStatusConfig(status: string): { label: string; className: string; description: string } {
+  switch (status) {
+    case 'AKTIV':       return { label: 'Aktiv',        className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',   description: 'Letzte Bestellung in den letzten 30 Tagen' }
+    case 'GELEGENTLICH':return { label: 'Gelegentlich', className: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',description: 'Letzte Bestellung vor 31–90 Tagen' }
+    case 'SCHLAFEND':   return { label: 'Schlafend',    className: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',description: 'Letzte Bestellung vor 91–180 Tagen' }
+    case 'ABGEWANDERT': return { label: 'Abgewandert',  className: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',           description: 'Letzte Bestellung vor mehr als 180 Tagen' }
+    default:            return { label: 'Neu',          className: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',          description: 'Noch keine Bestellung aufgegeben' }
+  }
+}
+
+function tierConfig(tier: string): { label: string; className: string } {
+  switch (tier) {
+    case 'PLATIN':  return { label: 'Platin',   className: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' }
+    case 'GOLD':    return { label: 'Gold',     className: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' }
+    case 'SILBER':  return { label: 'Silber',   className: 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300' }
+    case 'BRONZE':  return { label: 'Bronze',   className: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' }
+    default:        return { label: 'Standard', className: 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400' }
+  }
+}
+
+function rfmSegmentLabel(seg: string): { label: string; description: string } {
+  const map: Record<string, { label: string; description: string }> = {
+    CHAMPION:        { label: 'Stammkunde',          description: 'Bestellt oft, viel und kürzlich' },
+    LOYAL:           { label: 'Treuer Kunde',         description: 'Regelmäßiger Gast mit gutem Wert' },
+    POTENTIAL:       { label: 'Aufstrebend',          description: 'Kürzlich aktiv, noch wenig Frequenz' },
+    NEEDS_ATTENTION: { label: 'Schläft ein',          description: 'War treu, jetzt seltener' },
+    AT_RISK:         { label: 'Risiko-Kunde',         description: 'Könnte bald abwandern' },
+    CANT_LOSE:       { label: 'Verlorener Champion',  description: 'War sehr wertvoll, jetzt inaktiv' },
+    HIBERNATING:     { label: 'Hibernator',           description: 'Lange inaktiv, geringer Wert' },
+    NEW_CUSTOMER:    { label: 'Neukunde',             description: 'Erste Bestellung vor weniger als 30 Tagen' },
+  }
+  return map[seg] ?? { label: seg, description: '' }
+}
+
+function trendIcon(trend: string) {
+  if (trend === 'WACHSEND')    return <TrendingUp className="w-4 h-4 text-green-600" />
+  if (trend === 'RUECKLAEUFIG') return <TrendingDown className="w-4 h-4 text-red-600" />
+  return <Minus className="w-4 h-4 text-muted-foreground" />
+}
+
+function trendClass(trend: string): string {
+  if (trend === 'WACHSEND')    return 'text-green-600'
+  if (trend === 'RUECKLAEUFIG') return 'text-red-600'
+  return 'text-muted-foreground'
+}
+
+function trendLabel(trend: string): string {
+  if (trend === 'WACHSEND')    return 'Wachsend'
+  if (trend === 'RUECKLAEUFIG') return 'Rückläufig'
+  return 'Stabil'
+}
+
+function trendPct(current: number, prev: number): string {
+  if (prev === 0) return current > 0 ? '+100 %' : '—'
+  const pct = Math.round(((current - prev) / prev) * 100)
+  return pct > 0 ? `+${pct} %` : `${pct} %`
+}
+
+function dayOfWeekLabel(day: number | null): string {
+  if (day === null) return '—'
+  return ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][day] ?? '—'
+}
+
+function timeSlotLabel21(slot: string | null): string {
+  const map: Record<string, string> = { BREAKFAST: 'Frühstück', LUNCH: 'Mittagessen', AFTERNOON: 'Nachmittag', EVENING: 'Abend' }
+  return slot ? (map[slot] ?? slot) : '—'
+}
+
+// ─── PROJ-21 MerkmaleTab ──────────────────────────────────────────────────────
+
+function MerkmaleTab({ userId }: { userId: string }) {
+  const [metrics, setMetrics] = useState<CustomerMetricsData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [recalculating, setRecalculating] = useState(false)
+  const [retryAfterMinutes, setRetryAfterMinutes] = useState<number | null>(null)
+
+  const fetchMetrics = useCallback(() => {
+    setLoading(true)
+    fetch(`/api/admin/kunden/${userId}/merkmale`)
+      .then(r => r.json())
+      .then(d => setMetrics(d.metrics ?? null))
+      .catch(() => {/* error handled by null state */})
+      .finally(() => setLoading(false))
+  }, [userId])
+
+  useEffect(() => { fetchMetrics() }, [fetchMetrics])
+
+  const handleRecalculate = async () => {
+    setRecalculating(true)
+    setRetryAfterMinutes(null)
+    const res = await fetch(`/api/admin/kunden/${userId}/merkmale/recalculate`, { method: 'POST' })
+    if (res.ok) {
+      fetchMetrics()
+    } else if (res.status === 429) {
+      const body = await res.json()
+      setRetryAfterMinutes(body.retryAfterMinutes ?? null)
+    }
+    setRecalculating(false)
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-16">
+        <RefreshCw className="w-5 h-5 animate-spin text-muted-foreground" />
+      </div>
+    )
+  }
+
+  if (!metrics) {
+    return (
+      <div className="px-6 py-8 flex flex-col items-center text-center gap-4">
+        <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+          <Activity className="w-6 h-6 text-muted-foreground" />
+        </div>
+        <div>
+          <p className="text-sm font-medium text-foreground">Noch keine Merkmale berechnet</p>
+          <p className="text-xs text-muted-foreground mt-1">Klicke auf „Neu berechnen" um die Merkmale zu erstellen.</p>
+        </div>
+        <Button size="sm" onClick={handleRecalculate} disabled={recalculating}>
+          <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${recalculating ? 'animate-spin' : ''}`} />
+          Neu berechnen
+        </Button>
+      </div>
+    )
+  }
+
+  const actStatus = activityStatusConfig(metrics.activityStatus)
+  const tier = tierConfig(metrics.customerTier)
+  const rfm = rfmSegmentLabel(metrics.rfmSegment)
+  const staleData = (Date.now() - new Date(metrics.calculatedAt).getTime()) > 48 * 3600000
+
+  return (
+    <div className="px-6 py-5 space-y-6">
+
+      {/* Stale data warning */}
+      {staleData && (
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200 dark:bg-amber-950/20 dark:border-amber-800 text-xs text-amber-700 dark:text-amber-400">
+          <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0" />
+          Daten werden aktualisiert – letzter Stand: {formatDate(metrics.calculatedAt)}
+        </div>
+      )}
+
+      {/* ── Header-Karte: Status + Tier + RFM ── */}
+      <div className="rounded-lg border border-border bg-muted/30 p-4 space-y-3">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span
+            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${actStatus.className}`}
+            title={actStatus.description}
+          >
+            {actStatus.label}
+          </span>
+          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${tier.className}`}>
+            <Award className="w-3 h-3" />
+            {tier.label}
+          </span>
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+            {rfm.label}
+          </span>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          <span className="font-medium text-foreground">{rfm.label}:</span> {rfm.description}
+          {metrics.daysSinceLastOrder !== null && (
+            <span className="ml-2">· Letzte Bestellung vor {metrics.daysSinceLastOrder} Tagen</span>
+          )}
+        </p>
+        <div className="flex items-center gap-4 text-xs text-muted-foreground flex-wrap">
+          <span>RFM: R{metrics.rfmR} · F{metrics.rfmF} · M{metrics.rfmM}</span>
+          {metrics.preferredDayOfWeek !== null && (
+            <span>Lieblingstag: {dayOfWeekLabel(metrics.preferredDayOfWeek)}</span>
+          )}
+          {metrics.preferredTimeSlot && (
+            <span>Zeitslot: {timeSlotLabel21(metrics.preferredTimeSlot)}</span>
+          )}
+        </div>
+      </div>
+
+      {/* ── Wert & Frequenz ── */}
+      <div>
+        <SectionHeader label="Wert & Frequenz" />
+        <div className="grid grid-cols-2 gap-3">
+          {([
+            { label: 'Lifetime Value',    value: formatCurrency(metrics.ltv),              sub: 'Gesamtumsatz' },
+            { label: 'Ø Warenkorb',       value: formatCurrency(metrics.avgOrderValue),     sub: 'pro Bestellung' },
+            { label: 'Bestellfrequenz',   value: `${metrics.orderFrequencyPerWeek.toFixed(1)}×/Wo`, sub: `${metrics.totalOrders} Bestellungen gesamt` },
+            { label: 'Ausgaben 30d',      value: formatCurrency(metrics.spend30d),          sub: 'letzte 30 Tage' },
+          ] as const).map(tile => (
+            <div key={tile.label} className="rounded-lg border border-border bg-background p-3">
+              <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">{tile.label}</p>
+              <p className="text-lg font-bold text-foreground mt-0.5">{tile.value}</p>
+              <p className="text-[10px] text-muted-foreground">{tile.sub}</p>
+            </div>
+          ))}
+        </div>
+        {(metrics.firstOrderAt || metrics.lastOrderAt) && (
+          <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+            {metrics.firstOrderAt && <span>Erste Bestellung: {formatDate(metrics.firstOrderAt)}</span>}
+            {metrics.lastOrderAt && <span>Letzte Bestellung: {formatDate(metrics.lastOrderAt)}</span>}
+          </div>
+        )}
+      </div>
+
+      {/* ── Trend ── */}
+      <div>
+        <SectionHeader label="Trend (letzte 30 Tage)" />
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-lg border border-border bg-background p-3">
+            <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">Bestellfrequenz</p>
+            <div className="flex items-center gap-1.5 mt-1.5">
+              {trendIcon(metrics.frequencyTrend)}
+              <span className={`text-sm font-semibold ${trendClass(metrics.frequencyTrend)}`}>{trendLabel(metrics.frequencyTrend)}</span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {metrics.orders30d} vs. {metrics.orders30dPrev} Bestellungen
+              {' '}<span className={trendClass(metrics.frequencyTrend)}>({trendPct(metrics.orders30d, metrics.orders30dPrev)})</span>
+            </p>
+          </div>
+          <div className="rounded-lg border border-border bg-background p-3">
+            <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">Ausgaben</p>
+            <div className="flex items-center gap-1.5 mt-1.5">
+              {trendIcon(metrics.spendTrend)}
+              <span className={`text-sm font-semibold ${trendClass(metrics.spendTrend)}`}>{trendLabel(metrics.spendTrend)}</span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {formatCurrency(metrics.spend30d)} vs. {formatCurrency(metrics.spend30dPrev)}
+              {' '}<span className={trendClass(metrics.spendTrend)}>({trendPct(metrics.spend30d, metrics.spend30dPrev)})</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Risiko & Potenzial ── */}
+      <div>
+        <SectionHeader label="Risiko & Potenzial" />
+        <div className="space-y-3">
+          {metrics.churnRiskScore > 20 && (
+            <div>
+              <div className="flex justify-between text-xs mb-1">
+                <span className="font-medium text-foreground">Abwanderungsrisiko</span>
+                <span className={
+                  metrics.churnRiskScore >= 70 ? 'text-red-600 font-semibold' :
+                  metrics.churnRiskScore >= 40 ? 'text-amber-600 font-semibold' :
+                  'text-green-600 font-semibold'
+                }>
+                  {metrics.churnRiskScore >= 70 ? 'Hohes Risiko' : metrics.churnRiskScore >= 40 ? 'Mittleres Risiko' : 'Geringes Risiko'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 bg-muted rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${metrics.churnRiskScore >= 70 ? 'bg-red-500' : metrics.churnRiskScore >= 40 ? 'bg-amber-500' : 'bg-green-500'}`}
+                    style={{ width: `${metrics.churnRiskScore}%` }}
+                  />
+                </div>
+                <span className="text-xs tabular-nums text-muted-foreground w-12 text-right">{metrics.churnRiskScore}/100</span>
+              </div>
+            </div>
+          )}
+
+          {metrics.winBackScore !== null && (
+            <div>
+              <div className="flex justify-between text-xs mb-1">
+                <span className="font-medium text-foreground">Win-Back-Priorität</span>
+                <span className="text-blue-600 font-semibold">
+                  {metrics.winBackScore >= 70 ? 'Hoch' : metrics.winBackScore >= 40 ? 'Mittel' : 'Niedrig'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 bg-muted rounded-full h-1.5 overflow-hidden">
+                  <div className="h-full rounded-full bg-blue-500" style={{ width: `${metrics.winBackScore}%` }} />
+                </div>
+                <span className="text-xs tabular-nums text-muted-foreground w-12 text-right">{metrics.winBackScore}/100</span>
+              </div>
+            </div>
+          )}
+
+          <div>
+            <div className="flex justify-between text-xs mb-1">
+              <span className="font-medium text-foreground">Upsell-Potenzial</span>
+              <span className="text-muted-foreground">
+                {metrics.upsellScore >= 70 ? 'Hoch' : metrics.upsellScore >= 40 ? 'Mittel' : 'Gering'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex-1 bg-muted rounded-full h-1.5 overflow-hidden">
+                <div className="h-full rounded-full bg-emerald-500" style={{ width: `${metrics.upsellScore}%` }} />
+              </div>
+              <span className="text-xs tabular-nums text-muted-foreground w-12 text-right">{metrics.upsellScore}/100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Verhaltensprofil ── */}
+      <div>
+        <SectionHeader label="Verhaltensprofil" />
+        <div className="space-y-3">
+          {metrics.orderConsistencyScore !== null && (
+            <div>
+              <div className="flex justify-between text-xs mb-1">
+                <span className="font-medium text-foreground">Konsistenz</span>
+                <span className="text-muted-foreground">
+                  {metrics.orderConsistencyScore >= 75 ? 'Sehr regelmäßig' : metrics.orderConsistencyScore >= 50 ? 'Mäßig regelmäßig' : 'Sporadisch'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 bg-muted rounded-full h-1.5 overflow-hidden">
+                  <div className="h-full rounded-full bg-violet-500" style={{ width: `${metrics.orderConsistencyScore}%` }} />
+                </div>
+                <span className="text-xs tabular-nums text-muted-foreground w-12 text-right">{metrics.orderConsistencyScore}/100</span>
+              </div>
+            </div>
+          )}
+
+          <div>
+            <div className="flex justify-between text-xs mb-1">
+              <span className="font-medium text-foreground">Produktvielfalt</span>
+              <span className="text-muted-foreground">
+                {metrics.orderDiversityScore >= 70 ? 'Probiert gerne Neues' : metrics.orderDiversityScore >= 40 ? 'Ausgewogen' : 'Treu zu Favoriten'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex-1 bg-muted rounded-full h-1.5 overflow-hidden">
+                <div className="h-full rounded-full bg-teal-500" style={{ width: `${metrics.orderDiversityScore}%` }} />
+              </div>
+              <span className="text-xs tabular-nums text-muted-foreground w-12 text-right">{metrics.orderDiversityScore}/100</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-x-4 text-xs">
+            {metrics.lunchRegularityPct !== null && (
+              <div className="flex justify-between py-1.5 border-b border-border">
+                <span className="text-muted-foreground">Mittagsfrequenz</span>
+                <span className="font-medium">{Math.round(metrics.lunchRegularityPct * 100)} % Werktage</span>
+              </div>
+            )}
+            {metrics.avgLeadTimeHours !== null && (
+              <div className="flex justify-between py-1.5 border-b border-border">
+                <span className="text-muted-foreground">Ø Vorlaufzeit</span>
+                <span className="font-medium">{metrics.avgLeadTimeHours.toFixed(1)} Std.</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Engagement ── */}
+      <div>
+        <SectionHeader label="Engagement & Kanal" />
+        <div className="space-y-0 text-xs">
+          {([
+            { label: 'Coupon-Nutzung', value: `${Math.round(metrics.couponUsageRate * 100)} % der Bestellungen` },
+            { label: 'Wallet-Nutzung', value: `${Math.round(metrics.walletUsageRate * 100)} % der Bestellungen` },
+            ...(metrics.primaryChannel ? [{ label: 'Primärer Kanal', value: `${channelLabel(metrics.primaryChannel)} (${Math.round(metrics.channelLoyaltyPct * 100)} %)` }] : []),
+          ] as Array<{ label: string; value: string }>).map(row => (
+            <div key={row.label} className="flex justify-between py-1.5 border-b border-border last:border-0">
+              <span className="text-muted-foreground">{row.label}</span>
+              <span className="font-medium">{row.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Footer ── */}
+      <div className="flex items-center justify-between pt-2 border-t border-border text-xs text-muted-foreground">
+        <div className="flex items-center gap-1">
+          <Clock className="w-3 h-3" />
+          <span>
+            Stand: {new Date(metrics.calculatedAt).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} · Täglich aktualisiert
+          </span>
+        </div>
+        <Button
+          size="sm"
+          variant="outline"
+          className="h-7 text-xs"
+          onClick={handleRecalculate}
+          disabled={recalculating || retryAfterMinutes !== null}
+        >
+          <RefreshCw className={`w-3 h-3 mr-1 ${recalculating ? 'animate-spin' : ''}`} />
+          {retryAfterMinutes !== null ? `Wieder in ${retryAfterMinutes} Min.` : 'Neu berechnen'}
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// ─── PROJ-20 Types ────────────────────────────────────────────────────────────
+
+interface ExplicitPref {
+  id: string
+  key: string
+  value: string | null
+  source: string
+  confidence: number | null
+  updatedAt: string
+}
+
+interface PrefSuggestion {
+  key: string
+  label: string
+  confidence: number
+  orderCount: number
+  matchingOrderCount: number
+}
+
+interface ImplicitStats {
+  orderCount: number
+  windowDays: number
+  topCategories: Array<{ name: string; count: number; pct: number }>
+  topProducts: Array<{ name: string; count: number }>
+  preferredChannel: string | null
+  preferredTimeSlot: string | null
+}
+
+interface PrefAuditEntry {
+  id: string
+  action: string
+  key: string
+  value: string | null
+  confidence: number | null
+  changedByName: string
+  changedAt: string
+}
+
+interface DietLikelyhoodItem {
+  key: string
+  label: string
+  score: number
+  matchCount: number
+  totalOrders: number
+}
+
+interface CategoryLikelyhoodItem {
+  name: string
+  score: number
+  matchCount: number
+  totalOrders: number
+}
+
+interface LikelyhoodData {
+  totalOrders: number
+  windowDays: number
+  dietProfile: DietLikelyhoodItem[]
+  categoryProfile: CategoryLikelyhoodItem[]
+}
+
+interface PraeferenzenData {
+  explicit: ExplicitPref[]
+  suggestions: PrefSuggestion[]
+  likelyhood: LikelyhoodData
+  implicit: ImplicitStats
+  auditLog: PrefAuditEntry[]
+}
+
+// ─── PROJ-20 Helpers ──────────────────────────────────────────────────────────
+
+const ALLERGEN_OPTIONS: Array<{ key: string; label: string }> = [
+  { key: 'ALLERGEN_GLUTEN',      label: 'Gluten' },
+  { key: 'ALLERGEN_CRUSTACEANS', label: 'Schalentiere' },
+  { key: 'ALLERGEN_EGGS',        label: 'Eier' },
+  { key: 'ALLERGEN_FISH',        label: 'Fisch' },
+  { key: 'ALLERGEN_PEANUTS',     label: 'Erdnüsse' },
+  { key: 'ALLERGEN_SOYBEANS',    label: 'Soja' },
+  { key: 'ALLERGEN_MILK',        label: 'Milch/Laktose' },
+  { key: 'ALLERGEN_TREE_NUTS',   label: 'Nüsse' },
+  { key: 'ALLERGEN_CELERY',      label: 'Sellerie' },
+  { key: 'ALLERGEN_MUSTARD',     label: 'Senf' },
+  { key: 'ALLERGEN_SESAME',      label: 'Sesam' },
+  { key: 'ALLERGEN_SULPHITES',   label: 'Sulfite' },
+  { key: 'ALLERGEN_LUPIN',       label: 'Lupinen' },
+  { key: 'ALLERGEN_MOLLUSCS',    label: 'Weichtiere' },
+  { key: 'ALLERGEN_CUSTOM',      label: 'Sonstiges (Freitext)' },
+]
+
+const DIET_OPTIONS: Array<{ key: string; label: string }> = [
+  { key: 'DIET_VEGETARIAN',  label: 'Vegetarisch' },
+  { key: 'DIET_VEGAN',       label: 'Vegan' },
+  { key: 'DIET_HALAL',       label: 'Halal' },
+  { key: 'DIET_KOSHER',      label: 'Kosher' },
+  { key: 'DIET_GLUTEN_FREE', label: 'Glutenfrei' },
+  { key: 'DIET_LACTOSE_FREE', label: 'Laktosefrei' },
+  { key: 'DIET_LOW_CARB',    label: 'Low Carb' },
+  { key: 'DIET_KETO',        label: 'Keto' },
+]
+
+const ALL_PREF_OPTIONS = [...ALLERGEN_OPTIONS, ...DIET_OPTIONS]
+
+function prefKeyLabel(key: string): string {
+  return ALL_PREF_OPTIONS.find(o => o.key === key)?.label ?? key
+}
+
+function isAllergenKey(key: string) { return key.startsWith('ALLERGEN_') }
+
+function timeSlotLabel(slot: string | null): string {
+  const map: Record<string, string> = {
+    BREAKFAST: 'Frühstück (vor 10h)',
+    LUNCH:     'Mittag (10–14h)',
+    AFTERNOON: 'Nachmittag (14–17h)',
+    EVENING:   'Abend (nach 17h)',
+  }
+  return slot ? (map[slot] ?? slot) : '–'
+}
+
+const MIN_LIKELYHOOD_ORDERS = 5 // Mindestanzahl Bestellungen für Likelihood-Anzeige
+
+function likelyhoodColor(score: number): { bar: string; text: string; badge: string } {
+  if (score >= 0.7) return {
+    bar:   'bg-green-500',
+    text:  'text-green-700 dark:text-green-400',
+    badge: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  }
+  if (score >= 0.4) return {
+    bar:   'bg-amber-500',
+    text:  'text-amber-700 dark:text-amber-400',
+    badge: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+  }
+  return {
+    bar:   'bg-gray-400',
+    text:  'text-muted-foreground',
+    badge: 'bg-muted text-muted-foreground',
+  }
+}
+
+function likelyhoodLabel(score: number): string {
+  if (score >= 0.7) return 'Sehr wahrscheinlich'
+  if (score >= 0.4) return 'Möglich'
+  return 'Selten'
+}
+
+function auditActionLabel(action: string): string {
+  const map: Record<string, string> = {
+    ADDED:     'Hinzugefügt',
+    REMOVED:   'Entfernt',
+    CONFIRMED: 'Vorschlag bestätigt',
+  }
+  return map[action] ?? action
+}
+
+// ─── PROJ-20 Präferenzen Tab ──────────────────────────────────────────────────
+
+function PraeferenzenTab({ userId }: { userId: string }) {
+  const [data, setData] = useState<PraeferenzenData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [editMode, setEditMode] = useState(false)
+  const [addKey, setAddKey] = useState('')
+  const [addValue, setAddValue] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [actionKey, setActionKey] = useState<string | null>(null) // which suggestion is being acted on
+  const [showAudit, setShowAudit] = useState(false)
+
+  const fetchData = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await fetch(`/api/admin/kunden/${userId}/praeferenzen`)
+      if (res.ok) setData(await res.json())
+    } finally {
+      setLoading(false)
+    }
+  }, [userId])
+
+  useEffect(() => { fetchData() }, [fetchData])
+
+  const handleAdd = async () => {
+    if (!addKey) return
+    setSaving(true)
+    try {
+      const res = await fetch(`/api/admin/kunden/${userId}/praeferenzen`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: addKey, value: addKey === 'ALLERGEN_CUSTOM' ? addValue : null }),
+      })
+      if (res.ok) {
+        setAddKey('')
+        setAddValue('')
+        await fetchData()
+      }
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleRemove = async (id: string) => {
+    try {
+      await fetch(`/api/admin/kunden/${userId}/praeferenzen/${id}`, { method: 'DELETE' })
+      await fetchData()
+    } catch { /* silent */ }
+  }
+
+  const handleConfirm = async (s: PrefSuggestion) => {
+    setActionKey(s.key)
+    try {
+      await fetch(`/api/admin/kunden/${userId}/praeferenzen/vorschlag/bestaetigen`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: s.key, confidence: s.confidence }),
+      })
+      await fetchData()
+    } finally {
+      setActionKey(null)
+    }
+  }
+
+  const handleIgnore = async (key: string) => {
+    setActionKey(key)
+    try {
+      await fetch(`/api/admin/kunden/${userId}/praeferenzen/vorschlag/ignorieren`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key }),
+      })
+      await fetchData()
+    } finally {
+      setActionKey(null)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <RefreshCw className="w-5 h-5 animate-spin text-muted-foreground" />
+      </div>
+    )
+  }
+
+  if (!data) {
+    return (
+      <div className="px-6 py-10 text-center text-sm text-muted-foreground">
+        Daten konnten nicht geladen werden.
+      </div>
+    )
+  }
+
+  const allergens = data.explicit.filter(p => isAllergenKey(p.key))
+  const diets     = data.explicit.filter(p => !isAllergenKey(p.key))
+
+  // Options not yet selected
+  const usedKeys = new Set(data.explicit.map(p => p.key))
+  const availableOptions = ALL_PREF_OPTIONS.filter(o => !usedKeys.has(o.key))
+
+  return (
+    <div className="flex flex-col gap-0 divide-y divide-border">
+
+      {/* ── Explizite Präferenzen ──────────────────────────────────────────── */}
+      <div className="px-6 py-5">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              Explizite Präferenzen
+            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">Manuell hinterlegt</p>
+          </div>
+          <Button
+            variant={editMode ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setEditMode(v => !v)}
+          >
+            {editMode ? 'Fertig' : 'Bearbeiten'}
+          </Button>
+        </div>
+
+        {/* Allergene */}
+        <div className="mb-4">
+          <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+            <AlertTriangle className="w-3 h-3 text-red-500" />
+            Allergene
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {allergens.length === 0 && (
+              <p className="text-xs text-muted-foreground italic">
+                {editMode ? 'Keine Allergene – füge unten eines hinzu.' : 'Keine Allergene hinterlegt'}
+              </p>
+            )}
+            {allergens.map(p => (
+              <span
+                key={p.id}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+              >
+                {p.value ?? prefKeyLabel(p.key)}
+                {editMode && (
+                  <button
+                    onClick={() => handleRemove(p.id)}
+                    className="ml-1 hover:text-red-900 dark:hover:text-red-200"
+                    aria-label="Entfernen"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Diätformen */}
+        <div className="mb-4">
+          <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+            <Leaf className="w-3 h-3 text-green-600" />
+            Diätformen
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {diets.length === 0 && (
+              <p className="text-xs text-muted-foreground italic">
+                {editMode ? 'Keine Diätform – füge unten eine hinzu.' : 'Keine Diätformen hinterlegt'}
+              </p>
+            )}
+            {diets.map(p => (
+              <span
+                key={p.id}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+              >
+                {p.source === 'ADMIN' && p.confidence != null && (
+                  <Bot className="w-3 h-3 opacity-60" aria-label="Aus Bestellverhalten bestätigt" />
+                )}
+                {prefKeyLabel(p.key)}
+                {editMode && (
+                  <button
+                    onClick={() => handleRemove(p.id)}
+                    className="ml-1 hover:text-green-900 dark:hover:text-green-200"
+                    aria-label="Entfernen"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Add Form (Edit Mode) */}
+        {editMode && (
+          <div className="flex flex-wrap gap-2 mt-3 p-3 bg-muted/40 rounded-lg border border-border/50">
+            <Select value={addKey} onValueChange={setAddKey}>
+              <SelectTrigger className="h-8 text-xs w-52">
+                <SelectValue placeholder="Präferenz auswählen…" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="_sep_allergen" disabled className="text-xs font-semibold text-muted-foreground opacity-100">
+                  — Allergene —
+                </SelectItem>
+                {ALLERGEN_OPTIONS.filter(o => !usedKeys.has(o.key)).map(o => (
+                  <SelectItem key={o.key} value={o.key} className="text-xs">{o.label}</SelectItem>
+                ))}
+                <SelectItem value="_sep_diet" disabled className="text-xs font-semibold text-muted-foreground opacity-100">
+                  — Diätformen —
+                </SelectItem>
+                {DIET_OPTIONS.filter(o => !usedKeys.has(o.key)).map(o => (
+                  <SelectItem key={o.key} value={o.key} className="text-xs">{o.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {addKey === 'ALLERGEN_CUSTOM' && (
+              <Input
+                className="h-8 text-xs w-40"
+                placeholder="Allergen-Name…"
+                value={addValue}
+                onChange={e => setAddValue(e.target.value)}
+                maxLength={200}
+              />
+            )}
+
+            <Button
+              size="sm"
+              className="h-8 text-xs"
+              onClick={handleAdd}
+              disabled={!addKey || addKey.startsWith('_sep') || saving || (addKey === 'ALLERGEN_CUSTOM' && !addValue.trim())}
+            >
+              {saving ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Plus className="w-3 h-3 mr-1" />}
+              Hinzufügen
+            </Button>
+          </div>
+        )}
+
+        {/* Audit Trail */}
+        {data.auditLog.length > 0 && (
+          <div className="mt-4">
+            <button
+              onClick={() => setShowAudit(v => !v)}
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {showAudit ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+              Änderungsprotokoll ({data.auditLog.length})
+            </button>
+            {showAudit && (
+              <div className="mt-2 space-y-1">
+                {data.auditLog.map(entry => (
+                  <div key={entry.id} className="flex items-center justify-between text-xs py-1 border-b border-border/30 last:border-0">
+                    <div className="flex items-center gap-2">
+                      <span className={`font-medium ${
+                        entry.action === 'REMOVED' ? 'text-red-600' :
+                        entry.action === 'CONFIRMED' ? 'text-blue-600' : 'text-green-600'
+                      }`}>
+                        {auditActionLabel(entry.action)}
+                      </span>
+                      <span className="text-foreground">{prefKeyLabel(entry.key)}</span>
+                      {entry.value && <span className="text-muted-foreground">„{entry.value}"</span>}
+                      {entry.confidence != null && (
+                        <span className="text-muted-foreground">({Math.round(entry.confidence * 100)} % Konfidenz)</span>
+                      )}
+                    </div>
+                    <div className="text-right text-muted-foreground">
+                      <span>{entry.changedByName}</span>
+                      <span className="ml-2">{formatDate(entry.changedAt)}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* ── Vorgeschlagene Präferenzen ─────────────────────────────────────── */}
+      {data.suggestions.length > 0 && (
+        <div className="px-6 py-5">
+          <div className="mb-3">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide flex items-center gap-1.5">
+              <Bot className="w-3.5 h-3.5 text-amber-500" />
+              Vorgeschlagene Präferenzen
+            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Basierend auf Bestellverhalten – zur Bestätigung vorgeschlagen
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            {data.suggestions.map(s => {
+              const pct = Math.round(s.confidence * 100)
+              const isActing = actionKey === s.key
+              return (
+                <div
+                  key={s.key}
+                  className="flex items-center justify-between gap-3 p-3 rounded-lg border border-amber-200 bg-amber-50 dark:border-amber-800/40 dark:bg-amber-900/10"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-medium text-foreground">
+                        {prefKeyLabel(s.key) !== s.key ? prefKeyLabel(s.key) : s.label}
+                      </span>
+                      <span className="text-xs text-amber-700 dark:text-amber-400 font-medium">
+                        {pct} %
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {s.matchingOrderCount} von {s.orderCount} Bestellungen (letzte {data.implicit.windowDays} Tage)
+                    </p>
+                    {/* Confidence bar */}
+                    <div className="mt-1.5 h-1.5 w-full bg-amber-200 dark:bg-amber-800/40 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-amber-500 rounded-full"
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <Button
+                      size="sm"
+                      className="h-7 text-xs px-2 bg-green-600 hover:bg-green-700 text-white"
+                      onClick={() => handleConfirm(s)}
+                      disabled={isActing}
+                    >
+                      {isActing ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3 mr-1" />}
+                      Bestätigen
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-7 text-xs px-2"
+                      onClick={() => handleIgnore(s.key)}
+                      disabled={isActing}
+                    >
+                      <X className="w-3 h-3 mr-1" />
+                      Ignorieren
+                    </Button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ── Berechnetes Präferenzprofil (Likelihood-Scores) ──────────────── */}
+      {data.likelyhood.totalOrders >= MIN_LIKELYHOOD_ORDERS && (
+        data.likelyhood.dietProfile.length > 0 || data.likelyhood.categoryProfile.length > 0
+      ) && (
+        <div className="px-6 py-5">
+          <div className="mb-3">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide flex items-center gap-1.5">
+              <BarChart2 className="w-3.5 h-3.5 text-primary" />
+              Berechnetes Präferenzprofil
+            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Likelihood-Scores aus {data.likelyhood.totalOrders} Bestellungen (letzte {data.likelyhood.windowDays} Tage) &nbsp;·&nbsp; nicht editierbar
+            </p>
+          </div>
+
+          <div className="space-y-5">
+            {/* Diät-Profil */}
+            {data.likelyhood.dietProfile.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                  <Leaf className="w-3 h-3 text-green-600" />
+                  Diäteigenschaften
+                </p>
+                <div className="space-y-2">
+                  {data.likelyhood.dietProfile.map(item => {
+                    const pct = Math.round(item.score * 100)
+                    const colors = likelyhoodColor(item.score)
+                    const displayLabel = prefKeyLabel(item.key) !== item.key ? prefKeyLabel(item.key) : item.label
+                    return (
+                      <div key={item.key} className="flex items-center gap-3">
+                        <span className="text-xs w-28 truncate text-foreground font-medium" title={displayLabel}>
+                          {displayLabel}
+                        </span>
+                        <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full transition-all ${colors.bar}`}
+                            style={{ width: `${pct}%` }}
+                          />
+                        </div>
+                        <span className={`text-xs font-semibold w-10 text-right tabular-nums ${colors.text}`}>
+                          {pct} %
+                        </span>
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full w-28 text-center ${colors.badge}`}>
+                          {likelyhoodLabel(item.score)}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Kategorie-Profil */}
+            {data.likelyhood.categoryProfile.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                  <Utensils className="w-3 h-3" />
+                  Kategorien
+                </p>
+                <div className="space-y-2">
+                  {data.likelyhood.categoryProfile.map(item => {
+                    const pct = Math.round(item.score * 100)
+                    const colors = likelyhoodColor(item.score)
+                    return (
+                      <div key={item.name} className="flex items-center gap-3">
+                        <span className="text-xs w-28 truncate text-foreground font-medium" title={item.name}>
+                          {item.name}
+                        </span>
+                        <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full transition-all ${colors.bar}`}
+                            style={{ width: `${pct}%` }}
+                          />
+                        </div>
+                        <span className={`text-xs font-semibold w-10 text-right tabular-nums ${colors.text}`}>
+                          {pct} %
+                        </span>
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full w-28 text-center ${colors.badge}`}>
+                          {likelyhoodLabel(item.score)}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Legende */}
+          <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" />≥ 70 % Sehr wahrscheinlich</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500 inline-block" />40–70 % Möglich</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-400 inline-block" />&lt; 40 % Selten</span>
+          </div>
+        </div>
+      )}
+
+      {/* ── Implizite Verhaltensstatistiken ───────────────────────────────── */}
+      <div className="px-6 py-5">
+        <div className="mb-3">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+            Verhaltensstatistiken
+          </p>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Automatisch ermittelt – nicht editierbar &nbsp;·&nbsp; letzte {data.implicit.windowDays} Tage
+          </p>
+        </div>
+
+        {data.implicit.orderCount < 5 ? (
+          <div className="flex items-center gap-2 p-3 rounded-lg bg-muted text-sm text-muted-foreground">
+            <BarChart2 className="w-4 h-4 flex-shrink-0" />
+            Noch nicht genug Daten für automatische Auswertung (mind. 5 Bestellungen, aktuell: {data.implicit.orderCount})
+          </div>
+        ) : (
+          <div className="space-y-5">
+            {/* Top Kategorien */}
+            {data.implicit.topCategories.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                  <Utensils className="w-3 h-3" />
+                  Top Kategorien
+                </p>
+                <div className="space-y-1.5">
+                  {data.implicit.topCategories.map(cat => (
+                    <div key={cat.name} className="flex items-center gap-2">
+                      <span className="text-xs w-32 truncate text-foreground" title={cat.name}>{cat.name}</span>
+                      <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-primary/60 rounded-full"
+                          style={{ width: `${cat.pct}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-muted-foreground w-10 text-right">{cat.pct} %</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Top Produkte */}
+            {data.implicit.topProducts.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                  <Package className="w-3 h-3" />
+                  Top Produkte
+                </p>
+                <div className="space-y-1">
+                  {data.implicit.topProducts.map((prod, i) => (
+                    <div key={prod.name} className="flex items-center gap-2 text-xs">
+                      <span className="w-4 text-muted-foreground font-medium">{i + 1}.</span>
+                      <span className="flex-1 truncate text-foreground" title={prod.name}>{prod.name}</span>
+                      <span className="text-muted-foreground">{prod.count}×</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Kanal & Uhrzeit */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-lg border border-border bg-card p-3">
+                <p className="text-xs text-muted-foreground mb-1 flex items-center gap-1">
+                  <Smartphone className="w-3 h-3" />
+                  Bevorzugter Kanal
+                </p>
+                <div className="flex items-center gap-1.5">
+                  <ChannelIcon channel={data.implicit.preferredChannel} />
+                  <span className="text-sm font-medium text-foreground">
+                    {channelLabel(data.implicit.preferredChannel)}
+                  </span>
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-card p-3">
+                <p className="text-xs text-muted-foreground mb-1 flex items-center gap-1">
+                  <Clock className="w-3 h-3" />
+                  Bevorzugte Zeit
+                </p>
+                <span className="text-sm font-medium text-foreground">
+                  {timeSlotLabel(data.implicit.preferredTimeSlot)}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ─── PROJ-22b SegmenteTab ─────────────────────────────────────────────────────
+
+function SegmenteTab({ userId }: { userId: string }) {
+  const [segments, setSegments] = useState<{ id: string; name: string; description: string | null }[] | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(`/api/admin/kunden/${userId}/segmente`)
+      .then((r) => r.json())
+      .then((d) => setSegments(d.segments ?? []))
+      .catch(() => setSegments([]))
+      .finally(() => setLoading(false))
+  }, [userId])
+
+  if (loading) {
+    return (
+      <div className="p-6 flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        Lade Segmente…
+      </div>
+    )
+  }
+
+  return (
+    <div className="p-6 space-y-4">
+      <h3 className="font-semibold text-base">Mitglied in Segmenten</h3>
+      {!segments || segments.length === 0 ? (
+        <p className="text-sm text-muted-foreground">Dieser Kunde ist aktuell in keinem Segment.</p>
+      ) : (
+        <div className="space-y-2">
+          {segments.map((seg) => (
+            <div
+              key={seg.id}
+              className="flex items-center justify-between rounded-xl border border-border/50 bg-card p-3"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="font-medium text-sm">{seg.name}</p>
+                {seg.description && (
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{seg.description}</p>
+                )}
+              </div>
+              <Link
+                href="/admin/marketing/segments"
+                className="ml-3 shrink-0 text-xs text-primary hover:underline"
+              >
+                Zum Segment →
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 

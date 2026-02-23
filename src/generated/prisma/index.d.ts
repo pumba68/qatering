@@ -59,6 +59,21 @@ export type Location = $Result.DefaultSelection<Prisma.$LocationPayload>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model CustomerPreference
+ * 
+ */
+export type CustomerPreference = $Result.DefaultSelection<Prisma.$CustomerPreferencePayload>
+/**
+ * Model PreferenceAuditLog
+ * 
+ */
+export type PreferenceAuditLog = $Result.DefaultSelection<Prisma.$PreferenceAuditLogPayload>
+/**
+ * Model CustomerMetrics
+ * 
+ */
+export type CustomerMetrics = $Result.DefaultSelection<Prisma.$CustomerMetricsPayload>
+/**
  * Model CustomerIdentifier
  * 
  */
@@ -237,6 +252,78 @@ export const UserRole: {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
+export const PreferenceType: {
+  EXPLICIT: 'EXPLICIT',
+  IMPLICIT: 'IMPLICIT'
+};
+
+export type PreferenceType = (typeof PreferenceType)[keyof typeof PreferenceType]
+
+
+export const PreferenceSource: {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  SYSTEM: 'SYSTEM',
+  DERIVED: 'DERIVED'
+};
+
+export type PreferenceSource = (typeof PreferenceSource)[keyof typeof PreferenceSource]
+
+
+export const PreferenceAction: {
+  ADDED: 'ADDED',
+  REMOVED: 'REMOVED',
+  CONFIRMED: 'CONFIRMED'
+};
+
+export type PreferenceAction = (typeof PreferenceAction)[keyof typeof PreferenceAction]
+
+
+export const ActivityStatus: {
+  NEU: 'NEU',
+  AKTIV: 'AKTIV',
+  GELEGENTLICH: 'GELEGENTLICH',
+  SCHLAFEND: 'SCHLAFEND',
+  ABGEWANDERT: 'ABGEWANDERT'
+};
+
+export type ActivityStatus = (typeof ActivityStatus)[keyof typeof ActivityStatus]
+
+
+export const CustomerTier: {
+  STANDARD: 'STANDARD',
+  BRONZE: 'BRONZE',
+  SILBER: 'SILBER',
+  GOLD: 'GOLD',
+  PLATIN: 'PLATIN'
+};
+
+export type CustomerTier = (typeof CustomerTier)[keyof typeof CustomerTier]
+
+
+export const RfmSegment: {
+  NEW_CUSTOMER: 'NEW_CUSTOMER',
+  CHAMPION: 'CHAMPION',
+  LOYAL: 'LOYAL',
+  POTENTIAL: 'POTENTIAL',
+  NEEDS_ATTENTION: 'NEEDS_ATTENTION',
+  AT_RISK: 'AT_RISK',
+  CANT_LOSE: 'CANT_LOSE',
+  HIBERNATING: 'HIBERNATING'
+};
+
+export type RfmSegment = (typeof RfmSegment)[keyof typeof RfmSegment]
+
+
+export const TrendDirection: {
+  WACHSEND: 'WACHSEND',
+  STABIL: 'STABIL',
+  RUECKLAEUFIG: 'RUECKLAEUFIG'
+};
+
+export type TrendDirection = (typeof TrendDirection)[keyof typeof TrendDirection]
+
+
 export const CustomerIdentifierType: {
   APP_ID: 'APP_ID',
   EMPLOYEE_ID: 'EMPLOYEE_ID',
@@ -380,6 +467,34 @@ export const SubsidyType: typeof $Enums.SubsidyType
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type PreferenceType = $Enums.PreferenceType
+
+export const PreferenceType: typeof $Enums.PreferenceType
+
+export type PreferenceSource = $Enums.PreferenceSource
+
+export const PreferenceSource: typeof $Enums.PreferenceSource
+
+export type PreferenceAction = $Enums.PreferenceAction
+
+export const PreferenceAction: typeof $Enums.PreferenceAction
+
+export type ActivityStatus = $Enums.ActivityStatus
+
+export const ActivityStatus: typeof $Enums.ActivityStatus
+
+export type CustomerTier = $Enums.CustomerTier
+
+export const CustomerTier: typeof $Enums.CustomerTier
+
+export type RfmSegment = $Enums.RfmSegment
+
+export const RfmSegment: typeof $Enums.RfmSegment
+
+export type TrendDirection = $Enums.TrendDirection
+
+export const TrendDirection: typeof $Enums.TrendDirection
 
 export type CustomerIdentifierType = $Enums.CustomerIdentifierType
 
@@ -645,6 +760,36 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.customerPreference`: Exposes CRUD operations for the **CustomerPreference** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerPreferences
+    * const customerPreferences = await prisma.customerPreference.findMany()
+    * ```
+    */
+  get customerPreference(): Prisma.CustomerPreferenceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.preferenceAuditLog`: Exposes CRUD operations for the **PreferenceAuditLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PreferenceAuditLogs
+    * const preferenceAuditLogs = await prisma.preferenceAuditLog.findMany()
+    * ```
+    */
+  get preferenceAuditLog(): Prisma.PreferenceAuditLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.customerMetrics`: Exposes CRUD operations for the **CustomerMetrics** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerMetrics
+    * const customerMetrics = await prisma.customerMetrics.findMany()
+    * ```
+    */
+  get customerMetrics(): Prisma.CustomerMetricsDelegate<ExtArgs>;
 
   /**
    * `prisma.customerIdentifier`: Exposes CRUD operations for the **CustomerIdentifier** model.
@@ -1405,6 +1550,9 @@ export namespace Prisma {
     CompanyEmployee: 'CompanyEmployee',
     Location: 'Location',
     User: 'User',
+    CustomerPreference: 'CustomerPreference',
+    PreferenceAuditLog: 'PreferenceAuditLog',
+    CustomerMetrics: 'CustomerMetrics',
     CustomerIdentifier: 'CustomerIdentifier',
     Wallet: 'Wallet',
     WalletTransaction: 'WalletTransaction',
@@ -1451,7 +1599,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
+      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2082,6 +2230,216 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerPreference: {
+        payload: Prisma.$CustomerPreferencePayload<ExtArgs>
+        fields: Prisma.CustomerPreferenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerPreferenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerPreferenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerPreferenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerPreferenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>
+          }
+          findMany: {
+            args: Prisma.CustomerPreferenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>[]
+          }
+          create: {
+            args: Prisma.CustomerPreferenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>
+          }
+          createMany: {
+            args: Prisma.CustomerPreferenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerPreferenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerPreferenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>
+          }
+          update: {
+            args: Prisma.CustomerPreferenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerPreferenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerPreferenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CustomerPreferenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerPreferencePayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerPreferenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerPreference>
+          }
+          groupBy: {
+            args: Prisma.CustomerPreferenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPreferenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerPreferenceCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerPreferenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      PreferenceAuditLog: {
+        payload: Prisma.$PreferenceAuditLogPayload<ExtArgs>
+        fields: Prisma.PreferenceAuditLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PreferenceAuditLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PreferenceAuditLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>
+          }
+          findFirst: {
+            args: Prisma.PreferenceAuditLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PreferenceAuditLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>
+          }
+          findMany: {
+            args: Prisma.PreferenceAuditLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>[]
+          }
+          create: {
+            args: Prisma.PreferenceAuditLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>
+          }
+          createMany: {
+            args: Prisma.PreferenceAuditLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PreferenceAuditLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>[]
+          }
+          delete: {
+            args: Prisma.PreferenceAuditLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>
+          }
+          update: {
+            args: Prisma.PreferenceAuditLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.PreferenceAuditLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PreferenceAuditLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PreferenceAuditLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreferenceAuditLogPayload>
+          }
+          aggregate: {
+            args: Prisma.PreferenceAuditLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePreferenceAuditLog>
+          }
+          groupBy: {
+            args: Prisma.PreferenceAuditLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PreferenceAuditLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PreferenceAuditLogCountArgs<ExtArgs>
+            result: $Utils.Optional<PreferenceAuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerMetrics: {
+        payload: Prisma.$CustomerMetricsPayload<ExtArgs>
+        fields: Prisma.CustomerMetricsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerMetricsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerMetricsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerMetricsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerMetricsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>
+          }
+          findMany: {
+            args: Prisma.CustomerMetricsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>[]
+          }
+          create: {
+            args: Prisma.CustomerMetricsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>
+          }
+          createMany: {
+            args: Prisma.CustomerMetricsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerMetricsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerMetricsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>
+          }
+          update: {
+            args: Prisma.CustomerMetricsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerMetricsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerMetricsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CustomerMetricsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerMetricsPayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerMetricsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerMetrics>
+          }
+          groupBy: {
+            args: Prisma.CustomerMetricsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerMetricsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerMetricsCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerMetricsCountAggregateOutputType> | number
           }
         }
       }
@@ -4730,6 +5088,7 @@ export namespace Prisma {
     emailCampaignsCreated: number
     emailCampaignLogs: number
     customerIdentifiers: number
+    preferences: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4748,6 +5107,7 @@ export namespace Prisma {
     emailCampaignsCreated?: boolean | UserCountOutputTypeCountEmailCampaignsCreatedArgs
     emailCampaignLogs?: boolean | UserCountOutputTypeCountEmailCampaignLogsArgs
     customerIdentifiers?: boolean | UserCountOutputTypeCountCustomerIdentifiersArgs
+    preferences?: boolean | UserCountOutputTypeCountPreferencesArgs
   }
 
   // Custom InputTypes
@@ -4864,6 +5224,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCustomerIdentifiersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerIdentifierWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPreferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPreferenceWhereInput
   }
 
 
@@ -14195,6 +14562,8 @@ export namespace Prisma {
     emailCampaignsCreated?: boolean | User$emailCampaignsCreatedArgs<ExtArgs>
     emailCampaignLogs?: boolean | User$emailCampaignLogsArgs<ExtArgs>
     customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
+    preferences?: boolean | User$preferencesArgs<ExtArgs>
+    metrics?: boolean | User$metricsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -14249,6 +14618,8 @@ export namespace Prisma {
     emailCampaignsCreated?: boolean | User$emailCampaignsCreatedArgs<ExtArgs>
     emailCampaignLogs?: boolean | User$emailCampaignLogsArgs<ExtArgs>
     customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
+    preferences?: boolean | User$preferencesArgs<ExtArgs>
+    metrics?: boolean | User$metricsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14275,6 +14646,8 @@ export namespace Prisma {
       emailCampaignsCreated: Prisma.$EmailCampaignPayload<ExtArgs>[]
       emailCampaignLogs: Prisma.$EmailCampaignLogPayload<ExtArgs>[]
       customerIdentifiers: Prisma.$CustomerIdentifierPayload<ExtArgs>[]
+      preferences: Prisma.$CustomerPreferencePayload<ExtArgs>[]
+      metrics: Prisma.$CustomerMetricsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14671,6 +15044,8 @@ export namespace Prisma {
     emailCampaignsCreated<T extends User$emailCampaignsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$emailCampaignsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignPayload<ExtArgs>, T, "findMany"> | Null>
     emailCampaignLogs<T extends User$emailCampaignLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailCampaignLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignLogPayload<ExtArgs>, T, "findMany"> | Null>
     customerIdentifiers<T extends User$customerIdentifiersArgs<ExtArgs> = {}>(args?: Subset<T, User$customerIdentifiersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findMany"> | Null>
+    preferences<T extends User$preferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$preferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findMany"> | Null>
+    metrics<T extends User$metricsArgs<ExtArgs> = {}>(args?: Subset<T, User$metricsArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15361,6 +15736,41 @@ export namespace Prisma {
   }
 
   /**
+   * User.preferences
+   */
+  export type User$preferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    where?: CustomerPreferenceWhereInput
+    orderBy?: CustomerPreferenceOrderByWithRelationInput | CustomerPreferenceOrderByWithRelationInput[]
+    cursor?: CustomerPreferenceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerPreferenceScalarFieldEnum | CustomerPreferenceScalarFieldEnum[]
+  }
+
+  /**
+   * User.metrics
+   */
+  export type User$metricsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    where?: CustomerMetricsWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15372,6 +15782,3448 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerPreference
+   */
+
+  export type AggregateCustomerPreference = {
+    _count: CustomerPreferenceCountAggregateOutputType | null
+    _avg: CustomerPreferenceAvgAggregateOutputType | null
+    _sum: CustomerPreferenceSumAggregateOutputType | null
+    _min: CustomerPreferenceMinAggregateOutputType | null
+    _max: CustomerPreferenceMaxAggregateOutputType | null
+  }
+
+  export type CustomerPreferenceAvgAggregateOutputType = {
+    confidence: Decimal | null
+  }
+
+  export type CustomerPreferenceSumAggregateOutputType = {
+    confidence: Decimal | null
+  }
+
+  export type CustomerPreferenceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.PreferenceType | null
+    key: string | null
+    value: string | null
+    source: $Enums.PreferenceSource | null
+    confidence: Decimal | null
+    ignored: boolean | null
+    updatedAt: Date | null
+    updatedById: string | null
+  }
+
+  export type CustomerPreferenceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.PreferenceType | null
+    key: string | null
+    value: string | null
+    source: $Enums.PreferenceSource | null
+    confidence: Decimal | null
+    ignored: boolean | null
+    updatedAt: Date | null
+    updatedById: string | null
+  }
+
+  export type CustomerPreferenceCountAggregateOutputType = {
+    id: number
+    userId: number
+    type: number
+    key: number
+    value: number
+    source: number
+    confidence: number
+    ignored: number
+    updatedAt: number
+    updatedById: number
+    _all: number
+  }
+
+
+  export type CustomerPreferenceAvgAggregateInputType = {
+    confidence?: true
+  }
+
+  export type CustomerPreferenceSumAggregateInputType = {
+    confidence?: true
+  }
+
+  export type CustomerPreferenceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    key?: true
+    value?: true
+    source?: true
+    confidence?: true
+    ignored?: true
+    updatedAt?: true
+    updatedById?: true
+  }
+
+  export type CustomerPreferenceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    key?: true
+    value?: true
+    source?: true
+    confidence?: true
+    ignored?: true
+    updatedAt?: true
+    updatedById?: true
+  }
+
+  export type CustomerPreferenceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    key?: true
+    value?: true
+    source?: true
+    confidence?: true
+    ignored?: true
+    updatedAt?: true
+    updatedById?: true
+    _all?: true
+  }
+
+  export type CustomerPreferenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPreference to aggregate.
+     */
+    where?: CustomerPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPreferences to fetch.
+     */
+    orderBy?: CustomerPreferenceOrderByWithRelationInput | CustomerPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerPreferences
+    **/
+    _count?: true | CustomerPreferenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerPreferenceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerPreferenceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerPreferenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerPreferenceMaxAggregateInputType
+  }
+
+  export type GetCustomerPreferenceAggregateType<T extends CustomerPreferenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerPreference]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerPreference[P]>
+      : GetScalarType<T[P], AggregateCustomerPreference[P]>
+  }
+
+
+
+
+  export type CustomerPreferenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerPreferenceWhereInput
+    orderBy?: CustomerPreferenceOrderByWithAggregationInput | CustomerPreferenceOrderByWithAggregationInput[]
+    by: CustomerPreferenceScalarFieldEnum[] | CustomerPreferenceScalarFieldEnum
+    having?: CustomerPreferenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerPreferenceCountAggregateInputType | true
+    _avg?: CustomerPreferenceAvgAggregateInputType
+    _sum?: CustomerPreferenceSumAggregateInputType
+    _min?: CustomerPreferenceMinAggregateInputType
+    _max?: CustomerPreferenceMaxAggregateInputType
+  }
+
+  export type CustomerPreferenceGroupByOutputType = {
+    id: string
+    userId: string
+    type: $Enums.PreferenceType
+    key: string
+    value: string | null
+    source: $Enums.PreferenceSource
+    confidence: Decimal | null
+    ignored: boolean
+    updatedAt: Date
+    updatedById: string | null
+    _count: CustomerPreferenceCountAggregateOutputType | null
+    _avg: CustomerPreferenceAvgAggregateOutputType | null
+    _sum: CustomerPreferenceSumAggregateOutputType | null
+    _min: CustomerPreferenceMinAggregateOutputType | null
+    _max: CustomerPreferenceMaxAggregateOutputType | null
+  }
+
+  type GetCustomerPreferenceGroupByPayload<T extends CustomerPreferenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerPreferenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerPreferenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerPreferenceGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerPreferenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerPreferenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    key?: boolean
+    value?: boolean
+    source?: boolean
+    confidence?: boolean
+    ignored?: boolean
+    updatedAt?: boolean
+    updatedById?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPreference"]>
+
+  export type CustomerPreferenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    key?: boolean
+    value?: boolean
+    source?: boolean
+    confidence?: boolean
+    ignored?: boolean
+    updatedAt?: boolean
+    updatedById?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerPreference"]>
+
+  export type CustomerPreferenceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    key?: boolean
+    value?: boolean
+    source?: boolean
+    confidence?: boolean
+    ignored?: boolean
+    updatedAt?: boolean
+    updatedById?: boolean
+  }
+
+  export type CustomerPreferenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CustomerPreferenceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerPreferencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerPreference"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      type: $Enums.PreferenceType
+      key: string
+      value: string | null
+      source: $Enums.PreferenceSource
+      confidence: Prisma.Decimal | null
+      ignored: boolean
+      updatedAt: Date
+      updatedById: string | null
+    }, ExtArgs["result"]["customerPreference"]>
+    composites: {}
+  }
+
+  type CustomerPreferenceGetPayload<S extends boolean | null | undefined | CustomerPreferenceDefaultArgs> = $Result.GetResult<Prisma.$CustomerPreferencePayload, S>
+
+  type CustomerPreferenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CustomerPreferenceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CustomerPreferenceCountAggregateInputType | true
+    }
+
+  export interface CustomerPreferenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerPreference'], meta: { name: 'CustomerPreference' } }
+    /**
+     * Find zero or one CustomerPreference that matches the filter.
+     * @param {CustomerPreferenceFindUniqueArgs} args - Arguments to find a CustomerPreference
+     * @example
+     * // Get one CustomerPreference
+     * const customerPreference = await prisma.customerPreference.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerPreferenceFindUniqueArgs>(args: SelectSubset<T, CustomerPreferenceFindUniqueArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CustomerPreference that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CustomerPreferenceFindUniqueOrThrowArgs} args - Arguments to find a CustomerPreference
+     * @example
+     * // Get one CustomerPreference
+     * const customerPreference = await prisma.customerPreference.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerPreferenceFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerPreferenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CustomerPreference that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPreferenceFindFirstArgs} args - Arguments to find a CustomerPreference
+     * @example
+     * // Get one CustomerPreference
+     * const customerPreference = await prisma.customerPreference.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerPreferenceFindFirstArgs>(args?: SelectSubset<T, CustomerPreferenceFindFirstArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CustomerPreference that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPreferenceFindFirstOrThrowArgs} args - Arguments to find a CustomerPreference
+     * @example
+     * // Get one CustomerPreference
+     * const customerPreference = await prisma.customerPreference.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerPreferenceFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerPreferenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CustomerPreferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPreferenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerPreferences
+     * const customerPreferences = await prisma.customerPreference.findMany()
+     * 
+     * // Get first 10 CustomerPreferences
+     * const customerPreferences = await prisma.customerPreference.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerPreferenceWithIdOnly = await prisma.customerPreference.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerPreferenceFindManyArgs>(args?: SelectSubset<T, CustomerPreferenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CustomerPreference.
+     * @param {CustomerPreferenceCreateArgs} args - Arguments to create a CustomerPreference.
+     * @example
+     * // Create one CustomerPreference
+     * const CustomerPreference = await prisma.customerPreference.create({
+     *   data: {
+     *     // ... data to create a CustomerPreference
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerPreferenceCreateArgs>(args: SelectSubset<T, CustomerPreferenceCreateArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CustomerPreferences.
+     * @param {CustomerPreferenceCreateManyArgs} args - Arguments to create many CustomerPreferences.
+     * @example
+     * // Create many CustomerPreferences
+     * const customerPreference = await prisma.customerPreference.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerPreferenceCreateManyArgs>(args?: SelectSubset<T, CustomerPreferenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerPreferences and returns the data saved in the database.
+     * @param {CustomerPreferenceCreateManyAndReturnArgs} args - Arguments to create many CustomerPreferences.
+     * @example
+     * // Create many CustomerPreferences
+     * const customerPreference = await prisma.customerPreference.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerPreferences and only return the `id`
+     * const customerPreferenceWithIdOnly = await prisma.customerPreference.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerPreferenceCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerPreferenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CustomerPreference.
+     * @param {CustomerPreferenceDeleteArgs} args - Arguments to delete one CustomerPreference.
+     * @example
+     * // Delete one CustomerPreference
+     * const CustomerPreference = await prisma.customerPreference.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerPreference
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerPreferenceDeleteArgs>(args: SelectSubset<T, CustomerPreferenceDeleteArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CustomerPreference.
+     * @param {CustomerPreferenceUpdateArgs} args - Arguments to update one CustomerPreference.
+     * @example
+     * // Update one CustomerPreference
+     * const customerPreference = await prisma.customerPreference.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerPreferenceUpdateArgs>(args: SelectSubset<T, CustomerPreferenceUpdateArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CustomerPreferences.
+     * @param {CustomerPreferenceDeleteManyArgs} args - Arguments to filter CustomerPreferences to delete.
+     * @example
+     * // Delete a few CustomerPreferences
+     * const { count } = await prisma.customerPreference.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerPreferenceDeleteManyArgs>(args?: SelectSubset<T, CustomerPreferenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPreferenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerPreferences
+     * const customerPreference = await prisma.customerPreference.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerPreferenceUpdateManyArgs>(args: SelectSubset<T, CustomerPreferenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerPreference.
+     * @param {CustomerPreferenceUpsertArgs} args - Arguments to update or create a CustomerPreference.
+     * @example
+     * // Update or create a CustomerPreference
+     * const customerPreference = await prisma.customerPreference.upsert({
+     *   create: {
+     *     // ... data to create a CustomerPreference
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerPreference we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerPreferenceUpsertArgs>(args: SelectSubset<T, CustomerPreferenceUpsertArgs<ExtArgs>>): Prisma__CustomerPreferenceClient<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CustomerPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPreferenceCountArgs} args - Arguments to filter CustomerPreferences to count.
+     * @example
+     * // Count the number of CustomerPreferences
+     * const count = await prisma.customerPreference.count({
+     *   where: {
+     *     // ... the filter for the CustomerPreferences we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerPreferenceCountArgs>(
+      args?: Subset<T, CustomerPreferenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerPreferenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerPreference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPreferenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerPreferenceAggregateArgs>(args: Subset<T, CustomerPreferenceAggregateArgs>): Prisma.PrismaPromise<GetCustomerPreferenceAggregateType<T>>
+
+    /**
+     * Group by CustomerPreference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerPreferenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerPreferenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerPreferenceGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerPreferenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerPreferenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerPreferenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerPreference model
+   */
+  readonly fields: CustomerPreferenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerPreference.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerPreferenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerPreference model
+   */ 
+  interface CustomerPreferenceFieldRefs {
+    readonly id: FieldRef<"CustomerPreference", 'String'>
+    readonly userId: FieldRef<"CustomerPreference", 'String'>
+    readonly type: FieldRef<"CustomerPreference", 'PreferenceType'>
+    readonly key: FieldRef<"CustomerPreference", 'String'>
+    readonly value: FieldRef<"CustomerPreference", 'String'>
+    readonly source: FieldRef<"CustomerPreference", 'PreferenceSource'>
+    readonly confidence: FieldRef<"CustomerPreference", 'Decimal'>
+    readonly ignored: FieldRef<"CustomerPreference", 'Boolean'>
+    readonly updatedAt: FieldRef<"CustomerPreference", 'DateTime'>
+    readonly updatedById: FieldRef<"CustomerPreference", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerPreference findUnique
+   */
+  export type CustomerPreferenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPreference to fetch.
+     */
+    where: CustomerPreferenceWhereUniqueInput
+  }
+
+  /**
+   * CustomerPreference findUniqueOrThrow
+   */
+  export type CustomerPreferenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPreference to fetch.
+     */
+    where: CustomerPreferenceWhereUniqueInput
+  }
+
+  /**
+   * CustomerPreference findFirst
+   */
+  export type CustomerPreferenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPreference to fetch.
+     */
+    where?: CustomerPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPreferences to fetch.
+     */
+    orderBy?: CustomerPreferenceOrderByWithRelationInput | CustomerPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPreferences.
+     */
+    cursor?: CustomerPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPreferences.
+     */
+    distinct?: CustomerPreferenceScalarFieldEnum | CustomerPreferenceScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPreference findFirstOrThrow
+   */
+  export type CustomerPreferenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPreference to fetch.
+     */
+    where?: CustomerPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPreferences to fetch.
+     */
+    orderBy?: CustomerPreferenceOrderByWithRelationInput | CustomerPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerPreferences.
+     */
+    cursor?: CustomerPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerPreferences.
+     */
+    distinct?: CustomerPreferenceScalarFieldEnum | CustomerPreferenceScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPreference findMany
+   */
+  export type CustomerPreferenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerPreferences to fetch.
+     */
+    where?: CustomerPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerPreferences to fetch.
+     */
+    orderBy?: CustomerPreferenceOrderByWithRelationInput | CustomerPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerPreferences.
+     */
+    cursor?: CustomerPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerPreferences.
+     */
+    skip?: number
+    distinct?: CustomerPreferenceScalarFieldEnum | CustomerPreferenceScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerPreference create
+   */
+  export type CustomerPreferenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerPreference.
+     */
+    data: XOR<CustomerPreferenceCreateInput, CustomerPreferenceUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerPreference createMany
+   */
+  export type CustomerPreferenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerPreferences.
+     */
+    data: CustomerPreferenceCreateManyInput | CustomerPreferenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerPreference createManyAndReturn
+   */
+  export type CustomerPreferenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CustomerPreferences.
+     */
+    data: CustomerPreferenceCreateManyInput | CustomerPreferenceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPreference update
+   */
+  export type CustomerPreferenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerPreference.
+     */
+    data: XOR<CustomerPreferenceUpdateInput, CustomerPreferenceUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerPreference to update.
+     */
+    where: CustomerPreferenceWhereUniqueInput
+  }
+
+  /**
+   * CustomerPreference updateMany
+   */
+  export type CustomerPreferenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerPreferences.
+     */
+    data: XOR<CustomerPreferenceUpdateManyMutationInput, CustomerPreferenceUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerPreferences to update
+     */
+    where?: CustomerPreferenceWhereInput
+  }
+
+  /**
+   * CustomerPreference upsert
+   */
+  export type CustomerPreferenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerPreference to update in case it exists.
+     */
+    where: CustomerPreferenceWhereUniqueInput
+    /**
+     * In case the CustomerPreference found by the `where` argument doesn't exist, create a new CustomerPreference with this data.
+     */
+    create: XOR<CustomerPreferenceCreateInput, CustomerPreferenceUncheckedCreateInput>
+    /**
+     * In case the CustomerPreference was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerPreferenceUpdateInput, CustomerPreferenceUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerPreference delete
+   */
+  export type CustomerPreferenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerPreference to delete.
+     */
+    where: CustomerPreferenceWhereUniqueInput
+  }
+
+  /**
+   * CustomerPreference deleteMany
+   */
+  export type CustomerPreferenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerPreferences to delete
+     */
+    where?: CustomerPreferenceWhereInput
+  }
+
+  /**
+   * CustomerPreference without action
+   */
+  export type CustomerPreferenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPreference
+     */
+    select?: CustomerPreferenceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerPreferenceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PreferenceAuditLog
+   */
+
+  export type AggregatePreferenceAuditLog = {
+    _count: PreferenceAuditLogCountAggregateOutputType | null
+    _avg: PreferenceAuditLogAvgAggregateOutputType | null
+    _sum: PreferenceAuditLogSumAggregateOutputType | null
+    _min: PreferenceAuditLogMinAggregateOutputType | null
+    _max: PreferenceAuditLogMaxAggregateOutputType | null
+  }
+
+  export type PreferenceAuditLogAvgAggregateOutputType = {
+    confidence: Decimal | null
+  }
+
+  export type PreferenceAuditLogSumAggregateOutputType = {
+    confidence: Decimal | null
+  }
+
+  export type PreferenceAuditLogMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    action: $Enums.PreferenceAction | null
+    key: string | null
+    value: string | null
+    confidence: Decimal | null
+    changedById: string | null
+    changedByName: string | null
+    changedAt: Date | null
+  }
+
+  export type PreferenceAuditLogMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    action: $Enums.PreferenceAction | null
+    key: string | null
+    value: string | null
+    confidence: Decimal | null
+    changedById: string | null
+    changedByName: string | null
+    changedAt: Date | null
+  }
+
+  export type PreferenceAuditLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    action: number
+    key: number
+    value: number
+    confidence: number
+    changedById: number
+    changedByName: number
+    changedAt: number
+    _all: number
+  }
+
+
+  export type PreferenceAuditLogAvgAggregateInputType = {
+    confidence?: true
+  }
+
+  export type PreferenceAuditLogSumAggregateInputType = {
+    confidence?: true
+  }
+
+  export type PreferenceAuditLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    key?: true
+    value?: true
+    confidence?: true
+    changedById?: true
+    changedByName?: true
+    changedAt?: true
+  }
+
+  export type PreferenceAuditLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    key?: true
+    value?: true
+    confidence?: true
+    changedById?: true
+    changedByName?: true
+    changedAt?: true
+  }
+
+  export type PreferenceAuditLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    key?: true
+    value?: true
+    confidence?: true
+    changedById?: true
+    changedByName?: true
+    changedAt?: true
+    _all?: true
+  }
+
+  export type PreferenceAuditLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PreferenceAuditLog to aggregate.
+     */
+    where?: PreferenceAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreferenceAuditLogs to fetch.
+     */
+    orderBy?: PreferenceAuditLogOrderByWithRelationInput | PreferenceAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PreferenceAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreferenceAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreferenceAuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PreferenceAuditLogs
+    **/
+    _count?: true | PreferenceAuditLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PreferenceAuditLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PreferenceAuditLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PreferenceAuditLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PreferenceAuditLogMaxAggregateInputType
+  }
+
+  export type GetPreferenceAuditLogAggregateType<T extends PreferenceAuditLogAggregateArgs> = {
+        [P in keyof T & keyof AggregatePreferenceAuditLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePreferenceAuditLog[P]>
+      : GetScalarType<T[P], AggregatePreferenceAuditLog[P]>
+  }
+
+
+
+
+  export type PreferenceAuditLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreferenceAuditLogWhereInput
+    orderBy?: PreferenceAuditLogOrderByWithAggregationInput | PreferenceAuditLogOrderByWithAggregationInput[]
+    by: PreferenceAuditLogScalarFieldEnum[] | PreferenceAuditLogScalarFieldEnum
+    having?: PreferenceAuditLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PreferenceAuditLogCountAggregateInputType | true
+    _avg?: PreferenceAuditLogAvgAggregateInputType
+    _sum?: PreferenceAuditLogSumAggregateInputType
+    _min?: PreferenceAuditLogMinAggregateInputType
+    _max?: PreferenceAuditLogMaxAggregateInputType
+  }
+
+  export type PreferenceAuditLogGroupByOutputType = {
+    id: string
+    userId: string
+    action: $Enums.PreferenceAction
+    key: string
+    value: string | null
+    confidence: Decimal | null
+    changedById: string
+    changedByName: string
+    changedAt: Date
+    _count: PreferenceAuditLogCountAggregateOutputType | null
+    _avg: PreferenceAuditLogAvgAggregateOutputType | null
+    _sum: PreferenceAuditLogSumAggregateOutputType | null
+    _min: PreferenceAuditLogMinAggregateOutputType | null
+    _max: PreferenceAuditLogMaxAggregateOutputType | null
+  }
+
+  type GetPreferenceAuditLogGroupByPayload<T extends PreferenceAuditLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PreferenceAuditLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PreferenceAuditLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PreferenceAuditLogGroupByOutputType[P]>
+            : GetScalarType<T[P], PreferenceAuditLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PreferenceAuditLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    key?: boolean
+    value?: boolean
+    confidence?: boolean
+    changedById?: boolean
+    changedByName?: boolean
+    changedAt?: boolean
+  }, ExtArgs["result"]["preferenceAuditLog"]>
+
+  export type PreferenceAuditLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    key?: boolean
+    value?: boolean
+    confidence?: boolean
+    changedById?: boolean
+    changedByName?: boolean
+    changedAt?: boolean
+  }, ExtArgs["result"]["preferenceAuditLog"]>
+
+  export type PreferenceAuditLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    key?: boolean
+    value?: boolean
+    confidence?: boolean
+    changedById?: boolean
+    changedByName?: boolean
+    changedAt?: boolean
+  }
+
+
+  export type $PreferenceAuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PreferenceAuditLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      action: $Enums.PreferenceAction
+      key: string
+      value: string | null
+      confidence: Prisma.Decimal | null
+      changedById: string
+      changedByName: string
+      changedAt: Date
+    }, ExtArgs["result"]["preferenceAuditLog"]>
+    composites: {}
+  }
+
+  type PreferenceAuditLogGetPayload<S extends boolean | null | undefined | PreferenceAuditLogDefaultArgs> = $Result.GetResult<Prisma.$PreferenceAuditLogPayload, S>
+
+  type PreferenceAuditLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PreferenceAuditLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PreferenceAuditLogCountAggregateInputType | true
+    }
+
+  export interface PreferenceAuditLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PreferenceAuditLog'], meta: { name: 'PreferenceAuditLog' } }
+    /**
+     * Find zero or one PreferenceAuditLog that matches the filter.
+     * @param {PreferenceAuditLogFindUniqueArgs} args - Arguments to find a PreferenceAuditLog
+     * @example
+     * // Get one PreferenceAuditLog
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PreferenceAuditLogFindUniqueArgs>(args: SelectSubset<T, PreferenceAuditLogFindUniqueArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PreferenceAuditLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PreferenceAuditLogFindUniqueOrThrowArgs} args - Arguments to find a PreferenceAuditLog
+     * @example
+     * // Get one PreferenceAuditLog
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PreferenceAuditLogFindUniqueOrThrowArgs>(args: SelectSubset<T, PreferenceAuditLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PreferenceAuditLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferenceAuditLogFindFirstArgs} args - Arguments to find a PreferenceAuditLog
+     * @example
+     * // Get one PreferenceAuditLog
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PreferenceAuditLogFindFirstArgs>(args?: SelectSubset<T, PreferenceAuditLogFindFirstArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PreferenceAuditLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferenceAuditLogFindFirstOrThrowArgs} args - Arguments to find a PreferenceAuditLog
+     * @example
+     * // Get one PreferenceAuditLog
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PreferenceAuditLogFindFirstOrThrowArgs>(args?: SelectSubset<T, PreferenceAuditLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PreferenceAuditLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferenceAuditLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PreferenceAuditLogs
+     * const preferenceAuditLogs = await prisma.preferenceAuditLog.findMany()
+     * 
+     * // Get first 10 PreferenceAuditLogs
+     * const preferenceAuditLogs = await prisma.preferenceAuditLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const preferenceAuditLogWithIdOnly = await prisma.preferenceAuditLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PreferenceAuditLogFindManyArgs>(args?: SelectSubset<T, PreferenceAuditLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PreferenceAuditLog.
+     * @param {PreferenceAuditLogCreateArgs} args - Arguments to create a PreferenceAuditLog.
+     * @example
+     * // Create one PreferenceAuditLog
+     * const PreferenceAuditLog = await prisma.preferenceAuditLog.create({
+     *   data: {
+     *     // ... data to create a PreferenceAuditLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends PreferenceAuditLogCreateArgs>(args: SelectSubset<T, PreferenceAuditLogCreateArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PreferenceAuditLogs.
+     * @param {PreferenceAuditLogCreateManyArgs} args - Arguments to create many PreferenceAuditLogs.
+     * @example
+     * // Create many PreferenceAuditLogs
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PreferenceAuditLogCreateManyArgs>(args?: SelectSubset<T, PreferenceAuditLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PreferenceAuditLogs and returns the data saved in the database.
+     * @param {PreferenceAuditLogCreateManyAndReturnArgs} args - Arguments to create many PreferenceAuditLogs.
+     * @example
+     * // Create many PreferenceAuditLogs
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PreferenceAuditLogs and only return the `id`
+     * const preferenceAuditLogWithIdOnly = await prisma.preferenceAuditLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PreferenceAuditLogCreateManyAndReturnArgs>(args?: SelectSubset<T, PreferenceAuditLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PreferenceAuditLog.
+     * @param {PreferenceAuditLogDeleteArgs} args - Arguments to delete one PreferenceAuditLog.
+     * @example
+     * // Delete one PreferenceAuditLog
+     * const PreferenceAuditLog = await prisma.preferenceAuditLog.delete({
+     *   where: {
+     *     // ... filter to delete one PreferenceAuditLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PreferenceAuditLogDeleteArgs>(args: SelectSubset<T, PreferenceAuditLogDeleteArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PreferenceAuditLog.
+     * @param {PreferenceAuditLogUpdateArgs} args - Arguments to update one PreferenceAuditLog.
+     * @example
+     * // Update one PreferenceAuditLog
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PreferenceAuditLogUpdateArgs>(args: SelectSubset<T, PreferenceAuditLogUpdateArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PreferenceAuditLogs.
+     * @param {PreferenceAuditLogDeleteManyArgs} args - Arguments to filter PreferenceAuditLogs to delete.
+     * @example
+     * // Delete a few PreferenceAuditLogs
+     * const { count } = await prisma.preferenceAuditLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PreferenceAuditLogDeleteManyArgs>(args?: SelectSubset<T, PreferenceAuditLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PreferenceAuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferenceAuditLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PreferenceAuditLogs
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PreferenceAuditLogUpdateManyArgs>(args: SelectSubset<T, PreferenceAuditLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PreferenceAuditLog.
+     * @param {PreferenceAuditLogUpsertArgs} args - Arguments to update or create a PreferenceAuditLog.
+     * @example
+     * // Update or create a PreferenceAuditLog
+     * const preferenceAuditLog = await prisma.preferenceAuditLog.upsert({
+     *   create: {
+     *     // ... data to create a PreferenceAuditLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PreferenceAuditLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PreferenceAuditLogUpsertArgs>(args: SelectSubset<T, PreferenceAuditLogUpsertArgs<ExtArgs>>): Prisma__PreferenceAuditLogClient<$Result.GetResult<Prisma.$PreferenceAuditLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PreferenceAuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferenceAuditLogCountArgs} args - Arguments to filter PreferenceAuditLogs to count.
+     * @example
+     * // Count the number of PreferenceAuditLogs
+     * const count = await prisma.preferenceAuditLog.count({
+     *   where: {
+     *     // ... the filter for the PreferenceAuditLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends PreferenceAuditLogCountArgs>(
+      args?: Subset<T, PreferenceAuditLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PreferenceAuditLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PreferenceAuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferenceAuditLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PreferenceAuditLogAggregateArgs>(args: Subset<T, PreferenceAuditLogAggregateArgs>): Prisma.PrismaPromise<GetPreferenceAuditLogAggregateType<T>>
+
+    /**
+     * Group by PreferenceAuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferenceAuditLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PreferenceAuditLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PreferenceAuditLogGroupByArgs['orderBy'] }
+        : { orderBy?: PreferenceAuditLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PreferenceAuditLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPreferenceAuditLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PreferenceAuditLog model
+   */
+  readonly fields: PreferenceAuditLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PreferenceAuditLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PreferenceAuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PreferenceAuditLog model
+   */ 
+  interface PreferenceAuditLogFieldRefs {
+    readonly id: FieldRef<"PreferenceAuditLog", 'String'>
+    readonly userId: FieldRef<"PreferenceAuditLog", 'String'>
+    readonly action: FieldRef<"PreferenceAuditLog", 'PreferenceAction'>
+    readonly key: FieldRef<"PreferenceAuditLog", 'String'>
+    readonly value: FieldRef<"PreferenceAuditLog", 'String'>
+    readonly confidence: FieldRef<"PreferenceAuditLog", 'Decimal'>
+    readonly changedById: FieldRef<"PreferenceAuditLog", 'String'>
+    readonly changedByName: FieldRef<"PreferenceAuditLog", 'String'>
+    readonly changedAt: FieldRef<"PreferenceAuditLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PreferenceAuditLog findUnique
+   */
+  export type PreferenceAuditLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * Filter, which PreferenceAuditLog to fetch.
+     */
+    where: PreferenceAuditLogWhereUniqueInput
+  }
+
+  /**
+   * PreferenceAuditLog findUniqueOrThrow
+   */
+  export type PreferenceAuditLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * Filter, which PreferenceAuditLog to fetch.
+     */
+    where: PreferenceAuditLogWhereUniqueInput
+  }
+
+  /**
+   * PreferenceAuditLog findFirst
+   */
+  export type PreferenceAuditLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * Filter, which PreferenceAuditLog to fetch.
+     */
+    where?: PreferenceAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreferenceAuditLogs to fetch.
+     */
+    orderBy?: PreferenceAuditLogOrderByWithRelationInput | PreferenceAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PreferenceAuditLogs.
+     */
+    cursor?: PreferenceAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreferenceAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreferenceAuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PreferenceAuditLogs.
+     */
+    distinct?: PreferenceAuditLogScalarFieldEnum | PreferenceAuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * PreferenceAuditLog findFirstOrThrow
+   */
+  export type PreferenceAuditLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * Filter, which PreferenceAuditLog to fetch.
+     */
+    where?: PreferenceAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreferenceAuditLogs to fetch.
+     */
+    orderBy?: PreferenceAuditLogOrderByWithRelationInput | PreferenceAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PreferenceAuditLogs.
+     */
+    cursor?: PreferenceAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreferenceAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreferenceAuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PreferenceAuditLogs.
+     */
+    distinct?: PreferenceAuditLogScalarFieldEnum | PreferenceAuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * PreferenceAuditLog findMany
+   */
+  export type PreferenceAuditLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * Filter, which PreferenceAuditLogs to fetch.
+     */
+    where?: PreferenceAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreferenceAuditLogs to fetch.
+     */
+    orderBy?: PreferenceAuditLogOrderByWithRelationInput | PreferenceAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PreferenceAuditLogs.
+     */
+    cursor?: PreferenceAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreferenceAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreferenceAuditLogs.
+     */
+    skip?: number
+    distinct?: PreferenceAuditLogScalarFieldEnum | PreferenceAuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * PreferenceAuditLog create
+   */
+  export type PreferenceAuditLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * The data needed to create a PreferenceAuditLog.
+     */
+    data: XOR<PreferenceAuditLogCreateInput, PreferenceAuditLogUncheckedCreateInput>
+  }
+
+  /**
+   * PreferenceAuditLog createMany
+   */
+  export type PreferenceAuditLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PreferenceAuditLogs.
+     */
+    data: PreferenceAuditLogCreateManyInput | PreferenceAuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PreferenceAuditLog createManyAndReturn
+   */
+  export type PreferenceAuditLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PreferenceAuditLogs.
+     */
+    data: PreferenceAuditLogCreateManyInput | PreferenceAuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PreferenceAuditLog update
+   */
+  export type PreferenceAuditLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * The data needed to update a PreferenceAuditLog.
+     */
+    data: XOR<PreferenceAuditLogUpdateInput, PreferenceAuditLogUncheckedUpdateInput>
+    /**
+     * Choose, which PreferenceAuditLog to update.
+     */
+    where: PreferenceAuditLogWhereUniqueInput
+  }
+
+  /**
+   * PreferenceAuditLog updateMany
+   */
+  export type PreferenceAuditLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PreferenceAuditLogs.
+     */
+    data: XOR<PreferenceAuditLogUpdateManyMutationInput, PreferenceAuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which PreferenceAuditLogs to update
+     */
+    where?: PreferenceAuditLogWhereInput
+  }
+
+  /**
+   * PreferenceAuditLog upsert
+   */
+  export type PreferenceAuditLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * The filter to search for the PreferenceAuditLog to update in case it exists.
+     */
+    where: PreferenceAuditLogWhereUniqueInput
+    /**
+     * In case the PreferenceAuditLog found by the `where` argument doesn't exist, create a new PreferenceAuditLog with this data.
+     */
+    create: XOR<PreferenceAuditLogCreateInput, PreferenceAuditLogUncheckedCreateInput>
+    /**
+     * In case the PreferenceAuditLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PreferenceAuditLogUpdateInput, PreferenceAuditLogUncheckedUpdateInput>
+  }
+
+  /**
+   * PreferenceAuditLog delete
+   */
+  export type PreferenceAuditLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+    /**
+     * Filter which PreferenceAuditLog to delete.
+     */
+    where: PreferenceAuditLogWhereUniqueInput
+  }
+
+  /**
+   * PreferenceAuditLog deleteMany
+   */
+  export type PreferenceAuditLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PreferenceAuditLogs to delete
+     */
+    where?: PreferenceAuditLogWhereInput
+  }
+
+  /**
+   * PreferenceAuditLog without action
+   */
+  export type PreferenceAuditLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreferenceAuditLog
+     */
+    select?: PreferenceAuditLogSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerMetrics
+   */
+
+  export type AggregateCustomerMetrics = {
+    _count: CustomerMetricsCountAggregateOutputType | null
+    _avg: CustomerMetricsAvgAggregateOutputType | null
+    _sum: CustomerMetricsSumAggregateOutputType | null
+    _min: CustomerMetricsMinAggregateOutputType | null
+    _max: CustomerMetricsMaxAggregateOutputType | null
+  }
+
+  export type CustomerMetricsAvgAggregateOutputType = {
+    daysSinceLastOrder: number | null
+    daysSinceRegistration: number | null
+    preferredDayOfWeek: number | null
+    ltv: Decimal | null
+    avgOrderValue: Decimal | null
+    orderFrequencyPerWeek: Decimal | null
+    spend30d: Decimal | null
+    totalOrders: number | null
+    rfmR: number | null
+    rfmF: number | null
+    rfmM: number | null
+    orders30d: number | null
+    orders30dPrev: number | null
+    spend30dPrev: Decimal | null
+    churnRiskScore: number | null
+    winBackScore: number | null
+    upsellScore: number | null
+    orderConsistencyScore: number | null
+    orderDiversityScore: number | null
+    lunchRegularityPct: Decimal | null
+    avgLeadTimeHours: Decimal | null
+    couponUsageRate: Decimal | null
+    walletUsageRate: Decimal | null
+    channelLoyaltyPct: Decimal | null
+  }
+
+  export type CustomerMetricsSumAggregateOutputType = {
+    daysSinceLastOrder: number | null
+    daysSinceRegistration: number | null
+    preferredDayOfWeek: number | null
+    ltv: Decimal | null
+    avgOrderValue: Decimal | null
+    orderFrequencyPerWeek: Decimal | null
+    spend30d: Decimal | null
+    totalOrders: number | null
+    rfmR: number | null
+    rfmF: number | null
+    rfmM: number | null
+    orders30d: number | null
+    orders30dPrev: number | null
+    spend30dPrev: Decimal | null
+    churnRiskScore: number | null
+    winBackScore: number | null
+    upsellScore: number | null
+    orderConsistencyScore: number | null
+    orderDiversityScore: number | null
+    lunchRegularityPct: Decimal | null
+    avgLeadTimeHours: Decimal | null
+    couponUsageRate: Decimal | null
+    walletUsageRate: Decimal | null
+    channelLoyaltyPct: Decimal | null
+  }
+
+  export type CustomerMetricsMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    organizationId: string | null
+    activityStatus: $Enums.ActivityStatus | null
+    daysSinceLastOrder: number | null
+    daysSinceRegistration: number | null
+    preferredDayOfWeek: number | null
+    preferredTimeSlot: string | null
+    ltv: Decimal | null
+    avgOrderValue: Decimal | null
+    orderFrequencyPerWeek: Decimal | null
+    spend30d: Decimal | null
+    totalOrders: number | null
+    firstOrderAt: Date | null
+    lastOrderAt: Date | null
+    customerTier: $Enums.CustomerTier | null
+    rfmR: number | null
+    rfmF: number | null
+    rfmM: number | null
+    rfmSegment: $Enums.RfmSegment | null
+    frequencyTrend: $Enums.TrendDirection | null
+    spendTrend: $Enums.TrendDirection | null
+    orders30d: number | null
+    orders30dPrev: number | null
+    spend30dPrev: Decimal | null
+    churnRiskScore: number | null
+    winBackScore: number | null
+    upsellScore: number | null
+    orderConsistencyScore: number | null
+    orderDiversityScore: number | null
+    lunchRegularityPct: Decimal | null
+    avgLeadTimeHours: Decimal | null
+    couponUsageRate: Decimal | null
+    walletUsageRate: Decimal | null
+    primaryChannel: string | null
+    channelLoyaltyPct: Decimal | null
+    calculatedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerMetricsMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    organizationId: string | null
+    activityStatus: $Enums.ActivityStatus | null
+    daysSinceLastOrder: number | null
+    daysSinceRegistration: number | null
+    preferredDayOfWeek: number | null
+    preferredTimeSlot: string | null
+    ltv: Decimal | null
+    avgOrderValue: Decimal | null
+    orderFrequencyPerWeek: Decimal | null
+    spend30d: Decimal | null
+    totalOrders: number | null
+    firstOrderAt: Date | null
+    lastOrderAt: Date | null
+    customerTier: $Enums.CustomerTier | null
+    rfmR: number | null
+    rfmF: number | null
+    rfmM: number | null
+    rfmSegment: $Enums.RfmSegment | null
+    frequencyTrend: $Enums.TrendDirection | null
+    spendTrend: $Enums.TrendDirection | null
+    orders30d: number | null
+    orders30dPrev: number | null
+    spend30dPrev: Decimal | null
+    churnRiskScore: number | null
+    winBackScore: number | null
+    upsellScore: number | null
+    orderConsistencyScore: number | null
+    orderDiversityScore: number | null
+    lunchRegularityPct: Decimal | null
+    avgLeadTimeHours: Decimal | null
+    couponUsageRate: Decimal | null
+    walletUsageRate: Decimal | null
+    primaryChannel: string | null
+    channelLoyaltyPct: Decimal | null
+    calculatedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerMetricsCountAggregateOutputType = {
+    id: number
+    userId: number
+    organizationId: number
+    activityStatus: number
+    daysSinceLastOrder: number
+    daysSinceRegistration: number
+    preferredDayOfWeek: number
+    preferredTimeSlot: number
+    ltv: number
+    avgOrderValue: number
+    orderFrequencyPerWeek: number
+    spend30d: number
+    totalOrders: number
+    firstOrderAt: number
+    lastOrderAt: number
+    customerTier: number
+    rfmR: number
+    rfmF: number
+    rfmM: number
+    rfmSegment: number
+    frequencyTrend: number
+    spendTrend: number
+    orders30d: number
+    orders30dPrev: number
+    spend30dPrev: number
+    churnRiskScore: number
+    winBackScore: number
+    upsellScore: number
+    orderConsistencyScore: number
+    orderDiversityScore: number
+    lunchRegularityPct: number
+    avgLeadTimeHours: number
+    couponUsageRate: number
+    walletUsageRate: number
+    primaryChannel: number
+    channelLoyaltyPct: number
+    calculatedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CustomerMetricsAvgAggregateInputType = {
+    daysSinceLastOrder?: true
+    daysSinceRegistration?: true
+    preferredDayOfWeek?: true
+    ltv?: true
+    avgOrderValue?: true
+    orderFrequencyPerWeek?: true
+    spend30d?: true
+    totalOrders?: true
+    rfmR?: true
+    rfmF?: true
+    rfmM?: true
+    orders30d?: true
+    orders30dPrev?: true
+    spend30dPrev?: true
+    churnRiskScore?: true
+    winBackScore?: true
+    upsellScore?: true
+    orderConsistencyScore?: true
+    orderDiversityScore?: true
+    lunchRegularityPct?: true
+    avgLeadTimeHours?: true
+    couponUsageRate?: true
+    walletUsageRate?: true
+    channelLoyaltyPct?: true
+  }
+
+  export type CustomerMetricsSumAggregateInputType = {
+    daysSinceLastOrder?: true
+    daysSinceRegistration?: true
+    preferredDayOfWeek?: true
+    ltv?: true
+    avgOrderValue?: true
+    orderFrequencyPerWeek?: true
+    spend30d?: true
+    totalOrders?: true
+    rfmR?: true
+    rfmF?: true
+    rfmM?: true
+    orders30d?: true
+    orders30dPrev?: true
+    spend30dPrev?: true
+    churnRiskScore?: true
+    winBackScore?: true
+    upsellScore?: true
+    orderConsistencyScore?: true
+    orderDiversityScore?: true
+    lunchRegularityPct?: true
+    avgLeadTimeHours?: true
+    couponUsageRate?: true
+    walletUsageRate?: true
+    channelLoyaltyPct?: true
+  }
+
+  export type CustomerMetricsMinAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    activityStatus?: true
+    daysSinceLastOrder?: true
+    daysSinceRegistration?: true
+    preferredDayOfWeek?: true
+    preferredTimeSlot?: true
+    ltv?: true
+    avgOrderValue?: true
+    orderFrequencyPerWeek?: true
+    spend30d?: true
+    totalOrders?: true
+    firstOrderAt?: true
+    lastOrderAt?: true
+    customerTier?: true
+    rfmR?: true
+    rfmF?: true
+    rfmM?: true
+    rfmSegment?: true
+    frequencyTrend?: true
+    spendTrend?: true
+    orders30d?: true
+    orders30dPrev?: true
+    spend30dPrev?: true
+    churnRiskScore?: true
+    winBackScore?: true
+    upsellScore?: true
+    orderConsistencyScore?: true
+    orderDiversityScore?: true
+    lunchRegularityPct?: true
+    avgLeadTimeHours?: true
+    couponUsageRate?: true
+    walletUsageRate?: true
+    primaryChannel?: true
+    channelLoyaltyPct?: true
+    calculatedAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerMetricsMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    activityStatus?: true
+    daysSinceLastOrder?: true
+    daysSinceRegistration?: true
+    preferredDayOfWeek?: true
+    preferredTimeSlot?: true
+    ltv?: true
+    avgOrderValue?: true
+    orderFrequencyPerWeek?: true
+    spend30d?: true
+    totalOrders?: true
+    firstOrderAt?: true
+    lastOrderAt?: true
+    customerTier?: true
+    rfmR?: true
+    rfmF?: true
+    rfmM?: true
+    rfmSegment?: true
+    frequencyTrend?: true
+    spendTrend?: true
+    orders30d?: true
+    orders30dPrev?: true
+    spend30dPrev?: true
+    churnRiskScore?: true
+    winBackScore?: true
+    upsellScore?: true
+    orderConsistencyScore?: true
+    orderDiversityScore?: true
+    lunchRegularityPct?: true
+    avgLeadTimeHours?: true
+    couponUsageRate?: true
+    walletUsageRate?: true
+    primaryChannel?: true
+    channelLoyaltyPct?: true
+    calculatedAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerMetricsCountAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    activityStatus?: true
+    daysSinceLastOrder?: true
+    daysSinceRegistration?: true
+    preferredDayOfWeek?: true
+    preferredTimeSlot?: true
+    ltv?: true
+    avgOrderValue?: true
+    orderFrequencyPerWeek?: true
+    spend30d?: true
+    totalOrders?: true
+    firstOrderAt?: true
+    lastOrderAt?: true
+    customerTier?: true
+    rfmR?: true
+    rfmF?: true
+    rfmM?: true
+    rfmSegment?: true
+    frequencyTrend?: true
+    spendTrend?: true
+    orders30d?: true
+    orders30dPrev?: true
+    spend30dPrev?: true
+    churnRiskScore?: true
+    winBackScore?: true
+    upsellScore?: true
+    orderConsistencyScore?: true
+    orderDiversityScore?: true
+    lunchRegularityPct?: true
+    avgLeadTimeHours?: true
+    couponUsageRate?: true
+    walletUsageRate?: true
+    primaryChannel?: true
+    channelLoyaltyPct?: true
+    calculatedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CustomerMetricsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerMetrics to aggregate.
+     */
+    where?: CustomerMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerMetrics to fetch.
+     */
+    orderBy?: CustomerMetricsOrderByWithRelationInput | CustomerMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerMetrics
+    **/
+    _count?: true | CustomerMetricsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerMetricsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerMetricsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerMetricsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerMetricsMaxAggregateInputType
+  }
+
+  export type GetCustomerMetricsAggregateType<T extends CustomerMetricsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerMetrics]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerMetrics[P]>
+      : GetScalarType<T[P], AggregateCustomerMetrics[P]>
+  }
+
+
+
+
+  export type CustomerMetricsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerMetricsWhereInput
+    orderBy?: CustomerMetricsOrderByWithAggregationInput | CustomerMetricsOrderByWithAggregationInput[]
+    by: CustomerMetricsScalarFieldEnum[] | CustomerMetricsScalarFieldEnum
+    having?: CustomerMetricsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerMetricsCountAggregateInputType | true
+    _avg?: CustomerMetricsAvgAggregateInputType
+    _sum?: CustomerMetricsSumAggregateInputType
+    _min?: CustomerMetricsMinAggregateInputType
+    _max?: CustomerMetricsMaxAggregateInputType
+  }
+
+  export type CustomerMetricsGroupByOutputType = {
+    id: string
+    userId: string
+    organizationId: string
+    activityStatus: $Enums.ActivityStatus
+    daysSinceLastOrder: number | null
+    daysSinceRegistration: number
+    preferredDayOfWeek: number | null
+    preferredTimeSlot: string | null
+    ltv: Decimal
+    avgOrderValue: Decimal
+    orderFrequencyPerWeek: Decimal
+    spend30d: Decimal
+    totalOrders: number
+    firstOrderAt: Date | null
+    lastOrderAt: Date | null
+    customerTier: $Enums.CustomerTier
+    rfmR: number
+    rfmF: number
+    rfmM: number
+    rfmSegment: $Enums.RfmSegment
+    frequencyTrend: $Enums.TrendDirection
+    spendTrend: $Enums.TrendDirection
+    orders30d: number
+    orders30dPrev: number
+    spend30dPrev: Decimal
+    churnRiskScore: number
+    winBackScore: number | null
+    upsellScore: number
+    orderConsistencyScore: number | null
+    orderDiversityScore: number
+    lunchRegularityPct: Decimal | null
+    avgLeadTimeHours: Decimal | null
+    couponUsageRate: Decimal
+    walletUsageRate: Decimal
+    primaryChannel: string | null
+    channelLoyaltyPct: Decimal
+    calculatedAt: Date
+    updatedAt: Date
+    _count: CustomerMetricsCountAggregateOutputType | null
+    _avg: CustomerMetricsAvgAggregateOutputType | null
+    _sum: CustomerMetricsSumAggregateOutputType | null
+    _min: CustomerMetricsMinAggregateOutputType | null
+    _max: CustomerMetricsMaxAggregateOutputType | null
+  }
+
+  type GetCustomerMetricsGroupByPayload<T extends CustomerMetricsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerMetricsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerMetricsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerMetricsGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerMetricsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerMetricsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    activityStatus?: boolean
+    daysSinceLastOrder?: boolean
+    daysSinceRegistration?: boolean
+    preferredDayOfWeek?: boolean
+    preferredTimeSlot?: boolean
+    ltv?: boolean
+    avgOrderValue?: boolean
+    orderFrequencyPerWeek?: boolean
+    spend30d?: boolean
+    totalOrders?: boolean
+    firstOrderAt?: boolean
+    lastOrderAt?: boolean
+    customerTier?: boolean
+    rfmR?: boolean
+    rfmF?: boolean
+    rfmM?: boolean
+    rfmSegment?: boolean
+    frequencyTrend?: boolean
+    spendTrend?: boolean
+    orders30d?: boolean
+    orders30dPrev?: boolean
+    spend30dPrev?: boolean
+    churnRiskScore?: boolean
+    winBackScore?: boolean
+    upsellScore?: boolean
+    orderConsistencyScore?: boolean
+    orderDiversityScore?: boolean
+    lunchRegularityPct?: boolean
+    avgLeadTimeHours?: boolean
+    couponUsageRate?: boolean
+    walletUsageRate?: boolean
+    primaryChannel?: boolean
+    channelLoyaltyPct?: boolean
+    calculatedAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerMetrics"]>
+
+  export type CustomerMetricsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    activityStatus?: boolean
+    daysSinceLastOrder?: boolean
+    daysSinceRegistration?: boolean
+    preferredDayOfWeek?: boolean
+    preferredTimeSlot?: boolean
+    ltv?: boolean
+    avgOrderValue?: boolean
+    orderFrequencyPerWeek?: boolean
+    spend30d?: boolean
+    totalOrders?: boolean
+    firstOrderAt?: boolean
+    lastOrderAt?: boolean
+    customerTier?: boolean
+    rfmR?: boolean
+    rfmF?: boolean
+    rfmM?: boolean
+    rfmSegment?: boolean
+    frequencyTrend?: boolean
+    spendTrend?: boolean
+    orders30d?: boolean
+    orders30dPrev?: boolean
+    spend30dPrev?: boolean
+    churnRiskScore?: boolean
+    winBackScore?: boolean
+    upsellScore?: boolean
+    orderConsistencyScore?: boolean
+    orderDiversityScore?: boolean
+    lunchRegularityPct?: boolean
+    avgLeadTimeHours?: boolean
+    couponUsageRate?: boolean
+    walletUsageRate?: boolean
+    primaryChannel?: boolean
+    channelLoyaltyPct?: boolean
+    calculatedAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerMetrics"]>
+
+  export type CustomerMetricsSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    activityStatus?: boolean
+    daysSinceLastOrder?: boolean
+    daysSinceRegistration?: boolean
+    preferredDayOfWeek?: boolean
+    preferredTimeSlot?: boolean
+    ltv?: boolean
+    avgOrderValue?: boolean
+    orderFrequencyPerWeek?: boolean
+    spend30d?: boolean
+    totalOrders?: boolean
+    firstOrderAt?: boolean
+    lastOrderAt?: boolean
+    customerTier?: boolean
+    rfmR?: boolean
+    rfmF?: boolean
+    rfmM?: boolean
+    rfmSegment?: boolean
+    frequencyTrend?: boolean
+    spendTrend?: boolean
+    orders30d?: boolean
+    orders30dPrev?: boolean
+    spend30dPrev?: boolean
+    churnRiskScore?: boolean
+    winBackScore?: boolean
+    upsellScore?: boolean
+    orderConsistencyScore?: boolean
+    orderDiversityScore?: boolean
+    lunchRegularityPct?: boolean
+    avgLeadTimeHours?: boolean
+    couponUsageRate?: boolean
+    walletUsageRate?: boolean
+    primaryChannel?: boolean
+    channelLoyaltyPct?: boolean
+    calculatedAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CustomerMetricsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CustomerMetricsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerMetricsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerMetrics"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      organizationId: string
+      activityStatus: $Enums.ActivityStatus
+      daysSinceLastOrder: number | null
+      daysSinceRegistration: number
+      preferredDayOfWeek: number | null
+      preferredTimeSlot: string | null
+      ltv: Prisma.Decimal
+      avgOrderValue: Prisma.Decimal
+      orderFrequencyPerWeek: Prisma.Decimal
+      spend30d: Prisma.Decimal
+      totalOrders: number
+      firstOrderAt: Date | null
+      lastOrderAt: Date | null
+      customerTier: $Enums.CustomerTier
+      rfmR: number
+      rfmF: number
+      rfmM: number
+      rfmSegment: $Enums.RfmSegment
+      frequencyTrend: $Enums.TrendDirection
+      spendTrend: $Enums.TrendDirection
+      orders30d: number
+      orders30dPrev: number
+      spend30dPrev: Prisma.Decimal
+      churnRiskScore: number
+      winBackScore: number | null
+      upsellScore: number
+      orderConsistencyScore: number | null
+      orderDiversityScore: number
+      lunchRegularityPct: Prisma.Decimal | null
+      avgLeadTimeHours: Prisma.Decimal | null
+      couponUsageRate: Prisma.Decimal
+      walletUsageRate: Prisma.Decimal
+      primaryChannel: string | null
+      channelLoyaltyPct: Prisma.Decimal
+      calculatedAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["customerMetrics"]>
+    composites: {}
+  }
+
+  type CustomerMetricsGetPayload<S extends boolean | null | undefined | CustomerMetricsDefaultArgs> = $Result.GetResult<Prisma.$CustomerMetricsPayload, S>
+
+  type CustomerMetricsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CustomerMetricsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CustomerMetricsCountAggregateInputType | true
+    }
+
+  export interface CustomerMetricsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerMetrics'], meta: { name: 'CustomerMetrics' } }
+    /**
+     * Find zero or one CustomerMetrics that matches the filter.
+     * @param {CustomerMetricsFindUniqueArgs} args - Arguments to find a CustomerMetrics
+     * @example
+     * // Get one CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerMetricsFindUniqueArgs>(args: SelectSubset<T, CustomerMetricsFindUniqueArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CustomerMetrics that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CustomerMetricsFindUniqueOrThrowArgs} args - Arguments to find a CustomerMetrics
+     * @example
+     * // Get one CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerMetricsFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerMetricsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CustomerMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerMetricsFindFirstArgs} args - Arguments to find a CustomerMetrics
+     * @example
+     * // Get one CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerMetricsFindFirstArgs>(args?: SelectSubset<T, CustomerMetricsFindFirstArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CustomerMetrics that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerMetricsFindFirstOrThrowArgs} args - Arguments to find a CustomerMetrics
+     * @example
+     * // Get one CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerMetricsFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerMetricsFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CustomerMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerMetricsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.findMany()
+     * 
+     * // Get first 10 CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerMetricsWithIdOnly = await prisma.customerMetrics.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerMetricsFindManyArgs>(args?: SelectSubset<T, CustomerMetricsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CustomerMetrics.
+     * @param {CustomerMetricsCreateArgs} args - Arguments to create a CustomerMetrics.
+     * @example
+     * // Create one CustomerMetrics
+     * const CustomerMetrics = await prisma.customerMetrics.create({
+     *   data: {
+     *     // ... data to create a CustomerMetrics
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerMetricsCreateArgs>(args: SelectSubset<T, CustomerMetricsCreateArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CustomerMetrics.
+     * @param {CustomerMetricsCreateManyArgs} args - Arguments to create many CustomerMetrics.
+     * @example
+     * // Create many CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerMetricsCreateManyArgs>(args?: SelectSubset<T, CustomerMetricsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerMetrics and returns the data saved in the database.
+     * @param {CustomerMetricsCreateManyAndReturnArgs} args - Arguments to create many CustomerMetrics.
+     * @example
+     * // Create many CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerMetrics and only return the `id`
+     * const customerMetricsWithIdOnly = await prisma.customerMetrics.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerMetricsCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerMetricsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CustomerMetrics.
+     * @param {CustomerMetricsDeleteArgs} args - Arguments to delete one CustomerMetrics.
+     * @example
+     * // Delete one CustomerMetrics
+     * const CustomerMetrics = await prisma.customerMetrics.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerMetrics
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerMetricsDeleteArgs>(args: SelectSubset<T, CustomerMetricsDeleteArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CustomerMetrics.
+     * @param {CustomerMetricsUpdateArgs} args - Arguments to update one CustomerMetrics.
+     * @example
+     * // Update one CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerMetricsUpdateArgs>(args: SelectSubset<T, CustomerMetricsUpdateArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CustomerMetrics.
+     * @param {CustomerMetricsDeleteManyArgs} args - Arguments to filter CustomerMetrics to delete.
+     * @example
+     * // Delete a few CustomerMetrics
+     * const { count } = await prisma.customerMetrics.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerMetricsDeleteManyArgs>(args?: SelectSubset<T, CustomerMetricsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerMetricsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerMetricsUpdateManyArgs>(args: SelectSubset<T, CustomerMetricsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerMetrics.
+     * @param {CustomerMetricsUpsertArgs} args - Arguments to update or create a CustomerMetrics.
+     * @example
+     * // Update or create a CustomerMetrics
+     * const customerMetrics = await prisma.customerMetrics.upsert({
+     *   create: {
+     *     // ... data to create a CustomerMetrics
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerMetrics we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerMetricsUpsertArgs>(args: SelectSubset<T, CustomerMetricsUpsertArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CustomerMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerMetricsCountArgs} args - Arguments to filter CustomerMetrics to count.
+     * @example
+     * // Count the number of CustomerMetrics
+     * const count = await prisma.customerMetrics.count({
+     *   where: {
+     *     // ... the filter for the CustomerMetrics we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerMetricsCountArgs>(
+      args?: Subset<T, CustomerMetricsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerMetricsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerMetricsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerMetricsAggregateArgs>(args: Subset<T, CustomerMetricsAggregateArgs>): Prisma.PrismaPromise<GetCustomerMetricsAggregateType<T>>
+
+    /**
+     * Group by CustomerMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerMetricsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerMetricsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerMetricsGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerMetricsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerMetricsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerMetricsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerMetrics model
+   */
+  readonly fields: CustomerMetricsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerMetrics.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerMetricsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerMetrics model
+   */ 
+  interface CustomerMetricsFieldRefs {
+    readonly id: FieldRef<"CustomerMetrics", 'String'>
+    readonly userId: FieldRef<"CustomerMetrics", 'String'>
+    readonly organizationId: FieldRef<"CustomerMetrics", 'String'>
+    readonly activityStatus: FieldRef<"CustomerMetrics", 'ActivityStatus'>
+    readonly daysSinceLastOrder: FieldRef<"CustomerMetrics", 'Int'>
+    readonly daysSinceRegistration: FieldRef<"CustomerMetrics", 'Int'>
+    readonly preferredDayOfWeek: FieldRef<"CustomerMetrics", 'Int'>
+    readonly preferredTimeSlot: FieldRef<"CustomerMetrics", 'String'>
+    readonly ltv: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly avgOrderValue: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly orderFrequencyPerWeek: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly spend30d: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly totalOrders: FieldRef<"CustomerMetrics", 'Int'>
+    readonly firstOrderAt: FieldRef<"CustomerMetrics", 'DateTime'>
+    readonly lastOrderAt: FieldRef<"CustomerMetrics", 'DateTime'>
+    readonly customerTier: FieldRef<"CustomerMetrics", 'CustomerTier'>
+    readonly rfmR: FieldRef<"CustomerMetrics", 'Int'>
+    readonly rfmF: FieldRef<"CustomerMetrics", 'Int'>
+    readonly rfmM: FieldRef<"CustomerMetrics", 'Int'>
+    readonly rfmSegment: FieldRef<"CustomerMetrics", 'RfmSegment'>
+    readonly frequencyTrend: FieldRef<"CustomerMetrics", 'TrendDirection'>
+    readonly spendTrend: FieldRef<"CustomerMetrics", 'TrendDirection'>
+    readonly orders30d: FieldRef<"CustomerMetrics", 'Int'>
+    readonly orders30dPrev: FieldRef<"CustomerMetrics", 'Int'>
+    readonly spend30dPrev: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly churnRiskScore: FieldRef<"CustomerMetrics", 'Int'>
+    readonly winBackScore: FieldRef<"CustomerMetrics", 'Int'>
+    readonly upsellScore: FieldRef<"CustomerMetrics", 'Int'>
+    readonly orderConsistencyScore: FieldRef<"CustomerMetrics", 'Int'>
+    readonly orderDiversityScore: FieldRef<"CustomerMetrics", 'Int'>
+    readonly lunchRegularityPct: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly avgLeadTimeHours: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly couponUsageRate: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly walletUsageRate: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly primaryChannel: FieldRef<"CustomerMetrics", 'String'>
+    readonly channelLoyaltyPct: FieldRef<"CustomerMetrics", 'Decimal'>
+    readonly calculatedAt: FieldRef<"CustomerMetrics", 'DateTime'>
+    readonly updatedAt: FieldRef<"CustomerMetrics", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerMetrics findUnique
+   */
+  export type CustomerMetricsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerMetrics to fetch.
+     */
+    where: CustomerMetricsWhereUniqueInput
+  }
+
+  /**
+   * CustomerMetrics findUniqueOrThrow
+   */
+  export type CustomerMetricsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerMetrics to fetch.
+     */
+    where: CustomerMetricsWhereUniqueInput
+  }
+
+  /**
+   * CustomerMetrics findFirst
+   */
+  export type CustomerMetricsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerMetrics to fetch.
+     */
+    where?: CustomerMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerMetrics to fetch.
+     */
+    orderBy?: CustomerMetricsOrderByWithRelationInput | CustomerMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerMetrics.
+     */
+    cursor?: CustomerMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerMetrics.
+     */
+    distinct?: CustomerMetricsScalarFieldEnum | CustomerMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerMetrics findFirstOrThrow
+   */
+  export type CustomerMetricsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerMetrics to fetch.
+     */
+    where?: CustomerMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerMetrics to fetch.
+     */
+    orderBy?: CustomerMetricsOrderByWithRelationInput | CustomerMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerMetrics.
+     */
+    cursor?: CustomerMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerMetrics.
+     */
+    distinct?: CustomerMetricsScalarFieldEnum | CustomerMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerMetrics findMany
+   */
+  export type CustomerMetricsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerMetrics to fetch.
+     */
+    where?: CustomerMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerMetrics to fetch.
+     */
+    orderBy?: CustomerMetricsOrderByWithRelationInput | CustomerMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerMetrics.
+     */
+    cursor?: CustomerMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerMetrics.
+     */
+    skip?: number
+    distinct?: CustomerMetricsScalarFieldEnum | CustomerMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerMetrics create
+   */
+  export type CustomerMetricsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerMetrics.
+     */
+    data: XOR<CustomerMetricsCreateInput, CustomerMetricsUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerMetrics createMany
+   */
+  export type CustomerMetricsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerMetrics.
+     */
+    data: CustomerMetricsCreateManyInput | CustomerMetricsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerMetrics createManyAndReturn
+   */
+  export type CustomerMetricsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CustomerMetrics.
+     */
+    data: CustomerMetricsCreateManyInput | CustomerMetricsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerMetrics update
+   */
+  export type CustomerMetricsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerMetrics.
+     */
+    data: XOR<CustomerMetricsUpdateInput, CustomerMetricsUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerMetrics to update.
+     */
+    where: CustomerMetricsWhereUniqueInput
+  }
+
+  /**
+   * CustomerMetrics updateMany
+   */
+  export type CustomerMetricsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerMetrics.
+     */
+    data: XOR<CustomerMetricsUpdateManyMutationInput, CustomerMetricsUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerMetrics to update
+     */
+    where?: CustomerMetricsWhereInput
+  }
+
+  /**
+   * CustomerMetrics upsert
+   */
+  export type CustomerMetricsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerMetrics to update in case it exists.
+     */
+    where: CustomerMetricsWhereUniqueInput
+    /**
+     * In case the CustomerMetrics found by the `where` argument doesn't exist, create a new CustomerMetrics with this data.
+     */
+    create: XOR<CustomerMetricsCreateInput, CustomerMetricsUncheckedCreateInput>
+    /**
+     * In case the CustomerMetrics was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerMetricsUpdateInput, CustomerMetricsUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerMetrics delete
+   */
+  export type CustomerMetricsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerMetrics to delete.
+     */
+    where: CustomerMetricsWhereUniqueInput
+  }
+
+  /**
+   * CustomerMetrics deleteMany
+   */
+  export type CustomerMetricsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerMetrics to delete
+     */
+    where?: CustomerMetricsWhereInput
+  }
+
+  /**
+   * CustomerMetrics without action
+   */
+  export type CustomerMetricsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerMetrics
+     */
+    select?: CustomerMetricsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerMetricsInclude<ExtArgs> | null
   }
 
 
@@ -47755,6 +51607,81 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const CustomerPreferenceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    key: 'key',
+    value: 'value',
+    source: 'source',
+    confidence: 'confidence',
+    ignored: 'ignored',
+    updatedAt: 'updatedAt',
+    updatedById: 'updatedById'
+  };
+
+  export type CustomerPreferenceScalarFieldEnum = (typeof CustomerPreferenceScalarFieldEnum)[keyof typeof CustomerPreferenceScalarFieldEnum]
+
+
+  export const PreferenceAuditLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    action: 'action',
+    key: 'key',
+    value: 'value',
+    confidence: 'confidence',
+    changedById: 'changedById',
+    changedByName: 'changedByName',
+    changedAt: 'changedAt'
+  };
+
+  export type PreferenceAuditLogScalarFieldEnum = (typeof PreferenceAuditLogScalarFieldEnum)[keyof typeof PreferenceAuditLogScalarFieldEnum]
+
+
+  export const CustomerMetricsScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    organizationId: 'organizationId',
+    activityStatus: 'activityStatus',
+    daysSinceLastOrder: 'daysSinceLastOrder',
+    daysSinceRegistration: 'daysSinceRegistration',
+    preferredDayOfWeek: 'preferredDayOfWeek',
+    preferredTimeSlot: 'preferredTimeSlot',
+    ltv: 'ltv',
+    avgOrderValue: 'avgOrderValue',
+    orderFrequencyPerWeek: 'orderFrequencyPerWeek',
+    spend30d: 'spend30d',
+    totalOrders: 'totalOrders',
+    firstOrderAt: 'firstOrderAt',
+    lastOrderAt: 'lastOrderAt',
+    customerTier: 'customerTier',
+    rfmR: 'rfmR',
+    rfmF: 'rfmF',
+    rfmM: 'rfmM',
+    rfmSegment: 'rfmSegment',
+    frequencyTrend: 'frequencyTrend',
+    spendTrend: 'spendTrend',
+    orders30d: 'orders30d',
+    orders30dPrev: 'orders30dPrev',
+    spend30dPrev: 'spend30dPrev',
+    churnRiskScore: 'churnRiskScore',
+    winBackScore: 'winBackScore',
+    upsellScore: 'upsellScore',
+    orderConsistencyScore: 'orderConsistencyScore',
+    orderDiversityScore: 'orderDiversityScore',
+    lunchRegularityPct: 'lunchRegularityPct',
+    avgLeadTimeHours: 'avgLeadTimeHours',
+    couponUsageRate: 'couponUsageRate',
+    walletUsageRate: 'walletUsageRate',
+    primaryChannel: 'primaryChannel',
+    channelLoyaltyPct: 'channelLoyaltyPct',
+    calculatedAt: 'calculatedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CustomerMetricsScalarFieldEnum = (typeof CustomerMetricsScalarFieldEnum)[keyof typeof CustomerMetricsScalarFieldEnum]
+
+
   export const CustomerIdentifierScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -48392,6 +52319,104 @@ export namespace Prisma {
    * Reference to a field of type 'UserRole[]'
    */
   export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PreferenceType'
+   */
+  export type EnumPreferenceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreferenceType'>
+    
+
+
+  /**
+   * Reference to a field of type 'PreferenceType[]'
+   */
+  export type ListEnumPreferenceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreferenceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PreferenceSource'
+   */
+  export type EnumPreferenceSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreferenceSource'>
+    
+
+
+  /**
+   * Reference to a field of type 'PreferenceSource[]'
+   */
+  export type ListEnumPreferenceSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreferenceSource[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PreferenceAction'
+   */
+  export type EnumPreferenceActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreferenceAction'>
+    
+
+
+  /**
+   * Reference to a field of type 'PreferenceAction[]'
+   */
+  export type ListEnumPreferenceActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreferenceAction[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ActivityStatus'
+   */
+  export type EnumActivityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ActivityStatus[]'
+   */
+  export type ListEnumActivityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CustomerTier'
+   */
+  export type EnumCustomerTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerTier'>
+    
+
+
+  /**
+   * Reference to a field of type 'CustomerTier[]'
+   */
+  export type ListEnumCustomerTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerTier[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RfmSegment'
+   */
+  export type EnumRfmSegmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RfmSegment'>
+    
+
+
+  /**
+   * Reference to a field of type 'RfmSegment[]'
+   */
+  export type ListEnumRfmSegmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RfmSegment[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TrendDirection'
+   */
+  export type EnumTrendDirectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrendDirection'>
+    
+
+
+  /**
+   * Reference to a field of type 'TrendDirection[]'
+   */
+  export type ListEnumTrendDirectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrendDirection[]'>
     
 
 
@@ -49314,6 +53339,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignListRelationFilter
     emailCampaignLogs?: EmailCampaignLogListRelationFilter
     customerIdentifiers?: CustomerIdentifierListRelationFilter
+    preferences?: CustomerPreferenceListRelationFilter
+    metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -49347,6 +53374,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignOrderByRelationAggregateInput
     emailCampaignLogs?: EmailCampaignLogOrderByRelationAggregateInput
     customerIdentifiers?: CustomerIdentifierOrderByRelationAggregateInput
+    preferences?: CustomerPreferenceOrderByRelationAggregateInput
+    metrics?: CustomerMetricsOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -49383,6 +53412,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignListRelationFilter
     emailCampaignLogs?: EmailCampaignLogListRelationFilter
     customerIdentifiers?: CustomerIdentifierListRelationFilter
+    preferences?: CustomerPreferenceListRelationFilter
+    metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
   }, "id" | "email" | "customerId">
 
   export type UserOrderByWithAggregationInput = {
@@ -49421,6 +53452,385 @@ export namespace Prisma {
     customerId?: StringNullableWithAggregatesFilter<"User"> | string | null
     isAnonymous?: BoolWithAggregatesFilter<"User"> | boolean
     mergedIntoId?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type CustomerPreferenceWhereInput = {
+    AND?: CustomerPreferenceWhereInput | CustomerPreferenceWhereInput[]
+    OR?: CustomerPreferenceWhereInput[]
+    NOT?: CustomerPreferenceWhereInput | CustomerPreferenceWhereInput[]
+    id?: StringFilter<"CustomerPreference"> | string
+    userId?: StringFilter<"CustomerPreference"> | string
+    type?: EnumPreferenceTypeFilter<"CustomerPreference"> | $Enums.PreferenceType
+    key?: StringFilter<"CustomerPreference"> | string
+    value?: StringNullableFilter<"CustomerPreference"> | string | null
+    source?: EnumPreferenceSourceFilter<"CustomerPreference"> | $Enums.PreferenceSource
+    confidence?: DecimalNullableFilter<"CustomerPreference"> | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFilter<"CustomerPreference"> | boolean
+    updatedAt?: DateTimeFilter<"CustomerPreference"> | Date | string
+    updatedById?: StringNullableFilter<"CustomerPreference"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type CustomerPreferenceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    key?: SortOrder
+    value?: SortOrderInput | SortOrder
+    source?: SortOrder
+    confidence?: SortOrderInput | SortOrder
+    ignored?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CustomerPreferenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_key?: CustomerPreferenceUserIdKeyCompoundUniqueInput
+    AND?: CustomerPreferenceWhereInput | CustomerPreferenceWhereInput[]
+    OR?: CustomerPreferenceWhereInput[]
+    NOT?: CustomerPreferenceWhereInput | CustomerPreferenceWhereInput[]
+    userId?: StringFilter<"CustomerPreference"> | string
+    type?: EnumPreferenceTypeFilter<"CustomerPreference"> | $Enums.PreferenceType
+    key?: StringFilter<"CustomerPreference"> | string
+    value?: StringNullableFilter<"CustomerPreference"> | string | null
+    source?: EnumPreferenceSourceFilter<"CustomerPreference"> | $Enums.PreferenceSource
+    confidence?: DecimalNullableFilter<"CustomerPreference"> | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFilter<"CustomerPreference"> | boolean
+    updatedAt?: DateTimeFilter<"CustomerPreference"> | Date | string
+    updatedById?: StringNullableFilter<"CustomerPreference"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId_key">
+
+  export type CustomerPreferenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    key?: SortOrder
+    value?: SortOrderInput | SortOrder
+    source?: SortOrder
+    confidence?: SortOrderInput | SortOrder
+    ignored?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrderInput | SortOrder
+    _count?: CustomerPreferenceCountOrderByAggregateInput
+    _avg?: CustomerPreferenceAvgOrderByAggregateInput
+    _max?: CustomerPreferenceMaxOrderByAggregateInput
+    _min?: CustomerPreferenceMinOrderByAggregateInput
+    _sum?: CustomerPreferenceSumOrderByAggregateInput
+  }
+
+  export type CustomerPreferenceScalarWhereWithAggregatesInput = {
+    AND?: CustomerPreferenceScalarWhereWithAggregatesInput | CustomerPreferenceScalarWhereWithAggregatesInput[]
+    OR?: CustomerPreferenceScalarWhereWithAggregatesInput[]
+    NOT?: CustomerPreferenceScalarWhereWithAggregatesInput | CustomerPreferenceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomerPreference"> | string
+    userId?: StringWithAggregatesFilter<"CustomerPreference"> | string
+    type?: EnumPreferenceTypeWithAggregatesFilter<"CustomerPreference"> | $Enums.PreferenceType
+    key?: StringWithAggregatesFilter<"CustomerPreference"> | string
+    value?: StringNullableWithAggregatesFilter<"CustomerPreference"> | string | null
+    source?: EnumPreferenceSourceWithAggregatesFilter<"CustomerPreference"> | $Enums.PreferenceSource
+    confidence?: DecimalNullableWithAggregatesFilter<"CustomerPreference"> | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolWithAggregatesFilter<"CustomerPreference"> | boolean
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomerPreference"> | Date | string
+    updatedById?: StringNullableWithAggregatesFilter<"CustomerPreference"> | string | null
+  }
+
+  export type PreferenceAuditLogWhereInput = {
+    AND?: PreferenceAuditLogWhereInput | PreferenceAuditLogWhereInput[]
+    OR?: PreferenceAuditLogWhereInput[]
+    NOT?: PreferenceAuditLogWhereInput | PreferenceAuditLogWhereInput[]
+    id?: StringFilter<"PreferenceAuditLog"> | string
+    userId?: StringFilter<"PreferenceAuditLog"> | string
+    action?: EnumPreferenceActionFilter<"PreferenceAuditLog"> | $Enums.PreferenceAction
+    key?: StringFilter<"PreferenceAuditLog"> | string
+    value?: StringNullableFilter<"PreferenceAuditLog"> | string | null
+    confidence?: DecimalNullableFilter<"PreferenceAuditLog"> | Decimal | DecimalJsLike | number | string | null
+    changedById?: StringFilter<"PreferenceAuditLog"> | string
+    changedByName?: StringFilter<"PreferenceAuditLog"> | string
+    changedAt?: DateTimeFilter<"PreferenceAuditLog"> | Date | string
+  }
+
+  export type PreferenceAuditLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    key?: SortOrder
+    value?: SortOrderInput | SortOrder
+    confidence?: SortOrderInput | SortOrder
+    changedById?: SortOrder
+    changedByName?: SortOrder
+    changedAt?: SortOrder
+  }
+
+  export type PreferenceAuditLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PreferenceAuditLogWhereInput | PreferenceAuditLogWhereInput[]
+    OR?: PreferenceAuditLogWhereInput[]
+    NOT?: PreferenceAuditLogWhereInput | PreferenceAuditLogWhereInput[]
+    userId?: StringFilter<"PreferenceAuditLog"> | string
+    action?: EnumPreferenceActionFilter<"PreferenceAuditLog"> | $Enums.PreferenceAction
+    key?: StringFilter<"PreferenceAuditLog"> | string
+    value?: StringNullableFilter<"PreferenceAuditLog"> | string | null
+    confidence?: DecimalNullableFilter<"PreferenceAuditLog"> | Decimal | DecimalJsLike | number | string | null
+    changedById?: StringFilter<"PreferenceAuditLog"> | string
+    changedByName?: StringFilter<"PreferenceAuditLog"> | string
+    changedAt?: DateTimeFilter<"PreferenceAuditLog"> | Date | string
+  }, "id">
+
+  export type PreferenceAuditLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    key?: SortOrder
+    value?: SortOrderInput | SortOrder
+    confidence?: SortOrderInput | SortOrder
+    changedById?: SortOrder
+    changedByName?: SortOrder
+    changedAt?: SortOrder
+    _count?: PreferenceAuditLogCountOrderByAggregateInput
+    _avg?: PreferenceAuditLogAvgOrderByAggregateInput
+    _max?: PreferenceAuditLogMaxOrderByAggregateInput
+    _min?: PreferenceAuditLogMinOrderByAggregateInput
+    _sum?: PreferenceAuditLogSumOrderByAggregateInput
+  }
+
+  export type PreferenceAuditLogScalarWhereWithAggregatesInput = {
+    AND?: PreferenceAuditLogScalarWhereWithAggregatesInput | PreferenceAuditLogScalarWhereWithAggregatesInput[]
+    OR?: PreferenceAuditLogScalarWhereWithAggregatesInput[]
+    NOT?: PreferenceAuditLogScalarWhereWithAggregatesInput | PreferenceAuditLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PreferenceAuditLog"> | string
+    userId?: StringWithAggregatesFilter<"PreferenceAuditLog"> | string
+    action?: EnumPreferenceActionWithAggregatesFilter<"PreferenceAuditLog"> | $Enums.PreferenceAction
+    key?: StringWithAggregatesFilter<"PreferenceAuditLog"> | string
+    value?: StringNullableWithAggregatesFilter<"PreferenceAuditLog"> | string | null
+    confidence?: DecimalNullableWithAggregatesFilter<"PreferenceAuditLog"> | Decimal | DecimalJsLike | number | string | null
+    changedById?: StringWithAggregatesFilter<"PreferenceAuditLog"> | string
+    changedByName?: StringWithAggregatesFilter<"PreferenceAuditLog"> | string
+    changedAt?: DateTimeWithAggregatesFilter<"PreferenceAuditLog"> | Date | string
+  }
+
+  export type CustomerMetricsWhereInput = {
+    AND?: CustomerMetricsWhereInput | CustomerMetricsWhereInput[]
+    OR?: CustomerMetricsWhereInput[]
+    NOT?: CustomerMetricsWhereInput | CustomerMetricsWhereInput[]
+    id?: StringFilter<"CustomerMetrics"> | string
+    userId?: StringFilter<"CustomerMetrics"> | string
+    organizationId?: StringFilter<"CustomerMetrics"> | string
+    activityStatus?: EnumActivityStatusFilter<"CustomerMetrics"> | $Enums.ActivityStatus
+    daysSinceLastOrder?: IntNullableFilter<"CustomerMetrics"> | number | null
+    daysSinceRegistration?: IntFilter<"CustomerMetrics"> | number
+    preferredDayOfWeek?: IntNullableFilter<"CustomerMetrics"> | number | null
+    preferredTimeSlot?: StringNullableFilter<"CustomerMetrics"> | string | null
+    ltv?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFilter<"CustomerMetrics"> | number
+    firstOrderAt?: DateTimeNullableFilter<"CustomerMetrics"> | Date | string | null
+    lastOrderAt?: DateTimeNullableFilter<"CustomerMetrics"> | Date | string | null
+    customerTier?: EnumCustomerTierFilter<"CustomerMetrics"> | $Enums.CustomerTier
+    rfmR?: IntFilter<"CustomerMetrics"> | number
+    rfmF?: IntFilter<"CustomerMetrics"> | number
+    rfmM?: IntFilter<"CustomerMetrics"> | number
+    rfmSegment?: EnumRfmSegmentFilter<"CustomerMetrics"> | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFilter<"CustomerMetrics"> | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFilter<"CustomerMetrics"> | $Enums.TrendDirection
+    orders30d?: IntFilter<"CustomerMetrics"> | number
+    orders30dPrev?: IntFilter<"CustomerMetrics"> | number
+    spend30dPrev?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFilter<"CustomerMetrics"> | number
+    winBackScore?: IntNullableFilter<"CustomerMetrics"> | number | null
+    upsellScore?: IntFilter<"CustomerMetrics"> | number
+    orderConsistencyScore?: IntNullableFilter<"CustomerMetrics"> | number | null
+    orderDiversityScore?: IntFilter<"CustomerMetrics"> | number
+    lunchRegularityPct?: DecimalNullableFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: DecimalNullableFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    primaryChannel?: StringNullableFilter<"CustomerMetrics"> | string | null
+    channelLoyaltyPct?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFilter<"CustomerMetrics"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerMetrics"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type CustomerMetricsOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    activityStatus?: SortOrder
+    daysSinceLastOrder?: SortOrderInput | SortOrder
+    daysSinceRegistration?: SortOrder
+    preferredDayOfWeek?: SortOrderInput | SortOrder
+    preferredTimeSlot?: SortOrderInput | SortOrder
+    ltv?: SortOrder
+    avgOrderValue?: SortOrder
+    orderFrequencyPerWeek?: SortOrder
+    spend30d?: SortOrder
+    totalOrders?: SortOrder
+    firstOrderAt?: SortOrderInput | SortOrder
+    lastOrderAt?: SortOrderInput | SortOrder
+    customerTier?: SortOrder
+    rfmR?: SortOrder
+    rfmF?: SortOrder
+    rfmM?: SortOrder
+    rfmSegment?: SortOrder
+    frequencyTrend?: SortOrder
+    spendTrend?: SortOrder
+    orders30d?: SortOrder
+    orders30dPrev?: SortOrder
+    spend30dPrev?: SortOrder
+    churnRiskScore?: SortOrder
+    winBackScore?: SortOrderInput | SortOrder
+    upsellScore?: SortOrder
+    orderConsistencyScore?: SortOrderInput | SortOrder
+    orderDiversityScore?: SortOrder
+    lunchRegularityPct?: SortOrderInput | SortOrder
+    avgLeadTimeHours?: SortOrderInput | SortOrder
+    couponUsageRate?: SortOrder
+    walletUsageRate?: SortOrder
+    primaryChannel?: SortOrderInput | SortOrder
+    channelLoyaltyPct?: SortOrder
+    calculatedAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CustomerMetricsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: CustomerMetricsWhereInput | CustomerMetricsWhereInput[]
+    OR?: CustomerMetricsWhereInput[]
+    NOT?: CustomerMetricsWhereInput | CustomerMetricsWhereInput[]
+    organizationId?: StringFilter<"CustomerMetrics"> | string
+    activityStatus?: EnumActivityStatusFilter<"CustomerMetrics"> | $Enums.ActivityStatus
+    daysSinceLastOrder?: IntNullableFilter<"CustomerMetrics"> | number | null
+    daysSinceRegistration?: IntFilter<"CustomerMetrics"> | number
+    preferredDayOfWeek?: IntNullableFilter<"CustomerMetrics"> | number | null
+    preferredTimeSlot?: StringNullableFilter<"CustomerMetrics"> | string | null
+    ltv?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFilter<"CustomerMetrics"> | number
+    firstOrderAt?: DateTimeNullableFilter<"CustomerMetrics"> | Date | string | null
+    lastOrderAt?: DateTimeNullableFilter<"CustomerMetrics"> | Date | string | null
+    customerTier?: EnumCustomerTierFilter<"CustomerMetrics"> | $Enums.CustomerTier
+    rfmR?: IntFilter<"CustomerMetrics"> | number
+    rfmF?: IntFilter<"CustomerMetrics"> | number
+    rfmM?: IntFilter<"CustomerMetrics"> | number
+    rfmSegment?: EnumRfmSegmentFilter<"CustomerMetrics"> | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFilter<"CustomerMetrics"> | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFilter<"CustomerMetrics"> | $Enums.TrendDirection
+    orders30d?: IntFilter<"CustomerMetrics"> | number
+    orders30dPrev?: IntFilter<"CustomerMetrics"> | number
+    spend30dPrev?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFilter<"CustomerMetrics"> | number
+    winBackScore?: IntNullableFilter<"CustomerMetrics"> | number | null
+    upsellScore?: IntFilter<"CustomerMetrics"> | number
+    orderConsistencyScore?: IntNullableFilter<"CustomerMetrics"> | number | null
+    orderDiversityScore?: IntFilter<"CustomerMetrics"> | number
+    lunchRegularityPct?: DecimalNullableFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: DecimalNullableFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    primaryChannel?: StringNullableFilter<"CustomerMetrics"> | string | null
+    channelLoyaltyPct?: DecimalFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFilter<"CustomerMetrics"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerMetrics"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type CustomerMetricsOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    activityStatus?: SortOrder
+    daysSinceLastOrder?: SortOrderInput | SortOrder
+    daysSinceRegistration?: SortOrder
+    preferredDayOfWeek?: SortOrderInput | SortOrder
+    preferredTimeSlot?: SortOrderInput | SortOrder
+    ltv?: SortOrder
+    avgOrderValue?: SortOrder
+    orderFrequencyPerWeek?: SortOrder
+    spend30d?: SortOrder
+    totalOrders?: SortOrder
+    firstOrderAt?: SortOrderInput | SortOrder
+    lastOrderAt?: SortOrderInput | SortOrder
+    customerTier?: SortOrder
+    rfmR?: SortOrder
+    rfmF?: SortOrder
+    rfmM?: SortOrder
+    rfmSegment?: SortOrder
+    frequencyTrend?: SortOrder
+    spendTrend?: SortOrder
+    orders30d?: SortOrder
+    orders30dPrev?: SortOrder
+    spend30dPrev?: SortOrder
+    churnRiskScore?: SortOrder
+    winBackScore?: SortOrderInput | SortOrder
+    upsellScore?: SortOrder
+    orderConsistencyScore?: SortOrderInput | SortOrder
+    orderDiversityScore?: SortOrder
+    lunchRegularityPct?: SortOrderInput | SortOrder
+    avgLeadTimeHours?: SortOrderInput | SortOrder
+    couponUsageRate?: SortOrder
+    walletUsageRate?: SortOrder
+    primaryChannel?: SortOrderInput | SortOrder
+    channelLoyaltyPct?: SortOrder
+    calculatedAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CustomerMetricsCountOrderByAggregateInput
+    _avg?: CustomerMetricsAvgOrderByAggregateInput
+    _max?: CustomerMetricsMaxOrderByAggregateInput
+    _min?: CustomerMetricsMinOrderByAggregateInput
+    _sum?: CustomerMetricsSumOrderByAggregateInput
+  }
+
+  export type CustomerMetricsScalarWhereWithAggregatesInput = {
+    AND?: CustomerMetricsScalarWhereWithAggregatesInput | CustomerMetricsScalarWhereWithAggregatesInput[]
+    OR?: CustomerMetricsScalarWhereWithAggregatesInput[]
+    NOT?: CustomerMetricsScalarWhereWithAggregatesInput | CustomerMetricsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomerMetrics"> | string
+    userId?: StringWithAggregatesFilter<"CustomerMetrics"> | string
+    organizationId?: StringWithAggregatesFilter<"CustomerMetrics"> | string
+    activityStatus?: EnumActivityStatusWithAggregatesFilter<"CustomerMetrics"> | $Enums.ActivityStatus
+    daysSinceLastOrder?: IntNullableWithAggregatesFilter<"CustomerMetrics"> | number | null
+    daysSinceRegistration?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    preferredDayOfWeek?: IntNullableWithAggregatesFilter<"CustomerMetrics"> | number | null
+    preferredTimeSlot?: StringNullableWithAggregatesFilter<"CustomerMetrics"> | string | null
+    ltv?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    firstOrderAt?: DateTimeNullableWithAggregatesFilter<"CustomerMetrics"> | Date | string | null
+    lastOrderAt?: DateTimeNullableWithAggregatesFilter<"CustomerMetrics"> | Date | string | null
+    customerTier?: EnumCustomerTierWithAggregatesFilter<"CustomerMetrics"> | $Enums.CustomerTier
+    rfmR?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    rfmF?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    rfmM?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    rfmSegment?: EnumRfmSegmentWithAggregatesFilter<"CustomerMetrics"> | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionWithAggregatesFilter<"CustomerMetrics"> | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionWithAggregatesFilter<"CustomerMetrics"> | $Enums.TrendDirection
+    orders30d?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    orders30dPrev?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    spend30dPrev?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    winBackScore?: IntNullableWithAggregatesFilter<"CustomerMetrics"> | number | null
+    upsellScore?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    orderConsistencyScore?: IntNullableWithAggregatesFilter<"CustomerMetrics"> | number | null
+    orderDiversityScore?: IntWithAggregatesFilter<"CustomerMetrics"> | number
+    lunchRegularityPct?: DecimalNullableWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: DecimalNullableWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    primaryChannel?: StringNullableWithAggregatesFilter<"CustomerMetrics"> | string | null
+    channelLoyaltyPct?: DecimalWithAggregatesFilter<"CustomerMetrics"> | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeWithAggregatesFilter<"CustomerMetrics"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomerMetrics"> | Date | string
   }
 
   export type CustomerIdentifierWhereInput = {
@@ -52860,6 +57270,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -52892,6 +57304,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -52924,6 +57338,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -52956,6 +57372,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -53003,6 +57421,466 @@ export namespace Prisma {
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
     isAnonymous?: BoolFieldUpdateOperationsInput | boolean
     mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerPreferenceCreateInput = {
+    id?: string
+    type: $Enums.PreferenceType
+    key: string
+    value?: string | null
+    source: $Enums.PreferenceSource
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    ignored?: boolean
+    updatedAt?: Date | string
+    updatedById?: string | null
+    user: UserCreateNestedOneWithoutPreferencesInput
+  }
+
+  export type CustomerPreferenceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    type: $Enums.PreferenceType
+    key: string
+    value?: string | null
+    source: $Enums.PreferenceSource
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    ignored?: boolean
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
+  export type CustomerPreferenceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumPreferenceTypeFieldUpdateOperationsInput | $Enums.PreferenceType
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumPreferenceSourceFieldUpdateOperationsInput | $Enums.PreferenceSource
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutPreferencesNestedInput
+  }
+
+  export type CustomerPreferenceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumPreferenceTypeFieldUpdateOperationsInput | $Enums.PreferenceType
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumPreferenceSourceFieldUpdateOperationsInput | $Enums.PreferenceSource
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerPreferenceCreateManyInput = {
+    id?: string
+    userId: string
+    type: $Enums.PreferenceType
+    key: string
+    value?: string | null
+    source: $Enums.PreferenceSource
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    ignored?: boolean
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
+  export type CustomerPreferenceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumPreferenceTypeFieldUpdateOperationsInput | $Enums.PreferenceType
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumPreferenceSourceFieldUpdateOperationsInput | $Enums.PreferenceSource
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerPreferenceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumPreferenceTypeFieldUpdateOperationsInput | $Enums.PreferenceType
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumPreferenceSourceFieldUpdateOperationsInput | $Enums.PreferenceSource
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PreferenceAuditLogCreateInput = {
+    id?: string
+    userId: string
+    action: $Enums.PreferenceAction
+    key: string
+    value?: string | null
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    changedById: string
+    changedByName: string
+    changedAt?: Date | string
+  }
+
+  export type PreferenceAuditLogUncheckedCreateInput = {
+    id?: string
+    userId: string
+    action: $Enums.PreferenceAction
+    key: string
+    value?: string | null
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    changedById: string
+    changedByName: string
+    changedAt?: Date | string
+  }
+
+  export type PreferenceAuditLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: EnumPreferenceActionFieldUpdateOperationsInput | $Enums.PreferenceAction
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    changedById?: StringFieldUpdateOperationsInput | string
+    changedByName?: StringFieldUpdateOperationsInput | string
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreferenceAuditLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: EnumPreferenceActionFieldUpdateOperationsInput | $Enums.PreferenceAction
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    changedById?: StringFieldUpdateOperationsInput | string
+    changedByName?: StringFieldUpdateOperationsInput | string
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreferenceAuditLogCreateManyInput = {
+    id?: string
+    userId: string
+    action: $Enums.PreferenceAction
+    key: string
+    value?: string | null
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    changedById: string
+    changedByName: string
+    changedAt?: Date | string
+  }
+
+  export type PreferenceAuditLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: EnumPreferenceActionFieldUpdateOperationsInput | $Enums.PreferenceAction
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    changedById?: StringFieldUpdateOperationsInput | string
+    changedByName?: StringFieldUpdateOperationsInput | string
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreferenceAuditLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    action?: EnumPreferenceActionFieldUpdateOperationsInput | $Enums.PreferenceAction
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    changedById?: StringFieldUpdateOperationsInput | string
+    changedByName?: StringFieldUpdateOperationsInput | string
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerMetricsCreateInput = {
+    id?: string
+    organizationId: string
+    activityStatus: $Enums.ActivityStatus
+    daysSinceLastOrder?: number | null
+    daysSinceRegistration: number
+    preferredDayOfWeek?: number | null
+    preferredTimeSlot?: string | null
+    ltv: Decimal | DecimalJsLike | number | string
+    avgOrderValue: Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek: Decimal | DecimalJsLike | number | string
+    spend30d: Decimal | DecimalJsLike | number | string
+    totalOrders: number
+    firstOrderAt?: Date | string | null
+    lastOrderAt?: Date | string | null
+    customerTier: $Enums.CustomerTier
+    rfmR: number
+    rfmF: number
+    rfmM: number
+    rfmSegment: $Enums.RfmSegment
+    frequencyTrend: $Enums.TrendDirection
+    spendTrend: $Enums.TrendDirection
+    orders30d: number
+    orders30dPrev: number
+    spend30dPrev: Decimal | DecimalJsLike | number | string
+    churnRiskScore: number
+    winBackScore?: number | null
+    upsellScore: number
+    orderConsistencyScore?: number | null
+    orderDiversityScore: number
+    lunchRegularityPct?: Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: Decimal | DecimalJsLike | number | string | null
+    couponUsageRate: Decimal | DecimalJsLike | number | string
+    walletUsageRate: Decimal | DecimalJsLike | number | string
+    primaryChannel?: string | null
+    channelLoyaltyPct: Decimal | DecimalJsLike | number | string
+    calculatedAt: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMetricsInput
+  }
+
+  export type CustomerMetricsUncheckedCreateInput = {
+    id?: string
+    userId: string
+    organizationId: string
+    activityStatus: $Enums.ActivityStatus
+    daysSinceLastOrder?: number | null
+    daysSinceRegistration: number
+    preferredDayOfWeek?: number | null
+    preferredTimeSlot?: string | null
+    ltv: Decimal | DecimalJsLike | number | string
+    avgOrderValue: Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek: Decimal | DecimalJsLike | number | string
+    spend30d: Decimal | DecimalJsLike | number | string
+    totalOrders: number
+    firstOrderAt?: Date | string | null
+    lastOrderAt?: Date | string | null
+    customerTier: $Enums.CustomerTier
+    rfmR: number
+    rfmF: number
+    rfmM: number
+    rfmSegment: $Enums.RfmSegment
+    frequencyTrend: $Enums.TrendDirection
+    spendTrend: $Enums.TrendDirection
+    orders30d: number
+    orders30dPrev: number
+    spend30dPrev: Decimal | DecimalJsLike | number | string
+    churnRiskScore: number
+    winBackScore?: number | null
+    upsellScore: number
+    orderConsistencyScore?: number | null
+    orderDiversityScore: number
+    lunchRegularityPct?: Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: Decimal | DecimalJsLike | number | string | null
+    couponUsageRate: Decimal | DecimalJsLike | number | string
+    walletUsageRate: Decimal | DecimalJsLike | number | string
+    primaryChannel?: string | null
+    channelLoyaltyPct: Decimal | DecimalJsLike | number | string
+    calculatedAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerMetricsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    activityStatus?: EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+    daysSinceLastOrder?: NullableIntFieldUpdateOperationsInput | number | null
+    daysSinceRegistration?: IntFieldUpdateOperationsInput | number
+    preferredDayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    preferredTimeSlot?: NullableStringFieldUpdateOperationsInput | string | null
+    ltv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFieldUpdateOperationsInput | number
+    firstOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customerTier?: EnumCustomerTierFieldUpdateOperationsInput | $Enums.CustomerTier
+    rfmR?: IntFieldUpdateOperationsInput | number
+    rfmF?: IntFieldUpdateOperationsInput | number
+    rfmM?: IntFieldUpdateOperationsInput | number
+    rfmSegment?: EnumRfmSegmentFieldUpdateOperationsInput | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    orders30d?: IntFieldUpdateOperationsInput | number
+    orders30dPrev?: IntFieldUpdateOperationsInput | number
+    spend30dPrev?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFieldUpdateOperationsInput | number
+    winBackScore?: NullableIntFieldUpdateOperationsInput | number | null
+    upsellScore?: IntFieldUpdateOperationsInput | number
+    orderConsistencyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    orderDiversityScore?: IntFieldUpdateOperationsInput | number
+    lunchRegularityPct?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    primaryChannel?: NullableStringFieldUpdateOperationsInput | string | null
+    channelLoyaltyPct?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMetricsNestedInput
+  }
+
+  export type CustomerMetricsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    activityStatus?: EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+    daysSinceLastOrder?: NullableIntFieldUpdateOperationsInput | number | null
+    daysSinceRegistration?: IntFieldUpdateOperationsInput | number
+    preferredDayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    preferredTimeSlot?: NullableStringFieldUpdateOperationsInput | string | null
+    ltv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFieldUpdateOperationsInput | number
+    firstOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customerTier?: EnumCustomerTierFieldUpdateOperationsInput | $Enums.CustomerTier
+    rfmR?: IntFieldUpdateOperationsInput | number
+    rfmF?: IntFieldUpdateOperationsInput | number
+    rfmM?: IntFieldUpdateOperationsInput | number
+    rfmSegment?: EnumRfmSegmentFieldUpdateOperationsInput | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    orders30d?: IntFieldUpdateOperationsInput | number
+    orders30dPrev?: IntFieldUpdateOperationsInput | number
+    spend30dPrev?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFieldUpdateOperationsInput | number
+    winBackScore?: NullableIntFieldUpdateOperationsInput | number | null
+    upsellScore?: IntFieldUpdateOperationsInput | number
+    orderConsistencyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    orderDiversityScore?: IntFieldUpdateOperationsInput | number
+    lunchRegularityPct?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    primaryChannel?: NullableStringFieldUpdateOperationsInput | string | null
+    channelLoyaltyPct?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerMetricsCreateManyInput = {
+    id?: string
+    userId: string
+    organizationId: string
+    activityStatus: $Enums.ActivityStatus
+    daysSinceLastOrder?: number | null
+    daysSinceRegistration: number
+    preferredDayOfWeek?: number | null
+    preferredTimeSlot?: string | null
+    ltv: Decimal | DecimalJsLike | number | string
+    avgOrderValue: Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek: Decimal | DecimalJsLike | number | string
+    spend30d: Decimal | DecimalJsLike | number | string
+    totalOrders: number
+    firstOrderAt?: Date | string | null
+    lastOrderAt?: Date | string | null
+    customerTier: $Enums.CustomerTier
+    rfmR: number
+    rfmF: number
+    rfmM: number
+    rfmSegment: $Enums.RfmSegment
+    frequencyTrend: $Enums.TrendDirection
+    spendTrend: $Enums.TrendDirection
+    orders30d: number
+    orders30dPrev: number
+    spend30dPrev: Decimal | DecimalJsLike | number | string
+    churnRiskScore: number
+    winBackScore?: number | null
+    upsellScore: number
+    orderConsistencyScore?: number | null
+    orderDiversityScore: number
+    lunchRegularityPct?: Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: Decimal | DecimalJsLike | number | string | null
+    couponUsageRate: Decimal | DecimalJsLike | number | string
+    walletUsageRate: Decimal | DecimalJsLike | number | string
+    primaryChannel?: string | null
+    channelLoyaltyPct: Decimal | DecimalJsLike | number | string
+    calculatedAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerMetricsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    activityStatus?: EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+    daysSinceLastOrder?: NullableIntFieldUpdateOperationsInput | number | null
+    daysSinceRegistration?: IntFieldUpdateOperationsInput | number
+    preferredDayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    preferredTimeSlot?: NullableStringFieldUpdateOperationsInput | string | null
+    ltv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFieldUpdateOperationsInput | number
+    firstOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customerTier?: EnumCustomerTierFieldUpdateOperationsInput | $Enums.CustomerTier
+    rfmR?: IntFieldUpdateOperationsInput | number
+    rfmF?: IntFieldUpdateOperationsInput | number
+    rfmM?: IntFieldUpdateOperationsInput | number
+    rfmSegment?: EnumRfmSegmentFieldUpdateOperationsInput | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    orders30d?: IntFieldUpdateOperationsInput | number
+    orders30dPrev?: IntFieldUpdateOperationsInput | number
+    spend30dPrev?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFieldUpdateOperationsInput | number
+    winBackScore?: NullableIntFieldUpdateOperationsInput | number | null
+    upsellScore?: IntFieldUpdateOperationsInput | number
+    orderConsistencyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    orderDiversityScore?: IntFieldUpdateOperationsInput | number
+    lunchRegularityPct?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    primaryChannel?: NullableStringFieldUpdateOperationsInput | string | null
+    channelLoyaltyPct?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerMetricsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    activityStatus?: EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+    daysSinceLastOrder?: NullableIntFieldUpdateOperationsInput | number | null
+    daysSinceRegistration?: IntFieldUpdateOperationsInput | number
+    preferredDayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    preferredTimeSlot?: NullableStringFieldUpdateOperationsInput | string | null
+    ltv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFieldUpdateOperationsInput | number
+    firstOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customerTier?: EnumCustomerTierFieldUpdateOperationsInput | $Enums.CustomerTier
+    rfmR?: IntFieldUpdateOperationsInput | number
+    rfmF?: IntFieldUpdateOperationsInput | number
+    rfmM?: IntFieldUpdateOperationsInput | number
+    rfmSegment?: EnumRfmSegmentFieldUpdateOperationsInput | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    orders30d?: IntFieldUpdateOperationsInput | number
+    orders30dPrev?: IntFieldUpdateOperationsInput | number
+    spend30dPrev?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFieldUpdateOperationsInput | number
+    winBackScore?: NullableIntFieldUpdateOperationsInput | number | null
+    upsellScore?: IntFieldUpdateOperationsInput | number
+    orderConsistencyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    orderDiversityScore?: IntFieldUpdateOperationsInput | number
+    lunchRegularityPct?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    primaryChannel?: NullableStringFieldUpdateOperationsInput | string | null
+    channelLoyaltyPct?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CustomerIdentifierCreateInput = {
@@ -56758,6 +61636,17 @@ export namespace Prisma {
     none?: CustomerIdentifierWhereInput
   }
 
+  export type CustomerPreferenceListRelationFilter = {
+    every?: CustomerPreferenceWhereInput
+    some?: CustomerPreferenceWhereInput
+    none?: CustomerPreferenceWhereInput
+  }
+
+  export type CustomerMetricsNullableRelationFilter = {
+    is?: CustomerMetricsWhereInput | null
+    isNot?: CustomerMetricsWhereInput | null
+  }
+
   export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -56791,6 +61680,10 @@ export namespace Prisma {
   }
 
   export type CustomerIdentifierOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerPreferenceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -56850,6 +61743,425 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type EnumPreferenceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceType | EnumPreferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceTypeFilter<$PrismaModel> | $Enums.PreferenceType
+  }
+
+  export type EnumPreferenceSourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceSource | EnumPreferenceSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceSourceFilter<$PrismaModel> | $Enums.PreferenceSource
+  }
+
+  export type CustomerPreferenceUserIdKeyCompoundUniqueInput = {
+    userId: string
+    key: string
+  }
+
+  export type CustomerPreferenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    source?: SortOrder
+    confidence?: SortOrder
+    ignored?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrder
+  }
+
+  export type CustomerPreferenceAvgOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type CustomerPreferenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    source?: SortOrder
+    confidence?: SortOrder
+    ignored?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrder
+  }
+
+  export type CustomerPreferenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    source?: SortOrder
+    confidence?: SortOrder
+    ignored?: SortOrder
+    updatedAt?: SortOrder
+    updatedById?: SortOrder
+  }
+
+  export type CustomerPreferenceSumOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type EnumPreferenceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceType | EnumPreferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceTypeWithAggregatesFilter<$PrismaModel> | $Enums.PreferenceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPreferenceTypeFilter<$PrismaModel>
+    _max?: NestedEnumPreferenceTypeFilter<$PrismaModel>
+  }
+
+  export type EnumPreferenceSourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceSource | EnumPreferenceSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceSourceWithAggregatesFilter<$PrismaModel> | $Enums.PreferenceSource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPreferenceSourceFilter<$PrismaModel>
+    _max?: NestedEnumPreferenceSourceFilter<$PrismaModel>
+  }
+
+  export type EnumPreferenceActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceAction | EnumPreferenceActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceActionFilter<$PrismaModel> | $Enums.PreferenceAction
+  }
+
+  export type PreferenceAuditLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    changedById?: SortOrder
+    changedByName?: SortOrder
+    changedAt?: SortOrder
+  }
+
+  export type PreferenceAuditLogAvgOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type PreferenceAuditLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    changedById?: SortOrder
+    changedByName?: SortOrder
+    changedAt?: SortOrder
+  }
+
+  export type PreferenceAuditLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    changedById?: SortOrder
+    changedByName?: SortOrder
+    changedAt?: SortOrder
+  }
+
+  export type PreferenceAuditLogSumOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type EnumPreferenceActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceAction | EnumPreferenceActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceActionWithAggregatesFilter<$PrismaModel> | $Enums.PreferenceAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPreferenceActionFilter<$PrismaModel>
+    _max?: NestedEnumPreferenceActionFilter<$PrismaModel>
+  }
+
+  export type EnumActivityStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityStatus | EnumActivityStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityStatusFilter<$PrismaModel> | $Enums.ActivityStatus
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumCustomerTierFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerTier | EnumCustomerTierFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerTierFilter<$PrismaModel> | $Enums.CustomerTier
+  }
+
+  export type EnumRfmSegmentFilter<$PrismaModel = never> = {
+    equals?: $Enums.RfmSegment | EnumRfmSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumRfmSegmentFilter<$PrismaModel> | $Enums.RfmSegment
+  }
+
+  export type EnumTrendDirectionFilter<$PrismaModel = never> = {
+    equals?: $Enums.TrendDirection | EnumTrendDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTrendDirectionFilter<$PrismaModel> | $Enums.TrendDirection
+  }
+
+  export type CustomerMetricsCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    activityStatus?: SortOrder
+    daysSinceLastOrder?: SortOrder
+    daysSinceRegistration?: SortOrder
+    preferredDayOfWeek?: SortOrder
+    preferredTimeSlot?: SortOrder
+    ltv?: SortOrder
+    avgOrderValue?: SortOrder
+    orderFrequencyPerWeek?: SortOrder
+    spend30d?: SortOrder
+    totalOrders?: SortOrder
+    firstOrderAt?: SortOrder
+    lastOrderAt?: SortOrder
+    customerTier?: SortOrder
+    rfmR?: SortOrder
+    rfmF?: SortOrder
+    rfmM?: SortOrder
+    rfmSegment?: SortOrder
+    frequencyTrend?: SortOrder
+    spendTrend?: SortOrder
+    orders30d?: SortOrder
+    orders30dPrev?: SortOrder
+    spend30dPrev?: SortOrder
+    churnRiskScore?: SortOrder
+    winBackScore?: SortOrder
+    upsellScore?: SortOrder
+    orderConsistencyScore?: SortOrder
+    orderDiversityScore?: SortOrder
+    lunchRegularityPct?: SortOrder
+    avgLeadTimeHours?: SortOrder
+    couponUsageRate?: SortOrder
+    walletUsageRate?: SortOrder
+    primaryChannel?: SortOrder
+    channelLoyaltyPct?: SortOrder
+    calculatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerMetricsAvgOrderByAggregateInput = {
+    daysSinceLastOrder?: SortOrder
+    daysSinceRegistration?: SortOrder
+    preferredDayOfWeek?: SortOrder
+    ltv?: SortOrder
+    avgOrderValue?: SortOrder
+    orderFrequencyPerWeek?: SortOrder
+    spend30d?: SortOrder
+    totalOrders?: SortOrder
+    rfmR?: SortOrder
+    rfmF?: SortOrder
+    rfmM?: SortOrder
+    orders30d?: SortOrder
+    orders30dPrev?: SortOrder
+    spend30dPrev?: SortOrder
+    churnRiskScore?: SortOrder
+    winBackScore?: SortOrder
+    upsellScore?: SortOrder
+    orderConsistencyScore?: SortOrder
+    orderDiversityScore?: SortOrder
+    lunchRegularityPct?: SortOrder
+    avgLeadTimeHours?: SortOrder
+    couponUsageRate?: SortOrder
+    walletUsageRate?: SortOrder
+    channelLoyaltyPct?: SortOrder
+  }
+
+  export type CustomerMetricsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    activityStatus?: SortOrder
+    daysSinceLastOrder?: SortOrder
+    daysSinceRegistration?: SortOrder
+    preferredDayOfWeek?: SortOrder
+    preferredTimeSlot?: SortOrder
+    ltv?: SortOrder
+    avgOrderValue?: SortOrder
+    orderFrequencyPerWeek?: SortOrder
+    spend30d?: SortOrder
+    totalOrders?: SortOrder
+    firstOrderAt?: SortOrder
+    lastOrderAt?: SortOrder
+    customerTier?: SortOrder
+    rfmR?: SortOrder
+    rfmF?: SortOrder
+    rfmM?: SortOrder
+    rfmSegment?: SortOrder
+    frequencyTrend?: SortOrder
+    spendTrend?: SortOrder
+    orders30d?: SortOrder
+    orders30dPrev?: SortOrder
+    spend30dPrev?: SortOrder
+    churnRiskScore?: SortOrder
+    winBackScore?: SortOrder
+    upsellScore?: SortOrder
+    orderConsistencyScore?: SortOrder
+    orderDiversityScore?: SortOrder
+    lunchRegularityPct?: SortOrder
+    avgLeadTimeHours?: SortOrder
+    couponUsageRate?: SortOrder
+    walletUsageRate?: SortOrder
+    primaryChannel?: SortOrder
+    channelLoyaltyPct?: SortOrder
+    calculatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerMetricsMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    activityStatus?: SortOrder
+    daysSinceLastOrder?: SortOrder
+    daysSinceRegistration?: SortOrder
+    preferredDayOfWeek?: SortOrder
+    preferredTimeSlot?: SortOrder
+    ltv?: SortOrder
+    avgOrderValue?: SortOrder
+    orderFrequencyPerWeek?: SortOrder
+    spend30d?: SortOrder
+    totalOrders?: SortOrder
+    firstOrderAt?: SortOrder
+    lastOrderAt?: SortOrder
+    customerTier?: SortOrder
+    rfmR?: SortOrder
+    rfmF?: SortOrder
+    rfmM?: SortOrder
+    rfmSegment?: SortOrder
+    frequencyTrend?: SortOrder
+    spendTrend?: SortOrder
+    orders30d?: SortOrder
+    orders30dPrev?: SortOrder
+    spend30dPrev?: SortOrder
+    churnRiskScore?: SortOrder
+    winBackScore?: SortOrder
+    upsellScore?: SortOrder
+    orderConsistencyScore?: SortOrder
+    orderDiversityScore?: SortOrder
+    lunchRegularityPct?: SortOrder
+    avgLeadTimeHours?: SortOrder
+    couponUsageRate?: SortOrder
+    walletUsageRate?: SortOrder
+    primaryChannel?: SortOrder
+    channelLoyaltyPct?: SortOrder
+    calculatedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerMetricsSumOrderByAggregateInput = {
+    daysSinceLastOrder?: SortOrder
+    daysSinceRegistration?: SortOrder
+    preferredDayOfWeek?: SortOrder
+    ltv?: SortOrder
+    avgOrderValue?: SortOrder
+    orderFrequencyPerWeek?: SortOrder
+    spend30d?: SortOrder
+    totalOrders?: SortOrder
+    rfmR?: SortOrder
+    rfmF?: SortOrder
+    rfmM?: SortOrder
+    orders30d?: SortOrder
+    orders30dPrev?: SortOrder
+    spend30dPrev?: SortOrder
+    churnRiskScore?: SortOrder
+    winBackScore?: SortOrder
+    upsellScore?: SortOrder
+    orderConsistencyScore?: SortOrder
+    orderDiversityScore?: SortOrder
+    lunchRegularityPct?: SortOrder
+    avgLeadTimeHours?: SortOrder
+    couponUsageRate?: SortOrder
+    walletUsageRate?: SortOrder
+    channelLoyaltyPct?: SortOrder
+  }
+
+  export type EnumActivityStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityStatus | EnumActivityStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityStatusWithAggregatesFilter<$PrismaModel> | $Enums.ActivityStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumActivityStatusFilter<$PrismaModel>
+    _max?: NestedEnumActivityStatusFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumCustomerTierWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerTier | EnumCustomerTierFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerTierWithAggregatesFilter<$PrismaModel> | $Enums.CustomerTier
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomerTierFilter<$PrismaModel>
+    _max?: NestedEnumCustomerTierFilter<$PrismaModel>
+  }
+
+  export type EnumRfmSegmentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RfmSegment | EnumRfmSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumRfmSegmentWithAggregatesFilter<$PrismaModel> | $Enums.RfmSegment
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRfmSegmentFilter<$PrismaModel>
+    _max?: NestedEnumRfmSegmentFilter<$PrismaModel>
+  }
+
+  export type EnumTrendDirectionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TrendDirection | EnumTrendDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTrendDirectionWithAggregatesFilter<$PrismaModel> | $Enums.TrendDirection
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTrendDirectionFilter<$PrismaModel>
+    _max?: NestedEnumTrendDirectionFilter<$PrismaModel>
   }
 
   export type EnumCustomerIdentifierTypeFilter<$PrismaModel = never> = {
@@ -57054,17 +62366,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type AccountProviderProviderAccountIdCompoundUniqueInput = {
     provider: string
     providerAccountId: string
@@ -57121,22 +62422,6 @@ export namespace Prisma {
 
   export type AccountSumOrderByAggregateInput = {
     expires_at?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -59885,6 +65170,19 @@ export namespace Prisma {
     connect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
   }
 
+  export type CustomerPreferenceCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPreferenceCreateWithoutUserInput, CustomerPreferenceUncheckedCreateWithoutUserInput> | CustomerPreferenceCreateWithoutUserInput[] | CustomerPreferenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPreferenceCreateOrConnectWithoutUserInput | CustomerPreferenceCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPreferenceCreateManyUserInputEnvelope
+    connect?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+  }
+
+  export type CustomerMetricsCreateNestedOneWithoutUserInput = {
+    create?: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CustomerMetricsCreateOrConnectWithoutUserInput
+    connect?: CustomerMetricsWhereUniqueInput
+  }
+
   export type UserLocationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -59994,6 +65292,19 @@ export namespace Prisma {
     connectOrCreate?: CustomerIdentifierCreateOrConnectWithoutUserInput | CustomerIdentifierCreateOrConnectWithoutUserInput[]
     createMany?: CustomerIdentifierCreateManyUserInputEnvelope
     connect?: CustomerIdentifierWhereUniqueInput | CustomerIdentifierWhereUniqueInput[]
+  }
+
+  export type CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CustomerPreferenceCreateWithoutUserInput, CustomerPreferenceUncheckedCreateWithoutUserInput> | CustomerPreferenceCreateWithoutUserInput[] | CustomerPreferenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPreferenceCreateOrConnectWithoutUserInput | CustomerPreferenceCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerPreferenceCreateManyUserInputEnvelope
+    connect?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+  }
+
+  export type CustomerMetricsUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CustomerMetricsCreateOrConnectWithoutUserInput
+    connect?: CustomerMetricsWhereUniqueInput
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -60230,6 +65541,30 @@ export namespace Prisma {
     deleteMany?: CustomerIdentifierScalarWhereInput | CustomerIdentifierScalarWhereInput[]
   }
 
+  export type CustomerPreferenceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPreferenceCreateWithoutUserInput, CustomerPreferenceUncheckedCreateWithoutUserInput> | CustomerPreferenceCreateWithoutUserInput[] | CustomerPreferenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPreferenceCreateOrConnectWithoutUserInput | CustomerPreferenceCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPreferenceUpsertWithWhereUniqueWithoutUserInput | CustomerPreferenceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPreferenceCreateManyUserInputEnvelope
+    set?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    disconnect?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    delete?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    connect?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    update?: CustomerPreferenceUpdateWithWhereUniqueWithoutUserInput | CustomerPreferenceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPreferenceUpdateManyWithWhereWithoutUserInput | CustomerPreferenceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPreferenceScalarWhereInput | CustomerPreferenceScalarWhereInput[]
+  }
+
+  export type CustomerMetricsUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CustomerMetricsCreateOrConnectWithoutUserInput
+    upsert?: CustomerMetricsUpsertWithoutUserInput
+    disconnect?: CustomerMetricsWhereInput | boolean
+    delete?: CustomerMetricsWhereInput | boolean
+    connect?: CustomerMetricsWhereUniqueInput
+    update?: XOR<XOR<CustomerMetricsUpdateToOneWithWhereWithoutUserInput, CustomerMetricsUpdateWithoutUserInput>, CustomerMetricsUncheckedUpdateWithoutUserInput>
+  }
+
   export type UserLocationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -60450,6 +65785,94 @@ export namespace Prisma {
     deleteMany?: CustomerIdentifierScalarWhereInput | CustomerIdentifierScalarWhereInput[]
   }
 
+  export type CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CustomerPreferenceCreateWithoutUserInput, CustomerPreferenceUncheckedCreateWithoutUserInput> | CustomerPreferenceCreateWithoutUserInput[] | CustomerPreferenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CustomerPreferenceCreateOrConnectWithoutUserInput | CustomerPreferenceCreateOrConnectWithoutUserInput[]
+    upsert?: CustomerPreferenceUpsertWithWhereUniqueWithoutUserInput | CustomerPreferenceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerPreferenceCreateManyUserInputEnvelope
+    set?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    disconnect?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    delete?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    connect?: CustomerPreferenceWhereUniqueInput | CustomerPreferenceWhereUniqueInput[]
+    update?: CustomerPreferenceUpdateWithWhereUniqueWithoutUserInput | CustomerPreferenceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CustomerPreferenceUpdateManyWithWhereWithoutUserInput | CustomerPreferenceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CustomerPreferenceScalarWhereInput | CustomerPreferenceScalarWhereInput[]
+  }
+
+  export type CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CustomerMetricsCreateOrConnectWithoutUserInput
+    upsert?: CustomerMetricsUpsertWithoutUserInput
+    disconnect?: CustomerMetricsWhereInput | boolean
+    delete?: CustomerMetricsWhereInput | boolean
+    connect?: CustomerMetricsWhereUniqueInput
+    update?: XOR<XOR<CustomerMetricsUpdateToOneWithWhereWithoutUserInput, CustomerMetricsUpdateWithoutUserInput>, CustomerMetricsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCreateNestedOneWithoutPreferencesInput = {
+    create?: XOR<UserCreateWithoutPreferencesInput, UserUncheckedCreateWithoutPreferencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPreferencesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumPreferenceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PreferenceType
+  }
+
+  export type EnumPreferenceSourceFieldUpdateOperationsInput = {
+    set?: $Enums.PreferenceSource
+  }
+
+  export type UserUpdateOneRequiredWithoutPreferencesNestedInput = {
+    create?: XOR<UserCreateWithoutPreferencesInput, UserUncheckedCreateWithoutPreferencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPreferencesInput
+    upsert?: UserUpsertWithoutPreferencesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPreferencesInput, UserUpdateWithoutPreferencesInput>, UserUncheckedUpdateWithoutPreferencesInput>
+  }
+
+  export type EnumPreferenceActionFieldUpdateOperationsInput = {
+    set?: $Enums.PreferenceAction
+  }
+
+  export type UserCreateNestedOneWithoutMetricsInput = {
+    create?: XOR<UserCreateWithoutMetricsInput, UserUncheckedCreateWithoutMetricsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMetricsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumActivityStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ActivityStatus
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumCustomerTierFieldUpdateOperationsInput = {
+    set?: $Enums.CustomerTier
+  }
+
+  export type EnumRfmSegmentFieldUpdateOperationsInput = {
+    set?: $Enums.RfmSegment
+  }
+
+  export type EnumTrendDirectionFieldUpdateOperationsInput = {
+    set?: $Enums.TrendDirection
+  }
+
+  export type UserUpdateOneRequiredWithoutMetricsNestedInput = {
+    create?: XOR<UserCreateWithoutMetricsInput, UserUncheckedCreateWithoutMetricsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMetricsInput
+    upsert?: UserUpsertWithoutMetricsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMetricsInput, UserUpdateWithoutMetricsInput>, UserUncheckedUpdateWithoutMetricsInput>
+  }
+
   export type UserCreateNestedOneWithoutCustomerIdentifiersInput = {
     create?: XOR<UserCreateWithoutCustomerIdentifiersInput, UserUncheckedCreateWithoutCustomerIdentifiersInput>
     connectOrCreate?: UserCreateOrConnectWithoutCustomerIdentifiersInput
@@ -60580,14 +66003,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
@@ -62798,6 +68213,152 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type NestedEnumPreferenceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceType | EnumPreferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceTypeFilter<$PrismaModel> | $Enums.PreferenceType
+  }
+
+  export type NestedEnumPreferenceSourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceSource | EnumPreferenceSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceSourceFilter<$PrismaModel> | $Enums.PreferenceSource
+  }
+
+  export type NestedEnumPreferenceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceType | EnumPreferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceType[] | ListEnumPreferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceTypeWithAggregatesFilter<$PrismaModel> | $Enums.PreferenceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPreferenceTypeFilter<$PrismaModel>
+    _max?: NestedEnumPreferenceTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPreferenceSourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceSource | EnumPreferenceSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceSource[] | ListEnumPreferenceSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceSourceWithAggregatesFilter<$PrismaModel> | $Enums.PreferenceSource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPreferenceSourceFilter<$PrismaModel>
+    _max?: NestedEnumPreferenceSourceFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPreferenceActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceAction | EnumPreferenceActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceActionFilter<$PrismaModel> | $Enums.PreferenceAction
+  }
+
+  export type NestedEnumPreferenceActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PreferenceAction | EnumPreferenceActionFieldRefInput<$PrismaModel>
+    in?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PreferenceAction[] | ListEnumPreferenceActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumPreferenceActionWithAggregatesFilter<$PrismaModel> | $Enums.PreferenceAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPreferenceActionFilter<$PrismaModel>
+    _max?: NestedEnumPreferenceActionFilter<$PrismaModel>
+  }
+
+  export type NestedEnumActivityStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityStatus | EnumActivityStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityStatusFilter<$PrismaModel> | $Enums.ActivityStatus
+  }
+
+  export type NestedEnumCustomerTierFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerTier | EnumCustomerTierFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerTierFilter<$PrismaModel> | $Enums.CustomerTier
+  }
+
+  export type NestedEnumRfmSegmentFilter<$PrismaModel = never> = {
+    equals?: $Enums.RfmSegment | EnumRfmSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumRfmSegmentFilter<$PrismaModel> | $Enums.RfmSegment
+  }
+
+  export type NestedEnumTrendDirectionFilter<$PrismaModel = never> = {
+    equals?: $Enums.TrendDirection | EnumTrendDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTrendDirectionFilter<$PrismaModel> | $Enums.TrendDirection
+  }
+
+  export type NestedEnumActivityStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityStatus | EnumActivityStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityStatus[] | ListEnumActivityStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityStatusWithAggregatesFilter<$PrismaModel> | $Enums.ActivityStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumActivityStatusFilter<$PrismaModel>
+    _max?: NestedEnumActivityStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumCustomerTierWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomerTier | EnumCustomerTierFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CustomerTier[] | ListEnumCustomerTierFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomerTierWithAggregatesFilter<$PrismaModel> | $Enums.CustomerTier
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomerTierFilter<$PrismaModel>
+    _max?: NestedEnumCustomerTierFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRfmSegmentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RfmSegment | EnumRfmSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RfmSegment[] | ListEnumRfmSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumRfmSegmentWithAggregatesFilter<$PrismaModel> | $Enums.RfmSegment
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRfmSegmentFilter<$PrismaModel>
+    _max?: NestedEnumRfmSegmentFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTrendDirectionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TrendDirection | EnumTrendDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TrendDirection[] | ListEnumTrendDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTrendDirectionWithAggregatesFilter<$PrismaModel> | $Enums.TrendDirection
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTrendDirectionFilter<$PrismaModel>
+    _max?: NestedEnumTrendDirectionFilter<$PrismaModel>
+  }
+
   export type NestedEnumCustomerIdentifierTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.CustomerIdentifierType | EnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
     in?: $Enums.CustomerIdentifierType[] | ListEnumCustomerIdentifierTypeFieldRefInput<$PrismaModel>
@@ -62830,33 +68391,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumWalletTransactionTypeFilter<$PrismaModel>
     _max?: NestedEnumWalletTransactionTypeFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
@@ -63141,6 +68675,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -63172,6 +68708,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -64788,6 +70326,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyEmployeesInput = {
@@ -64819,6 +70359,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyEmployeesInput = {
@@ -64919,6 +70461,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyEmployeesInput = {
@@ -64950,6 +70494,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutLocationsInput = {
@@ -65924,6 +71470,125 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CustomerPreferenceCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.PreferenceType
+    key: string
+    value?: string | null
+    source: $Enums.PreferenceSource
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    ignored?: boolean
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
+  export type CustomerPreferenceUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.PreferenceType
+    key: string
+    value?: string | null
+    source: $Enums.PreferenceSource
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    ignored?: boolean
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
+  export type CustomerPreferenceCreateOrConnectWithoutUserInput = {
+    where: CustomerPreferenceWhereUniqueInput
+    create: XOR<CustomerPreferenceCreateWithoutUserInput, CustomerPreferenceUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPreferenceCreateManyUserInputEnvelope = {
+    data: CustomerPreferenceCreateManyUserInput | CustomerPreferenceCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerMetricsCreateWithoutUserInput = {
+    id?: string
+    organizationId: string
+    activityStatus: $Enums.ActivityStatus
+    daysSinceLastOrder?: number | null
+    daysSinceRegistration: number
+    preferredDayOfWeek?: number | null
+    preferredTimeSlot?: string | null
+    ltv: Decimal | DecimalJsLike | number | string
+    avgOrderValue: Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek: Decimal | DecimalJsLike | number | string
+    spend30d: Decimal | DecimalJsLike | number | string
+    totalOrders: number
+    firstOrderAt?: Date | string | null
+    lastOrderAt?: Date | string | null
+    customerTier: $Enums.CustomerTier
+    rfmR: number
+    rfmF: number
+    rfmM: number
+    rfmSegment: $Enums.RfmSegment
+    frequencyTrend: $Enums.TrendDirection
+    spendTrend: $Enums.TrendDirection
+    orders30d: number
+    orders30dPrev: number
+    spend30dPrev: Decimal | DecimalJsLike | number | string
+    churnRiskScore: number
+    winBackScore?: number | null
+    upsellScore: number
+    orderConsistencyScore?: number | null
+    orderDiversityScore: number
+    lunchRegularityPct?: Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: Decimal | DecimalJsLike | number | string | null
+    couponUsageRate: Decimal | DecimalJsLike | number | string
+    walletUsageRate: Decimal | DecimalJsLike | number | string
+    primaryChannel?: string | null
+    channelLoyaltyPct: Decimal | DecimalJsLike | number | string
+    calculatedAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerMetricsUncheckedCreateWithoutUserInput = {
+    id?: string
+    organizationId: string
+    activityStatus: $Enums.ActivityStatus
+    daysSinceLastOrder?: number | null
+    daysSinceRegistration: number
+    preferredDayOfWeek?: number | null
+    preferredTimeSlot?: string | null
+    ltv: Decimal | DecimalJsLike | number | string
+    avgOrderValue: Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek: Decimal | DecimalJsLike | number | string
+    spend30d: Decimal | DecimalJsLike | number | string
+    totalOrders: number
+    firstOrderAt?: Date | string | null
+    lastOrderAt?: Date | string | null
+    customerTier: $Enums.CustomerTier
+    rfmR: number
+    rfmF: number
+    rfmM: number
+    rfmSegment: $Enums.RfmSegment
+    frequencyTrend: $Enums.TrendDirection
+    spendTrend: $Enums.TrendDirection
+    orders30d: number
+    orders30dPrev: number
+    spend30dPrev: Decimal | DecimalJsLike | number | string
+    churnRiskScore: number
+    winBackScore?: number | null
+    upsellScore: number
+    orderConsistencyScore?: number | null
+    orderDiversityScore: number
+    lunchRegularityPct?: Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: Decimal | DecimalJsLike | number | string | null
+    couponUsageRate: Decimal | DecimalJsLike | number | string
+    walletUsageRate: Decimal | DecimalJsLike | number | string
+    primaryChannel?: string | null
+    channelLoyaltyPct: Decimal | DecimalJsLike | number | string
+    calculatedAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerMetricsCreateOrConnectWithoutUserInput = {
+    where: CustomerMetricsWhereUniqueInput
+    create: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
+  }
+
   export type OrganizationUpsertWithoutUsersInput = {
     update: XOR<OrganizationUpdateWithoutUsersInput, OrganizationUncheckedUpdateWithoutUsersInput>
     create: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
@@ -66371,6 +72036,425 @@ export namespace Prisma {
     removedAt?: DateTimeNullableFilter<"CustomerIdentifier"> | Date | string | null
   }
 
+  export type CustomerPreferenceUpsertWithWhereUniqueWithoutUserInput = {
+    where: CustomerPreferenceWhereUniqueInput
+    update: XOR<CustomerPreferenceUpdateWithoutUserInput, CustomerPreferenceUncheckedUpdateWithoutUserInput>
+    create: XOR<CustomerPreferenceCreateWithoutUserInput, CustomerPreferenceUncheckedCreateWithoutUserInput>
+  }
+
+  export type CustomerPreferenceUpdateWithWhereUniqueWithoutUserInput = {
+    where: CustomerPreferenceWhereUniqueInput
+    data: XOR<CustomerPreferenceUpdateWithoutUserInput, CustomerPreferenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CustomerPreferenceUpdateManyWithWhereWithoutUserInput = {
+    where: CustomerPreferenceScalarWhereInput
+    data: XOR<CustomerPreferenceUpdateManyMutationInput, CustomerPreferenceUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CustomerPreferenceScalarWhereInput = {
+    AND?: CustomerPreferenceScalarWhereInput | CustomerPreferenceScalarWhereInput[]
+    OR?: CustomerPreferenceScalarWhereInput[]
+    NOT?: CustomerPreferenceScalarWhereInput | CustomerPreferenceScalarWhereInput[]
+    id?: StringFilter<"CustomerPreference"> | string
+    userId?: StringFilter<"CustomerPreference"> | string
+    type?: EnumPreferenceTypeFilter<"CustomerPreference"> | $Enums.PreferenceType
+    key?: StringFilter<"CustomerPreference"> | string
+    value?: StringNullableFilter<"CustomerPreference"> | string | null
+    source?: EnumPreferenceSourceFilter<"CustomerPreference"> | $Enums.PreferenceSource
+    confidence?: DecimalNullableFilter<"CustomerPreference"> | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFilter<"CustomerPreference"> | boolean
+    updatedAt?: DateTimeFilter<"CustomerPreference"> | Date | string
+    updatedById?: StringNullableFilter<"CustomerPreference"> | string | null
+  }
+
+  export type CustomerMetricsUpsertWithoutUserInput = {
+    update: XOR<CustomerMetricsUpdateWithoutUserInput, CustomerMetricsUncheckedUpdateWithoutUserInput>
+    create: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
+    where?: CustomerMetricsWhereInput
+  }
+
+  export type CustomerMetricsUpdateToOneWithWhereWithoutUserInput = {
+    where?: CustomerMetricsWhereInput
+    data: XOR<CustomerMetricsUpdateWithoutUserInput, CustomerMetricsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CustomerMetricsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    activityStatus?: EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+    daysSinceLastOrder?: NullableIntFieldUpdateOperationsInput | number | null
+    daysSinceRegistration?: IntFieldUpdateOperationsInput | number
+    preferredDayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    preferredTimeSlot?: NullableStringFieldUpdateOperationsInput | string | null
+    ltv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFieldUpdateOperationsInput | number
+    firstOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customerTier?: EnumCustomerTierFieldUpdateOperationsInput | $Enums.CustomerTier
+    rfmR?: IntFieldUpdateOperationsInput | number
+    rfmF?: IntFieldUpdateOperationsInput | number
+    rfmM?: IntFieldUpdateOperationsInput | number
+    rfmSegment?: EnumRfmSegmentFieldUpdateOperationsInput | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    orders30d?: IntFieldUpdateOperationsInput | number
+    orders30dPrev?: IntFieldUpdateOperationsInput | number
+    spend30dPrev?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFieldUpdateOperationsInput | number
+    winBackScore?: NullableIntFieldUpdateOperationsInput | number | null
+    upsellScore?: IntFieldUpdateOperationsInput | number
+    orderConsistencyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    orderDiversityScore?: IntFieldUpdateOperationsInput | number
+    lunchRegularityPct?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    primaryChannel?: NullableStringFieldUpdateOperationsInput | string | null
+    channelLoyaltyPct?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerMetricsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    activityStatus?: EnumActivityStatusFieldUpdateOperationsInput | $Enums.ActivityStatus
+    daysSinceLastOrder?: NullableIntFieldUpdateOperationsInput | number | null
+    daysSinceRegistration?: IntFieldUpdateOperationsInput | number
+    preferredDayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    preferredTimeSlot?: NullableStringFieldUpdateOperationsInput | string | null
+    ltv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    avgOrderValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    orderFrequencyPerWeek?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    spend30d?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalOrders?: IntFieldUpdateOperationsInput | number
+    firstOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastOrderAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customerTier?: EnumCustomerTierFieldUpdateOperationsInput | $Enums.CustomerTier
+    rfmR?: IntFieldUpdateOperationsInput | number
+    rfmF?: IntFieldUpdateOperationsInput | number
+    rfmM?: IntFieldUpdateOperationsInput | number
+    rfmSegment?: EnumRfmSegmentFieldUpdateOperationsInput | $Enums.RfmSegment
+    frequencyTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    spendTrend?: EnumTrendDirectionFieldUpdateOperationsInput | $Enums.TrendDirection
+    orders30d?: IntFieldUpdateOperationsInput | number
+    orders30dPrev?: IntFieldUpdateOperationsInput | number
+    spend30dPrev?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    churnRiskScore?: IntFieldUpdateOperationsInput | number
+    winBackScore?: NullableIntFieldUpdateOperationsInput | number | null
+    upsellScore?: IntFieldUpdateOperationsInput | number
+    orderConsistencyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    orderDiversityScore?: IntFieldUpdateOperationsInput | number
+    lunchRegularityPct?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    avgLeadTimeHours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    couponUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    walletUsageRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    primaryChannel?: NullableStringFieldUpdateOperationsInput | string | null
+    channelLoyaltyPct?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutPreferencesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPreferencesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPreferencesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPreferencesInput, UserUncheckedCreateWithoutPreferencesInput>
+  }
+
+  export type UserUpsertWithoutPreferencesInput = {
+    update: XOR<UserUpdateWithoutPreferencesInput, UserUncheckedUpdateWithoutPreferencesInput>
+    create: XOR<UserCreateWithoutPreferencesInput, UserUncheckedCreateWithoutPreferencesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPreferencesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPreferencesInput, UserUncheckedUpdateWithoutPreferencesInput>
+  }
+
+  export type UserUpdateWithoutPreferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPreferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutMetricsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMetricsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMetricsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMetricsInput, UserUncheckedCreateWithoutMetricsInput>
+  }
+
+  export type UserUpsertWithoutMetricsInput = {
+    update: XOR<UserUpdateWithoutMetricsInput, UserUncheckedUpdateWithoutMetricsInput>
+    create: XOR<UserCreateWithoutMetricsInput, UserUncheckedCreateWithoutMetricsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMetricsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMetricsInput, UserUncheckedUpdateWithoutMetricsInput>
+  }
+
+  export type UserUpdateWithoutMetricsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMetricsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutCustomerIdentifiersInput = {
     id?: string
     email: string
@@ -66400,6 +72484,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomerIdentifiersInput = {
@@ -66431,6 +72517,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomerIdentifiersInput = {
@@ -66478,6 +72566,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomerIdentifiersInput = {
@@ -66509,6 +72599,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWalletInput = {
@@ -66540,6 +72632,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -66571,6 +72665,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -66618,6 +72714,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -66649,6 +72747,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWalletTransactionsInput = {
@@ -66680,6 +72780,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletTransactionsInput = {
@@ -66711,6 +72813,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletTransactionsInput = {
@@ -66804,6 +72908,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedWalletActionsInput = {
@@ -66835,6 +72941,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedWalletActionsInput = {
@@ -66911,6 +73019,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
@@ -66942,6 +73052,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutWalletTransactionsInput = {
@@ -67047,6 +73159,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedWalletActionsInput = {
@@ -67078,6 +73192,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type IncentiveGrantUpsertWithoutWalletTransactionInput = {
@@ -67144,6 +73260,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLocationsInput = {
@@ -67175,6 +73293,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLocationsInput = {
@@ -67261,6 +73381,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLocationsInput = {
@@ -67292,6 +73414,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutUsersInput = {
@@ -67368,6 +73492,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -67399,6 +73525,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -67446,6 +73574,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -67477,6 +73607,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -67508,6 +73640,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -67539,6 +73673,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -67586,6 +73722,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -67617,6 +73755,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type LocationCreateWithoutMenusInput = {
@@ -68584,6 +74724,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -68615,6 +74757,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -68844,6 +74988,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -68875,6 +75021,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutOrdersInput = {
@@ -69495,6 +75643,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCouponRedemptionsInput = {
@@ -69526,6 +75676,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCouponRedemptionsInput = {
@@ -69687,6 +75839,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCouponRedemptionsInput = {
@@ -69718,6 +75872,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutCouponRedemptionsInput = {
@@ -72207,6 +78363,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushNotificationLogsInput = {
@@ -72238,6 +78396,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushNotificationLogsInput = {
@@ -72330,6 +78490,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushNotificationLogsInput = {
@@ -72361,6 +78523,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPushSubscriptionsInput = {
@@ -72392,6 +78556,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -72423,6 +78589,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -72470,6 +78638,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -72501,6 +78671,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutPaymentConfigsInput = {
@@ -72583,6 +78755,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentConfigChangesInput = {
@@ -72614,6 +78788,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentConfigChangesInput = {
@@ -72718,6 +78894,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentConfigChangesInput = {
@@ -72749,6 +78927,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type SegmentIncentiveCreateWithoutGrantsInput = {
@@ -72821,6 +79001,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIncentiveGrantsInput = {
@@ -72852,6 +79034,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIncentiveGrantsInput = {
@@ -73032,6 +79216,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncentiveGrantsInput = {
@@ -73063,6 +79249,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type CouponUpsertWithoutIncentiveGrantsInput = {
@@ -73323,6 +79511,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignsCreatedInput = {
@@ -73354,6 +79544,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignsCreatedInput = {
@@ -73586,6 +79778,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignsCreatedInput = {
@@ -73617,6 +79811,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type EmailCampaignLogUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -73709,6 +79905,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignLogsInput = {
@@ -73740,6 +79938,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignLogsInput = {
@@ -73838,6 +80038,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignLogsInput = {
@@ -73869,6 +80071,8 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type LocationCreateManyOrganizationInput = {
@@ -74093,6 +80297,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -74124,6 +80330,8 @@ export namespace Prisma {
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -75263,6 +81471,18 @@ export namespace Prisma {
     removedAt?: Date | string | null
   }
 
+  export type CustomerPreferenceCreateManyUserInput = {
+    id?: string
+    type: $Enums.PreferenceType
+    key: string
+    value?: string | null
+    source: $Enums.PreferenceSource
+    confidence?: Decimal | DecimalJsLike | number | string | null
+    ignored?: boolean
+    updatedAt?: Date | string
+    updatedById?: string | null
+  }
+
   export type UserLocationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -75793,6 +82013,42 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerPreferenceUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumPreferenceTypeFieldUpdateOperationsInput | $Enums.PreferenceType
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumPreferenceSourceFieldUpdateOperationsInput | $Enums.PreferenceSource
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerPreferenceUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumPreferenceTypeFieldUpdateOperationsInput | $Enums.PreferenceType
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumPreferenceSourceFieldUpdateOperationsInput | $Enums.PreferenceSource
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerPreferenceUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumPreferenceTypeFieldUpdateOperationsInput | $Enums.PreferenceType
+    key?: StringFieldUpdateOperationsInput | string
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumPreferenceSourceFieldUpdateOperationsInput | $Enums.PreferenceSource
+    confidence?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ignored?: BoolFieldUpdateOperationsInput | boolean
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MenuItemCreateManyMenuInput = {
@@ -77330,6 +83586,18 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CustomerPreferenceDefaultArgs instead
+     */
+    export type CustomerPreferenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerPreferenceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PreferenceAuditLogDefaultArgs instead
+     */
+    export type PreferenceAuditLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PreferenceAuditLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CustomerMetricsDefaultArgs instead
+     */
+    export type CustomerMetricsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerMetricsDefaultArgs<ExtArgs>
     /**
      * @deprecated Use CustomerIdentifierDefaultArgs instead
      */

@@ -47,6 +47,7 @@ export async function GET(
     const { searchParams } = new URL(request.url)
     const countOnly = searchParams.get('countOnly') === 'true'
     const showRuleMatch = searchParams.get('showRuleMatch') === 'true'
+    const includeMetrics = searchParams.get('includeMetrics') === 'true'
     const limitParam = searchParams.get('limit')
     const limit = limitParam ? Math.min(Math.max(0, parseInt(limitParam, 10)), 2000) : 500
 
@@ -78,14 +79,39 @@ export async function GET(
           select: { id: true, email: true, name: true },
         })
       }
+
+      // Optional: CustomerMetrics für Profil-konsistente Vorschau laden
+      let metricsMap = new Map<string, { activityStatus: string; customerTier: string; ltv: number }>()
+      if (includeMetrics && userIds.length > 0) {
+        const metricsRows = await prisma.customerMetrics.findMany({
+          where: { userId: { in: userIds } },
+          select: { userId: true, activityStatus: true, customerTier: true, ltv: true },
+        })
+        for (const m of metricsRows) {
+          metricsMap.set(m.userId, {
+            activityStatus: String(m.activityStatus),
+            customerTier: String(m.customerTier),
+            ltv: typeof m.ltv === 'object' && 'toNumber' in (m.ltv as object)
+              ? (m.ltv as { toNumber(): number }).toNumber()
+              : Number(m.ltv),
+          })
+        }
+      }
+
       const usersWithRules = withRules.map((w) => {
         const u = users.find((x) => x.id === w.userId)
+        const m = includeMetrics ? (metricsMap.get(w.userId) ?? null) : undefined
         return {
           id: w.userId,
           email: u?.email ?? null,
           name: u?.name ?? null,
           matchedRuleIndices: w.matchedRuleIndices,
           matchedRuleLabels: w.matchedRuleIndices.map((i) => ruleLabels[i]),
+          ...(includeMetrics && {
+            activityStatus: m?.activityStatus ?? null,
+            customerTier: m?.customerTier ?? null,
+            ltv: m?.ltv ?? null,
+          }),
         }
       })
       return NextResponse.json({

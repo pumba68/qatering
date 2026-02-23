@@ -14,8 +14,8 @@ const updateSegmentSchema = z.object({
     .array(
       z.object({
         attribute: z.string(),
-        operator: z.enum(['eq', 'ne', 'gt', 'gte', 'lt', 'lte', 'in']),
-        value: z.union([z.string(), z.number(), z.array(z.string()), z.array(z.number())]),
+        operator: z.enum(['eq', 'ne', 'gt', 'gte', 'lt', 'lte', 'in', 'not_in', 'has_set', 'has_not_set']),
+        value: z.union([z.string(), z.number(), z.array(z.string()), z.array(z.number()), z.null()]).optional().default(''),
       })
     )
     .optional(),

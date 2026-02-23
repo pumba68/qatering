@@ -236,6 +236,72 @@ exports.Prisma.UserScalarFieldEnum = {
   mergedIntoId: 'mergedIntoId'
 };
 
+exports.Prisma.CustomerPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  key: 'key',
+  value: 'value',
+  source: 'source',
+  confidence: 'confidence',
+  ignored: 'ignored',
+  updatedAt: 'updatedAt',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.PreferenceAuditLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  key: 'key',
+  value: 'value',
+  confidence: 'confidence',
+  changedById: 'changedById',
+  changedByName: 'changedByName',
+  changedAt: 'changedAt'
+};
+
+exports.Prisma.CustomerMetricsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  activityStatus: 'activityStatus',
+  daysSinceLastOrder: 'daysSinceLastOrder',
+  daysSinceRegistration: 'daysSinceRegistration',
+  preferredDayOfWeek: 'preferredDayOfWeek',
+  preferredTimeSlot: 'preferredTimeSlot',
+  ltv: 'ltv',
+  avgOrderValue: 'avgOrderValue',
+  orderFrequencyPerWeek: 'orderFrequencyPerWeek',
+  spend30d: 'spend30d',
+  totalOrders: 'totalOrders',
+  firstOrderAt: 'firstOrderAt',
+  lastOrderAt: 'lastOrderAt',
+  customerTier: 'customerTier',
+  rfmR: 'rfmR',
+  rfmF: 'rfmF',
+  rfmM: 'rfmM',
+  rfmSegment: 'rfmSegment',
+  frequencyTrend: 'frequencyTrend',
+  spendTrend: 'spendTrend',
+  orders30d: 'orders30d',
+  orders30dPrev: 'orders30dPrev',
+  spend30dPrev: 'spend30dPrev',
+  churnRiskScore: 'churnRiskScore',
+  winBackScore: 'winBackScore',
+  upsellScore: 'upsellScore',
+  orderConsistencyScore: 'orderConsistencyScore',
+  orderDiversityScore: 'orderDiversityScore',
+  lunchRegularityPct: 'lunchRegularityPct',
+  avgLeadTimeHours: 'avgLeadTimeHours',
+  couponUsageRate: 'couponUsageRate',
+  walletUsageRate: 'walletUsageRate',
+  primaryChannel: 'primaryChannel',
+  channelLoyaltyPct: 'channelLoyaltyPct',
+  calculatedAt: 'calculatedAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CustomerIdentifierScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -674,6 +740,57 @@ exports.UserRole = exports.$Enums.UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN'
 };
 
+exports.PreferenceType = exports.$Enums.PreferenceType = {
+  EXPLICIT: 'EXPLICIT',
+  IMPLICIT: 'IMPLICIT'
+};
+
+exports.PreferenceSource = exports.$Enums.PreferenceSource = {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  SYSTEM: 'SYSTEM',
+  DERIVED: 'DERIVED'
+};
+
+exports.PreferenceAction = exports.$Enums.PreferenceAction = {
+  ADDED: 'ADDED',
+  REMOVED: 'REMOVED',
+  CONFIRMED: 'CONFIRMED'
+};
+
+exports.ActivityStatus = exports.$Enums.ActivityStatus = {
+  NEU: 'NEU',
+  AKTIV: 'AKTIV',
+  GELEGENTLICH: 'GELEGENTLICH',
+  SCHLAFEND: 'SCHLAFEND',
+  ABGEWANDERT: 'ABGEWANDERT'
+};
+
+exports.CustomerTier = exports.$Enums.CustomerTier = {
+  STANDARD: 'STANDARD',
+  BRONZE: 'BRONZE',
+  SILBER: 'SILBER',
+  GOLD: 'GOLD',
+  PLATIN: 'PLATIN'
+};
+
+exports.RfmSegment = exports.$Enums.RfmSegment = {
+  NEW_CUSTOMER: 'NEW_CUSTOMER',
+  CHAMPION: 'CHAMPION',
+  LOYAL: 'LOYAL',
+  POTENTIAL: 'POTENTIAL',
+  NEEDS_ATTENTION: 'NEEDS_ATTENTION',
+  AT_RISK: 'AT_RISK',
+  CANT_LOSE: 'CANT_LOSE',
+  HIBERNATING: 'HIBERNATING'
+};
+
+exports.TrendDirection = exports.$Enums.TrendDirection = {
+  WACHSEND: 'WACHSEND',
+  STABIL: 'STABIL',
+  RUECKLAEUFIG: 'RUECKLAEUFIG'
+};
+
 exports.CustomerIdentifierType = exports.$Enums.CustomerIdentifierType = {
   APP_ID: 'APP_ID',
   EMPLOYEE_ID: 'EMPLOYEE_ID',
@@ -780,6 +897,9 @@ exports.Prisma.ModelName = {
   CompanyEmployee: 'CompanyEmployee',
   Location: 'Location',
   User: 'User',
+  CustomerPreference: 'CustomerPreference',
+  PreferenceAuditLog: 'PreferenceAuditLog',
+  CustomerMetrics: 'CustomerMetrics',
   CustomerIdentifier: 'CustomerIdentifier',
   Wallet: 'Wallet',
   WalletTransaction: 'WalletTransaction',

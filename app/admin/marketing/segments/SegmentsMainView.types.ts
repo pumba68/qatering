@@ -14,6 +14,9 @@ export type UserWithRules = {
   email: string | null
   name: string | null
   matchedRuleLabels: string[]
+  activityStatus?: string | null
+  customerTier?: string | null
+  ltv?: number | null
 }
 
 export interface SegmentsMainViewProps {
