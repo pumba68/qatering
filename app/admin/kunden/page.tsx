@@ -983,7 +983,7 @@ function MerkmaleTab({ userId }: { userId: string }) {
         </div>
         <div>
           <p className="text-sm font-medium text-foreground">Noch keine Merkmale berechnet</p>
-          <p className="text-xs text-muted-foreground mt-1">Klicke auf „Neu berechnen" um die Merkmale zu erstellen.</p>
+          <p className="text-xs text-muted-foreground mt-1">Klicke auf &bdquo;Neu berechnen&ldquo; um die Merkmale zu erstellen.</p>
         </div>
         <Button size="sm" onClick={handleRecalculate} disabled={recalculating}>
           <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${recalculating ? 'animate-spin' : ''}`} />
@@ -1660,7 +1660,7 @@ function PraeferenzenTab({ userId }: { userId: string }) {
                         {auditActionLabel(entry.action)}
                       </span>
                       <span className="text-foreground">{prefKeyLabel(entry.key)}</span>
-                      {entry.value && <span className="text-muted-foreground">„{entry.value}"</span>}
+                      {entry.value && <span className="text-muted-foreground">&bdquo;{entry.value}&ldquo;</span>}
                       {entry.confidence != null && (
                         <span className="text-muted-foreground">({Math.round(entry.confidence * 100)} % Konfidenz)</span>
                       )}

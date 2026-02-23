@@ -58,21 +58,25 @@ export async function GET(
     const locationId = searchParams.get('locationId') ?? ''
 
     // Basis-Where: immer nach userId filtern
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const where: any = { userId }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const where: Record<string, unknown> = { userId }
 
     if (statusParam && VALID_STATUSES.includes(statusParam as typeof VALID_STATUSES[number])) {
       where.status = statusParam
     }
 
+    const createdAtFilter: Record<string, Date> = {}
     if (dateFrom) {
-      where.createdAt = { ...where.createdAt, gte: new Date(dateFrom) }
+      createdAtFilter.gte = new Date(dateFrom)
     }
     if (dateTo) {
       // dateTo inklusiv: bis Ende des Tages
       const to = new Date(dateTo)
       to.setHours(23, 59, 59, 999)
-      where.createdAt = { ...where.createdAt, lte: to }
+      createdAtFilter.lte = to
+    }
+    if (Object.keys(createdAtFilter).length > 0) {
+      where.createdAt = createdAtFilter
     }
 
     if (search.trim()) {
