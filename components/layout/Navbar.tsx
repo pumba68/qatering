@@ -5,7 +5,7 @@ import { useSession, signOut } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { WalletWidget } from '@/components/wallet/WalletWidget'
-import { BookOpen, LayoutDashboard, LogOut, UtensilsCrossed } from 'lucide-react'
+import { BookOpen, LayoutDashboard, LogOut, UtensilsCrossed, UserCircle } from 'lucide-react'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
@@ -96,6 +96,16 @@ export default function Navbar() {
                       {session.user?.email}
                     </span>
                   </div>
+                  {(session.user as any)?.role === 'CUSTOMER' && (
+                    <Link
+                      href="/profil"
+                      className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors"
+                      aria-label="Mein Profil"
+                    >
+                      <UserCircle className="w-4 h-4" />
+                      <span className="hidden lg:inline">Profil</span>
+                    </Link>
+                  )}
                   <button
                     onClick={() => signOut({ callbackUrl: '/' })}
                     className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors"
@@ -106,6 +116,15 @@ export default function Navbar() {
                   </button>
                 </div>
                 <div className="flex md:hidden items-center gap-1">
+                  {(session.user as any)?.role === 'CUSTOMER' && (
+                    <Link
+                      href="/profil"
+                      className="p-2 rounded-xl text-muted-foreground hover:bg-muted"
+                      aria-label="Mein Profil"
+                    >
+                      <UserCircle className="w-5 h-5" />
+                    </Link>
+                  )}
                   <button
                     onClick={() => signOut({ callbackUrl: '/' })}
                     className="p-2 rounded-xl text-muted-foreground hover:bg-muted"

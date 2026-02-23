@@ -371,6 +371,15 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.EmailChangeTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  newEmail: 'newEmail',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.MenuScalarFieldEnum = {
   id: 'id',
   locationId: 'locationId',
@@ -907,6 +916,7 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
+  EmailChangeToken: 'EmailChangeToken',
   Menu: 'Menu',
   PromotionBanner: 'PromotionBanner',
   MenuPromotionBanner: 'MenuPromotionBanner',

@@ -109,6 +109,11 @@ export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
  */
 export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTokenPayload>
 /**
+ * Model EmailChangeToken
+ * 
+ */
+export type EmailChangeToken = $Result.DefaultSelection<Prisma.$EmailChangeTokenPayload>
+/**
  * Model Menu
  * 
  */
@@ -862,6 +867,16 @@ export class PrismaClient<
   get verificationToken(): Prisma.VerificationTokenDelegate<ExtArgs>;
 
   /**
+   * `prisma.emailChangeToken`: Exposes CRUD operations for the **EmailChangeToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmailChangeTokens
+    * const emailChangeTokens = await prisma.emailChangeToken.findMany()
+    * ```
+    */
+  get emailChangeToken(): Prisma.EmailChangeTokenDelegate<ExtArgs>;
+
+  /**
    * `prisma.menu`: Exposes CRUD operations for the **Menu** model.
     * Example usage:
     * ```ts
@@ -1560,6 +1575,7 @@ export namespace Prisma {
     Account: 'Account',
     Session: 'Session',
     VerificationToken: 'VerificationToken',
+    EmailChangeToken: 'EmailChangeToken',
     Menu: 'Menu',
     PromotionBanner: 'PromotionBanner',
     MenuPromotionBanner: 'MenuPromotionBanner',
@@ -1599,7 +1615,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
+      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "emailChangeToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2930,6 +2946,76 @@ export namespace Prisma {
           count: {
             args: Prisma.VerificationTokenCountArgs<ExtArgs>
             result: $Utils.Optional<VerificationTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmailChangeToken: {
+        payload: Prisma.$EmailChangeTokenPayload<ExtArgs>
+        fields: Prisma.EmailChangeTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmailChangeTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmailChangeTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.EmailChangeTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmailChangeTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>
+          }
+          findMany: {
+            args: Prisma.EmailChangeTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>[]
+          }
+          create: {
+            args: Prisma.EmailChangeTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>
+          }
+          createMany: {
+            args: Prisma.EmailChangeTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmailChangeTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.EmailChangeTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>
+          }
+          update: {
+            args: Prisma.EmailChangeTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmailChangeTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmailChangeTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.EmailChangeTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailChangeTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.EmailChangeTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmailChangeToken>
+          }
+          groupBy: {
+            args: Prisma.EmailChangeTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmailChangeTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmailChangeTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<EmailChangeTokenCountAggregateOutputType> | number
           }
         }
       }
@@ -5089,6 +5175,7 @@ export namespace Prisma {
     emailCampaignLogs: number
     customerIdentifiers: number
     preferences: number
+    emailChangeTokens: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5108,6 +5195,7 @@ export namespace Prisma {
     emailCampaignLogs?: boolean | UserCountOutputTypeCountEmailCampaignLogsArgs
     customerIdentifiers?: boolean | UserCountOutputTypeCountCustomerIdentifiersArgs
     preferences?: boolean | UserCountOutputTypeCountPreferencesArgs
+    emailChangeTokens?: boolean | UserCountOutputTypeCountEmailChangeTokensArgs
   }
 
   // Custom InputTypes
@@ -5231,6 +5319,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPreferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerPreferenceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountEmailChangeTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmailChangeTokenWhereInput
   }
 
 
@@ -14564,6 +14659,7 @@ export namespace Prisma {
     customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     metrics?: boolean | User$metricsArgs<ExtArgs>
+    emailChangeTokens?: boolean | User$emailChangeTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -14620,6 +14716,7 @@ export namespace Prisma {
     customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     metrics?: boolean | User$metricsArgs<ExtArgs>
+    emailChangeTokens?: boolean | User$emailChangeTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14648,6 +14745,7 @@ export namespace Prisma {
       customerIdentifiers: Prisma.$CustomerIdentifierPayload<ExtArgs>[]
       preferences: Prisma.$CustomerPreferencePayload<ExtArgs>[]
       metrics: Prisma.$CustomerMetricsPayload<ExtArgs> | null
+      emailChangeTokens: Prisma.$EmailChangeTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15046,6 +15144,7 @@ export namespace Prisma {
     customerIdentifiers<T extends User$customerIdentifiersArgs<ExtArgs> = {}>(args?: Subset<T, User$customerIdentifiersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findMany"> | Null>
     preferences<T extends User$preferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$preferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findMany"> | Null>
     metrics<T extends User$metricsArgs<ExtArgs> = {}>(args?: Subset<T, User$metricsArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    emailChangeTokens<T extends User$emailChangeTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$emailChangeTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15768,6 +15867,26 @@ export namespace Prisma {
      */
     include?: CustomerMetricsInclude<ExtArgs> | null
     where?: CustomerMetricsWhereInput
+  }
+
+  /**
+   * User.emailChangeTokens
+   */
+  export type User$emailChangeTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    where?: EmailChangeTokenWhereInput
+    orderBy?: EmailChangeTokenOrderByWithRelationInput | EmailChangeTokenOrderByWithRelationInput[]
+    cursor?: EmailChangeTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmailChangeTokenScalarFieldEnum | EmailChangeTokenScalarFieldEnum[]
   }
 
   /**
@@ -26035,6 +26154,951 @@ export namespace Prisma {
      * Select specific fields to fetch from the VerificationToken
      */
     select?: VerificationTokenSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EmailChangeToken
+   */
+
+  export type AggregateEmailChangeToken = {
+    _count: EmailChangeTokenCountAggregateOutputType | null
+    _min: EmailChangeTokenMinAggregateOutputType | null
+    _max: EmailChangeTokenMaxAggregateOutputType | null
+  }
+
+  export type EmailChangeTokenMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    newEmail: string | null
+    token: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type EmailChangeTokenMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    newEmail: string | null
+    token: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type EmailChangeTokenCountAggregateOutputType = {
+    id: number
+    userId: number
+    newEmail: number
+    token: number
+    expiresAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type EmailChangeTokenMinAggregateInputType = {
+    id?: true
+    userId?: true
+    newEmail?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type EmailChangeTokenMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    newEmail?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type EmailChangeTokenCountAggregateInputType = {
+    id?: true
+    userId?: true
+    newEmail?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type EmailChangeTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmailChangeToken to aggregate.
+     */
+    where?: EmailChangeTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailChangeTokens to fetch.
+     */
+    orderBy?: EmailChangeTokenOrderByWithRelationInput | EmailChangeTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmailChangeTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailChangeTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailChangeTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmailChangeTokens
+    **/
+    _count?: true | EmailChangeTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmailChangeTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmailChangeTokenMaxAggregateInputType
+  }
+
+  export type GetEmailChangeTokenAggregateType<T extends EmailChangeTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmailChangeToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmailChangeToken[P]>
+      : GetScalarType<T[P], AggregateEmailChangeToken[P]>
+  }
+
+
+
+
+  export type EmailChangeTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmailChangeTokenWhereInput
+    orderBy?: EmailChangeTokenOrderByWithAggregationInput | EmailChangeTokenOrderByWithAggregationInput[]
+    by: EmailChangeTokenScalarFieldEnum[] | EmailChangeTokenScalarFieldEnum
+    having?: EmailChangeTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmailChangeTokenCountAggregateInputType | true
+    _min?: EmailChangeTokenMinAggregateInputType
+    _max?: EmailChangeTokenMaxAggregateInputType
+  }
+
+  export type EmailChangeTokenGroupByOutputType = {
+    id: string
+    userId: string
+    newEmail: string
+    token: string
+    expiresAt: Date
+    createdAt: Date
+    _count: EmailChangeTokenCountAggregateOutputType | null
+    _min: EmailChangeTokenMinAggregateOutputType | null
+    _max: EmailChangeTokenMaxAggregateOutputType | null
+  }
+
+  type GetEmailChangeTokenGroupByPayload<T extends EmailChangeTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmailChangeTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmailChangeTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmailChangeTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], EmailChangeTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmailChangeTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    newEmail?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailChangeToken"]>
+
+  export type EmailChangeTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    newEmail?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailChangeToken"]>
+
+  export type EmailChangeTokenSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    newEmail?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type EmailChangeTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type EmailChangeTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $EmailChangeTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmailChangeToken"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      newEmail: string
+      token: string
+      expiresAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["emailChangeToken"]>
+    composites: {}
+  }
+
+  type EmailChangeTokenGetPayload<S extends boolean | null | undefined | EmailChangeTokenDefaultArgs> = $Result.GetResult<Prisma.$EmailChangeTokenPayload, S>
+
+  type EmailChangeTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<EmailChangeTokenFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: EmailChangeTokenCountAggregateInputType | true
+    }
+
+  export interface EmailChangeTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmailChangeToken'], meta: { name: 'EmailChangeToken' } }
+    /**
+     * Find zero or one EmailChangeToken that matches the filter.
+     * @param {EmailChangeTokenFindUniqueArgs} args - Arguments to find a EmailChangeToken
+     * @example
+     * // Get one EmailChangeToken
+     * const emailChangeToken = await prisma.emailChangeToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmailChangeTokenFindUniqueArgs>(args: SelectSubset<T, EmailChangeTokenFindUniqueArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one EmailChangeToken that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {EmailChangeTokenFindUniqueOrThrowArgs} args - Arguments to find a EmailChangeToken
+     * @example
+     * // Get one EmailChangeToken
+     * const emailChangeToken = await prisma.emailChangeToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmailChangeTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, EmailChangeTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first EmailChangeToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailChangeTokenFindFirstArgs} args - Arguments to find a EmailChangeToken
+     * @example
+     * // Get one EmailChangeToken
+     * const emailChangeToken = await prisma.emailChangeToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmailChangeTokenFindFirstArgs>(args?: SelectSubset<T, EmailChangeTokenFindFirstArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first EmailChangeToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailChangeTokenFindFirstOrThrowArgs} args - Arguments to find a EmailChangeToken
+     * @example
+     * // Get one EmailChangeToken
+     * const emailChangeToken = await prisma.emailChangeToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmailChangeTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, EmailChangeTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more EmailChangeTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailChangeTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmailChangeTokens
+     * const emailChangeTokens = await prisma.emailChangeToken.findMany()
+     * 
+     * // Get first 10 EmailChangeTokens
+     * const emailChangeTokens = await prisma.emailChangeToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const emailChangeTokenWithIdOnly = await prisma.emailChangeToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmailChangeTokenFindManyArgs>(args?: SelectSubset<T, EmailChangeTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a EmailChangeToken.
+     * @param {EmailChangeTokenCreateArgs} args - Arguments to create a EmailChangeToken.
+     * @example
+     * // Create one EmailChangeToken
+     * const EmailChangeToken = await prisma.emailChangeToken.create({
+     *   data: {
+     *     // ... data to create a EmailChangeToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmailChangeTokenCreateArgs>(args: SelectSubset<T, EmailChangeTokenCreateArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many EmailChangeTokens.
+     * @param {EmailChangeTokenCreateManyArgs} args - Arguments to create many EmailChangeTokens.
+     * @example
+     * // Create many EmailChangeTokens
+     * const emailChangeToken = await prisma.emailChangeToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmailChangeTokenCreateManyArgs>(args?: SelectSubset<T, EmailChangeTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmailChangeTokens and returns the data saved in the database.
+     * @param {EmailChangeTokenCreateManyAndReturnArgs} args - Arguments to create many EmailChangeTokens.
+     * @example
+     * // Create many EmailChangeTokens
+     * const emailChangeToken = await prisma.emailChangeToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmailChangeTokens and only return the `id`
+     * const emailChangeTokenWithIdOnly = await prisma.emailChangeToken.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmailChangeTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, EmailChangeTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a EmailChangeToken.
+     * @param {EmailChangeTokenDeleteArgs} args - Arguments to delete one EmailChangeToken.
+     * @example
+     * // Delete one EmailChangeToken
+     * const EmailChangeToken = await prisma.emailChangeToken.delete({
+     *   where: {
+     *     // ... filter to delete one EmailChangeToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmailChangeTokenDeleteArgs>(args: SelectSubset<T, EmailChangeTokenDeleteArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one EmailChangeToken.
+     * @param {EmailChangeTokenUpdateArgs} args - Arguments to update one EmailChangeToken.
+     * @example
+     * // Update one EmailChangeToken
+     * const emailChangeToken = await prisma.emailChangeToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmailChangeTokenUpdateArgs>(args: SelectSubset<T, EmailChangeTokenUpdateArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more EmailChangeTokens.
+     * @param {EmailChangeTokenDeleteManyArgs} args - Arguments to filter EmailChangeTokens to delete.
+     * @example
+     * // Delete a few EmailChangeTokens
+     * const { count } = await prisma.emailChangeToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmailChangeTokenDeleteManyArgs>(args?: SelectSubset<T, EmailChangeTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmailChangeTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailChangeTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmailChangeTokens
+     * const emailChangeToken = await prisma.emailChangeToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmailChangeTokenUpdateManyArgs>(args: SelectSubset<T, EmailChangeTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one EmailChangeToken.
+     * @param {EmailChangeTokenUpsertArgs} args - Arguments to update or create a EmailChangeToken.
+     * @example
+     * // Update or create a EmailChangeToken
+     * const emailChangeToken = await prisma.emailChangeToken.upsert({
+     *   create: {
+     *     // ... data to create a EmailChangeToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmailChangeToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmailChangeTokenUpsertArgs>(args: SelectSubset<T, EmailChangeTokenUpsertArgs<ExtArgs>>): Prisma__EmailChangeTokenClient<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of EmailChangeTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailChangeTokenCountArgs} args - Arguments to filter EmailChangeTokens to count.
+     * @example
+     * // Count the number of EmailChangeTokens
+     * const count = await prisma.emailChangeToken.count({
+     *   where: {
+     *     // ... the filter for the EmailChangeTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmailChangeTokenCountArgs>(
+      args?: Subset<T, EmailChangeTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmailChangeTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmailChangeToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailChangeTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmailChangeTokenAggregateArgs>(args: Subset<T, EmailChangeTokenAggregateArgs>): Prisma.PrismaPromise<GetEmailChangeTokenAggregateType<T>>
+
+    /**
+     * Group by EmailChangeToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailChangeTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmailChangeTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmailChangeTokenGroupByArgs['orderBy'] }
+        : { orderBy?: EmailChangeTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmailChangeTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmailChangeTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmailChangeToken model
+   */
+  readonly fields: EmailChangeTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmailChangeToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmailChangeTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmailChangeToken model
+   */ 
+  interface EmailChangeTokenFieldRefs {
+    readonly id: FieldRef<"EmailChangeToken", 'String'>
+    readonly userId: FieldRef<"EmailChangeToken", 'String'>
+    readonly newEmail: FieldRef<"EmailChangeToken", 'String'>
+    readonly token: FieldRef<"EmailChangeToken", 'String'>
+    readonly expiresAt: FieldRef<"EmailChangeToken", 'DateTime'>
+    readonly createdAt: FieldRef<"EmailChangeToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmailChangeToken findUnique
+   */
+  export type EmailChangeTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailChangeToken to fetch.
+     */
+    where: EmailChangeTokenWhereUniqueInput
+  }
+
+  /**
+   * EmailChangeToken findUniqueOrThrow
+   */
+  export type EmailChangeTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailChangeToken to fetch.
+     */
+    where: EmailChangeTokenWhereUniqueInput
+  }
+
+  /**
+   * EmailChangeToken findFirst
+   */
+  export type EmailChangeTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailChangeToken to fetch.
+     */
+    where?: EmailChangeTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailChangeTokens to fetch.
+     */
+    orderBy?: EmailChangeTokenOrderByWithRelationInput | EmailChangeTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmailChangeTokens.
+     */
+    cursor?: EmailChangeTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailChangeTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailChangeTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmailChangeTokens.
+     */
+    distinct?: EmailChangeTokenScalarFieldEnum | EmailChangeTokenScalarFieldEnum[]
+  }
+
+  /**
+   * EmailChangeToken findFirstOrThrow
+   */
+  export type EmailChangeTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailChangeToken to fetch.
+     */
+    where?: EmailChangeTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailChangeTokens to fetch.
+     */
+    orderBy?: EmailChangeTokenOrderByWithRelationInput | EmailChangeTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmailChangeTokens.
+     */
+    cursor?: EmailChangeTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailChangeTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailChangeTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmailChangeTokens.
+     */
+    distinct?: EmailChangeTokenScalarFieldEnum | EmailChangeTokenScalarFieldEnum[]
+  }
+
+  /**
+   * EmailChangeToken findMany
+   */
+  export type EmailChangeTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailChangeTokens to fetch.
+     */
+    where?: EmailChangeTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailChangeTokens to fetch.
+     */
+    orderBy?: EmailChangeTokenOrderByWithRelationInput | EmailChangeTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmailChangeTokens.
+     */
+    cursor?: EmailChangeTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailChangeTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailChangeTokens.
+     */
+    skip?: number
+    distinct?: EmailChangeTokenScalarFieldEnum | EmailChangeTokenScalarFieldEnum[]
+  }
+
+  /**
+   * EmailChangeToken create
+   */
+  export type EmailChangeTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmailChangeToken.
+     */
+    data: XOR<EmailChangeTokenCreateInput, EmailChangeTokenUncheckedCreateInput>
+  }
+
+  /**
+   * EmailChangeToken createMany
+   */
+  export type EmailChangeTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmailChangeTokens.
+     */
+    data: EmailChangeTokenCreateManyInput | EmailChangeTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmailChangeToken createManyAndReturn
+   */
+  export type EmailChangeTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many EmailChangeTokens.
+     */
+    data: EmailChangeTokenCreateManyInput | EmailChangeTokenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmailChangeToken update
+   */
+  export type EmailChangeTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmailChangeToken.
+     */
+    data: XOR<EmailChangeTokenUpdateInput, EmailChangeTokenUncheckedUpdateInput>
+    /**
+     * Choose, which EmailChangeToken to update.
+     */
+    where: EmailChangeTokenWhereUniqueInput
+  }
+
+  /**
+   * EmailChangeToken updateMany
+   */
+  export type EmailChangeTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmailChangeTokens.
+     */
+    data: XOR<EmailChangeTokenUpdateManyMutationInput, EmailChangeTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which EmailChangeTokens to update
+     */
+    where?: EmailChangeTokenWhereInput
+  }
+
+  /**
+   * EmailChangeToken upsert
+   */
+  export type EmailChangeTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmailChangeToken to update in case it exists.
+     */
+    where: EmailChangeTokenWhereUniqueInput
+    /**
+     * In case the EmailChangeToken found by the `where` argument doesn't exist, create a new EmailChangeToken with this data.
+     */
+    create: XOR<EmailChangeTokenCreateInput, EmailChangeTokenUncheckedCreateInput>
+    /**
+     * In case the EmailChangeToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmailChangeTokenUpdateInput, EmailChangeTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * EmailChangeToken delete
+   */
+  export type EmailChangeTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
+    /**
+     * Filter which EmailChangeToken to delete.
+     */
+    where: EmailChangeTokenWhereUniqueInput
+  }
+
+  /**
+   * EmailChangeToken deleteMany
+   */
+  export type EmailChangeTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmailChangeTokens to delete
+     */
+    where?: EmailChangeTokenWhereInput
+  }
+
+  /**
+   * EmailChangeToken without action
+   */
+  export type EmailChangeTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailChangeToken
+     */
+    select?: EmailChangeTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailChangeTokenInclude<ExtArgs> | null
   }
 
 
@@ -51772,6 +52836,18 @@ export namespace Prisma {
   export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
+  export const EmailChangeTokenScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    newEmail: 'newEmail',
+    token: 'token',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+  };
+
+  export type EmailChangeTokenScalarFieldEnum = (typeof EmailChangeTokenScalarFieldEnum)[keyof typeof EmailChangeTokenScalarFieldEnum]
+
+
   export const MenuScalarFieldEnum: {
     id: 'id',
     locationId: 'locationId',
@@ -53341,6 +54417,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierListRelationFilter
     preferences?: CustomerPreferenceListRelationFilter
     metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
+    emailChangeTokens?: EmailChangeTokenListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -53376,6 +54453,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierOrderByRelationAggregateInput
     preferences?: CustomerPreferenceOrderByRelationAggregateInput
     metrics?: CustomerMetricsOrderByWithRelationInput
+    emailChangeTokens?: EmailChangeTokenOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -53414,6 +54492,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierListRelationFilter
     preferences?: CustomerPreferenceListRelationFilter
     metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
+    emailChangeTokens?: EmailChangeTokenListRelationFilter
   }, "id" | "email" | "customerId">
 
   export type UserOrderByWithAggregationInput = {
@@ -54299,6 +55378,66 @@ export namespace Prisma {
     identifier?: StringWithAggregatesFilter<"VerificationToken"> | string
     token?: StringWithAggregatesFilter<"VerificationToken"> | string
     expires?: DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
+  }
+
+  export type EmailChangeTokenWhereInput = {
+    AND?: EmailChangeTokenWhereInput | EmailChangeTokenWhereInput[]
+    OR?: EmailChangeTokenWhereInput[]
+    NOT?: EmailChangeTokenWhereInput | EmailChangeTokenWhereInput[]
+    id?: StringFilter<"EmailChangeToken"> | string
+    userId?: StringFilter<"EmailChangeToken"> | string
+    newEmail?: StringFilter<"EmailChangeToken"> | string
+    token?: StringFilter<"EmailChangeToken"> | string
+    expiresAt?: DateTimeFilter<"EmailChangeToken"> | Date | string
+    createdAt?: DateTimeFilter<"EmailChangeToken"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type EmailChangeTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    newEmail?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type EmailChangeTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: EmailChangeTokenWhereInput | EmailChangeTokenWhereInput[]
+    OR?: EmailChangeTokenWhereInput[]
+    NOT?: EmailChangeTokenWhereInput | EmailChangeTokenWhereInput[]
+    userId?: StringFilter<"EmailChangeToken"> | string
+    newEmail?: StringFilter<"EmailChangeToken"> | string
+    expiresAt?: DateTimeFilter<"EmailChangeToken"> | Date | string
+    createdAt?: DateTimeFilter<"EmailChangeToken"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "token">
+
+  export type EmailChangeTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    newEmail?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: EmailChangeTokenCountOrderByAggregateInput
+    _max?: EmailChangeTokenMaxOrderByAggregateInput
+    _min?: EmailChangeTokenMinOrderByAggregateInput
+  }
+
+  export type EmailChangeTokenScalarWhereWithAggregatesInput = {
+    AND?: EmailChangeTokenScalarWhereWithAggregatesInput | EmailChangeTokenScalarWhereWithAggregatesInput[]
+    OR?: EmailChangeTokenScalarWhereWithAggregatesInput[]
+    NOT?: EmailChangeTokenScalarWhereWithAggregatesInput | EmailChangeTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmailChangeToken"> | string
+    userId?: StringWithAggregatesFilter<"EmailChangeToken"> | string
+    newEmail?: StringWithAggregatesFilter<"EmailChangeToken"> | string
+    token?: StringWithAggregatesFilter<"EmailChangeToken"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"EmailChangeToken"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"EmailChangeToken"> | Date | string
   }
 
   export type MenuWhereInput = {
@@ -57272,6 +58411,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -57306,6 +58446,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -57340,6 +58481,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -57374,6 +58516,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -58354,6 +59497,68 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailChangeTokenCreateInput = {
+    id?: string
+    newEmail: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutEmailChangeTokensInput
+  }
+
+  export type EmailChangeTokenUncheckedCreateInput = {
+    id?: string
+    userId: string
+    newEmail: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type EmailChangeTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    newEmail?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutEmailChangeTokensNestedInput
+  }
+
+  export type EmailChangeTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    newEmail?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailChangeTokenCreateManyInput = {
+    id?: string
+    userId: string
+    newEmail: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type EmailChangeTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    newEmail?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailChangeTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    newEmail?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MenuCreateInput = {
@@ -61647,6 +62852,12 @@ export namespace Prisma {
     isNot?: CustomerMetricsWhereInput | null
   }
 
+  export type EmailChangeTokenListRelationFilter = {
+    every?: EmailChangeTokenWhereInput
+    some?: EmailChangeTokenWhereInput
+    none?: EmailChangeTokenWhereInput
+  }
+
   export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -61684,6 +62895,10 @@ export namespace Prisma {
   }
 
   export type CustomerPreferenceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmailChangeTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -62466,6 +63681,33 @@ export namespace Prisma {
     identifier?: SortOrder
     token?: SortOrder
     expires?: SortOrder
+  }
+
+  export type EmailChangeTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    newEmail?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmailChangeTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    newEmail?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EmailChangeTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    newEmail?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type MenuItemListRelationFilter = {
@@ -65183,6 +66425,13 @@ export namespace Prisma {
     connect?: CustomerMetricsWhereUniqueInput
   }
 
+  export type EmailChangeTokenCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmailChangeTokenCreateWithoutUserInput, EmailChangeTokenUncheckedCreateWithoutUserInput> | EmailChangeTokenCreateWithoutUserInput[] | EmailChangeTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailChangeTokenCreateOrConnectWithoutUserInput | EmailChangeTokenCreateOrConnectWithoutUserInput[]
+    createMany?: EmailChangeTokenCreateManyUserInputEnvelope
+    connect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+  }
+
   export type UserLocationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -65305,6 +66554,13 @@ export namespace Prisma {
     create?: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
     connectOrCreate?: CustomerMetricsCreateOrConnectWithoutUserInput
     connect?: CustomerMetricsWhereUniqueInput
+  }
+
+  export type EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmailChangeTokenCreateWithoutUserInput, EmailChangeTokenUncheckedCreateWithoutUserInput> | EmailChangeTokenCreateWithoutUserInput[] | EmailChangeTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailChangeTokenCreateOrConnectWithoutUserInput | EmailChangeTokenCreateOrConnectWithoutUserInput[]
+    createMany?: EmailChangeTokenCreateManyUserInputEnvelope
+    connect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -65565,6 +66821,20 @@ export namespace Prisma {
     update?: XOR<XOR<CustomerMetricsUpdateToOneWithWhereWithoutUserInput, CustomerMetricsUpdateWithoutUserInput>, CustomerMetricsUncheckedUpdateWithoutUserInput>
   }
 
+  export type EmailChangeTokenUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmailChangeTokenCreateWithoutUserInput, EmailChangeTokenUncheckedCreateWithoutUserInput> | EmailChangeTokenCreateWithoutUserInput[] | EmailChangeTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailChangeTokenCreateOrConnectWithoutUserInput | EmailChangeTokenCreateOrConnectWithoutUserInput[]
+    upsert?: EmailChangeTokenUpsertWithWhereUniqueWithoutUserInput | EmailChangeTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmailChangeTokenCreateManyUserInputEnvelope
+    set?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    disconnect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    delete?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    connect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    update?: EmailChangeTokenUpdateWithWhereUniqueWithoutUserInput | EmailChangeTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmailChangeTokenUpdateManyWithWhereWithoutUserInput | EmailChangeTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmailChangeTokenScalarWhereInput | EmailChangeTokenScalarWhereInput[]
+  }
+
   export type UserLocationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -65809,6 +67079,20 @@ export namespace Prisma {
     update?: XOR<XOR<CustomerMetricsUpdateToOneWithWhereWithoutUserInput, CustomerMetricsUpdateWithoutUserInput>, CustomerMetricsUncheckedUpdateWithoutUserInput>
   }
 
+  export type EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmailChangeTokenCreateWithoutUserInput, EmailChangeTokenUncheckedCreateWithoutUserInput> | EmailChangeTokenCreateWithoutUserInput[] | EmailChangeTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailChangeTokenCreateOrConnectWithoutUserInput | EmailChangeTokenCreateOrConnectWithoutUserInput[]
+    upsert?: EmailChangeTokenUpsertWithWhereUniqueWithoutUserInput | EmailChangeTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmailChangeTokenCreateManyUserInputEnvelope
+    set?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    disconnect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    delete?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    connect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+    update?: EmailChangeTokenUpdateWithWhereUniqueWithoutUserInput | EmailChangeTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmailChangeTokenUpdateManyWithWhereWithoutUserInput | EmailChangeTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmailChangeTokenScalarWhereInput | EmailChangeTokenScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutPreferencesInput = {
     create?: XOR<UserCreateWithoutPreferencesInput, UserUncheckedCreateWithoutPreferencesInput>
     connectOrCreate?: UserCreateOrConnectWithoutPreferencesInput
@@ -66025,6 +67309,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutSessionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutEmailChangeTokensInput = {
+    create?: XOR<UserCreateWithoutEmailChangeTokensInput, UserUncheckedCreateWithoutEmailChangeTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmailChangeTokensInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutEmailChangeTokensNestedInput = {
+    create?: XOR<UserCreateWithoutEmailChangeTokensInput, UserUncheckedCreateWithoutEmailChangeTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmailChangeTokensInput
+    upsert?: UserUpsertWithoutEmailChangeTokensInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEmailChangeTokensInput, UserUpdateWithoutEmailChangeTokensInput>, UserUncheckedUpdateWithoutEmailChangeTokensInput>
   }
 
   export type LocationCreateNestedOneWithoutMenusInput = {
@@ -68677,6 +69975,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -68710,6 +70009,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -70328,6 +71628,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyEmployeesInput = {
@@ -70361,6 +71662,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyEmployeesInput = {
@@ -70463,6 +71765,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyEmployeesInput = {
@@ -70496,6 +71799,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutLocationsInput = {
@@ -71589,6 +72893,32 @@ export namespace Prisma {
     create: XOR<CustomerMetricsCreateWithoutUserInput, CustomerMetricsUncheckedCreateWithoutUserInput>
   }
 
+  export type EmailChangeTokenCreateWithoutUserInput = {
+    id?: string
+    newEmail: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type EmailChangeTokenUncheckedCreateWithoutUserInput = {
+    id?: string
+    newEmail: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type EmailChangeTokenCreateOrConnectWithoutUserInput = {
+    where: EmailChangeTokenWhereUniqueInput
+    create: XOR<EmailChangeTokenCreateWithoutUserInput, EmailChangeTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type EmailChangeTokenCreateManyUserInputEnvelope = {
+    data: EmailChangeTokenCreateManyUserInput | EmailChangeTokenCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutUsersInput = {
     update: XOR<OrganizationUpdateWithoutUsersInput, OrganizationUncheckedUpdateWithoutUsersInput>
     create: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
@@ -72159,6 +73489,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EmailChangeTokenUpsertWithWhereUniqueWithoutUserInput = {
+    where: EmailChangeTokenWhereUniqueInput
+    update: XOR<EmailChangeTokenUpdateWithoutUserInput, EmailChangeTokenUncheckedUpdateWithoutUserInput>
+    create: XOR<EmailChangeTokenCreateWithoutUserInput, EmailChangeTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type EmailChangeTokenUpdateWithWhereUniqueWithoutUserInput = {
+    where: EmailChangeTokenWhereUniqueInput
+    data: XOR<EmailChangeTokenUpdateWithoutUserInput, EmailChangeTokenUncheckedUpdateWithoutUserInput>
+  }
+
+  export type EmailChangeTokenUpdateManyWithWhereWithoutUserInput = {
+    where: EmailChangeTokenScalarWhereInput
+    data: XOR<EmailChangeTokenUpdateManyMutationInput, EmailChangeTokenUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type EmailChangeTokenScalarWhereInput = {
+    AND?: EmailChangeTokenScalarWhereInput | EmailChangeTokenScalarWhereInput[]
+    OR?: EmailChangeTokenScalarWhereInput[]
+    NOT?: EmailChangeTokenScalarWhereInput | EmailChangeTokenScalarWhereInput[]
+    id?: StringFilter<"EmailChangeToken"> | string
+    userId?: StringFilter<"EmailChangeToken"> | string
+    newEmail?: StringFilter<"EmailChangeToken"> | string
+    token?: StringFilter<"EmailChangeToken"> | string
+    expiresAt?: DateTimeFilter<"EmailChangeToken"> | Date | string
+    createdAt?: DateTimeFilter<"EmailChangeToken"> | Date | string
+  }
+
   export type UserCreateWithoutPreferencesInput = {
     id?: string
     email: string
@@ -72190,6 +73548,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPreferencesInput = {
@@ -72223,6 +73582,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPreferencesInput = {
@@ -72272,6 +73632,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPreferencesInput = {
@@ -72305,6 +73666,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMetricsInput = {
@@ -72338,6 +73700,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMetricsInput = {
@@ -72371,6 +73734,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMetricsInput = {
@@ -72420,6 +73784,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMetricsInput = {
@@ -72453,6 +73818,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCustomerIdentifiersInput = {
@@ -72486,6 +73852,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomerIdentifiersInput = {
@@ -72519,6 +73886,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomerIdentifiersInput = {
@@ -72568,6 +73936,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomerIdentifiersInput = {
@@ -72601,6 +73970,7 @@ export namespace Prisma {
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWalletInput = {
@@ -72634,6 +74004,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -72667,6 +74038,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -72716,6 +74088,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -72749,6 +74122,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWalletTransactionsInput = {
@@ -72782,6 +74156,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletTransactionsInput = {
@@ -72815,6 +74190,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletTransactionsInput = {
@@ -72910,6 +74286,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedWalletActionsInput = {
@@ -72943,6 +74320,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedWalletActionsInput = {
@@ -73021,6 +74399,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
@@ -73054,6 +74433,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutWalletTransactionsInput = {
@@ -73161,6 +74541,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedWalletActionsInput = {
@@ -73194,6 +74575,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type IncentiveGrantUpsertWithoutWalletTransactionInput = {
@@ -73262,6 +74644,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLocationsInput = {
@@ -73295,6 +74678,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLocationsInput = {
@@ -73383,6 +74767,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLocationsInput = {
@@ -73416,6 +74801,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutUsersInput = {
@@ -73494,6 +74880,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -73527,6 +74914,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -73576,6 +74964,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -73609,6 +74998,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -73642,6 +75032,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -73675,6 +75066,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -73724,6 +75116,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -73743,6 +75136,159 @@ export namespace Prisma {
     locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
     companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutEmailChangeTokensInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutEmailChangeTokensInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutEmailChangeTokensInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEmailChangeTokensInput, UserUncheckedCreateWithoutEmailChangeTokensInput>
+  }
+
+  export type UserUpsertWithoutEmailChangeTokensInput = {
+    update: XOR<UserUpdateWithoutEmailChangeTokensInput, UserUncheckedUpdateWithoutEmailChangeTokensInput>
+    create: XOR<UserCreateWithoutEmailChangeTokensInput, UserUncheckedCreateWithoutEmailChangeTokensInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEmailChangeTokensInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEmailChangeTokensInput, UserUncheckedUpdateWithoutEmailChangeTokensInput>
+  }
+
+  export type UserUpdateWithoutEmailChangeTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEmailChangeTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
     incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
@@ -74726,6 +76272,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -74759,6 +76306,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -74990,6 +76538,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -75023,6 +76572,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutOrdersInput = {
@@ -75645,6 +77195,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCouponRedemptionsInput = {
@@ -75678,6 +77229,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCouponRedemptionsInput = {
@@ -75841,6 +77393,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCouponRedemptionsInput = {
@@ -75874,6 +77427,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderUpsertWithoutCouponRedemptionsInput = {
@@ -78365,6 +79919,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushNotificationLogsInput = {
@@ -78398,6 +79953,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushNotificationLogsInput = {
@@ -78492,6 +80048,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushNotificationLogsInput = {
@@ -78525,6 +80082,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPushSubscriptionsInput = {
@@ -78558,6 +80116,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -78591,6 +80150,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -78640,6 +80200,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -78673,6 +80234,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrganizationCreateWithoutPaymentConfigsInput = {
@@ -78757,6 +80319,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentConfigChangesInput = {
@@ -78790,6 +80353,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentConfigChangesInput = {
@@ -78896,6 +80460,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentConfigChangesInput = {
@@ -78929,6 +80494,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SegmentIncentiveCreateWithoutGrantsInput = {
@@ -79003,6 +80569,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIncentiveGrantsInput = {
@@ -79036,6 +80603,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIncentiveGrantsInput = {
@@ -79218,6 +80786,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncentiveGrantsInput = {
@@ -79251,6 +80820,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CouponUpsertWithoutIncentiveGrantsInput = {
@@ -79513,6 +81083,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignsCreatedInput = {
@@ -79546,6 +81117,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignsCreatedInput = {
@@ -79780,6 +81352,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignsCreatedInput = {
@@ -79813,6 +81386,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EmailCampaignLogUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -79907,6 +81481,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignLogsInput = {
@@ -79940,6 +81515,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignLogsInput = {
@@ -80040,6 +81616,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignLogsInput = {
@@ -80073,6 +81650,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationCreateManyOrganizationInput = {
@@ -80299,6 +81877,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -80332,6 +81911,7 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -81483,6 +83063,14 @@ export namespace Prisma {
     updatedById?: string | null
   }
 
+  export type EmailChangeTokenCreateManyUserInput = {
+    id?: string
+    newEmail: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
   export type UserLocationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -82049,6 +83637,30 @@ export namespace Prisma {
     ignored?: BoolFieldUpdateOperationsInput | boolean
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmailChangeTokenUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    newEmail?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailChangeTokenUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    newEmail?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailChangeTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    newEmail?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MenuItemCreateManyMenuInput = {
@@ -83626,6 +85238,10 @@ export namespace Prisma {
      * @deprecated Use VerificationTokenDefaultArgs instead
      */
     export type VerificationTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VerificationTokenDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use EmailChangeTokenDefaultArgs instead
+     */
+    export type EmailChangeTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmailChangeTokenDefaultArgs<ExtArgs>
     /**
      * @deprecated Use MenuDefaultArgs instead
      */

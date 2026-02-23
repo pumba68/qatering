@@ -236,6 +236,8 @@ model User {
   preferences         CustomerPreference[]
   // PROJ-21: CDP Abgeleitete Merkmale
   metrics             CustomerMetrics?
+  // PROJ-23: Kundenprofil – Selbstverwaltung
+  emailChangeTokens   EmailChangeToken[]
 
   @@map("users")
 }
@@ -526,6 +528,21 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+// PROJ-23: Email change token für Kundenprofil
+model EmailChangeToken {
+  id        String   @id @default(cuid())
+  userId    String
+  newEmail  String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("email_change_tokens")
 }
 
 // Wöchentliche Essenspläne
