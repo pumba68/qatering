@@ -199,6 +199,11 @@ export type SegmentIncentive = $Result.DefaultSelection<Prisma.$SegmentIncentive
  */
 export type MarketingTemplate = $Result.DefaultSelection<Prisma.$MarketingTemplatePayload>
 /**
+ * Model MarketingTemplateVersion
+ * 
+ */
+export type MarketingTemplateVersion = $Result.DefaultSelection<Prisma.$MarketingTemplateVersionPayload>
+/**
  * Model PushNotification
  * 
  */
@@ -1047,6 +1052,16 @@ export class PrismaClient<
   get marketingTemplate(): Prisma.MarketingTemplateDelegate<ExtArgs>;
 
   /**
+   * `prisma.marketingTemplateVersion`: Exposes CRUD operations for the **MarketingTemplateVersion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MarketingTemplateVersions
+    * const marketingTemplateVersions = await prisma.marketingTemplateVersion.findMany()
+    * ```
+    */
+  get marketingTemplateVersion(): Prisma.MarketingTemplateVersionDelegate<ExtArgs>;
+
+  /**
    * `prisma.pushNotification`: Exposes CRUD operations for the **PushNotification** model.
     * Example usage:
     * ```ts
@@ -1593,6 +1608,7 @@ export namespace Prisma {
     WorkflowExecutionLog: 'WorkflowExecutionLog',
     SegmentIncentive: 'SegmentIncentive',
     MarketingTemplate: 'MarketingTemplate',
+    MarketingTemplateVersion: 'MarketingTemplateVersion',
     PushNotification: 'PushNotification',
     PushNotificationLog: 'PushNotificationLog',
     PushSubscription: 'PushSubscription',
@@ -1615,7 +1631,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "emailChangeToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
+      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "emailChangeToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "marketingTemplateVersion" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4209,6 +4225,76 @@ export namespace Prisma {
           }
         }
       }
+      MarketingTemplateVersion: {
+        payload: Prisma.$MarketingTemplateVersionPayload<ExtArgs>
+        fields: Prisma.MarketingTemplateVersionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MarketingTemplateVersionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MarketingTemplateVersionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>
+          }
+          findFirst: {
+            args: Prisma.MarketingTemplateVersionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MarketingTemplateVersionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>
+          }
+          findMany: {
+            args: Prisma.MarketingTemplateVersionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>[]
+          }
+          create: {
+            args: Prisma.MarketingTemplateVersionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>
+          }
+          createMany: {
+            args: Prisma.MarketingTemplateVersionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MarketingTemplateVersionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>[]
+          }
+          delete: {
+            args: Prisma.MarketingTemplateVersionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>
+          }
+          update: {
+            args: Prisma.MarketingTemplateVersionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>
+          }
+          deleteMany: {
+            args: Prisma.MarketingTemplateVersionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MarketingTemplateVersionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MarketingTemplateVersionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MarketingTemplateVersionPayload>
+          }
+          aggregate: {
+            args: Prisma.MarketingTemplateVersionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMarketingTemplateVersion>
+          }
+          groupBy: {
+            args: Prisma.MarketingTemplateVersionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MarketingTemplateVersionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MarketingTemplateVersionCountArgs<ExtArgs>
+            result: $Utils.Optional<MarketingTemplateVersionCountAggregateOutputType> | number
+          }
+        }
+      }
       PushNotification: {
         payload: Prisma.$PushNotificationPayload<ExtArgs>
         fields: Prisma.PushNotificationFieldRefs
@@ -5747,6 +5833,7 @@ export namespace Prisma {
     promotionBanners: number
     pushNotifications: number
     emailCampaigns: number
+    versions: number
   }
 
   export type MarketingTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5754,6 +5841,7 @@ export namespace Prisma {
     promotionBanners?: boolean | MarketingTemplateCountOutputTypeCountPromotionBannersArgs
     pushNotifications?: boolean | MarketingTemplateCountOutputTypeCountPushNotificationsArgs
     emailCampaigns?: boolean | MarketingTemplateCountOutputTypeCountEmailCampaignsArgs
+    versions?: boolean | MarketingTemplateCountOutputTypeCountVersionsArgs
   }
 
   // Custom InputTypes
@@ -5793,6 +5881,13 @@ export namespace Prisma {
    */
   export type MarketingTemplateCountOutputTypeCountEmailCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmailCampaignWhereInput
+  }
+
+  /**
+   * MarketingTemplateCountOutputType without action
+   */
+  export type MarketingTemplateCountOutputTypeCountVersionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MarketingTemplateVersionWhereInput
   }
 
 
@@ -44360,6 +44455,7 @@ export namespace Prisma {
     promotionBanners?: boolean | MarketingTemplate$promotionBannersArgs<ExtArgs>
     pushNotifications?: boolean | MarketingTemplate$pushNotificationsArgs<ExtArgs>
     emailCampaigns?: boolean | MarketingTemplate$emailCampaignsArgs<ExtArgs>
+    versions?: boolean | MarketingTemplate$versionsArgs<ExtArgs>
     _count?: boolean | MarketingTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["marketingTemplate"]>
 
@@ -44404,6 +44500,7 @@ export namespace Prisma {
     promotionBanners?: boolean | MarketingTemplate$promotionBannersArgs<ExtArgs>
     pushNotifications?: boolean | MarketingTemplate$pushNotificationsArgs<ExtArgs>
     emailCampaigns?: boolean | MarketingTemplate$emailCampaignsArgs<ExtArgs>
+    versions?: boolean | MarketingTemplate$versionsArgs<ExtArgs>
     _count?: boolean | MarketingTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MarketingTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -44418,6 +44515,7 @@ export namespace Prisma {
       promotionBanners: Prisma.$PromotionBannerPayload<ExtArgs>[]
       pushNotifications: Prisma.$PushNotificationPayload<ExtArgs>[]
       emailCampaigns: Prisma.$EmailCampaignPayload<ExtArgs>[]
+      versions: Prisma.$MarketingTemplateVersionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -44803,6 +44901,7 @@ export namespace Prisma {
     promotionBanners<T extends MarketingTemplate$promotionBannersArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$promotionBannersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionBannerPayload<ExtArgs>, T, "findMany"> | Null>
     pushNotifications<T extends MarketingTemplate$pushNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$pushNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     emailCampaigns<T extends MarketingTemplate$emailCampaignsArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$emailCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignPayload<ExtArgs>, T, "findMany"> | Null>
+    versions<T extends MarketingTemplate$versionsArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplate$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -45259,6 +45358,26 @@ export namespace Prisma {
   }
 
   /**
+   * MarketingTemplate.versions
+   */
+  export type MarketingTemplate$versionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    where?: MarketingTemplateVersionWhereInput
+    orderBy?: MarketingTemplateVersionOrderByWithRelationInput | MarketingTemplateVersionOrderByWithRelationInput[]
+    cursor?: MarketingTemplateVersionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MarketingTemplateVersionScalarFieldEnum | MarketingTemplateVersionScalarFieldEnum[]
+  }
+
+  /**
    * MarketingTemplate without action
    */
   export type MarketingTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -45270,6 +45389,935 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MarketingTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MarketingTemplateVersion
+   */
+
+  export type AggregateMarketingTemplateVersion = {
+    _count: MarketingTemplateVersionCountAggregateOutputType | null
+    _min: MarketingTemplateVersionMinAggregateOutputType | null
+    _max: MarketingTemplateVersionMaxAggregateOutputType | null
+  }
+
+  export type MarketingTemplateVersionMinAggregateOutputType = {
+    id: string | null
+    templateId: string | null
+    savedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type MarketingTemplateVersionMaxAggregateOutputType = {
+    id: string | null
+    templateId: string | null
+    savedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type MarketingTemplateVersionCountAggregateOutputType = {
+    id: number
+    templateId: number
+    content: number
+    savedBy: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MarketingTemplateVersionMinAggregateInputType = {
+    id?: true
+    templateId?: true
+    savedBy?: true
+    createdAt?: true
+  }
+
+  export type MarketingTemplateVersionMaxAggregateInputType = {
+    id?: true
+    templateId?: true
+    savedBy?: true
+    createdAt?: true
+  }
+
+  export type MarketingTemplateVersionCountAggregateInputType = {
+    id?: true
+    templateId?: true
+    content?: true
+    savedBy?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MarketingTemplateVersionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MarketingTemplateVersion to aggregate.
+     */
+    where?: MarketingTemplateVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplateVersions to fetch.
+     */
+    orderBy?: MarketingTemplateVersionOrderByWithRelationInput | MarketingTemplateVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MarketingTemplateVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplateVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplateVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MarketingTemplateVersions
+    **/
+    _count?: true | MarketingTemplateVersionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MarketingTemplateVersionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MarketingTemplateVersionMaxAggregateInputType
+  }
+
+  export type GetMarketingTemplateVersionAggregateType<T extends MarketingTemplateVersionAggregateArgs> = {
+        [P in keyof T & keyof AggregateMarketingTemplateVersion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMarketingTemplateVersion[P]>
+      : GetScalarType<T[P], AggregateMarketingTemplateVersion[P]>
+  }
+
+
+
+
+  export type MarketingTemplateVersionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MarketingTemplateVersionWhereInput
+    orderBy?: MarketingTemplateVersionOrderByWithAggregationInput | MarketingTemplateVersionOrderByWithAggregationInput[]
+    by: MarketingTemplateVersionScalarFieldEnum[] | MarketingTemplateVersionScalarFieldEnum
+    having?: MarketingTemplateVersionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MarketingTemplateVersionCountAggregateInputType | true
+    _min?: MarketingTemplateVersionMinAggregateInputType
+    _max?: MarketingTemplateVersionMaxAggregateInputType
+  }
+
+  export type MarketingTemplateVersionGroupByOutputType = {
+    id: string
+    templateId: string
+    content: JsonValue
+    savedBy: string | null
+    createdAt: Date
+    _count: MarketingTemplateVersionCountAggregateOutputType | null
+    _min: MarketingTemplateVersionMinAggregateOutputType | null
+    _max: MarketingTemplateVersionMaxAggregateOutputType | null
+  }
+
+  type GetMarketingTemplateVersionGroupByPayload<T extends MarketingTemplateVersionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MarketingTemplateVersionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MarketingTemplateVersionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MarketingTemplateVersionGroupByOutputType[P]>
+            : GetScalarType<T[P], MarketingTemplateVersionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MarketingTemplateVersionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    templateId?: boolean
+    content?: boolean
+    savedBy?: boolean
+    createdAt?: boolean
+    template?: boolean | MarketingTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["marketingTemplateVersion"]>
+
+  export type MarketingTemplateVersionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    templateId?: boolean
+    content?: boolean
+    savedBy?: boolean
+    createdAt?: boolean
+    template?: boolean | MarketingTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["marketingTemplateVersion"]>
+
+  export type MarketingTemplateVersionSelectScalar = {
+    id?: boolean
+    templateId?: boolean
+    content?: boolean
+    savedBy?: boolean
+    createdAt?: boolean
+  }
+
+  export type MarketingTemplateVersionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | MarketingTemplateDefaultArgs<ExtArgs>
+  }
+  export type MarketingTemplateVersionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | MarketingTemplateDefaultArgs<ExtArgs>
+  }
+
+  export type $MarketingTemplateVersionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MarketingTemplateVersion"
+    objects: {
+      template: Prisma.$MarketingTemplatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      templateId: string
+      content: Prisma.JsonValue
+      savedBy: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["marketingTemplateVersion"]>
+    composites: {}
+  }
+
+  type MarketingTemplateVersionGetPayload<S extends boolean | null | undefined | MarketingTemplateVersionDefaultArgs> = $Result.GetResult<Prisma.$MarketingTemplateVersionPayload, S>
+
+  type MarketingTemplateVersionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MarketingTemplateVersionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MarketingTemplateVersionCountAggregateInputType | true
+    }
+
+  export interface MarketingTemplateVersionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MarketingTemplateVersion'], meta: { name: 'MarketingTemplateVersion' } }
+    /**
+     * Find zero or one MarketingTemplateVersion that matches the filter.
+     * @param {MarketingTemplateVersionFindUniqueArgs} args - Arguments to find a MarketingTemplateVersion
+     * @example
+     * // Get one MarketingTemplateVersion
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MarketingTemplateVersionFindUniqueArgs>(args: SelectSubset<T, MarketingTemplateVersionFindUniqueArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MarketingTemplateVersion that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MarketingTemplateVersionFindUniqueOrThrowArgs} args - Arguments to find a MarketingTemplateVersion
+     * @example
+     * // Get one MarketingTemplateVersion
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MarketingTemplateVersionFindUniqueOrThrowArgs>(args: SelectSubset<T, MarketingTemplateVersionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MarketingTemplateVersion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateVersionFindFirstArgs} args - Arguments to find a MarketingTemplateVersion
+     * @example
+     * // Get one MarketingTemplateVersion
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MarketingTemplateVersionFindFirstArgs>(args?: SelectSubset<T, MarketingTemplateVersionFindFirstArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MarketingTemplateVersion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateVersionFindFirstOrThrowArgs} args - Arguments to find a MarketingTemplateVersion
+     * @example
+     * // Get one MarketingTemplateVersion
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MarketingTemplateVersionFindFirstOrThrowArgs>(args?: SelectSubset<T, MarketingTemplateVersionFindFirstOrThrowArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MarketingTemplateVersions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateVersionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MarketingTemplateVersions
+     * const marketingTemplateVersions = await prisma.marketingTemplateVersion.findMany()
+     * 
+     * // Get first 10 MarketingTemplateVersions
+     * const marketingTemplateVersions = await prisma.marketingTemplateVersion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const marketingTemplateVersionWithIdOnly = await prisma.marketingTemplateVersion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MarketingTemplateVersionFindManyArgs>(args?: SelectSubset<T, MarketingTemplateVersionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MarketingTemplateVersion.
+     * @param {MarketingTemplateVersionCreateArgs} args - Arguments to create a MarketingTemplateVersion.
+     * @example
+     * // Create one MarketingTemplateVersion
+     * const MarketingTemplateVersion = await prisma.marketingTemplateVersion.create({
+     *   data: {
+     *     // ... data to create a MarketingTemplateVersion
+     *   }
+     * })
+     * 
+     */
+    create<T extends MarketingTemplateVersionCreateArgs>(args: SelectSubset<T, MarketingTemplateVersionCreateArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MarketingTemplateVersions.
+     * @param {MarketingTemplateVersionCreateManyArgs} args - Arguments to create many MarketingTemplateVersions.
+     * @example
+     * // Create many MarketingTemplateVersions
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MarketingTemplateVersionCreateManyArgs>(args?: SelectSubset<T, MarketingTemplateVersionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MarketingTemplateVersions and returns the data saved in the database.
+     * @param {MarketingTemplateVersionCreateManyAndReturnArgs} args - Arguments to create many MarketingTemplateVersions.
+     * @example
+     * // Create many MarketingTemplateVersions
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MarketingTemplateVersions and only return the `id`
+     * const marketingTemplateVersionWithIdOnly = await prisma.marketingTemplateVersion.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MarketingTemplateVersionCreateManyAndReturnArgs>(args?: SelectSubset<T, MarketingTemplateVersionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MarketingTemplateVersion.
+     * @param {MarketingTemplateVersionDeleteArgs} args - Arguments to delete one MarketingTemplateVersion.
+     * @example
+     * // Delete one MarketingTemplateVersion
+     * const MarketingTemplateVersion = await prisma.marketingTemplateVersion.delete({
+     *   where: {
+     *     // ... filter to delete one MarketingTemplateVersion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MarketingTemplateVersionDeleteArgs>(args: SelectSubset<T, MarketingTemplateVersionDeleteArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MarketingTemplateVersion.
+     * @param {MarketingTemplateVersionUpdateArgs} args - Arguments to update one MarketingTemplateVersion.
+     * @example
+     * // Update one MarketingTemplateVersion
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MarketingTemplateVersionUpdateArgs>(args: SelectSubset<T, MarketingTemplateVersionUpdateArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MarketingTemplateVersions.
+     * @param {MarketingTemplateVersionDeleteManyArgs} args - Arguments to filter MarketingTemplateVersions to delete.
+     * @example
+     * // Delete a few MarketingTemplateVersions
+     * const { count } = await prisma.marketingTemplateVersion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MarketingTemplateVersionDeleteManyArgs>(args?: SelectSubset<T, MarketingTemplateVersionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MarketingTemplateVersions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateVersionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MarketingTemplateVersions
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MarketingTemplateVersionUpdateManyArgs>(args: SelectSubset<T, MarketingTemplateVersionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MarketingTemplateVersion.
+     * @param {MarketingTemplateVersionUpsertArgs} args - Arguments to update or create a MarketingTemplateVersion.
+     * @example
+     * // Update or create a MarketingTemplateVersion
+     * const marketingTemplateVersion = await prisma.marketingTemplateVersion.upsert({
+     *   create: {
+     *     // ... data to create a MarketingTemplateVersion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MarketingTemplateVersion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MarketingTemplateVersionUpsertArgs>(args: SelectSubset<T, MarketingTemplateVersionUpsertArgs<ExtArgs>>): Prisma__MarketingTemplateVersionClient<$Result.GetResult<Prisma.$MarketingTemplateVersionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MarketingTemplateVersions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateVersionCountArgs} args - Arguments to filter MarketingTemplateVersions to count.
+     * @example
+     * // Count the number of MarketingTemplateVersions
+     * const count = await prisma.marketingTemplateVersion.count({
+     *   where: {
+     *     // ... the filter for the MarketingTemplateVersions we want to count
+     *   }
+     * })
+    **/
+    count<T extends MarketingTemplateVersionCountArgs>(
+      args?: Subset<T, MarketingTemplateVersionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MarketingTemplateVersionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MarketingTemplateVersion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateVersionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MarketingTemplateVersionAggregateArgs>(args: Subset<T, MarketingTemplateVersionAggregateArgs>): Prisma.PrismaPromise<GetMarketingTemplateVersionAggregateType<T>>
+
+    /**
+     * Group by MarketingTemplateVersion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MarketingTemplateVersionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MarketingTemplateVersionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MarketingTemplateVersionGroupByArgs['orderBy'] }
+        : { orderBy?: MarketingTemplateVersionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MarketingTemplateVersionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMarketingTemplateVersionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MarketingTemplateVersion model
+   */
+  readonly fields: MarketingTemplateVersionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MarketingTemplateVersion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MarketingTemplateVersionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    template<T extends MarketingTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MarketingTemplateDefaultArgs<ExtArgs>>): Prisma__MarketingTemplateClient<$Result.GetResult<Prisma.$MarketingTemplatePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MarketingTemplateVersion model
+   */ 
+  interface MarketingTemplateVersionFieldRefs {
+    readonly id: FieldRef<"MarketingTemplateVersion", 'String'>
+    readonly templateId: FieldRef<"MarketingTemplateVersion", 'String'>
+    readonly content: FieldRef<"MarketingTemplateVersion", 'Json'>
+    readonly savedBy: FieldRef<"MarketingTemplateVersion", 'String'>
+    readonly createdAt: FieldRef<"MarketingTemplateVersion", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MarketingTemplateVersion findUnique
+   */
+  export type MarketingTemplateVersionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplateVersion to fetch.
+     */
+    where: MarketingTemplateVersionWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplateVersion findUniqueOrThrow
+   */
+  export type MarketingTemplateVersionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplateVersion to fetch.
+     */
+    where: MarketingTemplateVersionWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplateVersion findFirst
+   */
+  export type MarketingTemplateVersionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplateVersion to fetch.
+     */
+    where?: MarketingTemplateVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplateVersions to fetch.
+     */
+    orderBy?: MarketingTemplateVersionOrderByWithRelationInput | MarketingTemplateVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MarketingTemplateVersions.
+     */
+    cursor?: MarketingTemplateVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplateVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplateVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MarketingTemplateVersions.
+     */
+    distinct?: MarketingTemplateVersionScalarFieldEnum | MarketingTemplateVersionScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplateVersion findFirstOrThrow
+   */
+  export type MarketingTemplateVersionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplateVersion to fetch.
+     */
+    where?: MarketingTemplateVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplateVersions to fetch.
+     */
+    orderBy?: MarketingTemplateVersionOrderByWithRelationInput | MarketingTemplateVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MarketingTemplateVersions.
+     */
+    cursor?: MarketingTemplateVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplateVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplateVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MarketingTemplateVersions.
+     */
+    distinct?: MarketingTemplateVersionScalarFieldEnum | MarketingTemplateVersionScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplateVersion findMany
+   */
+  export type MarketingTemplateVersionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which MarketingTemplateVersions to fetch.
+     */
+    where?: MarketingTemplateVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MarketingTemplateVersions to fetch.
+     */
+    orderBy?: MarketingTemplateVersionOrderByWithRelationInput | MarketingTemplateVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MarketingTemplateVersions.
+     */
+    cursor?: MarketingTemplateVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MarketingTemplateVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MarketingTemplateVersions.
+     */
+    skip?: number
+    distinct?: MarketingTemplateVersionScalarFieldEnum | MarketingTemplateVersionScalarFieldEnum[]
+  }
+
+  /**
+   * MarketingTemplateVersion create
+   */
+  export type MarketingTemplateVersionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MarketingTemplateVersion.
+     */
+    data: XOR<MarketingTemplateVersionCreateInput, MarketingTemplateVersionUncheckedCreateInput>
+  }
+
+  /**
+   * MarketingTemplateVersion createMany
+   */
+  export type MarketingTemplateVersionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MarketingTemplateVersions.
+     */
+    data: MarketingTemplateVersionCreateManyInput | MarketingTemplateVersionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MarketingTemplateVersion createManyAndReturn
+   */
+  export type MarketingTemplateVersionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MarketingTemplateVersions.
+     */
+    data: MarketingTemplateVersionCreateManyInput | MarketingTemplateVersionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MarketingTemplateVersion update
+   */
+  export type MarketingTemplateVersionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MarketingTemplateVersion.
+     */
+    data: XOR<MarketingTemplateVersionUpdateInput, MarketingTemplateVersionUncheckedUpdateInput>
+    /**
+     * Choose, which MarketingTemplateVersion to update.
+     */
+    where: MarketingTemplateVersionWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplateVersion updateMany
+   */
+  export type MarketingTemplateVersionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MarketingTemplateVersions.
+     */
+    data: XOR<MarketingTemplateVersionUpdateManyMutationInput, MarketingTemplateVersionUncheckedUpdateManyInput>
+    /**
+     * Filter which MarketingTemplateVersions to update
+     */
+    where?: MarketingTemplateVersionWhereInput
+  }
+
+  /**
+   * MarketingTemplateVersion upsert
+   */
+  export type MarketingTemplateVersionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MarketingTemplateVersion to update in case it exists.
+     */
+    where: MarketingTemplateVersionWhereUniqueInput
+    /**
+     * In case the MarketingTemplateVersion found by the `where` argument doesn't exist, create a new MarketingTemplateVersion with this data.
+     */
+    create: XOR<MarketingTemplateVersionCreateInput, MarketingTemplateVersionUncheckedCreateInput>
+    /**
+     * In case the MarketingTemplateVersion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MarketingTemplateVersionUpdateInput, MarketingTemplateVersionUncheckedUpdateInput>
+  }
+
+  /**
+   * MarketingTemplateVersion delete
+   */
+  export type MarketingTemplateVersionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
+    /**
+     * Filter which MarketingTemplateVersion to delete.
+     */
+    where: MarketingTemplateVersionWhereUniqueInput
+  }
+
+  /**
+   * MarketingTemplateVersion deleteMany
+   */
+  export type MarketingTemplateVersionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MarketingTemplateVersions to delete
+     */
+    where?: MarketingTemplateVersionWhereInput
+  }
+
+  /**
+   * MarketingTemplateVersion without action
+   */
+  export type MarketingTemplateVersionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MarketingTemplateVersion
+     */
+    select?: MarketingTemplateVersionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MarketingTemplateVersionInclude<ExtArgs> | null
   }
 
 
@@ -53136,6 +54184,17 @@ export namespace Prisma {
   export type MarketingTemplateScalarFieldEnum = (typeof MarketingTemplateScalarFieldEnum)[keyof typeof MarketingTemplateScalarFieldEnum]
 
 
+  export const MarketingTemplateVersionScalarFieldEnum: {
+    id: 'id',
+    templateId: 'templateId',
+    content: 'content',
+    savedBy: 'savedBy',
+    createdAt: 'createdAt'
+  };
+
+  export type MarketingTemplateVersionScalarFieldEnum = (typeof MarketingTemplateVersionScalarFieldEnum)[keyof typeof MarketingTemplateVersionScalarFieldEnum]
+
+
   export const PushNotificationScalarFieldEnum: {
     id: 'id',
     organizationId: 'organizationId',
@@ -56926,6 +57985,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerListRelationFilter
     pushNotifications?: PushNotificationListRelationFilter
     emailCampaigns?: EmailCampaignListRelationFilter
+    versions?: MarketingTemplateVersionListRelationFilter
   }
 
   export type MarketingTemplateOrderByWithRelationInput = {
@@ -56948,6 +58008,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerOrderByRelationAggregateInput
     pushNotifications?: PushNotificationOrderByRelationAggregateInput
     emailCampaigns?: EmailCampaignOrderByRelationAggregateInput
+    versions?: MarketingTemplateVersionOrderByRelationAggregateInput
   }
 
   export type MarketingTemplateWhereUniqueInput = Prisma.AtLeast<{
@@ -56973,6 +58034,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerListRelationFilter
     pushNotifications?: PushNotificationListRelationFilter
     emailCampaigns?: EmailCampaignListRelationFilter
+    versions?: MarketingTemplateVersionListRelationFilter
   }, "id">
 
   export type MarketingTemplateOrderByWithAggregationInput = {
@@ -57013,6 +58075,61 @@ export namespace Prisma {
     senderName?: StringNullableWithAggregatesFilter<"MarketingTemplate"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"MarketingTemplate"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MarketingTemplate"> | Date | string
+  }
+
+  export type MarketingTemplateVersionWhereInput = {
+    AND?: MarketingTemplateVersionWhereInput | MarketingTemplateVersionWhereInput[]
+    OR?: MarketingTemplateVersionWhereInput[]
+    NOT?: MarketingTemplateVersionWhereInput | MarketingTemplateVersionWhereInput[]
+    id?: StringFilter<"MarketingTemplateVersion"> | string
+    templateId?: StringFilter<"MarketingTemplateVersion"> | string
+    content?: JsonFilter<"MarketingTemplateVersion">
+    savedBy?: StringNullableFilter<"MarketingTemplateVersion"> | string | null
+    createdAt?: DateTimeFilter<"MarketingTemplateVersion"> | Date | string
+    template?: XOR<MarketingTemplateRelationFilter, MarketingTemplateWhereInput>
+  }
+
+  export type MarketingTemplateVersionOrderByWithRelationInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    content?: SortOrder
+    savedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    template?: MarketingTemplateOrderByWithRelationInput
+  }
+
+  export type MarketingTemplateVersionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MarketingTemplateVersionWhereInput | MarketingTemplateVersionWhereInput[]
+    OR?: MarketingTemplateVersionWhereInput[]
+    NOT?: MarketingTemplateVersionWhereInput | MarketingTemplateVersionWhereInput[]
+    templateId?: StringFilter<"MarketingTemplateVersion"> | string
+    content?: JsonFilter<"MarketingTemplateVersion">
+    savedBy?: StringNullableFilter<"MarketingTemplateVersion"> | string | null
+    createdAt?: DateTimeFilter<"MarketingTemplateVersion"> | Date | string
+    template?: XOR<MarketingTemplateRelationFilter, MarketingTemplateWhereInput>
+  }, "id">
+
+  export type MarketingTemplateVersionOrderByWithAggregationInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    content?: SortOrder
+    savedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: MarketingTemplateVersionCountOrderByAggregateInput
+    _max?: MarketingTemplateVersionMaxOrderByAggregateInput
+    _min?: MarketingTemplateVersionMinOrderByAggregateInput
+  }
+
+  export type MarketingTemplateVersionScalarWhereWithAggregatesInput = {
+    AND?: MarketingTemplateVersionScalarWhereWithAggregatesInput | MarketingTemplateVersionScalarWhereWithAggregatesInput[]
+    OR?: MarketingTemplateVersionScalarWhereWithAggregatesInput[]
+    NOT?: MarketingTemplateVersionScalarWhereWithAggregatesInput | MarketingTemplateVersionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MarketingTemplateVersion"> | string
+    templateId?: StringWithAggregatesFilter<"MarketingTemplateVersion"> | string
+    content?: JsonWithAggregatesFilter<"MarketingTemplateVersion">
+    savedBy?: StringNullableWithAggregatesFilter<"MarketingTemplateVersion"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MarketingTemplateVersion"> | Date | string
   }
 
   export type PushNotificationWhereInput = {
@@ -61176,6 +62293,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateUncheckedCreateInput = {
@@ -61197,6 +62315,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateUpdateInput = {
@@ -61218,6 +62337,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateUncheckedUpdateInput = {
@@ -61239,6 +62359,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateCreateManyInput = {
@@ -61289,6 +62410,61 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateVersionCreateInput = {
+    id?: string
+    content: JsonNullValueInput | InputJsonValue
+    savedBy?: string | null
+    createdAt?: Date | string
+    template: MarketingTemplateCreateNestedOneWithoutVersionsInput
+  }
+
+  export type MarketingTemplateVersionUncheckedCreateInput = {
+    id?: string
+    templateId: string
+    content: JsonNullValueInput | InputJsonValue
+    savedBy?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MarketingTemplateVersionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    savedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: MarketingTemplateUpdateOneRequiredWithoutVersionsNestedInput
+  }
+
+  export type MarketingTemplateVersionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    savedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateVersionCreateManyInput = {
+    id?: string
+    templateId: string
+    content: JsonNullValueInput | InputJsonValue
+    savedBy?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MarketingTemplateVersionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    savedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateVersionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    savedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PushNotificationCreateInput = {
@@ -64776,6 +65952,16 @@ export namespace Prisma {
     not?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel> | $Enums.MarketingTemplateStatus
   }
 
+  export type MarketingTemplateVersionListRelationFilter = {
+    every?: MarketingTemplateVersionWhereInput
+    some?: MarketingTemplateVersionWhereInput
+    none?: MarketingTemplateVersionWhereInput
+  }
+
+  export type MarketingTemplateVersionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type MarketingTemplateCountOrderByAggregateInput = {
     id?: SortOrder
     organizationId?: SortOrder
@@ -64843,6 +66029,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel>
     _max?: NestedEnumMarketingTemplateStatusFilter<$PrismaModel>
+  }
+
+  export type MarketingTemplateRelationFilter = {
+    is?: MarketingTemplateWhereInput
+    isNot?: MarketingTemplateWhereInput
+  }
+
+  export type MarketingTemplateVersionCountOrderByAggregateInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    content?: SortOrder
+    savedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MarketingTemplateVersionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    savedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MarketingTemplateVersionMinOrderByAggregateInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    savedBy?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumPushNotificationStatusFilter<$PrismaModel = never> = {
@@ -68685,6 +69898,13 @@ export namespace Prisma {
     connect?: EmailCampaignWhereUniqueInput | EmailCampaignWhereUniqueInput[]
   }
 
+  export type MarketingTemplateVersionCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<MarketingTemplateVersionCreateWithoutTemplateInput, MarketingTemplateVersionUncheckedCreateWithoutTemplateInput> | MarketingTemplateVersionCreateWithoutTemplateInput[] | MarketingTemplateVersionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MarketingTemplateVersionCreateOrConnectWithoutTemplateInput | MarketingTemplateVersionCreateOrConnectWithoutTemplateInput[]
+    createMany?: MarketingTemplateVersionCreateManyTemplateInputEnvelope
+    connect?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+  }
+
   export type InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput = {
     create?: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput> | InAppMessageCreateWithoutMarketingTemplateInput[] | InAppMessageUncheckedCreateWithoutMarketingTemplateInput[]
     connectOrCreate?: InAppMessageCreateOrConnectWithoutMarketingTemplateInput | InAppMessageCreateOrConnectWithoutMarketingTemplateInput[]
@@ -68711,6 +69931,13 @@ export namespace Prisma {
     connectOrCreate?: EmailCampaignCreateOrConnectWithoutTemplateInput | EmailCampaignCreateOrConnectWithoutTemplateInput[]
     createMany?: EmailCampaignCreateManyTemplateInputEnvelope
     connect?: EmailCampaignWhereUniqueInput | EmailCampaignWhereUniqueInput[]
+  }
+
+  export type MarketingTemplateVersionUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<MarketingTemplateVersionCreateWithoutTemplateInput, MarketingTemplateVersionUncheckedCreateWithoutTemplateInput> | MarketingTemplateVersionCreateWithoutTemplateInput[] | MarketingTemplateVersionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MarketingTemplateVersionCreateOrConnectWithoutTemplateInput | MarketingTemplateVersionCreateOrConnectWithoutTemplateInput[]
+    createMany?: MarketingTemplateVersionCreateManyTemplateInputEnvelope
+    connect?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
   }
 
   export type EnumMarketingTemplateTypeFieldUpdateOperationsInput = {
@@ -68787,6 +70014,20 @@ export namespace Prisma {
     deleteMany?: EmailCampaignScalarWhereInput | EmailCampaignScalarWhereInput[]
   }
 
+  export type MarketingTemplateVersionUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<MarketingTemplateVersionCreateWithoutTemplateInput, MarketingTemplateVersionUncheckedCreateWithoutTemplateInput> | MarketingTemplateVersionCreateWithoutTemplateInput[] | MarketingTemplateVersionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MarketingTemplateVersionCreateOrConnectWithoutTemplateInput | MarketingTemplateVersionCreateOrConnectWithoutTemplateInput[]
+    upsert?: MarketingTemplateVersionUpsertWithWhereUniqueWithoutTemplateInput | MarketingTemplateVersionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: MarketingTemplateVersionCreateManyTemplateInputEnvelope
+    set?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    disconnect?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    delete?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    connect?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    update?: MarketingTemplateVersionUpdateWithWhereUniqueWithoutTemplateInput | MarketingTemplateVersionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: MarketingTemplateVersionUpdateManyWithWhereWithoutTemplateInput | MarketingTemplateVersionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: MarketingTemplateVersionScalarWhereInput | MarketingTemplateVersionScalarWhereInput[]
+  }
+
   export type InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput = {
     create?: XOR<InAppMessageCreateWithoutMarketingTemplateInput, InAppMessageUncheckedCreateWithoutMarketingTemplateInput> | InAppMessageCreateWithoutMarketingTemplateInput[] | InAppMessageUncheckedCreateWithoutMarketingTemplateInput[]
     connectOrCreate?: InAppMessageCreateOrConnectWithoutMarketingTemplateInput | InAppMessageCreateOrConnectWithoutMarketingTemplateInput[]
@@ -68841,6 +70082,34 @@ export namespace Prisma {
     update?: EmailCampaignUpdateWithWhereUniqueWithoutTemplateInput | EmailCampaignUpdateWithWhereUniqueWithoutTemplateInput[]
     updateMany?: EmailCampaignUpdateManyWithWhereWithoutTemplateInput | EmailCampaignUpdateManyWithWhereWithoutTemplateInput[]
     deleteMany?: EmailCampaignScalarWhereInput | EmailCampaignScalarWhereInput[]
+  }
+
+  export type MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<MarketingTemplateVersionCreateWithoutTemplateInput, MarketingTemplateVersionUncheckedCreateWithoutTemplateInput> | MarketingTemplateVersionCreateWithoutTemplateInput[] | MarketingTemplateVersionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MarketingTemplateVersionCreateOrConnectWithoutTemplateInput | MarketingTemplateVersionCreateOrConnectWithoutTemplateInput[]
+    upsert?: MarketingTemplateVersionUpsertWithWhereUniqueWithoutTemplateInput | MarketingTemplateVersionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: MarketingTemplateVersionCreateManyTemplateInputEnvelope
+    set?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    disconnect?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    delete?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    connect?: MarketingTemplateVersionWhereUniqueInput | MarketingTemplateVersionWhereUniqueInput[]
+    update?: MarketingTemplateVersionUpdateWithWhereUniqueWithoutTemplateInput | MarketingTemplateVersionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: MarketingTemplateVersionUpdateManyWithWhereWithoutTemplateInput | MarketingTemplateVersionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: MarketingTemplateVersionScalarWhereInput | MarketingTemplateVersionScalarWhereInput[]
+  }
+
+  export type MarketingTemplateCreateNestedOneWithoutVersionsInput = {
+    create?: XOR<MarketingTemplateCreateWithoutVersionsInput, MarketingTemplateUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutVersionsInput
+    connect?: MarketingTemplateWhereUniqueInput
+  }
+
+  export type MarketingTemplateUpdateOneRequiredWithoutVersionsNestedInput = {
+    create?: XOR<MarketingTemplateCreateWithoutVersionsInput, MarketingTemplateUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: MarketingTemplateCreateOrConnectWithoutVersionsInput
+    upsert?: MarketingTemplateUpsertWithoutVersionsInput
+    connect?: MarketingTemplateWhereUniqueInput
+    update?: XOR<XOR<MarketingTemplateUpdateToOneWithWhereWithoutVersionsInput, MarketingTemplateUpdateWithoutVersionsInput>, MarketingTemplateUncheckedUpdateWithoutVersionsInput>
   }
 
   export type OrganizationCreateNestedOneWithoutPushNotificationsInput = {
@@ -70212,6 +71481,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateUncheckedCreateWithoutOrganizationInput = {
@@ -70232,6 +71502,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateCreateOrConnectWithoutOrganizationInput = {
@@ -75583,6 +76854,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateUncheckedCreateWithoutPromotionBannersInput = {
@@ -75603,6 +76875,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateCreateOrConnectWithoutPromotionBannersInput = {
@@ -75718,6 +76991,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateUncheckedUpdateWithoutPromotionBannersInput = {
@@ -75738,6 +77012,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type MenuPromotionBannerUpsertWithWhereUniqueWithoutPromotionBannerInput = {
@@ -78211,6 +79486,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateUncheckedCreateWithoutInAppMessagesInput = {
@@ -78231,6 +79507,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateCreateOrConnectWithoutInAppMessagesInput = {
@@ -78387,6 +79664,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateUncheckedUpdateWithoutInAppMessagesInput = {
@@ -78407,6 +79685,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type InAppMessageReadUpsertWithWhereUniqueWithoutMessageInput = {
@@ -79408,6 +80687,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MarketingTemplateVersionCreateWithoutTemplateInput = {
+    id?: string
+    content: JsonNullValueInput | InputJsonValue
+    savedBy?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MarketingTemplateVersionUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    content: JsonNullValueInput | InputJsonValue
+    savedBy?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MarketingTemplateVersionCreateOrConnectWithoutTemplateInput = {
+    where: MarketingTemplateVersionWhereUniqueInput
+    create: XOR<MarketingTemplateVersionCreateWithoutTemplateInput, MarketingTemplateVersionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type MarketingTemplateVersionCreateManyTemplateInputEnvelope = {
+    data: MarketingTemplateVersionCreateManyTemplateInput | MarketingTemplateVersionCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutMarketingTemplatesInput = {
     update: XOR<OrganizationUpdateWithoutMarketingTemplatesInput, OrganizationUncheckedUpdateWithoutMarketingTemplatesInput>
     create: XOR<OrganizationCreateWithoutMarketingTemplatesInput, OrganizationUncheckedCreateWithoutMarketingTemplatesInput>
@@ -79529,6 +80832,133 @@ export namespace Prisma {
     data: XOR<EmailCampaignUpdateManyMutationInput, EmailCampaignUncheckedUpdateManyWithoutTemplateInput>
   }
 
+  export type MarketingTemplateVersionUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: MarketingTemplateVersionWhereUniqueInput
+    update: XOR<MarketingTemplateVersionUpdateWithoutTemplateInput, MarketingTemplateVersionUncheckedUpdateWithoutTemplateInput>
+    create: XOR<MarketingTemplateVersionCreateWithoutTemplateInput, MarketingTemplateVersionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type MarketingTemplateVersionUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: MarketingTemplateVersionWhereUniqueInput
+    data: XOR<MarketingTemplateVersionUpdateWithoutTemplateInput, MarketingTemplateVersionUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type MarketingTemplateVersionUpdateManyWithWhereWithoutTemplateInput = {
+    where: MarketingTemplateVersionScalarWhereInput
+    data: XOR<MarketingTemplateVersionUpdateManyMutationInput, MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type MarketingTemplateVersionScalarWhereInput = {
+    AND?: MarketingTemplateVersionScalarWhereInput | MarketingTemplateVersionScalarWhereInput[]
+    OR?: MarketingTemplateVersionScalarWhereInput[]
+    NOT?: MarketingTemplateVersionScalarWhereInput | MarketingTemplateVersionScalarWhereInput[]
+    id?: StringFilter<"MarketingTemplateVersion"> | string
+    templateId?: StringFilter<"MarketingTemplateVersion"> | string
+    content?: JsonFilter<"MarketingTemplateVersion">
+    savedBy?: StringNullableFilter<"MarketingTemplateVersion"> | string | null
+    createdAt?: DateTimeFilter<"MarketingTemplateVersion"> | Date | string
+  }
+
+  export type MarketingTemplateCreateWithoutVersionsInput = {
+    id?: string
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    subjectLine?: string | null
+    preheaderText?: string | null
+    senderName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization?: OrganizationCreateNestedOneWithoutMarketingTemplatesInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
+    emailCampaigns?: EmailCampaignCreateNestedManyWithoutTemplateInput
+  }
+
+  export type MarketingTemplateUncheckedCreateWithoutVersionsInput = {
+    id?: string
+    organizationId?: string | null
+    name: string
+    type: $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MarketingTemplateStatus
+    isStarter?: boolean
+    isFavorite?: boolean
+    thumbnailUrl?: string | null
+    subjectLine?: string | null
+    preheaderText?: string | null
+    senderName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type MarketingTemplateCreateOrConnectWithoutVersionsInput = {
+    where: MarketingTemplateWhereUniqueInput
+    create: XOR<MarketingTemplateCreateWithoutVersionsInput, MarketingTemplateUncheckedCreateWithoutVersionsInput>
+  }
+
+  export type MarketingTemplateUpsertWithoutVersionsInput = {
+    update: XOR<MarketingTemplateUpdateWithoutVersionsInput, MarketingTemplateUncheckedUpdateWithoutVersionsInput>
+    create: XOR<MarketingTemplateCreateWithoutVersionsInput, MarketingTemplateUncheckedCreateWithoutVersionsInput>
+    where?: MarketingTemplateWhereInput
+  }
+
+  export type MarketingTemplateUpdateToOneWithWhereWithoutVersionsInput = {
+    where?: MarketingTemplateWhereInput
+    data: XOR<MarketingTemplateUpdateWithoutVersionsInput, MarketingTemplateUncheckedUpdateWithoutVersionsInput>
+  }
+
+  export type MarketingTemplateUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectLine?: NullableStringFieldUpdateOperationsInput | string | null
+    preheaderText?: NullableStringFieldUpdateOperationsInput | string | null
+    senderName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneWithoutMarketingTemplatesNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
+    emailCampaigns?: EmailCampaignUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type MarketingTemplateUncheckedUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMarketingTemplateTypeFieldUpdateOperationsInput | $Enums.MarketingTemplateType
+    content?: JsonNullValueInput | InputJsonValue
+    status?: EnumMarketingTemplateStatusFieldUpdateOperationsInput | $Enums.MarketingTemplateStatus
+    isStarter?: BoolFieldUpdateOperationsInput | boolean
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectLine?: NullableStringFieldUpdateOperationsInput | string | null
+    preheaderText?: NullableStringFieldUpdateOperationsInput | string | null
+    senderName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
   export type OrganizationCreateWithoutPushNotificationsInput = {
     id?: string
     name: string
@@ -79633,6 +81063,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
     promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateUncheckedCreateWithoutPushNotificationsInput = {
@@ -79653,6 +81084,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
     promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutTemplateInput
+    versions?: MarketingTemplateVersionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateCreateOrConnectWithoutPushNotificationsInput = {
@@ -79811,6 +81243,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
     promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateUncheckedUpdateWithoutPushNotificationsInput = {
@@ -79831,6 +81264,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type PushNotificationLogUpsertWithWhereUniqueWithoutPushNotificationInput = {
@@ -80990,6 +82424,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageCreateNestedManyWithoutMarketingTemplateInput
     promotionBanners?: PromotionBannerCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutMarketingTemplateInput
+    versions?: MarketingTemplateVersionCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateUncheckedCreateWithoutEmailCampaignsInput = {
@@ -81010,6 +82445,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutMarketingTemplateInput
     promotionBanners?: PromotionBannerUncheckedCreateNestedManyWithoutMarketingTemplateInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutMarketingTemplateInput
+    versions?: MarketingTemplateVersionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type MarketingTemplateCreateOrConnectWithoutEmailCampaignsInput = {
@@ -81247,6 +82683,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUpdateManyWithoutMarketingTemplateNestedInput
     promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
+    versions?: MarketingTemplateVersionUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateUncheckedUpdateWithoutEmailCampaignsInput = {
@@ -81267,6 +82704,7 @@ export namespace Prisma {
     inAppMessages?: InAppMessageUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
+    versions?: MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutEmailCampaignsInput = {
@@ -82137,6 +83575,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateUncheckedUpdateWithoutOrganizationInput = {
@@ -82157,6 +83596,7 @@ export namespace Prisma {
     promotionBanners?: PromotionBannerUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutMarketingTemplateNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutTemplateNestedInput
+    versions?: MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type MarketingTemplateUncheckedUpdateManyWithoutOrganizationInput = {
@@ -84798,6 +86238,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MarketingTemplateVersionCreateManyTemplateInput = {
+    id?: string
+    content: JsonNullValueInput | InputJsonValue
+    savedBy?: string | null
+    createdAt?: Date | string
+  }
+
   export type InAppMessageUpdateWithoutMarketingTemplateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84999,6 +86446,27 @@ export namespace Prisma {
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateVersionUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    savedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateVersionUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    savedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MarketingTemplateVersionUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: JsonNullValueInput | InputJsonValue
+    savedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PushNotificationLogCreateManyPushNotificationInput = {
@@ -85310,6 +86778,10 @@ export namespace Prisma {
      * @deprecated Use MarketingTemplateDefaultArgs instead
      */
     export type MarketingTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MarketingTemplateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MarketingTemplateVersionDefaultArgs instead
+     */
+    export type MarketingTemplateVersionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MarketingTemplateVersionDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PushNotificationDefaultArgs instead
      */

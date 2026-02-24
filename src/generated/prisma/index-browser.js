@@ -617,6 +617,14 @@ exports.Prisma.MarketingTemplateScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MarketingTemplateVersionScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  content: 'content',
+  savedBy: 'savedBy',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.PushNotificationScalarFieldEnum = {
   id: 'id',
   organizationId: 'organizationId',
@@ -934,6 +942,7 @@ exports.Prisma.ModelName = {
   WorkflowExecutionLog: 'WorkflowExecutionLog',
   SegmentIncentive: 'SegmentIncentive',
   MarketingTemplate: 'MarketingTemplate',
+  MarketingTemplateVersion: 'MarketingTemplateVersion',
   PushNotification: 'PushNotification',
   PushNotificationLog: 'PushNotificationLog',
   PushSubscription: 'PushSubscription',

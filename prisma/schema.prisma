@@ -1003,10 +1003,27 @@ model MarketingTemplate {
   pushNotifications PushNotification[]
   // PROJ-9: Email campaigns
   emailCampaigns    EmailCampaign[]
+  // PROJ-8: Version history
+  versions          MarketingTemplateVersion[]
 
   @@index([organizationId, type, status])
   @@index([isStarter])
   @@map("marketing_templates")
+}
+
+// PROJ-8: Template-Versionshistorie ────────────────────────────────────────────
+
+model MarketingTemplateVersion {
+  id         String   @id @default(cuid())
+  templateId String
+  content    Json     // Snapshot des vollständigen TemplateContent
+  savedBy    String?  @db.VarChar(20) // 'manual' | 'autosave'
+  createdAt  DateTime @default(now())
+
+  template MarketingTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@index([templateId, createdAt])
+  @@map("marketing_template_versions")
 }
 
 // PROJ-10: Push-Benachrichtigungen ─────────────────────────────────────────────

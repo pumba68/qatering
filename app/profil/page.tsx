@@ -12,6 +12,22 @@ import {
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
+type OrderSummary = {
+  id: string
+  pickupCode: string
+  status: string
+  channel: string
+  totalAmount: number
+  finalAmount: number | null
+  discountAmount: number | null
+  pickupDate: string
+  pickupTimeSlot: string | null
+  createdAt: string
+  notes: string | null
+  location: { id: string; name: string } | null
+  items: { id: string; quantity: number; price: number; productName: string }[]
+}
+
 interface ProfileData {
   user: {
     id: string
@@ -70,7 +86,7 @@ const ORDER_STATUS_CONFIG: Record<string, { label: string; color: string }> = {
   CONFIRMED: { label: 'Bestätigt',            color: 'text-blue-600 bg-blue-100' },
   PREPARING: { label: 'In Zubereitung',       color: 'text-amber-600 bg-amber-100' },
   READY:     { label: 'Bereit zur Abholung',  color: 'text-green-600 bg-green-100' },
-  COMPLETED: { label: 'Abgeholt',             color: 'text-muted-foreground bg-muted' },
+  PICKED_UP: { label: 'Abgeholt',             color: 'text-muted-foreground bg-muted' },
   CANCELLED: { label: 'Storniert',            color: 'text-red-600 bg-red-100' },
 }
 
@@ -906,6 +922,201 @@ function BenachrichtigungenSection({
   )
 }
 
+// ─── Bestellungen Tab ────────────────────────────────────────────────────────
+
+function BestellungenTab() {
+  const [orders, setOrders] = useState<{ upcoming: OrderSummary[]; history: OrderSummary[] } | null>(null)
+  const [loadingOrders, setLoadingOrders] = useState(true)
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [loadingMore, setLoadingMore] = useState(false)
+
+  useEffect(() => {
+    fetch('/api/profil/bestellungen?page=1')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d) {
+          setOrders({ upcoming: d.upcoming, history: d.history })
+          setTotalPages(d.pagination.totalPages)
+        }
+      })
+      .finally(() => setLoadingOrders(false))
+  }, [])
+
+  async function loadMore() {
+    const nextPage = page + 1
+    setLoadingMore(true)
+    try {
+      const r = await fetch(`/api/profil/bestellungen?page=${nextPage}`)
+      if (!r.ok) return
+      const d = await r.json()
+      setOrders((prev) =>
+        prev ? { ...prev, history: [...prev.history, ...d.history] } : prev
+      )
+      setPage(nextPage)
+      setTotalPages(d.pagination.totalPages)
+    } finally {
+      setLoadingMore(false)
+    }
+  }
+
+  function formatPickupDate(dateStr: string, timeSlot: string | null) {
+    const d = new Date(dateStr)
+    const dayStr = d.toLocaleDateString('de-DE', {
+      weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
+    })
+    return timeSlot ? `${dayStr} · ${timeSlot} Uhr` : dayStr
+  }
+
+  function OrderCard({ order, variant }: { order: OrderSummary; variant: 'active' | 'history' }) {
+    const statusConf = ORDER_STATUS_CONFIG[order.status] ?? {
+      label: order.status, color: 'text-muted-foreground bg-muted',
+    }
+    const displayAmount = order.finalAmount ?? order.totalAmount
+
+    return (
+      <div className={`rounded-xl border p-4 space-y-3 ${
+        variant === 'active'
+          ? 'bg-white dark:bg-card border-amber-200 dark:border-amber-800'
+          : 'bg-card border-border/50'
+      }`}>
+        {/* Header */}
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <p className="text-sm font-medium text-foreground">
+              {formatPickupDate(order.pickupDate, order.pickupTimeSlot)}
+            </p>
+            {order.location && (
+              <p className="text-xs text-muted-foreground mt-0.5">{order.location.name}</p>
+            )}
+          </div>
+          <span className={`inline-flex items-center shrink-0 text-xs font-medium px-2 py-0.5 rounded-full ${statusConf.color}`}>
+            {statusConf.label}
+          </span>
+        </div>
+
+        {/* Pickup code */}
+        <p className="text-xs text-muted-foreground font-mono">Code: {order.pickupCode}</p>
+
+        <div className="h-px bg-border/50" />
+
+        {/* Items */}
+        <div className="space-y-1.5">
+          {order.items.map((item) => (
+            <div key={item.id} className="flex items-baseline justify-between text-sm gap-2">
+              <span className="text-foreground min-w-0">
+                <span className="font-medium text-muted-foreground mr-1">{item.quantity}×</span>
+                <span className="truncate">{item.productName}</span>
+              </span>
+              <span className="text-muted-foreground shrink-0">
+                {(item.price * item.quantity).toFixed(2).replace('.', ',')} €
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="h-px bg-border/50" />
+
+        {/* Total row */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {order.discountAmount ? (
+              <span className="text-xs text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-2 py-0.5 rounded-full font-medium">
+                -{order.discountAmount.toFixed(2).replace('.', ',')} € Rabatt
+              </span>
+            ) : null}
+          </div>
+          <p className="text-sm font-bold text-foreground">
+            {displayAmount.toFixed(2).replace('.', ',')} €
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (loadingOrders) {
+    return (
+      <div className="flex justify-center py-16">
+        <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+      </div>
+    )
+  }
+
+  if (!orders) {
+    return (
+      <div className="py-12 text-center">
+        <p className="text-sm text-muted-foreground">Bestellungen konnten nicht geladen werden.</p>
+      </div>
+    )
+  }
+
+  const hasAny = orders.upcoming.length > 0 || orders.history.length > 0
+
+  if (!hasAny) {
+    return (
+      <div className="py-16 text-center space-y-4">
+        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+          <Package className="w-8 h-8 text-muted-foreground" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-base font-semibold text-foreground">Noch keine Bestellungen</p>
+          <p className="text-sm text-muted-foreground">Bestelle dein erstes Gericht über das Menü.</p>
+        </div>
+        <Link
+          href="/menu"
+          className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-primary to-purple-600 rounded-xl"
+        >
+          Zum Menü
+        </Link>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6 pb-8">
+      {/* Active orders */}
+      {orders.upcoming.length > 0 && (
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 pt-2">
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
+            <h2 className="text-sm font-semibold text-foreground">Aktive Bestellungen</h2>
+          </div>
+          <div className="space-y-3">
+            {orders.upcoming.map((order) => (
+              <OrderCard key={order.id} order={order} variant="active" />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* History */}
+      {orders.history.length > 0 && (
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 pt-2">
+            <Package className="w-4 h-4 text-muted-foreground" />
+            <h2 className="text-sm font-semibold text-foreground">Bestellhistorie</h2>
+          </div>
+          <div className="space-y-3">
+            {orders.history.map((order) => (
+              <OrderCard key={order.id} order={order} variant="history" />
+            ))}
+          </div>
+          {page < totalPages && (
+            <button
+              onClick={loadMore}
+              disabled={loadingMore}
+              className="w-full py-2.5 text-sm font-medium text-muted-foreground bg-muted/50 hover:bg-muted rounded-xl transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              {loadingMore ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+              Mehr laden
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function ProfilPage() {
@@ -915,6 +1126,7 @@ export default function ProfilPage() {
   const [loading, setLoading] = useState(true)
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [cancellingEmail, setCancellingEmail] = useState(false)
+  const [activeTab, setActiveTab] = useState<'profil' | 'bestellungen'>('profil')
 
   function showToast(message: string, type: 'success' | 'error') {
     setToast({ message, type })
@@ -973,45 +1185,70 @@ export default function ProfilPage() {
     <main className="min-h-screen bg-background pb-16">
       <HeroHeader user={data.user} />
 
-      <div className="container max-w-lg mx-auto px-4 space-y-6 pt-5">
-        <MiniDashboard wallet={data.wallet} lastOrder={data.lastOrder} />
+      {/* Tab bar */}
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border/50">
+        <div className="container max-w-lg mx-auto px-4 flex gap-1">
+          {(['profil', 'bestellungen'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                activeTab === tab
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {tab === 'profil' ? 'Profil' : 'Bestellungen'}
+            </button>
+          ))}
+        </div>
+      </div>
 
-        {data.pendingEmailChange && (
-          <PendingEmailBanner
-            pending={data.pendingEmailChange}
-            onCancel={handleCancelEmailChange}
-            cancelling={cancellingEmail}
-          />
+      <div className="container max-w-lg mx-auto px-4 pt-5">
+        {activeTab === 'profil' && (
+          <div className="space-y-6">
+            <MiniDashboard wallet={data.wallet} lastOrder={data.lastOrder} />
+
+            {data.pendingEmailChange && (
+              <PendingEmailBanner
+                pending={data.pendingEmailChange}
+                onCancel={handleCancelEmailChange}
+                cancelling={cancellingEmail}
+              />
+            )}
+
+            <StammdatenSection
+              user={data.user}
+              onNameSaved={(name) => {
+                updateData({ user: { ...data.user, name } })
+                showToast('Name gespeichert', 'success')
+              }}
+              onEmailChangeRequested={() => {
+                fetch('/api/profil').then((r) => r.json()).then((d) => d && setData(d))
+                showToast('Bestätigungslink gesendet. Prüfe dein Postfach.', 'success')
+              }}
+            />
+
+            <SicherheitSection email={data.user.email} hasPassword={data.user.hasPassword} />
+
+            <PraeferenzenSection data={data} onDataChange={updateData} onToast={showToast} />
+
+            <BenachrichtigungenSection data={data} onDataChange={updateData} onToast={showToast} />
+
+            {/* Sign out footer */}
+            <div className="pt-4 pb-8 flex justify-center">
+              <button
+                onClick={() => signOut({ callbackUrl: '/' })}
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                Abmelden
+              </button>
+            </div>
+          </div>
         )}
 
-        <StammdatenSection
-          user={data.user}
-          onNameSaved={(name) => {
-            updateData({ user: { ...data.user, name } })
-            showToast('Name gespeichert', 'success')
-          }}
-          onEmailChangeRequested={() => {
-            fetch('/api/profil').then((r) => r.json()).then((d) => d && setData(d))
-            showToast('Bestätigungslink gesendet. Prüfe dein Postfach.', 'success')
-          }}
-        />
-
-        <SicherheitSection email={data.user.email} hasPassword={data.user.hasPassword} />
-
-        <PraeferenzenSection data={data} onDataChange={updateData} onToast={showToast} />
-
-        <BenachrichtigungenSection data={data} onDataChange={updateData} onToast={showToast} />
-
-        {/* Sign out footer */}
-        <div className="pt-4 pb-8 flex justify-center">
-          <button
-            onClick={() => signOut({ callbackUrl: '/' })}
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Abmelden
-          </button>
-        </div>
+        {activeTab === 'bestellungen' && <BestellungenTab />}
       </div>
 
       {toast && <Toast message={toast.message} type={toast.type} />}

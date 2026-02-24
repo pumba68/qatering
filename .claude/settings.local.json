@@ -19,7 +19,9 @@
       "Bash(npx prisma generate:*)",
       "Bash(tasklist:*)",
       "Bash(python3:*)",
-      "Bash(powershell -Command:*)"
+      "Bash(powershell -Command:*)",
+      "WebFetch(domain:www.braze.com)",
+      "WebFetch(domain:support.iterable.com)"
     ]
   }
 }
