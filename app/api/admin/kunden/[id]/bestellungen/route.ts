@@ -58,7 +58,6 @@ export async function GET(
     const locationId = searchParams.get('locationId') ?? ''
 
     // Basis-Where: immer nach userId filtern
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const where: Record<string, unknown> = { userId }
 
     if (statusParam && VALID_STATUSES.includes(statusParam as typeof VALID_STATUSES[number])) {
