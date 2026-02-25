@@ -364,116 +364,174 @@ export async function POST(request: NextRequest) {
 
         if (!nodes || !edges) continue
 
-        const currentNode = participant.currentNodeId
-          ? nodes.find((n) => n.id === participant.currentNodeId)
-          : nodes.find((n) => n.type === 'start')
+        // Process all consecutive immediate (non-delay) nodes in one run.
+        // Only stop when we hit a delay node, end node, null, or a safety limit.
+        const MAX_STEPS_PER_RUN = 20
+        let currentNodeId = participant.currentNodeId
+        let stepsThisRun = 0
+        let participantDone = false
 
-        if (!currentNode) {
-          await prisma.journeyParticipant.update({
-            where: { id: participant.id },
-            data: { status: 'COMPLETED' },
-          })
-          continue
-        }
+        while (stepsThisRun < MAX_STEPS_PER_RUN) {
+          const currentNode = currentNodeId
+            ? nodes.find((n) => n.id === currentNodeId)
+            : nodes.find((n) => n.type === 'start')
 
-        // Determine next node based on current node type
-        let nextNode: CanvasNode | null = null
-        let stepStatus = 'SUCCESS'
-        let stepDetails: Record<string, unknown> = {}
-
-        if (currentNode.type === 'start') {
-          nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
-        } else if (currentNode.type === 'delay') {
-          // Delay elapsed — move to next
-          nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
-        } else if (currentNode.type === 'branch') {
-          const cfg = currentNode.config ?? {}
-          const result = await evaluateBranchCondition(cfg, participant.userId)
-          const handle = result ? 'yes' : 'no'
-          nextNode = getNextNode(currentNode.id, handle, edges, nodes)
-          stepDetails = { conditionResult: result }
-        } else if (currentNode.type === 'email') {
-          const cfg = (currentNode.config ?? {}) as unknown as EmailNodeConfig
-          try {
-            stepDetails = await executeEmailNode(cfg, participant.userId, participant.id)
-          } catch (err) {
-            stepStatus = 'FAILED'
-            stepDetails = { error: String(err) }
-            throw err
+          if (!currentNode) {
+            await prisma.journeyParticipant.update({
+              where: { id: participant.id },
+              data: { status: 'COMPLETED', nextStepAt: null },
+            })
+            participantDone = true
+            break
           }
-          nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
-        } else if (currentNode.type === 'push') {
-          const cfg = (currentNode.config ?? {}) as unknown as PushNodeConfig
-          try {
-            stepDetails = await executePushNode(cfg, participant.userId)
-          } catch (err) {
-            stepStatus = 'FAILED'
-            stepDetails = { error: String(err) }
-            throw err
-          }
-          nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
-        } else if (currentNode.type === 'inapp') {
-          const cfg = (currentNode.config ?? {}) as unknown as InAppNodeConfig
-          stepDetails = await executeInAppNode(cfg, participant.userId)
-          nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
-        } else if (currentNode.type === 'incentive') {
-          const cfg = (currentNode.config ?? {}) as unknown as IncentiveNodeConfig
-          try {
-            stepDetails = await executeIncentiveNode(cfg, participant.userId)
-          } catch (err) {
-            stepStatus = 'FAILED'
-            stepDetails = { error: String(err) }
-            throw err
-          }
-          nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
-        } else if (currentNode.type === 'end') {
-          nextNode = null
-        }
 
-        // Log the step execution
-        await prisma.journeyLog.create({
-          data: {
-            journeyId: participant.journeyId,
-            participantId: participant.id,
-            nodeId: currentNode.id,
-            eventType: 'STEP_EXECUTED',
-            status: stepStatus,
-            details: stepDetails as never,
-          },
-        })
+          let nextNode: CanvasNode | null = null
+          let stepStatus = 'SUCCESS'
+          let stepDetails: Record<string, unknown> = {}
 
-        if (nextNode === null) {
-          // Journey completed
-          await prisma.journeyParticipant.update({
-            where: { id: participant.id },
+          if (currentNode.type === 'start') {
+            nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
+            stepDetails = { nodeType: 'start', label: 'Journey gestartet' }
+          } else if (currentNode.type === 'delay') {
+            // Delay has elapsed — advance past it
+            nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
+            const delayCfg = currentNode.config as { amount?: number; unit?: string } | undefined
+            const delayAmt = delayCfg?.amount ?? 1
+            const delayUnit =
+              delayCfg?.unit === 'minutes' ? 'Min.' : delayCfg?.unit === 'hours' ? 'Std.' : 'Tag(e)'
+            stepDetails = { nodeType: 'delay', label: `Wartezeit abgelaufen (${delayAmt} ${delayUnit})` }
+          } else if (currentNode.type === 'branch') {
+            const cfg = currentNode.config ?? {}
+            const result = await evaluateBranchCondition(cfg, participant.userId)
+            const handle = result ? 'yes' : 'no'
+            nextNode = getNextNode(currentNode.id, handle, edges, nodes)
+            stepDetails = {
+              nodeType: 'branch',
+              label: `Bedingung: ${result ? 'Ja-Pfad' : 'Nein-Pfad'}`,
+              conditionResult: result,
+            }
+          } else if (currentNode.type === 'email') {
+            const cfg = (currentNode.config ?? {}) as unknown as EmailNodeConfig
+            try {
+              const emailResult = await executeEmailNode(cfg, participant.userId, participant.id)
+              stepDetails = {
+                nodeType: 'email',
+                label: emailResult.skipped
+                  ? `E-Mail übersprungen: ${emailResult.skipped}`
+                  : `E-Mail gesendet an ${emailResult.to}`,
+                ...emailResult,
+              }
+            } catch (err) {
+              stepStatus = 'FAILED'
+              stepDetails = { nodeType: 'email', label: 'E-Mail fehlgeschlagen', error: String(err) }
+              throw err
+            }
+            nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
+          } else if (currentNode.type === 'push') {
+            const cfg = (currentNode.config ?? {}) as unknown as PushNodeConfig
+            try {
+              const pushResult = await executePushNode(cfg, participant.userId)
+              const sentCount = (pushResult.sentCount as number) ?? 0
+              stepDetails = {
+                nodeType: 'push',
+                label: pushResult.skipped
+                  ? `Push übersprungen: ${pushResult.skipped}`
+                  : `Push gesendet (${sentCount} Gerät${sentCount !== 1 ? 'e' : ''})`,
+                ...pushResult,
+              }
+            } catch (err) {
+              stepStatus = 'FAILED'
+              stepDetails = { nodeType: 'push', label: 'Push fehlgeschlagen', error: String(err) }
+              throw err
+            }
+            nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
+          } else if (currentNode.type === 'inapp') {
+            const cfg = (currentNode.config ?? {}) as unknown as InAppNodeConfig
+            const inappResult = await executeInAppNode(cfg, participant.userId)
+            stepDetails = { nodeType: 'inapp', label: 'In-App Nachricht geplant', ...inappResult }
+            nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
+          } else if (currentNode.type === 'incentive') {
+            const cfg = (currentNode.config ?? {}) as unknown as IncentiveNodeConfig
+            try {
+              const incentiveResult = await executeIncentiveNode(cfg, participant.userId)
+              const incentiveLabel =
+                incentiveResult.incentiveType === 'wallet_credit'
+                  ? `Wallet-Guthaben vergeben: ${incentiveResult.amount} €`
+                  : incentiveResult.incentiveType === 'coupon'
+                    ? `Coupon vergeben: ${incentiveResult.couponCode}`
+                    : 'Incentive vergeben'
+              stepDetails = { nodeType: 'incentive', label: incentiveLabel, ...incentiveResult }
+            } catch (err) {
+              stepStatus = 'FAILED'
+              stepDetails = { nodeType: 'incentive', label: 'Incentive fehlgeschlagen', error: String(err) }
+              throw err
+            }
+            nextNode = getNextNode(currentNode.id, 'output', edges, nodes)
+          } else if (currentNode.type === 'end') {
+            nextNode = null
+            stepDetails = { nodeType: 'end', label: 'Journey abgeschlossen' }
+          }
+
+          // Log this step
+          await prisma.journeyLog.create({
             data: {
-              status: 'COMPLETED',
-              currentNodeId: currentNode.id,
-              nextStepAt: null,
+              journeyId: participant.journeyId,
+              participantId: participant.id,
+              nodeId: currentNode.id,
+              eventType: 'STEP_EXECUTED',
+              status: stepStatus,
+              details: stepDetails as never,
             },
           })
-        } else if (nextNode.type === 'delay') {
-          // Schedule next step after delay
-          const cfg = nextNode.config as { amount?: number; unit?: string } | undefined
-          const amount = cfg?.amount ?? 1
-          const unit = cfg?.unit ?? 'days'
-          const ms =
-            unit === 'minutes'
-              ? amount * 60 * 1000
-              : unit === 'hours'
-                ? amount * 60 * 60 * 1000
-                : amount * 24 * 60 * 60 * 1000 // days
-          const nextStepAt = new Date(now.getTime() + ms)
 
+          stepsThisRun++
+
+          if (nextNode === null || nextNode.type === 'end') {
+            // Journey completed
+            await prisma.journeyParticipant.update({
+              where: { id: participant.id },
+              data: {
+                status: 'COMPLETED',
+                currentNodeId: nextNode?.id ?? currentNode.id,
+                nextStepAt: null,
+              },
+            })
+            participantDone = true
+            break
+          } else if (nextNode.type === 'delay') {
+            // Park at the delay node and schedule the next run
+            const cfg = nextNode.config as { amount?: number; unit?: string } | undefined
+            const amount = cfg?.amount ?? 1
+            const unit = cfg?.unit ?? 'days'
+            const ms =
+              unit === 'minutes'
+                ? amount * 60 * 1000
+                : unit === 'hours'
+                  ? amount * 60 * 60 * 1000
+                  : amount * 24 * 60 * 60 * 1000 // days
+            const nextStepAt = new Date(now.getTime() + ms)
+
+            await prisma.journeyParticipant.update({
+              where: { id: participant.id },
+              data: { currentNodeId: nextNode.id, nextStepAt },
+            })
+            participantDone = true
+            break
+          } else {
+            // Immediate node — update position and continue the while loop
+            await prisma.journeyParticipant.update({
+              where: { id: participant.id },
+              data: { currentNodeId: nextNode.id },
+            })
+            currentNodeId = nextNode.id
+          }
+        }
+
+        if (!participantDone) {
+          // Safety limit hit — park here for next cron run
           await prisma.journeyParticipant.update({
             where: { id: participant.id },
-            data: { currentNodeId: nextNode.id, nextStepAt },
-          })
-        } else {
-          // Immediate execution: schedule for now to re-process in next batch
-          await prisma.journeyParticipant.update({
-            where: { id: participant.id },
-            data: { currentNodeId: nextNode.id, nextStepAt: now },
+            data: { nextStepAt: now },
           })
         }
 

@@ -64,6 +64,47 @@ const LOG_STATUS_BADGE: Record<string, string> = {
   SKIPPED: 'bg-gray-100 text-gray-600',
 }
 
+const NODE_TYPE_BADGE: Record<string, string> = {
+  start: 'bg-gray-100 text-gray-600',
+  end: 'bg-gray-100 text-gray-600',
+  email: 'bg-blue-100 text-blue-700',
+  push: 'bg-green-100 text-green-700',
+  inapp: 'bg-purple-100 text-purple-700',
+  delay: 'bg-amber-100 text-amber-700',
+  branch: 'bg-orange-100 text-orange-700',
+  incentive: 'bg-yellow-100 text-yellow-800',
+}
+
+const NODE_TYPE_LABEL: Record<string, string> = {
+  start: 'Start',
+  end: 'Ende',
+  email: 'E-Mail',
+  push: 'Push',
+  inapp: 'In-App',
+  delay: 'Wartezeit',
+  branch: 'Bedingung',
+  incentive: 'Incentive',
+}
+
+const EVENT_TYPE_LABEL: Record<string, string> = {
+  ENTERED: 'Journey beigetreten',
+  CONVERTED: 'Konvertiert',
+  EXITED: 'Journey verlassen',
+  FAILED: 'Fehler aufgetreten',
+  STEP_EXECUTED: 'Schritt ausgeführt',
+}
+
+function getLogLabel(log: LogEntry): string {
+  if (log.details?.label) return log.details.label as string
+  return EVENT_TYPE_LABEL[log.eventType] ?? log.eventType
+}
+
+function getLogNodeType(log: LogEntry): string | null {
+  if (log.details?.nodeType) return log.details.nodeType as string
+  if (log.eventType === 'ENTERED') return 'start'
+  return null
+}
+
 function formatDate(d: string) {
   try {
     return format(new Date(d), 'dd.MM.yyyy HH:mm', { locale: de })
@@ -328,39 +369,46 @@ export default function AnalyticsPage({ params }: { params: { id: string } }) {
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-white">
                     <tr className="border-b">
-                      <th className="text-left py-2 px-2 text-xs font-semibold text-gray-500">Zeitpunkt</th>
+                      <th className="text-left py-2 px-2 text-xs font-semibold text-gray-500 whitespace-nowrap">Zeitpunkt</th>
                       <th className="text-left py-2 px-2 text-xs font-semibold text-gray-500">Nutzer</th>
-                      <th className="text-left py-2 px-2 text-xs font-semibold text-gray-500">Event</th>
-                      <th className="text-left py-2 px-2 text-xs font-semibold text-gray-500">Node</th>
+                      <th className="text-left py-2 px-2 text-xs font-semibold text-gray-500">Schritt</th>
                       <th className="text-left py-2 px-2 text-xs font-semibold text-gray-500">Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredLogs.map((log) => (
-                      <tr key={log.id} className="border-b hover:bg-gray-50">
-                        <td className="py-2 px-2 text-xs text-gray-500 whitespace-nowrap">
-                          {formatDate(log.createdAt)}
-                        </td>
-                        <td className="py-2 px-2 text-xs text-gray-700">
-                          {log.participant?.user.email ?? '—'}
-                        </td>
-                        <td className="py-2 px-2">
-                          <Badge className="text-xs border-0 bg-gray-100 text-gray-600">
-                            {log.eventType}
-                          </Badge>
-                        </td>
-                        <td className="py-2 px-2 text-xs text-gray-500 font-mono">
-                          {log.nodeId ? log.nodeId.slice(0, 8) : '—'}
-                        </td>
-                        <td className="py-2 px-2">
-                          <Badge
-                            className={`text-xs border-0 ${LOG_STATUS_BADGE[log.status] ?? 'bg-gray-100 text-gray-600'}`}
-                          >
-                            {log.status}
-                          </Badge>
-                        </td>
-                      </tr>
-                    ))}
+                    {filteredLogs.map((log) => {
+                      const nodeType = getLogNodeType(log)
+                      const label = getLogLabel(log)
+                      return (
+                        <tr key={log.id} className="border-b hover:bg-gray-50">
+                          <td className="py-2 px-2 text-xs text-gray-500 whitespace-nowrap">
+                            {formatDate(log.createdAt)}
+                          </td>
+                          <td className="py-2 px-2 text-xs text-gray-700 whitespace-nowrap">
+                            {log.participant?.user.name
+                              ? <><span className="font-medium">{log.participant.user.name}</span><br /><span className="text-gray-400">{log.participant.user.email}</span></>
+                              : (log.participant?.user.email ?? '—')}
+                          </td>
+                          <td className="py-2 px-2">
+                            <div className="flex items-start gap-1.5">
+                              {nodeType && (
+                                <Badge className={`text-xs border-0 shrink-0 ${NODE_TYPE_BADGE[nodeType] ?? 'bg-gray-100 text-gray-600'}`}>
+                                  {NODE_TYPE_LABEL[nodeType] ?? nodeType}
+                                </Badge>
+                              )}
+                              <span className="text-xs text-gray-700 leading-tight">{label}</span>
+                            </div>
+                          </td>
+                          <td className="py-2 px-2">
+                            <Badge
+                              className={`text-xs border-0 ${LOG_STATUS_BADGE[log.status] ?? 'bg-gray-100 text-gray-600'}`}
+                            >
+                              {log.status === 'SUCCESS' ? 'Erfolg' : log.status === 'FAILED' ? 'Fehler' : log.status}
+                            </Badge>
+                          </td>
+                        </tr>
+                      )
+                    })}
                   </tbody>
                 </table>
               )}
