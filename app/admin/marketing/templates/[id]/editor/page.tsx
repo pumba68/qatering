@@ -1222,7 +1222,7 @@ export default function TemplateEditorPage() {
       )}
 
       {/* Publish Dialog */}
-      <PublishDialog open={publishOpen} onOpenChange={setPublishOpen} templateId={templateId} templateName={templateName} />
+      <PublishDialog open={publishOpen} onOpenChange={setPublishOpen} templateId={templateId} templateName={templateName} templateType={templateType} />
     </div>
   )
 }
