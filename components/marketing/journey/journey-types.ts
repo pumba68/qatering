@@ -16,6 +16,7 @@ export interface StartNodeConfig {
   triggerType: 'EVENT' | 'SEGMENT_ENTRY' | 'DATE_BASED'
   eventType?: string
   segmentId?: string
+  segmentName?: string
   dateField?: string
   daysBefore?: number
 }

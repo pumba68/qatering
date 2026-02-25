@@ -757,6 +757,17 @@ exports.Prisma.JourneyLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.UserEventScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  metadata: 'metadata',
+  actorId: 'actorId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1016,7 +1027,8 @@ exports.Prisma.ModelName = {
   EmailCampaignLog: 'EmailCampaignLog',
   Journey: 'Journey',
   JourneyParticipant: 'JourneyParticipant',
-  JourneyLog: 'JourneyLog'
+  JourneyLog: 'JourneyLog',
+  UserEvent: 'UserEvent'
 };
 
 /**

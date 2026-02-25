@@ -12,7 +12,7 @@ const StartNode = memo(({ data, selected }: NodeProps) => {
     config.triggerType === 'EVENT'
       ? EVENT_TYPES.find((e) => e.value === config.eventType)?.label ?? config.eventType ?? 'Event'
       : config.triggerType === 'SEGMENT_ENTRY'
-        ? 'Segment-Eintritt'
+        ? (config.segmentName ?? 'Segment wählen…')
         : config.dateField ?? 'Datum-basiert'
 
   return (

@@ -253,6 +253,11 @@ export type JourneyParticipant = $Result.DefaultSelection<Prisma.$JourneyPartici
  * 
  */
 export type JourneyLog = $Result.DefaultSelection<Prisma.$JourneyLogPayload>
+/**
+ * Model UserEvent
+ * 
+ */
+export type UserEvent = $Result.DefaultSelection<Prisma.$UserEventPayload>
 
 /**
  * Enums
@@ -1218,6 +1223,16 @@ export class PrismaClient<
     * ```
     */
   get journeyLog(): Prisma.JourneyLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.userEvent`: Exposes CRUD operations for the **UserEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserEvents
+    * const userEvents = await prisma.userEvent.findMany()
+    * ```
+    */
+  get userEvent(): Prisma.UserEventDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1706,7 +1721,8 @@ export namespace Prisma {
     EmailCampaignLog: 'EmailCampaignLog',
     Journey: 'Journey',
     JourneyParticipant: 'JourneyParticipant',
-    JourneyLog: 'JourneyLog'
+    JourneyLog: 'JourneyLog',
+    UserEvent: 'UserEvent'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1722,7 +1738,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "emailChangeToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "marketingTemplateVersion" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog" | "journey" | "journeyParticipant" | "journeyLog"
+      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "emailChangeToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "marketingTemplateVersion" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog" | "journey" | "journeyParticipant" | "journeyLog" | "userEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5086,6 +5102,76 @@ export namespace Prisma {
           }
         }
       }
+      UserEvent: {
+        payload: Prisma.$UserEventPayload<ExtArgs>
+        fields: Prisma.UserEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>
+          }
+          findFirst: {
+            args: Prisma.UserEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>
+          }
+          findMany: {
+            args: Prisma.UserEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>[]
+          }
+          create: {
+            args: Prisma.UserEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>
+          }
+          createMany: {
+            args: Prisma.UserEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>[]
+          }
+          delete: {
+            args: Prisma.UserEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>
+          }
+          update: {
+            args: Prisma.UserEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEventPayload>
+          }
+          aggregate: {
+            args: Prisma.UserEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserEvent>
+          }
+          groupBy: {
+            args: Prisma.UserEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserEventCountArgs<ExtArgs>
+            result: $Utils.Optional<UserEventCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5573,6 +5659,8 @@ export namespace Prisma {
     customerIdentifiers: number
     preferences: number
     emailChangeTokens: number
+    userEvents: number
+    triggeredUserEvents: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5594,6 +5682,8 @@ export namespace Prisma {
     customerIdentifiers?: boolean | UserCountOutputTypeCountCustomerIdentifiersArgs
     preferences?: boolean | UserCountOutputTypeCountPreferencesArgs
     emailChangeTokens?: boolean | UserCountOutputTypeCountEmailChangeTokensArgs
+    userEvents?: boolean | UserCountOutputTypeCountUserEventsArgs
+    triggeredUserEvents?: boolean | UserCountOutputTypeCountTriggeredUserEventsArgs
   }
 
   // Custom InputTypes
@@ -5731,6 +5821,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountEmailChangeTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmailChangeTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEventWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTriggeredUserEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEventWhereInput
   }
 
 
@@ -15170,6 +15274,8 @@ export namespace Prisma {
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     metrics?: boolean | User$metricsArgs<ExtArgs>
     emailChangeTokens?: boolean | User$emailChangeTokensArgs<ExtArgs>
+    userEvents?: boolean | User$userEventsArgs<ExtArgs>
+    triggeredUserEvents?: boolean | User$triggeredUserEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -15228,6 +15334,8 @@ export namespace Prisma {
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     metrics?: boolean | User$metricsArgs<ExtArgs>
     emailChangeTokens?: boolean | User$emailChangeTokensArgs<ExtArgs>
+    userEvents?: boolean | User$userEventsArgs<ExtArgs>
+    triggeredUserEvents?: boolean | User$triggeredUserEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15258,6 +15366,8 @@ export namespace Prisma {
       preferences: Prisma.$CustomerPreferencePayload<ExtArgs>[]
       metrics: Prisma.$CustomerMetricsPayload<ExtArgs> | null
       emailChangeTokens: Prisma.$EmailChangeTokenPayload<ExtArgs>[]
+      userEvents: Prisma.$UserEventPayload<ExtArgs>[]
+      triggeredUserEvents: Prisma.$UserEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15658,6 +15768,8 @@ export namespace Prisma {
     preferences<T extends User$preferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$preferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findMany"> | Null>
     metrics<T extends User$metricsArgs<ExtArgs> = {}>(args?: Subset<T, User$metricsArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     emailChangeTokens<T extends User$emailChangeTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$emailChangeTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailChangeTokenPayload<ExtArgs>, T, "findMany"> | Null>
+    userEvents<T extends User$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany"> | Null>
+    triggeredUserEvents<T extends User$triggeredUserEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$triggeredUserEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16420,6 +16532,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EmailChangeTokenScalarFieldEnum | EmailChangeTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.userEvents
+   */
+  export type User$userEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    where?: UserEventWhereInput
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    cursor?: UserEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
+  }
+
+  /**
+   * User.triggeredUserEvents
+   */
+  export type User$triggeredUserEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    where?: UserEventWhereInput
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    cursor?: UserEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
   }
 
   /**
@@ -57097,6 +57249,992 @@ export namespace Prisma {
 
 
   /**
+   * Model UserEvent
+   */
+
+  export type AggregateUserEvent = {
+    _count: UserEventCountAggregateOutputType | null
+    _min: UserEventMinAggregateOutputType | null
+    _max: UserEventMaxAggregateOutputType | null
+  }
+
+  export type UserEventMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: string | null
+    title: string | null
+    description: string | null
+    actorId: string | null
+    createdAt: Date | null
+  }
+
+  export type UserEventMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: string | null
+    title: string | null
+    description: string | null
+    actorId: string | null
+    createdAt: Date | null
+  }
+
+  export type UserEventCountAggregateOutputType = {
+    id: number
+    userId: number
+    type: number
+    title: number
+    description: number
+    metadata: number
+    actorId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type UserEventMinAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    title?: true
+    description?: true
+    actorId?: true
+    createdAt?: true
+  }
+
+  export type UserEventMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    title?: true
+    description?: true
+    actorId?: true
+    createdAt?: true
+  }
+
+  export type UserEventCountAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    title?: true
+    description?: true
+    metadata?: true
+    actorId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type UserEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserEvent to aggregate.
+     */
+    where?: UserEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEvents to fetch.
+     */
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserEvents
+    **/
+    _count?: true | UserEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserEventMaxAggregateInputType
+  }
+
+  export type GetUserEventAggregateType<T extends UserEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserEvent[P]>
+      : GetScalarType<T[P], AggregateUserEvent[P]>
+  }
+
+
+
+
+  export type UserEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEventWhereInput
+    orderBy?: UserEventOrderByWithAggregationInput | UserEventOrderByWithAggregationInput[]
+    by: UserEventScalarFieldEnum[] | UserEventScalarFieldEnum
+    having?: UserEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserEventCountAggregateInputType | true
+    _min?: UserEventMinAggregateInputType
+    _max?: UserEventMaxAggregateInputType
+  }
+
+  export type UserEventGroupByOutputType = {
+    id: string
+    userId: string
+    type: string
+    title: string
+    description: string | null
+    metadata: JsonValue | null
+    actorId: string | null
+    createdAt: Date
+    _count: UserEventCountAggregateOutputType | null
+    _min: UserEventMinAggregateOutputType | null
+    _max: UserEventMaxAggregateOutputType | null
+  }
+
+  type GetUserEventGroupByPayload<T extends UserEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserEventGroupByOutputType[P]>
+            : GetScalarType<T[P], UserEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    metadata?: boolean
+    actorId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    actor?: boolean | UserEvent$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["userEvent"]>
+
+  export type UserEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    metadata?: boolean
+    actorId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    actor?: boolean | UserEvent$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["userEvent"]>
+
+  export type UserEventSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    metadata?: boolean
+    actorId?: boolean
+    createdAt?: boolean
+  }
+
+  export type UserEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    actor?: boolean | UserEvent$actorArgs<ExtArgs>
+  }
+  export type UserEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    actor?: boolean | UserEvent$actorArgs<ExtArgs>
+  }
+
+  export type $UserEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserEvent"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      actor: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      type: string
+      title: string
+      description: string | null
+      metadata: Prisma.JsonValue | null
+      actorId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["userEvent"]>
+    composites: {}
+  }
+
+  type UserEventGetPayload<S extends boolean | null | undefined | UserEventDefaultArgs> = $Result.GetResult<Prisma.$UserEventPayload, S>
+
+  type UserEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserEventFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserEventCountAggregateInputType | true
+    }
+
+  export interface UserEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserEvent'], meta: { name: 'UserEvent' } }
+    /**
+     * Find zero or one UserEvent that matches the filter.
+     * @param {UserEventFindUniqueArgs} args - Arguments to find a UserEvent
+     * @example
+     * // Get one UserEvent
+     * const userEvent = await prisma.userEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserEventFindUniqueArgs>(args: SelectSubset<T, UserEventFindUniqueArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one UserEvent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {UserEventFindUniqueOrThrowArgs} args - Arguments to find a UserEvent
+     * @example
+     * // Get one UserEvent
+     * const userEvent = await prisma.userEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserEventFindUniqueOrThrowArgs>(args: SelectSubset<T, UserEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first UserEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEventFindFirstArgs} args - Arguments to find a UserEvent
+     * @example
+     * // Get one UserEvent
+     * const userEvent = await prisma.userEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserEventFindFirstArgs>(args?: SelectSubset<T, UserEventFindFirstArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first UserEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEventFindFirstOrThrowArgs} args - Arguments to find a UserEvent
+     * @example
+     * // Get one UserEvent
+     * const userEvent = await prisma.userEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserEventFindFirstOrThrowArgs>(args?: SelectSubset<T, UserEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more UserEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserEvents
+     * const userEvents = await prisma.userEvent.findMany()
+     * 
+     * // Get first 10 UserEvents
+     * const userEvents = await prisma.userEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userEventWithIdOnly = await prisma.userEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserEventFindManyArgs>(args?: SelectSubset<T, UserEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a UserEvent.
+     * @param {UserEventCreateArgs} args - Arguments to create a UserEvent.
+     * @example
+     * // Create one UserEvent
+     * const UserEvent = await prisma.userEvent.create({
+     *   data: {
+     *     // ... data to create a UserEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserEventCreateArgs>(args: SelectSubset<T, UserEventCreateArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many UserEvents.
+     * @param {UserEventCreateManyArgs} args - Arguments to create many UserEvents.
+     * @example
+     * // Create many UserEvents
+     * const userEvent = await prisma.userEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserEventCreateManyArgs>(args?: SelectSubset<T, UserEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserEvents and returns the data saved in the database.
+     * @param {UserEventCreateManyAndReturnArgs} args - Arguments to create many UserEvents.
+     * @example
+     * // Create many UserEvents
+     * const userEvent = await prisma.userEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserEvents and only return the `id`
+     * const userEventWithIdOnly = await prisma.userEvent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserEventCreateManyAndReturnArgs>(args?: SelectSubset<T, UserEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a UserEvent.
+     * @param {UserEventDeleteArgs} args - Arguments to delete one UserEvent.
+     * @example
+     * // Delete one UserEvent
+     * const UserEvent = await prisma.userEvent.delete({
+     *   where: {
+     *     // ... filter to delete one UserEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserEventDeleteArgs>(args: SelectSubset<T, UserEventDeleteArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one UserEvent.
+     * @param {UserEventUpdateArgs} args - Arguments to update one UserEvent.
+     * @example
+     * // Update one UserEvent
+     * const userEvent = await prisma.userEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserEventUpdateArgs>(args: SelectSubset<T, UserEventUpdateArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more UserEvents.
+     * @param {UserEventDeleteManyArgs} args - Arguments to filter UserEvents to delete.
+     * @example
+     * // Delete a few UserEvents
+     * const { count } = await prisma.userEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserEventDeleteManyArgs>(args?: SelectSubset<T, UserEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserEvents
+     * const userEvent = await prisma.userEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserEventUpdateManyArgs>(args: SelectSubset<T, UserEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserEvent.
+     * @param {UserEventUpsertArgs} args - Arguments to update or create a UserEvent.
+     * @example
+     * // Update or create a UserEvent
+     * const userEvent = await prisma.userEvent.upsert({
+     *   create: {
+     *     // ... data to create a UserEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserEventUpsertArgs>(args: SelectSubset<T, UserEventUpsertArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of UserEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEventCountArgs} args - Arguments to filter UserEvents to count.
+     * @example
+     * // Count the number of UserEvents
+     * const count = await prisma.userEvent.count({
+     *   where: {
+     *     // ... the filter for the UserEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserEventCountArgs>(
+      args?: Subset<T, UserEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserEventAggregateArgs>(args: Subset<T, UserEventAggregateArgs>): Prisma.PrismaPromise<GetUserEventAggregateType<T>>
+
+    /**
+     * Group by UserEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserEventGroupByArgs['orderBy'] }
+        : { orderBy?: UserEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserEvent model
+   */
+  readonly fields: UserEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    actor<T extends UserEvent$actorArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$actorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserEvent model
+   */ 
+  interface UserEventFieldRefs {
+    readonly id: FieldRef<"UserEvent", 'String'>
+    readonly userId: FieldRef<"UserEvent", 'String'>
+    readonly type: FieldRef<"UserEvent", 'String'>
+    readonly title: FieldRef<"UserEvent", 'String'>
+    readonly description: FieldRef<"UserEvent", 'String'>
+    readonly metadata: FieldRef<"UserEvent", 'Json'>
+    readonly actorId: FieldRef<"UserEvent", 'String'>
+    readonly createdAt: FieldRef<"UserEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserEvent findUnique
+   */
+  export type UserEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEvent to fetch.
+     */
+    where: UserEventWhereUniqueInput
+  }
+
+  /**
+   * UserEvent findUniqueOrThrow
+   */
+  export type UserEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEvent to fetch.
+     */
+    where: UserEventWhereUniqueInput
+  }
+
+  /**
+   * UserEvent findFirst
+   */
+  export type UserEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEvent to fetch.
+     */
+    where?: UserEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEvents to fetch.
+     */
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserEvents.
+     */
+    cursor?: UserEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserEvents.
+     */
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
+  }
+
+  /**
+   * UserEvent findFirstOrThrow
+   */
+  export type UserEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEvent to fetch.
+     */
+    where?: UserEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEvents to fetch.
+     */
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserEvents.
+     */
+    cursor?: UserEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserEvents.
+     */
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
+  }
+
+  /**
+   * UserEvent findMany
+   */
+  export type UserEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEvents to fetch.
+     */
+    where?: UserEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEvents to fetch.
+     */
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserEvents.
+     */
+    cursor?: UserEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEvents.
+     */
+    skip?: number
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
+  }
+
+  /**
+   * UserEvent create
+   */
+  export type UserEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserEvent.
+     */
+    data: XOR<UserEventCreateInput, UserEventUncheckedCreateInput>
+  }
+
+  /**
+   * UserEvent createMany
+   */
+  export type UserEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserEvents.
+     */
+    data: UserEventCreateManyInput | UserEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserEvent createManyAndReturn
+   */
+  export type UserEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many UserEvents.
+     */
+    data: UserEventCreateManyInput | UserEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserEvent update
+   */
+  export type UserEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserEvent.
+     */
+    data: XOR<UserEventUpdateInput, UserEventUncheckedUpdateInput>
+    /**
+     * Choose, which UserEvent to update.
+     */
+    where: UserEventWhereUniqueInput
+  }
+
+  /**
+   * UserEvent updateMany
+   */
+  export type UserEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserEvents.
+     */
+    data: XOR<UserEventUpdateManyMutationInput, UserEventUncheckedUpdateManyInput>
+    /**
+     * Filter which UserEvents to update
+     */
+    where?: UserEventWhereInput
+  }
+
+  /**
+   * UserEvent upsert
+   */
+  export type UserEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserEvent to update in case it exists.
+     */
+    where: UserEventWhereUniqueInput
+    /**
+     * In case the UserEvent found by the `where` argument doesn't exist, create a new UserEvent with this data.
+     */
+    create: XOR<UserEventCreateInput, UserEventUncheckedCreateInput>
+    /**
+     * In case the UserEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserEventUpdateInput, UserEventUncheckedUpdateInput>
+  }
+
+  /**
+   * UserEvent delete
+   */
+  export type UserEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    /**
+     * Filter which UserEvent to delete.
+     */
+    where: UserEventWhereUniqueInput
+  }
+
+  /**
+   * UserEvent deleteMany
+   */
+  export type UserEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserEvents to delete
+     */
+    where?: UserEventWhereInput
+  }
+
+  /**
+   * UserEvent.actor
+   */
+  export type UserEvent$actorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * UserEvent without action
+   */
+  export type UserEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -57887,6 +59025,20 @@ export namespace Prisma {
   };
 
   export type JourneyLogScalarFieldEnum = (typeof JourneyLogScalarFieldEnum)[keyof typeof JourneyLogScalarFieldEnum]
+
+
+  export const UserEventScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    title: 'title',
+    description: 'description',
+    metadata: 'metadata',
+    actorId: 'actorId',
+    createdAt: 'createdAt'
+  };
+
+  export type UserEventScalarFieldEnum = (typeof UserEventScalarFieldEnum)[keyof typeof UserEventScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -59106,6 +60258,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceListRelationFilter
     metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
     emailChangeTokens?: EmailChangeTokenListRelationFilter
+    userEvents?: UserEventListRelationFilter
+    triggeredUserEvents?: UserEventListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -59143,6 +60297,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceOrderByRelationAggregateInput
     metrics?: CustomerMetricsOrderByWithRelationInput
     emailChangeTokens?: EmailChangeTokenOrderByRelationAggregateInput
+    userEvents?: UserEventOrderByRelationAggregateInput
+    triggeredUserEvents?: UserEventOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -59183,6 +60339,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceListRelationFilter
     metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
     emailChangeTokens?: EmailChangeTokenListRelationFilter
+    userEvents?: UserEventListRelationFilter
+    triggeredUserEvents?: UserEventListRelationFilter
   }, "id" | "email" | "customerId">
 
   export type UserOrderByWithAggregationInput = {
@@ -62636,6 +63794,79 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"JourneyLog"> | Date | string
   }
 
+  export type UserEventWhereInput = {
+    AND?: UserEventWhereInput | UserEventWhereInput[]
+    OR?: UserEventWhereInput[]
+    NOT?: UserEventWhereInput | UserEventWhereInput[]
+    id?: StringFilter<"UserEvent"> | string
+    userId?: StringFilter<"UserEvent"> | string
+    type?: StringFilter<"UserEvent"> | string
+    title?: StringFilter<"UserEvent"> | string
+    description?: StringNullableFilter<"UserEvent"> | string | null
+    metadata?: JsonNullableFilter<"UserEvent">
+    actorId?: StringNullableFilter<"UserEvent"> | string | null
+    createdAt?: DateTimeFilter<"UserEvent"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type UserEventOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    actorId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    actor?: UserOrderByWithRelationInput
+  }
+
+  export type UserEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserEventWhereInput | UserEventWhereInput[]
+    OR?: UserEventWhereInput[]
+    NOT?: UserEventWhereInput | UserEventWhereInput[]
+    userId?: StringFilter<"UserEvent"> | string
+    type?: StringFilter<"UserEvent"> | string
+    title?: StringFilter<"UserEvent"> | string
+    description?: StringNullableFilter<"UserEvent"> | string | null
+    metadata?: JsonNullableFilter<"UserEvent">
+    actorId?: StringNullableFilter<"UserEvent"> | string | null
+    createdAt?: DateTimeFilter<"UserEvent"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type UserEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    actorId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: UserEventCountOrderByAggregateInput
+    _max?: UserEventMaxOrderByAggregateInput
+    _min?: UserEventMinOrderByAggregateInput
+  }
+
+  export type UserEventScalarWhereWithAggregatesInput = {
+    AND?: UserEventScalarWhereWithAggregatesInput | UserEventScalarWhereWithAggregatesInput[]
+    OR?: UserEventScalarWhereWithAggregatesInput[]
+    NOT?: UserEventScalarWhereWithAggregatesInput | UserEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserEvent"> | string
+    userId?: StringWithAggregatesFilter<"UserEvent"> | string
+    type?: StringWithAggregatesFilter<"UserEvent"> | string
+    title?: StringWithAggregatesFilter<"UserEvent"> | string
+    description?: StringNullableWithAggregatesFilter<"UserEvent"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"UserEvent">
+    actorId?: StringNullableWithAggregatesFilter<"UserEvent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserEvent"> | Date | string
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     name: string
@@ -63436,6 +64667,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -63472,6 +64705,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserUpdateInput = {
@@ -63508,6 +64743,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -63544,6 +64781,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -67303,6 +68542,81 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserEventCreateInput = {
+    id?: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutUserEventsInput
+    actor?: UserCreateNestedOneWithoutTriggeredUserEventsInput
+  }
+
+  export type UserEventUncheckedCreateInput = {
+    id?: string
+    userId: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserEventsNestedInput
+    actor?: UserUpdateOneWithoutTriggeredUserEventsNestedInput
+  }
+
+  export type UserEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEventCreateManyInput = {
+    id?: string
+    userId: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -68261,6 +69575,12 @@ export namespace Prisma {
     none?: EmailChangeTokenWhereInput
   }
 
+  export type UserEventListRelationFilter = {
+    every?: UserEventWhereInput
+    some?: UserEventWhereInput
+    none?: UserEventWhereInput
+  }
+
   export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -68306,6 +69626,10 @@ export namespace Prisma {
   }
 
   export type EmailChangeTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserEventOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -70878,6 +72202,37 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type UserEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    metadata?: SortOrder
+    actorId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    actorId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    actorId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type LocationCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -72115,6 +73470,20 @@ export namespace Prisma {
     connect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
   }
 
+  export type UserEventCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserEventCreateWithoutUserInput, UserEventUncheckedCreateWithoutUserInput> | UserEventCreateWithoutUserInput[] | UserEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutUserInput | UserEventCreateOrConnectWithoutUserInput[]
+    createMany?: UserEventCreateManyUserInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+  }
+
+  export type UserEventCreateNestedManyWithoutActorInput = {
+    create?: XOR<UserEventCreateWithoutActorInput, UserEventUncheckedCreateWithoutActorInput> | UserEventCreateWithoutActorInput[] | UserEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutActorInput | UserEventCreateOrConnectWithoutActorInput[]
+    createMany?: UserEventCreateManyActorInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+  }
+
   export type UserLocationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -72251,6 +73620,20 @@ export namespace Prisma {
     connectOrCreate?: EmailChangeTokenCreateOrConnectWithoutUserInput | EmailChangeTokenCreateOrConnectWithoutUserInput[]
     createMany?: EmailChangeTokenCreateManyUserInputEnvelope
     connect?: EmailChangeTokenWhereUniqueInput | EmailChangeTokenWhereUniqueInput[]
+  }
+
+  export type UserEventUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserEventCreateWithoutUserInput, UserEventUncheckedCreateWithoutUserInput> | UserEventCreateWithoutUserInput[] | UserEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutUserInput | UserEventCreateOrConnectWithoutUserInput[]
+    createMany?: UserEventCreateManyUserInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+  }
+
+  export type UserEventUncheckedCreateNestedManyWithoutActorInput = {
+    create?: XOR<UserEventCreateWithoutActorInput, UserEventUncheckedCreateWithoutActorInput> | UserEventCreateWithoutActorInput[] | UserEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutActorInput | UserEventCreateOrConnectWithoutActorInput[]
+    createMany?: UserEventCreateManyActorInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -72539,6 +73922,34 @@ export namespace Prisma {
     deleteMany?: EmailChangeTokenScalarWhereInput | EmailChangeTokenScalarWhereInput[]
   }
 
+  export type UserEventUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserEventCreateWithoutUserInput, UserEventUncheckedCreateWithoutUserInput> | UserEventCreateWithoutUserInput[] | UserEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutUserInput | UserEventCreateOrConnectWithoutUserInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutUserInput | UserEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserEventCreateManyUserInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutUserInput | UserEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutUserInput | UserEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
+  export type UserEventUpdateManyWithoutActorNestedInput = {
+    create?: XOR<UserEventCreateWithoutActorInput, UserEventUncheckedCreateWithoutActorInput> | UserEventCreateWithoutActorInput[] | UserEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutActorInput | UserEventCreateOrConnectWithoutActorInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutActorInput | UserEventUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: UserEventCreateManyActorInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutActorInput | UserEventUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutActorInput | UserEventUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
   export type UserLocationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserLocationCreateWithoutUserInput, UserLocationUncheckedCreateWithoutUserInput> | UserLocationCreateWithoutUserInput[] | UserLocationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutUserInput | UserLocationCreateOrConnectWithoutUserInput[]
@@ -72809,6 +74220,34 @@ export namespace Prisma {
     update?: EmailChangeTokenUpdateWithWhereUniqueWithoutUserInput | EmailChangeTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: EmailChangeTokenUpdateManyWithWhereWithoutUserInput | EmailChangeTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: EmailChangeTokenScalarWhereInput | EmailChangeTokenScalarWhereInput[]
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserEventCreateWithoutUserInput, UserEventUncheckedCreateWithoutUserInput> | UserEventCreateWithoutUserInput[] | UserEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutUserInput | UserEventCreateOrConnectWithoutUserInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutUserInput | UserEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserEventCreateManyUserInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutUserInput | UserEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutUserInput | UserEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutActorNestedInput = {
+    create?: XOR<UserEventCreateWithoutActorInput, UserEventUncheckedCreateWithoutActorInput> | UserEventCreateWithoutActorInput[] | UserEventUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutActorInput | UserEventCreateOrConnectWithoutActorInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutActorInput | UserEventUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: UserEventCreateManyActorInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutActorInput | UserEventUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutActorInput | UserEventUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPreferencesInput = {
@@ -75211,6 +76650,36 @@ export namespace Prisma {
     update?: XOR<XOR<JourneyParticipantUpdateToOneWithWhereWithoutLogsInput, JourneyParticipantUpdateWithoutLogsInput>, JourneyParticipantUncheckedUpdateWithoutLogsInput>
   }
 
+  export type UserCreateNestedOneWithoutUserEventsInput = {
+    create?: XOR<UserCreateWithoutUserEventsInput, UserUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTriggeredUserEventsInput = {
+    create?: XOR<UserCreateWithoutTriggeredUserEventsInput, UserUncheckedCreateWithoutTriggeredUserEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTriggeredUserEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserEventsNestedInput = {
+    create?: XOR<UserCreateWithoutUserEventsInput, UserUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserEventsInput
+    upsert?: UserUpsertWithoutUserEventsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserEventsInput, UserUpdateWithoutUserEventsInput>, UserUncheckedUpdateWithoutUserEventsInput>
+  }
+
+  export type UserUpdateOneWithoutTriggeredUserEventsNestedInput = {
+    create?: XOR<UserCreateWithoutTriggeredUserEventsInput, UserUncheckedCreateWithoutTriggeredUserEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTriggeredUserEventsInput
+    upsert?: UserUpsertWithoutTriggeredUserEventsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTriggeredUserEventsInput, UserUpdateWithoutTriggeredUserEventsInput>, UserUncheckedUpdateWithoutTriggeredUserEventsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -76012,6 +77481,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -76047,6 +77518,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -77754,6 +79227,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCompanyEmployeesInput = {
@@ -77789,6 +79264,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCompanyEmployeesInput = {
@@ -77893,6 +79370,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyEmployeesInput = {
@@ -77928,6 +79407,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type OrganizationCreateWithoutLocationsInput = {
@@ -79089,6 +80570,66 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserEventCreateWithoutUserInput = {
+    id?: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    actor?: UserCreateNestedOneWithoutTriggeredUserEventsInput
+  }
+
+  export type UserEventUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEventCreateOrConnectWithoutUserInput = {
+    where: UserEventWhereUniqueInput
+    create: XOR<UserEventCreateWithoutUserInput, UserEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserEventCreateManyUserInputEnvelope = {
+    data: UserEventCreateManyUserInput | UserEventCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserEventCreateWithoutActorInput = {
+    id?: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutUserEventsInput
+  }
+
+  export type UserEventUncheckedCreateWithoutActorInput = {
+    id?: string
+    userId: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type UserEventCreateOrConnectWithoutActorInput = {
+    where: UserEventWhereUniqueInput
+    create: XOR<UserEventCreateWithoutActorInput, UserEventUncheckedCreateWithoutActorInput>
+  }
+
+  export type UserEventCreateManyActorInputEnvelope = {
+    data: UserEventCreateManyActorInput | UserEventCreateManyActorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutUsersInput = {
     update: XOR<OrganizationUpdateWithoutUsersInput, OrganizationUncheckedUpdateWithoutUsersInput>
     create: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
@@ -79721,6 +81262,52 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"EmailChangeToken"> | Date | string
   }
 
+  export type UserEventUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserEventWhereUniqueInput
+    update: XOR<UserEventUpdateWithoutUserInput, UserEventUncheckedUpdateWithoutUserInput>
+    create: XOR<UserEventCreateWithoutUserInput, UserEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserEventUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserEventWhereUniqueInput
+    data: XOR<UserEventUpdateWithoutUserInput, UserEventUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserEventUpdateManyWithWhereWithoutUserInput = {
+    where: UserEventScalarWhereInput
+    data: XOR<UserEventUpdateManyMutationInput, UserEventUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserEventScalarWhereInput = {
+    AND?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+    OR?: UserEventScalarWhereInput[]
+    NOT?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+    id?: StringFilter<"UserEvent"> | string
+    userId?: StringFilter<"UserEvent"> | string
+    type?: StringFilter<"UserEvent"> | string
+    title?: StringFilter<"UserEvent"> | string
+    description?: StringNullableFilter<"UserEvent"> | string | null
+    metadata?: JsonNullableFilter<"UserEvent">
+    actorId?: StringNullableFilter<"UserEvent"> | string | null
+    createdAt?: DateTimeFilter<"UserEvent"> | Date | string
+  }
+
+  export type UserEventUpsertWithWhereUniqueWithoutActorInput = {
+    where: UserEventWhereUniqueInput
+    update: XOR<UserEventUpdateWithoutActorInput, UserEventUncheckedUpdateWithoutActorInput>
+    create: XOR<UserEventCreateWithoutActorInput, UserEventUncheckedCreateWithoutActorInput>
+  }
+
+  export type UserEventUpdateWithWhereUniqueWithoutActorInput = {
+    where: UserEventWhereUniqueInput
+    data: XOR<UserEventUpdateWithoutActorInput, UserEventUncheckedUpdateWithoutActorInput>
+  }
+
+  export type UserEventUpdateManyWithWhereWithoutActorInput = {
+    where: UserEventScalarWhereInput
+    data: XOR<UserEventUpdateManyMutationInput, UserEventUncheckedUpdateManyWithoutActorInput>
+  }
+
   export type UserCreateWithoutPreferencesInput = {
     id?: string
     email: string
@@ -79754,6 +81341,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPreferencesInput = {
@@ -79789,6 +81378,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPreferencesInput = {
@@ -79840,6 +81431,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPreferencesInput = {
@@ -79875,6 +81468,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutMetricsInput = {
@@ -79910,6 +81505,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutMetricsInput = {
@@ -79945,6 +81542,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutMetricsInput = {
@@ -79996,6 +81595,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMetricsInput = {
@@ -80031,6 +81632,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutCustomerIdentifiersInput = {
@@ -80066,6 +81669,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCustomerIdentifiersInput = {
@@ -80101,6 +81706,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCustomerIdentifiersInput = {
@@ -80152,6 +81759,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomerIdentifiersInput = {
@@ -80187,6 +81796,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutWalletInput = {
@@ -80222,6 +81833,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -80257,6 +81870,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -80308,6 +81923,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -80343,6 +81960,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutWalletTransactionsInput = {
@@ -80378,6 +81997,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutWalletTransactionsInput = {
@@ -80413,6 +82034,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutWalletTransactionsInput = {
@@ -80510,6 +82133,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPerformedWalletActionsInput = {
@@ -80545,6 +82170,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPerformedWalletActionsInput = {
@@ -80625,6 +82252,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
@@ -80660,6 +82289,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type OrderUpsertWithoutWalletTransactionsInput = {
@@ -80769,6 +82400,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedWalletActionsInput = {
@@ -80804,6 +82437,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type IncentiveGrantUpsertWithoutWalletTransactionInput = {
@@ -80874,6 +82509,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutLocationsInput = {
@@ -80909,6 +82546,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutLocationsInput = {
@@ -80999,6 +82638,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLocationsInput = {
@@ -81034,6 +82675,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type LocationUpsertWithoutUsersInput = {
@@ -81114,6 +82757,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -81149,6 +82794,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -81200,6 +82847,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -81235,6 +82884,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -81270,6 +82921,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -81305,6 +82958,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -81356,6 +83011,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -81391,6 +83048,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutEmailChangeTokensInput = {
@@ -81426,6 +83085,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutEmailChangeTokensInput = {
@@ -81461,6 +83122,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutEmailChangeTokensInput = {
@@ -81512,6 +83175,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailChangeTokensInput = {
@@ -81547,6 +83212,8 @@ export namespace Prisma {
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type LocationCreateWithoutMenusInput = {
@@ -82522,6 +84189,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -82557,6 +84226,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -82790,6 +84461,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -82825,6 +84498,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type LocationUpsertWithoutOrdersInput = {
@@ -83449,6 +85124,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCouponRedemptionsInput = {
@@ -83484,6 +85161,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCouponRedemptionsInput = {
@@ -83649,6 +85328,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCouponRedemptionsInput = {
@@ -83684,6 +85365,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type OrderUpsertWithoutCouponRedemptionsInput = {
@@ -86360,6 +88043,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPushNotificationLogsInput = {
@@ -86395,6 +88080,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPushNotificationLogsInput = {
@@ -86491,6 +88178,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushNotificationLogsInput = {
@@ -86526,6 +88215,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutPushSubscriptionsInput = {
@@ -86561,6 +88252,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -86596,6 +88289,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -86647,6 +88342,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -86682,6 +88379,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type OrganizationCreateWithoutPaymentConfigsInput = {
@@ -86770,6 +88469,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPaymentConfigChangesInput = {
@@ -86805,6 +88506,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPaymentConfigChangesInput = {
@@ -86915,6 +88618,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentConfigChangesInput = {
@@ -86950,6 +88655,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type SegmentIncentiveCreateWithoutGrantsInput = {
@@ -87026,6 +88733,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutIncentiveGrantsInput = {
@@ -87061,6 +88770,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutIncentiveGrantsInput = {
@@ -87245,6 +88956,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncentiveGrantsInput = {
@@ -87280,6 +88993,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type CouponUpsertWithoutIncentiveGrantsInput = {
@@ -87548,6 +89263,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignsCreatedInput = {
@@ -87583,6 +89300,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignsCreatedInput = {
@@ -87823,6 +89542,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignsCreatedInput = {
@@ -87858,6 +89579,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type EmailCampaignLogUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -87954,6 +89677,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutEmailCampaignLogsInput = {
@@ -87989,6 +89714,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutEmailCampaignLogsInput = {
@@ -88091,6 +89818,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailCampaignLogsInput = {
@@ -88126,6 +89855,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type OrganizationCreateWithoutJourneysInput = {
@@ -88428,6 +90159,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutJourneyParticipantsInput = {
@@ -88463,6 +90196,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutJourneyParticipantsInput = {
@@ -88593,6 +90328,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJourneyParticipantsInput = {
@@ -88628,6 +90365,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type JourneyLogUpsertWithWhereUniqueWithoutParticipantInput = {
@@ -88804,6 +90543,334 @@ export namespace Prisma {
     exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserCreateWithoutUserEventsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutUserEventsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    triggeredUserEvents?: UserEventUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutUserEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserEventsInput, UserUncheckedCreateWithoutUserEventsInput>
+  }
+
+  export type UserCreateWithoutTriggeredUserEventsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTriggeredUserEventsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTriggeredUserEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTriggeredUserEventsInput, UserUncheckedCreateWithoutTriggeredUserEventsInput>
+  }
+
+  export type UserUpsertWithoutUserEventsInput = {
+    update: XOR<UserUpdateWithoutUserEventsInput, UserUncheckedUpdateWithoutUserEventsInput>
+    create: XOR<UserCreateWithoutUserEventsInput, UserUncheckedCreateWithoutUserEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserEventsInput, UserUncheckedUpdateWithoutUserEventsInput>
+  }
+
+  export type UserUpdateWithoutUserEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUpsertWithoutTriggeredUserEventsInput = {
+    update: XOR<UserUpdateWithoutTriggeredUserEventsInput, UserUncheckedUpdateWithoutTriggeredUserEventsInput>
+    create: XOR<UserCreateWithoutTriggeredUserEventsInput, UserUncheckedCreateWithoutTriggeredUserEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTriggeredUserEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTriggeredUserEventsInput, UserUncheckedUpdateWithoutTriggeredUserEventsInput>
+  }
+
+  export type UserUpdateWithoutTriggeredUserEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTriggeredUserEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationCreateManyOrganizationInput = {
@@ -89049,6 +91116,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -89084,6 +91153,8 @@ export namespace Prisma {
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    triggeredUserEvents?: UserEventUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -90312,6 +92383,26 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type UserEventCreateManyUserInput = {
+    id?: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEventCreateManyActorInput = {
+    id?: string
+    userId: string
+    type: string
+    title: string
+    description?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
   export type UserLocationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -90939,6 +93030,66 @@ export namespace Prisma {
     newEmail?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEventUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    actor?: UserUpdateOneWithoutTriggeredUserEventsNestedInput
+  }
+
+  export type UserEventUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEventUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserEventsNestedInput
+  }
+
+  export type UserEventUncheckedUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -92799,6 +94950,10 @@ export namespace Prisma {
      * @deprecated Use JourneyLogDefaultArgs instead
      */
     export type JourneyLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JourneyLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use UserEventDefaultArgs instead
+     */
+    export type UserEventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserEventDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

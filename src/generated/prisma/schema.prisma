@@ -13,14 +13,20 @@ datasource db {
 
 // Multi-Tenant: Organisationen/Locations (White-Label Support)
 model Organization {
-  id             String   @id @default(cuid())
+  id             String  @id @default(cuid())
   name           String
-  slug           String   @unique // Für White-Label URLs: kantine-platform.com/organization-slug
+  slug           String  @unique // Für White-Label URLs: kantine-platform.com/organization-slug
   logoUrl        String?
-  primaryColor   String?  @default("#3b82f6")
-  secondaryColor String?  @default("#1e40af")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  primaryColor   String? @default("#3b82f6")
+  secondaryColor String? @default("#1e40af")
+
+  // SEPA Einstellungen des Betreibers (Kreditor) für SEPA Direct Debit
+  sepaCreditorId String? @db.VarChar(35) // Gläubiger-ID, z.B. DE98ZZZ09999999999
+  sepaIban       String? @db.VarChar(34) // Betreiber-IBAN (Empfängerkonto)
+  sepaBic        String? @db.VarChar(11) // Betreiber-BIC
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   locations          Location[]
   users              User[]
@@ -30,6 +36,9 @@ model Organization {
   segmentIncentives  SegmentIncentive[]
   marketingTemplates MarketingTemplate[]
   pushNotifications  PushNotification[]
+  paymentConfigs     PaymentProviderConfig[]
+  emailCampaigns     EmailCampaign[] // PROJ-9
+  journeys           Journey[] // PROJ-24
 
   @@map("organizations")
 }
@@ -49,12 +58,19 @@ model Company {
   validFrom  DateTime? // Optional: Vertragsbeginn
   validUntil DateTime? // Optional: Vertragsende
 
+  // SEPA Direct Debit - Bankverbindung & Lastschriftmandat (PROJ-15)
+  sepaIban             String?   @db.VarChar(34) // IBAN des Vertragspartners (Schuldner)
+  sepaBic              String?   @db.VarChar(11) // BIC/SWIFT des Vertragspartners
+  sepaMandateReference String?   @db.VarChar(35) // Eindeutige Mandatsreferenz
+  sepaMandateDate      DateTime? // Datum der Mandatsunterzeichnung
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  employees CompanyEmployee[]
-  orders    Order[]
-  invoices  CompanyInvoice[]
+  employees       CompanyEmployee[]
+  orders          Order[]
+  invoices        CompanyInvoice[]
+  sepaSubmissions SepaSubmission[]
 
   @@map("companies")
 }
@@ -64,20 +80,54 @@ model CompanyInvoice {
   id          String    @id @default(cuid())
   companyId   String
   year        Int // Abrechnungsjahr
-  month       Int // Abrechnungsmonat 1–12
-  status      String    @default("DRAFT") @db.VarChar(20) // DRAFT | INVOICED | PAID
+  month       Int // Abrechnungsmonat 1-12
+  status      String    @default("DRAFT") @db.VarChar(20) // DRAFT | INVOICED | SEPA_SUBMITTED | PAID
   totalAmount Decimal   @db.Decimal(10, 2) // Summe Zuschusskosten
-  invoicedAt  DateTime? // Zeitpunkt PDF-Export / „Rechnung gestellt“
+  invoicedAt  DateTime? // Zeitpunkt PDF-Export / „Rechnung gestellt"
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  company Company              @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  items   CompanyInvoiceItem[]
+  company         Company                 @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  items           CompanyInvoiceItem[]
+  sepaSubmissions SepaSubmissionInvoice[]
 
   @@unique([companyId, year, month])
   @@index([companyId])
   @@index([status])
   @@map("company_invoices")
+}
+
+// SEPA Direct Debit Generierungsprotokoll (PROJ-16)
+model SepaSubmission {
+  id             String   @id @default(cuid())
+  companyId      String
+  organizationId String
+  generatedAt    DateTime @default(now())
+  totalAmount    Decimal  @db.Decimal(10, 2)
+  dueDate        DateTime
+  seqType        String   @db.VarChar(4) // FRST | RCUR
+  createdById    String // Admin-User ID
+  source         String   @db.VarChar(20) // INVOICED | OPEN_BALANCE
+
+  company  Company                 @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  invoices SepaSubmissionInvoice[]
+
+  @@index([companyId])
+  @@index([organizationId])
+  @@map("sepa_submissions")
+}
+
+// Verbindungstabelle: SepaSubmission ↔ CompanyInvoice
+model SepaSubmissionInvoice {
+  id               String @id @default(cuid())
+  sepaSubmissionId String
+  companyInvoiceId String
+
+  sepaSubmission SepaSubmission @relation(fields: [sepaSubmissionId], references: [id], onDelete: Cascade)
+  companyInvoice CompanyInvoice @relation(fields: [companyInvoiceId], references: [id], onDelete: Cascade)
+
+  @@unique([sepaSubmissionId, companyInvoiceId])
+  @@map("sepa_submission_invoices")
 }
 
 // Einzelposten der Monatsrechnung (Bestellnummer, Datum, Mitarbeiter, Summe)
@@ -159,7 +209,12 @@ model User {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
-  organization           Organization?         @relation(fields: [organizationId], references: [id])
+  // PROJ-18: CDP Golden Record
+  customerId   String? @unique @default(cuid()) // Stabile fachliche Kunden-ID (nie änderbar)
+  isAnonymous  Boolean @default(false) // Anonymes Profil-Flag
+  mergedIntoId String? // Verweis auf Zielprofil bei Merge (null = aktiv)
+
+  organization           Organization?           @relation(fields: [organizationId], references: [id])
   locations              UserLocation[]
   companyEmployees       CompanyEmployee[]
   orders                 Order[]
@@ -169,11 +224,209 @@ model User {
   incentiveGrants        IncentiveGrant[]
   wallet                 Wallet?
   walletTransactions     WalletTransaction[]
-  performedWalletActions WalletTransaction[]   @relation("WalletAudit")
+  performedWalletActions WalletTransaction[]     @relation("WalletAudit")
   pushNotificationLogs   PushNotificationLog[]
   pushSubscriptions      PushSubscription[]
+  paymentConfigChanges   PaymentProviderConfig[] @relation("PaymentConfigAudit")
+  // PROJ-9: Email campaigns
+  emailCampaignsCreated  EmailCampaign[]         @relation("EmailCampaignCreator")
+  emailCampaignLogs      EmailCampaignLog[]      @relation("EmailCampaignLogs")
+  // PROJ-24: Journey Participants
+  journeyParticipants    JourneyParticipant[]
+  // PROJ-18: CDP Identifikatoren
+  customerIdentifiers    CustomerIdentifier[]
+  // PROJ-20: CDP Präferenzen
+  preferences            CustomerPreference[]
+  // PROJ-21: CDP Abgeleitete Merkmale
+  metrics                CustomerMetrics?
+  // PROJ-23: Kundenprofil – Selbstverwaltung
+  emailChangeTokens      EmailChangeToken[]
+  // PROJ-25: Kundenaktivitäts-Eventstream
+  userEvents             UserEvent[]
+  triggeredUserEvents    UserEvent[]             @relation("UserEventActor")
 
   @@map("users")
+}
+
+// PROJ-20: CDP – Präferenzen & Allergien
+enum PreferenceType {
+  EXPLICIT // Aktiv eingegeben oder bestätigter Vorschlag
+  IMPLICIT // Statistikwert (nur intern, nicht in dieser Tabelle gespeichert)
+}
+
+enum PreferenceSource {
+  USER // Kunde hat selbst eingetragen
+  ADMIN // Admin hat eingetragen (oder Vorschlag bestätigt)
+  SYSTEM // Systemseitig berechnet (Background-Job)
+  DERIVED // Automatisch aus Bestellhistorie abgeleitet, noch unbestätigt
+}
+
+enum PreferenceAction {
+  ADDED // Explizite Präferenz hinzugefügt
+  REMOVED // Explizite Präferenz entfernt
+  CONFIRMED // Automatischer Vorschlag durch Admin bestätigt
+}
+
+model CustomerPreference {
+  id          String           @id @default(cuid())
+  userId      String
+  type        PreferenceType
+  key         String // z.B. ALLERGEN_GLUTEN, DIET_VEGAN, ALLERGEN_CUSTOM
+  value       String? // Freitextwert (z.B. bei ALLERGEN_CUSTOM)
+  source      PreferenceSource
+  confidence  Decimal?         @db.Decimal(4, 3) // 0.000–1.000 (nur für source=DERIVED)
+  ignored     Boolean          @default(false) // DERIVED-Vorschlag dauerhaft ignoriert
+  updatedAt   DateTime         @updatedAt
+  updatedById String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, key])
+  @@index([userId, type])
+  @@map("customer_preferences")
+}
+
+model PreferenceAuditLog {
+  id            String           @id @default(cuid())
+  userId        String
+  action        PreferenceAction
+  key           String
+  value         String?
+  confidence    Decimal?         @db.Decimal(4, 3) // Snapshot des Konfidenzwerts bei CONFIRMED
+  changedById   String
+  changedByName String
+  changedAt     DateTime         @default(now())
+
+  @@index([userId, changedAt])
+  @@map("preference_audit_logs")
+}
+
+// PROJ-21: CDP – Abgeleitete Merkmale & Aktivitätsstatus
+
+enum ActivityStatus {
+  NEU
+  AKTIV
+  GELEGENTLICH
+  SCHLAFEND
+  ABGEWANDERT
+}
+
+enum CustomerTier {
+  STANDARD
+  BRONZE
+  SILBER
+  GOLD
+  PLATIN
+}
+
+enum RfmSegment {
+  NEW_CUSTOMER
+  CHAMPION
+  LOYAL
+  POTENTIAL
+  NEEDS_ATTENTION
+  AT_RISK
+  CANT_LOSE
+  HIBERNATING
+}
+
+enum TrendDirection {
+  WACHSEND
+  STABIL
+  RUECKLAEUFIG
+}
+
+model CustomerMetrics {
+  id             String @id @default(cuid())
+  userId         String @unique
+  organizationId String
+
+  // ─── Aktivität ─────────────────────────────────────────────────────────────
+  activityStatus        ActivityStatus
+  daysSinceLastOrder    Int?
+  daysSinceRegistration Int
+  preferredDayOfWeek    Int? // 0=So, 1=Mo, ..., 6=Sa
+  preferredTimeSlot     String? // BREAKFAST | LUNCH | AFTERNOON | EVENING
+
+  // ─── Wert ──────────────────────────────────────────────────────────────────
+  ltv                   Decimal      @db.Decimal(10, 2)
+  avgOrderValue         Decimal      @db.Decimal(10, 2)
+  orderFrequencyPerWeek Decimal      @db.Decimal(6, 3)
+  spend30d              Decimal      @db.Decimal(10, 2)
+  totalOrders           Int
+  firstOrderAt          DateTime?
+  lastOrderAt           DateTime?
+  customerTier          CustomerTier
+
+  // ─── RFM ───────────────────────────────────────────────────────────────────
+  rfmR       Int // 1–5
+  rfmF       Int // 1–5
+  rfmM       Int // 1–5
+  rfmSegment RfmSegment
+
+  // ─── Trend ─────────────────────────────────────────────────────────────────
+  frequencyTrend TrendDirection
+  spendTrend     TrendDirection
+  orders30d      Int
+  orders30dPrev  Int
+  spend30dPrev   Decimal        @db.Decimal(10, 2)
+
+  // ─── Scores ────────────────────────────────────────────────────────────────
+  churnRiskScore Int // 0–100
+  winBackScore   Int? // 0–100, nur für ABGEWANDERT
+  upsellScore    Int // 0–100
+
+  // ─── Verhalten ─────────────────────────────────────────────────────────────
+  orderConsistencyScore Int? // 0–100, null wenn < 3 Bestellungen
+  orderDiversityScore   Int // 0–100
+  lunchRegularityPct    Decimal? @db.Decimal(4, 3) // 0.000–1.000
+  avgLeadTimeHours      Decimal? @db.Decimal(6, 1)
+
+  // ─── Engagement ────────────────────────────────────────────────────────────
+  couponUsageRate   Decimal @db.Decimal(4, 3) // 0.000–1.000
+  walletUsageRate   Decimal @db.Decimal(4, 3) // 0.000–1.000
+  primaryChannel    String?
+  channelLoyaltyPct Decimal @db.Decimal(4, 3) // 0.000–1.000
+
+  // ─── Meta ──────────────────────────────────────────────────────────────────
+  calculatedAt DateTime
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, activityStatus])
+  @@index([organizationId, customerTier])
+  @@index([organizationId, rfmSegment])
+  @@index([organizationId, churnRiskScore])
+  @@index([organizationId, calculatedAt])
+  @@map("customer_metrics")
+}
+
+// PROJ-18: CDP – Mehrfach-Identifikatoren pro Kunde
+enum CustomerIdentifierType {
+  APP_ID
+  EMPLOYEE_ID
+  BADGE_ID
+  DEVICE_ID
+  EXTERNAL_ID
+}
+
+model CustomerIdentifier {
+  id        String                 @id @default(cuid())
+  userId    String
+  type      CustomerIdentifierType
+  value     String
+  source    String? // z.B. "HR-System", "Badge-Scanner"
+  isActive  Boolean                @default(true)
+  addedAt   DateTime               @default(now())
+  removedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([value])
+  @@index([type, isActive])
+  @@map("customer_identifiers")
 }
 
 // Guthaben-System (Wallet)
@@ -197,17 +450,19 @@ enum WalletTransactionType {
 }
 
 model WalletTransaction {
-  id               String                @id @default(cuid())
-  userId           String
-  type             WalletTransactionType
-  amount           Decimal               @db.Decimal(10, 2) // + Gutschrift, - Abbuchung
-  balanceBefore    Decimal               @db.Decimal(10, 2)
-  balanceAfter     Decimal               @db.Decimal(10, 2)
-  description      String?               @db.Text
-  orderId          String?
-  performedById    String? // Admin bei TOP_UP/ADJUSTMENT
-  incentiveGrantId String?               @unique // PROJ-4e: Bei INCENTIVE-Transaktion (1:1)
-  createdAt        DateTime              @default(now())
+  id                String                @id @default(cuid())
+  userId            String
+  type              WalletTransactionType
+  amount            Decimal               @db.Decimal(10, 2) // + Gutschrift, - Abbuchung
+  balanceBefore     Decimal               @db.Decimal(10, 2)
+  balanceAfter      Decimal               @db.Decimal(10, 2)
+  description       String?               @db.Text
+  orderId           String?
+  performedById     String? // Admin bei TOP_UP/ADJUSTMENT
+  incentiveGrantId  String?               @unique // PROJ-4e: Bei INCENTIVE-Transaktion (1:1)
+  paymentProvider   String?               @db.VarChar(20) // PROJ-14: stripe | paypal | sumup
+  externalPaymentId String?               @db.VarChar(200) // PROJ-14: Externe Transaktions-ID (Idempotenz)
+  createdAt         DateTime              @default(now())
 
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   order          Order?          @relation(fields: [orderId], references: [id], onDelete: SetNull)
@@ -279,6 +534,21 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+// PROJ-23: Email change token für Kundenprofil
+model EmailChangeToken {
+  id        String   @id @default(cuid())
+  userId    String
+  newEmail  String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("email_change_tokens")
 }
 
 // Wöchentliche Essenspläne
@@ -404,6 +674,9 @@ model Order {
   updatedAt       DateTime      @updatedAt
   pickedUpAt      DateTime?
 
+  // PROJ-19: Bestellkanal (woher die Bestellung kam)
+  channel OrderChannel? @default(APP)
+
   user                  User               @relation(fields: [userId], references: [id])
   location              Location           @relation(fields: [locationId], references: [id])
   items                 OrderItem[]
@@ -418,11 +691,21 @@ model Order {
   walletTransactions WalletTransaction[]
 
   @@index([userId])
+  @@index([userId, createdAt]) // PROJ-19: Compound-Index für Bestellhistorie-Abfragen
   @@index([locationId])
   @@index([pickupCode])
   @@index([pickupDate])
   @@index([employerCompanyId, createdAt])
   @@map("orders")
+}
+
+// PROJ-19: Bestellkanal (über welchen Kanal die Bestellung aufgegeben wurde)
+enum OrderChannel {
+  APP // Kunden-App
+  WEB // Web-Browser
+  TERMINAL // Self-Service-Terminal vor Ort
+  KASSE // Manuelle Kassen-Eingabe
+  ADMIN // Admin-Nutzer hat Bestellung angelegt
 }
 
 enum OrderStatus {
@@ -509,16 +792,24 @@ enum MetadataType {
 
 // Bestellte Gerichte
 model OrderItem {
-  id         String   @id @default(cuid())
+  id         String  @id @default(cuid())
   orderId    String
   menuItemId String
-  quantity   Int      @default(1)
-  price      Decimal  @db.Decimal(10, 2) // Preis zum Zeitpunkt der Bestellung
-  createdAt  DateTime @default(now())
+  quantity   Int     @default(1)
+  price      Decimal @db.Decimal(10, 2) // Preis zum Zeitpunkt der Bestellung
+
+  // PROJ-19: Snapshot-Felder (werden beim Erstellen der Bestellung einmalig befüllt)
+  // Nullable für Rückwärtskompatibilität mit bestehenden Bestellungen
+  productNameSnapshot     String? // Name des Produkts zum Bestellzeitpunkt
+  productCategorySnapshot String? // Kategorie zum Bestellzeitpunkt
+  unitPriceSnapshot       Decimal? @db.Decimal(10, 2) // Einzelpreis als expliziter Snapshot
+
+  createdAt DateTime @default(now())
 
   order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   menuItem MenuItem @relation(fields: [menuItemId], references: [id])
 
+  @@index([orderId])
   @@map("order_items")
 }
 
@@ -557,6 +848,7 @@ model CustomerSegment {
   workflows         MarketingWorkflow[]
   segmentIncentives SegmentIncentive[]
   pushNotifications PushNotification[]
+  emailCampaigns    EmailCampaign[] // PROJ-9
 
   @@unique([organizationId, name])
   @@index([organizationId])
@@ -703,18 +995,41 @@ model MarketingTemplate {
   isStarter      Boolean                 @default(false)
   isFavorite     Boolean                 @default(false)
   thumbnailUrl   String?                 @db.Text
+  // PROJ-9: E-Mail-spezifische Felder
+  subjectLine    String?                 @db.VarChar(80)
+  preheaderText  String?                 @db.VarChar(150)
+  senderName     String?                 @db.VarChar(100)
   createdAt      DateTime                @default(now())
   updatedAt      DateTime                @updatedAt
 
-  organization      Organization?      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organization      Organization?              @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   // PROJ-10: Back-relations
-  inAppMessages     InAppMessage[]     @relation("InAppMessageTemplate")
-  promotionBanners  PromotionBanner[]  @relation("PromotionBannerTemplate")
+  inAppMessages     InAppMessage[]             @relation("InAppMessageTemplate")
+  promotionBanners  PromotionBanner[]          @relation("PromotionBannerTemplate")
   pushNotifications PushNotification[]
+  // PROJ-9: Email campaigns
+  emailCampaigns    EmailCampaign[]
+  // PROJ-8: Version history
+  versions          MarketingTemplateVersion[]
 
   @@index([organizationId, type, status])
   @@index([isStarter])
   @@map("marketing_templates")
+}
+
+// PROJ-8: Template-Versionshistorie ────────────────────────────────────────────
+
+model MarketingTemplateVersion {
+  id         String   @id @default(cuid())
+  templateId String
+  content    Json // Snapshot des vollständigen TemplateContent
+  savedBy    String?  @db.VarChar(20) // 'manual' | 'autosave'
+  createdAt  DateTime @default(now())
+
+  template MarketingTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@index([templateId, createdAt])
+  @@map("marketing_template_versions")
 }
 
 // PROJ-10: Push-Benachrichtigungen ─────────────────────────────────────────────
@@ -789,6 +1104,24 @@ model PushSubscription {
   @@map("push_subscriptions")
 }
 
+// PROJ-14: Payment-Provider-Konfiguration (verschlüsselt in DB)
+model PaymentProviderConfig {
+  id             String   @id @default(cuid())
+  organizationId String
+  provider       String   @db.VarChar(20) // stripe | paypal | sumup
+  isEnabled      Boolean  @default(false)
+  configJson     String   @db.Text // AES-256-GCM verschlüsseltes JSON mit Keys
+  updatedAt      DateTime @updatedAt
+  updatedById    String?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  updatedBy    User?        @relation("PaymentConfigAudit", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  @@unique([organizationId, provider])
+  @@index([organizationId])
+  @@map("payment_provider_configs")
+}
+
 // PROJ-4e: Wer hat welchen Incentive erhalten?
 model IncentiveGrant {
   id                  String    @id @default(cuid())
@@ -810,4 +1143,189 @@ model IncentiveGrant {
   @@index([userId])
   @@index([segmentIncentiveId])
   @@map("incentive_grants")
+}
+
+// PROJ-9: E-Mail-Kampagnen ─────────────────────────────────────────────────────
+
+enum EmailCampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  CANCELLED
+  FAILED
+}
+
+enum EmailDeliveryStatus {
+  PENDING
+  SENT
+  OPENED
+  CLICKED
+  BOUNCED
+  FAILED
+}
+
+model EmailCampaign {
+  id               String              @id @default(cuid())
+  organizationId   String
+  templateId       String?
+  templateSnapshot Json? // Snapshot des Template-Inhalts zum Versandzeitpunkt
+  subjectLine      String              @db.VarChar(80)
+  preheaderText    String?             @db.VarChar(150)
+  senderName       String?             @db.VarChar(100)
+  segmentId        String?
+  scheduledAt      DateTime?
+  sentAt           DateTime?
+  status           EmailCampaignStatus @default(DRAFT)
+  totalRecipients  Int                 @default(0)
+  sentCount        Int                 @default(0)
+  failedCount      Int                 @default(0)
+  createdById      String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  template     MarketingTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  segment      CustomerSegment?   @relation(fields: [segmentId], references: [id], onDelete: SetNull)
+  createdBy    User?              @relation("EmailCampaignCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  logs         EmailCampaignLog[]
+
+  @@index([organizationId, status])
+  @@index([segmentId])
+  @@map("email_campaigns")
+}
+
+model EmailCampaignLog {
+  id            String              @id @default(cuid())
+  campaignId    String
+  userId        String?
+  email         String              @db.VarChar(255)
+  trackingToken String              @unique @default(cuid())
+  status        EmailDeliveryStatus @default(PENDING)
+  sentAt        DateTime?
+  openedAt      DateTime?
+  clickedAt     DateTime?
+  errorMessage  String?             @db.Text
+  createdAt     DateTime            @default(now())
+
+  campaign EmailCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user     User?         @relation("EmailCampaignLogs", fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([campaignId])
+  @@index([trackingToken])
+  @@map("email_campaign_logs")
+}
+
+// PROJ-24: Marketing Journeys & Automation ─────────────────────────────────────
+
+enum JourneyStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum JourneyTriggerType {
+  EVENT // user.registered, order.first, user.inactive, wallet.below_threshold
+  SEGMENT_ENTRY // Nutzer tritt in Segment ein
+  DATE_BASED // user.birthday, days_since_registration
+}
+
+enum JourneyParticipantStatus {
+  ACTIVE // Aktuell in Journey
+  CONVERTED // Conversion Goal erreicht
+  EXITED // Vorzeitig ausgetreten
+  COMPLETED // Journey vollständig durchlaufen
+  FAILED // Fehler aufgetreten
+  PAUSED // Journey pausiert
+}
+
+model Journey {
+  id             String        @id @default(cuid())
+  organizationId String
+  name           String        @db.VarChar(200)
+  description    String?       @db.Text
+  status         JourneyStatus @default(DRAFT)
+
+  // Entry
+  triggerType   JourneyTriggerType
+  triggerConfig Json // { eventType, segmentId, days, threshold, ... }
+
+  // Canvas (DAG)
+  content Json @default("{\"nodes\":[],\"edges\":[]}")
+
+  // Global Settings
+  startDate      DateTime?
+  endDate        DateTime?
+  reEntryPolicy  String    @default("NEVER") @db.VarChar(20) // NEVER | AFTER_DAYS:X | ALWAYS
+  conversionGoal Json? // { eventType, windowDays }
+  exitRules      Json? // [{ type, config }]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  participants JourneyParticipant[]
+  logs         JourneyLog[]
+
+  @@index([organizationId, status])
+  @@map("journeys")
+}
+
+model JourneyParticipant {
+  id            String                   @id @default(cuid())
+  journeyId     String
+  userId        String
+  status        JourneyParticipantStatus @default(ACTIVE)
+  currentNodeId String?
+  enteredAt     DateTime                 @default(now())
+  convertedAt   DateTime?
+  exitedAt      DateTime?
+  nextStepAt    DateTime? // Für Delay-Nodes: wann weitermachen
+  metadata      Json?
+
+  journey Journey      @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  logs    JourneyLog[]
+
+  @@unique([journeyId, userId])
+  @@index([journeyId, status])
+  @@index([nextStepAt])
+  @@map("journey_participants")
+}
+
+model JourneyLog {
+  id            String   @id @default(cuid())
+  journeyId     String
+  participantId String?
+  nodeId        String?
+  eventType     String   @db.VarChar(50) // ENTERED | STEP_EXECUTED | CONVERTED | EXITED | FAILED
+  status        String   @db.VarChar(20) // SUCCESS | FAILED | SKIPPED
+  details       Json?
+  createdAt     DateTime @default(now())
+
+  journey     Journey             @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+  participant JourneyParticipant? @relation(fields: [participantId], references: [id], onDelete: SetNull)
+
+  @@index([journeyId, createdAt])
+  @@index([participantId])
+  @@map("journey_logs")
+}
+
+// PROJ-25: Kundenaktivitäts-Eventstream
+model UserEvent {
+  id          String   @id @default(cuid())
+  userId      String
+  type        String   @db.VarChar(60) // account.registered | order.created | etc.
+  title       String   @db.VarChar(200)
+  description String?  @db.Text
+  metadata    Json?
+  actorId     String? // Admin, der das Event ausgelöst hat (optional)
+  createdAt   DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actor User? @relation("UserEventActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@map("user_events")
 }

@@ -1,5 +1,4 @@
 import { requireRole } from '@/lib/auth-helpers'
-import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/admin/AppSidebar'
 import { AdminShell } from '@/components/admin/AdminShell'
 import { Toaster } from 'sonner'
@@ -12,12 +11,12 @@ export default async function AdminLayout({
   await requireRole(['ADMIN', 'KITCHEN_STAFF', 'SUPER_ADMIN'])
 
   return (
-    <SidebarProvider>
+    <div className="flex h-screen overflow-hidden bg-background">
       <AppSidebar />
-      <SidebarInset>
+      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <AdminShell>{children}</AdminShell>
-      </SidebarInset>
+      </div>
       <Toaster richColors position="top-right" />
-    </SidebarProvider>
+    </div>
   )
 }

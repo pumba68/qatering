@@ -273,3 +273,5 @@ export function JourneyCanvas({
     </div>
   )
 }
+
+export default JourneyCanvas

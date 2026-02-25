@@ -55,6 +55,15 @@ import {
   Minus,
   Activity,
   Award,
+  // PROJ-25: Eventstream
+  UserCheck,
+  ShoppingBag,
+  CircleDollarSign,
+  GitBranch,
+  Mail,
+  Tag,
+  SlidersHorizontal,
+  Zap,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -589,7 +598,7 @@ function BestellhistorieTab({ userId }: { userId: string }) {
 
 // ─── Drawer Tabs ─────────────────────────────────────────────────────────────
 
-const TABS = ['Übersicht', 'Bestellhistorie', 'Präferenzen', 'Merkmale', 'Segmente'] as const
+const TABS = ['Übersicht', 'Bestellhistorie', 'Präferenzen', 'Merkmale', 'Segmente', 'Aktivität'] as const
 type Tab = typeof TABS[number]
 
 // ─── Drawer Content ───────────────────────────────────────────────────────────
@@ -819,6 +828,10 @@ function CustomerDrawer({ customerId, onClose }: { customerId: string; onClose: 
 
           {activeTab === 'Segmente' && data && (
             <SegmenteTab userId={data.id} />
+          )}
+
+          {activeTab === 'Aktivität' && data && (
+            <EventStreamTab userId={data.id} />
           )}
         </>
       )}
@@ -1987,6 +2000,191 @@ function SegmenteTab({ userId }: { userId: string }) {
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+// ─── PROJ-25 EventStreamTab ───────────────────────────────────────────────────
+
+interface EventEntry {
+  id: string
+  type: string
+  source: string
+  title: string
+  description?: string
+  metadata?: Record<string, unknown>
+  createdAt: string
+}
+
+const EVENT_SOURCE_CONFIG: Record<
+  string,
+  { dot: string; bg: string; Icon: React.ElementType }
+> = {
+  custom:     { dot: 'bg-indigo-500',  bg: 'bg-indigo-50 dark:bg-indigo-950/30',  Icon: Zap },
+  order:      { dot: 'bg-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-950/30', Icon: ShoppingBag },
+  wallet:     { dot: 'bg-amber-500',   bg: 'bg-amber-50 dark:bg-amber-950/30',   Icon: CircleDollarSign },
+  journey:    { dot: 'bg-purple-500',  bg: 'bg-purple-50 dark:bg-purple-950/30', Icon: GitBranch },
+  email:      { dot: 'bg-sky-500',     bg: 'bg-sky-50 dark:bg-sky-950/30',       Icon: Mail },
+  coupon:     { dot: 'bg-pink-500',    bg: 'bg-pink-50 dark:bg-pink-950/30',     Icon: Tag },
+  preference: { dot: 'bg-orange-500',  bg: 'bg-orange-50 dark:bg-orange-950/30', Icon: SlidersHorizontal },
+}
+
+const EVENT_TYPE_OVERRIDES: Record<string, { dot: string; Icon: React.ElementType }> = {
+  'account.registered': { dot: 'bg-indigo-500', Icon: UserCheck },
+  'order.cancelled':    { dot: 'bg-red-500',     Icon: X },
+  'order.picked_up':    { dot: 'bg-emerald-600', Icon: ShoppingBag },
+  'journey.converted':  { dot: 'bg-purple-600',  Icon: Award },
+  'email.opened':       { dot: 'bg-sky-400',     Icon: Mail },
+  'email.clicked':      { dot: 'bg-sky-600',     Icon: ExternalLink },
+}
+
+function groupByDate(events: EventEntry[]) {
+  const groups: { label: string; events: EventEntry[] }[] = []
+  const seen = new Map<string, number>()
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+  const lastWeek = new Date(today)
+  lastWeek.setDate(lastWeek.getDate() - 7)
+
+  for (const ev of events) {
+    const d = new Date(ev.createdAt)
+    d.setHours(0, 0, 0, 0)
+    let label: string
+    if (d.getTime() === today.getTime()) label = 'Heute'
+    else if (d.getTime() === yesterday.getTime()) label = 'Gestern'
+    else if (d >= lastWeek) label = 'Letzte 7 Tage'
+    else label = d.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })
+
+    if (!seen.has(label)) {
+      seen.set(label, groups.length)
+      groups.push({ label, events: [] })
+    }
+    groups[seen.get(label)!].events.push(ev)
+  }
+  return groups
+}
+
+function EventStreamTab({ userId }: { userId: string }) {
+  const [events, setEvents] = useState<EventEntry[] | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(`/api/admin/kunden/${userId}/events`)
+      .then((r) => r.json())
+      .then((d) => setEvents(d.events ?? []))
+      .catch(() => setEvents([]))
+      .finally(() => setLoading(false))
+  }, [userId])
+
+  if (loading) {
+    return (
+      <div className="p-6 flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        Lade Aktivitäten…
+      </div>
+    )
+  }
+
+  if (!events || events.length === 0) {
+    return (
+      <div className="p-6 flex flex-col items-center justify-center gap-2 text-muted-foreground py-16">
+        <Activity className="w-8 h-8 opacity-30" />
+        <p className="text-sm font-medium">Noch keine Aktivitäten vorhanden</p>
+      </div>
+    )
+  }
+
+  const groups = groupByDate(events)
+
+  return (
+    <div className="px-5 py-4">
+      {/* Legend */}
+      <div className="flex flex-wrap gap-2 mb-5">
+        {Object.entries(EVENT_SOURCE_CONFIG).map(([src, cfg]) => (
+          <span
+            key={src}
+            className="flex items-center gap-1.5 text-xs text-muted-foreground"
+          >
+            <span className={`w-2 h-2 rounded-full ${cfg.dot}`} />
+            {src === 'custom' ? 'Konto'
+              : src === 'order' ? 'Bestellung'
+              : src === 'wallet' ? 'Wallet'
+              : src === 'journey' ? 'Journey'
+              : src === 'email' ? 'E-Mail'
+              : src === 'coupon' ? 'Coupon'
+              : 'Präferenz'}
+          </span>
+        ))}
+      </div>
+
+      <div className="space-y-6">
+        {groups.map((group) => (
+          <div key={group.label}>
+            {/* Date group header */}
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+                {group.label}
+              </span>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+
+            {/* Events */}
+            <div className="space-y-1.5">
+              {group.events.map((ev) => {
+                const src = EVENT_SOURCE_CONFIG[ev.source] ?? EVENT_SOURCE_CONFIG['custom']
+                const override = EVENT_TYPE_OVERRIDES[ev.type]
+                const dotColor = override?.dot ?? src.dot
+                const Icon = override?.Icon ?? src.Icon
+                const time = new Date(ev.createdAt).toLocaleTimeString('de-DE', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+
+                return (
+                  <div
+                    key={ev.id}
+                    className={`flex items-start gap-3 rounded-xl p-3 ${src.bg}`}
+                  >
+                    {/* Dot + line */}
+                    <div className="flex flex-col items-center pt-0.5 shrink-0">
+                      <span className={`w-2.5 h-2.5 rounded-full ${dotColor} ring-2 ring-background`} />
+                    </div>
+
+                    {/* Icon */}
+                    <div className="shrink-0 mt-0.5">
+                      <Icon className="w-4 h-4 text-muted-foreground" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground leading-tight">
+                        {ev.title}
+                      </p>
+                      {ev.description && (
+                        <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                          {ev.description}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Time */}
+                    <span className="text-xs text-muted-foreground shrink-0 tabular-nums mt-0.5">
+                      {time}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-xs text-center text-muted-foreground mt-6">
+        {events.length} Einträge · max. 300 neueste Ereignisse
+      </p>
     </div>
   )
 }

@@ -29,7 +29,7 @@ import { STATUS_CONFIG } from '@/components/marketing/journey/journey-types'
 
 // React Flow requires client-only rendering
 const JourneyCanvas = dynamic(
-  () => import('@/components/marketing/journey/canvas/JourneyCanvas').then((m) => m.JourneyCanvas),
+  () => import('@/components/marketing/journey/canvas/JourneyCanvas'),
   {
     ssr: false,
     loading: () => (

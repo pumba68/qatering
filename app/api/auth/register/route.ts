@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { hashPassword } from '@/lib/auth'
 import { z } from 'zod'
 import { enrollUserInJourneys } from '@/lib/journey-enroll'
+import { emitUserEvent } from '@/lib/emit-user-event'
 
 const registerSchema = z.object({
   email: z.string().email('Ungültige Email-Adresse'),
@@ -53,6 +54,12 @@ export async function POST(request: NextRequest) {
     if (validatedData.organizationId) {
       void enrollUserInJourneys(user.id, 'user.registered', validatedData.organizationId)
     }
+
+    // PROJ-25: Eventstream – Registrierung festhalten
+    void emitUserEvent(user.id, 'account.registered', {
+      title: 'Konto erstellt',
+      description: `Registrierung als ${user.email}`,
+    })
 
     return NextResponse.json(
       { message: 'Registrierung erfolgreich', user },

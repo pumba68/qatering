@@ -54,7 +54,7 @@ export function NodeConfigPanel({ nodeId, nodeType, config, onUpdate, onClose }:
         .then((data: Template[]) => setTemplates(Array.isArray(data) ? data : []))
         .catch(() => {})
     }
-    if (nodeType === 'branch') {
+    if (nodeType === 'branch' || nodeType === 'start') {
       fetch('/api/admin/segments')
         .then((r) => r.json())
         .then((data) => {
@@ -67,6 +67,12 @@ export function NodeConfigPanel({ nodeId, nodeType, config, onUpdate, onClose }:
 
   const set = (key: string, value: unknown) => {
     const updated = { ...localConfig, [key]: value }
+    setLocalConfig(updated)
+    onUpdate(nodeId, updated)
+  }
+
+  const setMany = (partial: Record<string, unknown>) => {
+    const updated = { ...localConfig, ...partial }
     setLocalConfig(updated)
     onUpdate(nodeId, updated)
   }
@@ -94,7 +100,7 @@ export function NodeConfigPanel({ nodeId, nodeType, config, onUpdate, onClose }:
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {/* ── Start Node ─────────────────── */}
         {nodeType === 'start' && (
-          <StartConfig config={localConfig as unknown as StartNodeConfig} set={set} />
+          <StartConfig config={localConfig as unknown as StartNodeConfig} set={set} setMany={setMany} segments={segments} />
         )}
 
         {/* ── Delay Node ─────────────────── */}
@@ -109,6 +115,7 @@ export function NodeConfigPanel({ nodeId, nodeType, config, onUpdate, onClose }:
             templates={templates}
             nodeType={nodeType}
             set={set}
+            setMany={setMany}
           />
         )}
 
@@ -118,6 +125,7 @@ export function NodeConfigPanel({ nodeId, nodeType, config, onUpdate, onClose }:
             config={localConfig as unknown as BranchNodeConfig}
             segments={segments}
             set={set}
+            setMany={setMany}
           />
         )}
 
@@ -137,7 +145,17 @@ export function NodeConfigPanel({ nodeId, nodeType, config, onUpdate, onClose }:
 
 // ─── Sub-forms ────────────────────────────────────────────────────────────────
 
-function StartConfig({ config, set }: { config: StartNodeConfig; set: (k: string, v: unknown) => void }) {
+function StartConfig({
+  config,
+  set,
+  setMany,
+  segments,
+}: {
+  config: StartNodeConfig
+  set: (k: string, v: unknown) => void
+  setMany: (partial: Record<string, unknown>) => void
+  segments: { id: string; name: string }[]
+}) {
   return (
     <>
       <div className="space-y-1.5">
@@ -166,6 +184,34 @@ function StartConfig({ config, set }: { config: StartNodeConfig; set: (k: string
               ))}
             </SelectContent>
           </Select>
+        </div>
+      )}
+      {config.triggerType === 'SEGMENT_ENTRY' && (
+        <div className="space-y-1.5">
+          <Label className="text-xs">Segment</Label>
+          <Select
+            value={config.segmentId ?? ''}
+            onValueChange={(v) => {
+              const seg = segments.find((s) => s.id === v)
+              setMany({ segmentId: v, segmentName: seg?.name ?? '' })
+            }}
+          >
+            <SelectTrigger className="h-8 text-xs">
+              <SelectValue placeholder="Segment wählen..." />
+            </SelectTrigger>
+            <SelectContent>
+              {segments.length === 0 ? (
+                <div className="px-2 py-4 text-xs text-gray-400 text-center">Keine Segmente vorhanden</div>
+              ) : (
+                segments.map((s) => (
+                  <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+          {!config.segmentId && (
+            <p className="text-xs text-amber-600">Bitte ein Segment auswählen.</p>
+          )}
         </div>
       )}
       {config.triggerType === 'DATE_BASED' && (
@@ -234,11 +280,13 @@ function ChannelConfig({
   templates,
   nodeType,
   set,
+  setMany,
 }: {
   config: EmailNodeConfig | InAppNodeConfig | PushNodeConfig
   templates: Template[]
   nodeType: string
   set: (k: string, v: unknown) => void
+  setMany: (partial: Record<string, unknown>) => void
 }) {
   return (
     <>
@@ -251,8 +299,7 @@ function ChannelConfig({
             value={config.templateId ?? ''}
             onValueChange={(v) => {
               const tpl = templates.find((t) => t.id === v)
-              set('templateId', v)
-              set('templateName', tpl?.name ?? '')
+              setMany({ templateId: v, templateName: tpl?.name ?? '' })
             }}
           >
             <SelectTrigger className="h-8 text-xs">
@@ -311,10 +358,12 @@ function BranchConfig({
   config,
   segments,
   set,
+  setMany,
 }: {
   config: BranchNodeConfig
   segments: { id: string; name: string }[]
   set: (k: string, v: unknown) => void
+  setMany: (partial: Record<string, unknown>) => void
 }) {
   return (
     <>
@@ -373,8 +422,7 @@ function BranchConfig({
             value={config.segmentId ?? ''}
             onValueChange={(v) => {
               const seg = segments.find((s) => s.id === v)
-              set('segmentId', v)
-              set('segmentName', seg?.name ?? '')
+              setMany({ segmentId: v, segmentName: seg?.name ?? '' })
             }}
           >
             <SelectTrigger className="h-8 text-xs">
