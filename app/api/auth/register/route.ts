@@ -51,9 +51,30 @@ export async function POST(request: NextRequest) {
     })
 
     // PROJ-24: Journey-Enrollment (fire-and-forget)
-    if (validatedData.organizationId) {
-      void enrollUserInJourneys(user.id, 'user.registered', validatedData.organizationId)
-    }
+    // Falls keine orgId im Request-Body, Fallback auf die einzige/erste Org des Systems.
+    void (async () => {
+      try {
+        const orgId =
+          validatedData.organizationId ??
+          (
+            await prisma.organization.findFirst({ select: { id: true } })
+          )?.id
+
+        if (!orgId) return
+
+        // Neu registrierter Nutzer mit korrekter orgId verknüpfen (falls noch nicht gesetzt)
+        if (!validatedData.organizationId) {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { organizationId: orgId },
+          })
+        }
+
+        await enrollUserInJourneys(user.id, 'user.registered', orgId)
+      } catch (err) {
+        console.error('[register] Journey-Enrollment Fehler:', err)
+      }
+    })()
 
     // PROJ-25: Eventstream – Registrierung festhalten
     void emitUserEvent(user.id, 'account.registered', {

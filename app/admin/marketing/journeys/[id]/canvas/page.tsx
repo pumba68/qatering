@@ -95,6 +95,23 @@ export default function CanvasPage({ params }: { params: { id: string } }) {
     }
   }, [])
 
+  /** Extracts triggerType + triggerConfig from the canvas StartNode so the
+   *  Journey-level fields stay in sync with what the user configured in the canvas. */
+  function extractTriggerFromCanvas(content: CanvasContent) {
+    const startNode = content.nodes.find((n) => n.type === 'start')
+    if (!startNode) return {}
+    const cfg = (startNode.config ?? {}) as Record<string, unknown>
+    const triggerType = (cfg.triggerType as string | undefined) ?? 'EVENT'
+    const triggerConfig: Record<string, unknown> = {
+      eventType: cfg.eventType ?? null,
+      segmentId: cfg.segmentId ?? null,
+      segmentName: cfg.segmentName ?? null,
+      dateField: cfg.dateField ?? null,
+      daysBefore: cfg.daysBefore ?? null,
+    }
+    return { triggerType, triggerConfig }
+  }
+
   const handleSave = async () => {
     if (!journey) return
     setSaving(true)
@@ -105,6 +122,8 @@ export default function CanvasPage({ params }: { params: { id: string } }) {
         body: JSON.stringify({
           name: nameValue || journey.name,
           content: contentRef.current,
+          // Sync StartNode config → Journey-level trigger fields so enrollment works
+          ...extractTriggerFromCanvas(contentRef.current),
         }),
       })
       if (!res.ok) throw new Error('Speichern fehlgeschlagen')
@@ -143,11 +162,14 @@ export default function CanvasPage({ params }: { params: { id: string } }) {
     setActivating(true)
     setValidationErrors([])
     try {
-      // Save first
+      // Save first (including trigger sync)
       await fetch(`/api/admin/marketing/journeys/${params.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: contentRef.current }),
+        body: JSON.stringify({
+          content: contentRef.current,
+          ...extractTriggerFromCanvas(contentRef.current),
+        }),
       })
 
       const res = await fetch(`/api/admin/marketing/journeys/${params.id}/activate`, {
