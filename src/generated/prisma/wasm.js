@@ -715,6 +715,48 @@ exports.Prisma.EmailCampaignLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.JourneyScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  description: 'description',
+  status: 'status',
+  triggerType: 'triggerType',
+  triggerConfig: 'triggerConfig',
+  content: 'content',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  reEntryPolicy: 'reEntryPolicy',
+  conversionGoal: 'conversionGoal',
+  exitRules: 'exitRules',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.JourneyParticipantScalarFieldEnum = {
+  id: 'id',
+  journeyId: 'journeyId',
+  userId: 'userId',
+  status: 'status',
+  currentNodeId: 'currentNodeId',
+  enteredAt: 'enteredAt',
+  convertedAt: 'convertedAt',
+  exitedAt: 'exitedAt',
+  nextStepAt: 'nextStepAt',
+  metadata: 'metadata'
+};
+
+exports.Prisma.JourneyLogScalarFieldEnum = {
+  id: 'id',
+  journeyId: 'journeyId',
+  participantId: 'participantId',
+  nodeId: 'nodeId',
+  eventType: 'eventType',
+  status: 'status',
+  details: 'details',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -904,6 +946,28 @@ exports.EmailDeliveryStatus = exports.$Enums.EmailDeliveryStatus = {
   FAILED: 'FAILED'
 };
 
+exports.JourneyStatus = exports.$Enums.JourneyStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+exports.JourneyTriggerType = exports.$Enums.JourneyTriggerType = {
+  EVENT: 'EVENT',
+  SEGMENT_ENTRY: 'SEGMENT_ENTRY',
+  DATE_BASED: 'DATE_BASED'
+};
+
+exports.JourneyParticipantStatus = exports.$Enums.JourneyParticipantStatus = {
+  ACTIVE: 'ACTIVE',
+  CONVERTED: 'CONVERTED',
+  EXITED: 'EXITED',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  PAUSED: 'PAUSED'
+};
+
 exports.Prisma.ModelName = {
   Organization: 'Organization',
   Company: 'Company',
@@ -949,7 +1013,10 @@ exports.Prisma.ModelName = {
   PaymentProviderConfig: 'PaymentProviderConfig',
   IncentiveGrant: 'IncentiveGrant',
   EmailCampaign: 'EmailCampaign',
-  EmailCampaignLog: 'EmailCampaignLog'
+  EmailCampaignLog: 'EmailCampaignLog',
+  Journey: 'Journey',
+  JourneyParticipant: 'JourneyParticipant',
+  JourneyLog: 'JourneyLog'
 };
 
 /**

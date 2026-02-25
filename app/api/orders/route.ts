@@ -7,6 +7,7 @@ import { authOptions } from '@/lib/auth-config'
 import { prisma } from '@/lib/prisma'
 import { generatePickupCode } from '@/lib/utils'
 import { ensureWallet, chargeWithinTx } from '@/lib/wallet'
+import { enrollUserInJourneys, checkAndConvertParticipants } from '@/lib/journey-enroll'
 
 /** Wandelt Preis (Prisma Decimal, string, number) in number um. */
 function toPriceNumber(value: unknown): number {
@@ -344,6 +345,30 @@ export async function POST(request: NextRequest) {
     const result = order as { order: unknown; newBalance: number | null }
     const out = result.order as Record<string, unknown>
     if (result.newBalance != null) out.walletBalanceAfter = result.newBalance
+
+    // PROJ-24: Journey-Enrollment (fire-and-forget)
+    // Prüfen ob dies die erste Bestellung des Nutzers ist
+    void (async () => {
+      try {
+        const userRecord = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { organizationId: true },
+        })
+        const orgId = userRecord?.organizationId
+        if (!orgId) return
+
+        const orderCount = await prisma.order.count({ where: { userId } })
+        if (orderCount === 1) {
+          // Erste Bestellung → order.first Journeys einschreiben
+          await enrollUserInJourneys(userId, 'order.first', orgId)
+        }
+        // Conversion-Goal prüfen (z.B. order.first als Ziel in einer anderen Journey)
+        await checkAndConvertParticipants(userId, 'order.first', orgId)
+      } catch (e) {
+        console.error('Journey enrollment after order failed:', e)
+      }
+    })()
+
     return NextResponse.json(out, { status: 201 })
   } catch (error) {
     if (error instanceof Error && error.message.startsWith('Guthaben nicht ausreichend')) {

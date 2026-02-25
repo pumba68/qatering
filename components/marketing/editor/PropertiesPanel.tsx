@@ -936,8 +936,7 @@ export function PropertiesPanel({
     )
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const updateProps = (partial: Partial<any>) => {
+  const updateProps = (partial: Partial<Record<string, unknown>>) => {
     onBlockChange(selectedBlock.id, {
       props: { ...selectedBlock.props, ...partial },
     })

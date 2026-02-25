@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { hashPassword } from '@/lib/auth'
 import { z } from 'zod'
+import { enrollUserInJourneys } from '@/lib/journey-enroll'
 
 const registerSchema = z.object({
   email: z.string().email('Ungültige Email-Adresse'),
@@ -47,6 +48,11 @@ export async function POST(request: NextRequest) {
         role: true,
       },
     })
+
+    // PROJ-24: Journey-Enrollment (fire-and-forget)
+    if (validatedData.organizationId) {
+      void enrollUserInJourneys(user.id, 'user.registered', validatedData.organizationId)
+    }
 
     return NextResponse.json(
       { message: 'Registrierung erfolgreich', user },

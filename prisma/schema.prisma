@@ -38,6 +38,7 @@ model Organization {
   pushNotifications  PushNotification[]
   paymentConfigs     PaymentProviderConfig[]
   emailCampaigns     EmailCampaign[]          // PROJ-9
+  journeys           Journey[]                // PROJ-24
 
   @@map("organizations")
 }
@@ -230,6 +231,8 @@ model User {
   // PROJ-9: Email campaigns
   emailCampaignsCreated EmailCampaign[]       @relation("EmailCampaignCreator")
   emailCampaignLogs     EmailCampaignLog[]    @relation("EmailCampaignLogs")
+  // PROJ-24: Journey Participants
+  journeyParticipants   JourneyParticipant[]
   // PROJ-18: CDP Identifikatoren
   customerIdentifiers CustomerIdentifier[]
   // PROJ-20: CDP Präferenzen
@@ -1208,4 +1211,100 @@ model EmailCampaignLog {
   @@index([campaignId])
   @@index([trackingToken])
   @@map("email_campaign_logs")
+}
+
+// PROJ-24: Marketing Journeys & Automation ─────────────────────────────────────
+
+enum JourneyStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum JourneyTriggerType {
+  EVENT           // user.registered, order.first, user.inactive, wallet.below_threshold
+  SEGMENT_ENTRY   // Nutzer tritt in Segment ein
+  DATE_BASED      // user.birthday, days_since_registration
+}
+
+enum JourneyParticipantStatus {
+  ACTIVE      // Aktuell in Journey
+  CONVERTED   // Conversion Goal erreicht
+  EXITED      // Vorzeitig ausgetreten
+  COMPLETED   // Journey vollständig durchlaufen
+  FAILED      // Fehler aufgetreten
+  PAUSED      // Journey pausiert
+}
+
+model Journey {
+  id              String             @id @default(cuid())
+  organizationId  String
+  name            String             @db.VarChar(200)
+  description     String?            @db.Text
+  status          JourneyStatus      @default(DRAFT)
+
+  // Entry
+  triggerType     JourneyTriggerType
+  triggerConfig   Json               // { eventType, segmentId, days, threshold, ... }
+
+  // Canvas (DAG)
+  content         Json               @default("{\"nodes\":[],\"edges\":[]}")
+
+  // Global Settings
+  startDate       DateTime?
+  endDate         DateTime?
+  reEntryPolicy   String             @default("NEVER") @db.VarChar(20) // NEVER | AFTER_DAYS:X | ALWAYS
+  conversionGoal  Json?              // { eventType, windowDays }
+  exitRules       Json?              // [{ type, config }]
+
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  organization    Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  participants    JourneyParticipant[]
+  logs            JourneyLog[]
+
+  @@index([organizationId, status])
+  @@map("journeys")
+}
+
+model JourneyParticipant {
+  id              String                   @id @default(cuid())
+  journeyId       String
+  userId          String
+  status          JourneyParticipantStatus @default(ACTIVE)
+  currentNodeId   String?
+  enteredAt       DateTime                 @default(now())
+  convertedAt     DateTime?
+  exitedAt        DateTime?
+  nextStepAt      DateTime?                // Für Delay-Nodes: wann weitermachen
+  metadata        Json?
+
+  journey         Journey  @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  logs            JourneyLog[]
+
+  @@unique([journeyId, userId])
+  @@index([journeyId, status])
+  @@index([nextStepAt])
+  @@map("journey_participants")
+}
+
+model JourneyLog {
+  id            String   @id @default(cuid())
+  journeyId     String
+  participantId String?
+  nodeId        String?
+  eventType     String   @db.VarChar(50) // ENTERED | STEP_EXECUTED | CONVERTED | EXITED | FAILED
+  status        String   @db.VarChar(20) // SUCCESS | FAILED | SKIPPED
+  details       Json?
+  createdAt     DateTime @default(now())
+
+  journey     Journey             @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+  participant JourneyParticipant? @relation(fields: [participantId], references: [id], onDelete: SetNull)
+
+  @@index([journeyId, createdAt])
+  @@index([participantId])
+  @@map("journey_logs")
 }

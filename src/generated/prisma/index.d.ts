@@ -238,6 +238,21 @@ export type EmailCampaign = $Result.DefaultSelection<Prisma.$EmailCampaignPayloa
  * 
  */
 export type EmailCampaignLog = $Result.DefaultSelection<Prisma.$EmailCampaignLogPayload>
+/**
+ * Model Journey
+ * 
+ */
+export type Journey = $Result.DefaultSelection<Prisma.$JourneyPayload>
+/**
+ * Model JourneyParticipant
+ * 
+ */
+export type JourneyParticipant = $Result.DefaultSelection<Prisma.$JourneyParticipantPayload>
+/**
+ * Model JourneyLog
+ * 
+ */
+export type JourneyLog = $Result.DefaultSelection<Prisma.$JourneyLogPayload>
 
 /**
  * Enums
@@ -468,6 +483,37 @@ export const EmailDeliveryStatus: {
 
 export type EmailDeliveryStatus = (typeof EmailDeliveryStatus)[keyof typeof EmailDeliveryStatus]
 
+
+export const JourneyStatus: {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type JourneyStatus = (typeof JourneyStatus)[keyof typeof JourneyStatus]
+
+
+export const JourneyTriggerType: {
+  EVENT: 'EVENT',
+  SEGMENT_ENTRY: 'SEGMENT_ENTRY',
+  DATE_BASED: 'DATE_BASED'
+};
+
+export type JourneyTriggerType = (typeof JourneyTriggerType)[keyof typeof JourneyTriggerType]
+
+
+export const JourneyParticipantStatus: {
+  ACTIVE: 'ACTIVE',
+  CONVERTED: 'CONVERTED',
+  EXITED: 'EXITED',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  PAUSED: 'PAUSED'
+};
+
+export type JourneyParticipantStatus = (typeof JourneyParticipantStatus)[keyof typeof JourneyParticipantStatus]
+
 }
 
 export type SubsidyType = $Enums.SubsidyType
@@ -557,6 +603,18 @@ export const EmailCampaignStatus: typeof $Enums.EmailCampaignStatus
 export type EmailDeliveryStatus = $Enums.EmailDeliveryStatus
 
 export const EmailDeliveryStatus: typeof $Enums.EmailDeliveryStatus
+
+export type JourneyStatus = $Enums.JourneyStatus
+
+export const JourneyStatus: typeof $Enums.JourneyStatus
+
+export type JourneyTriggerType = $Enums.JourneyTriggerType
+
+export const JourneyTriggerType: typeof $Enums.JourneyTriggerType
+
+export type JourneyParticipantStatus = $Enums.JourneyParticipantStatus
+
+export const JourneyParticipantStatus: typeof $Enums.JourneyParticipantStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1130,6 +1188,36 @@ export class PrismaClient<
     * ```
     */
   get emailCampaignLog(): Prisma.EmailCampaignLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.journey`: Exposes CRUD operations for the **Journey** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Journeys
+    * const journeys = await prisma.journey.findMany()
+    * ```
+    */
+  get journey(): Prisma.JourneyDelegate<ExtArgs>;
+
+  /**
+   * `prisma.journeyParticipant`: Exposes CRUD operations for the **JourneyParticipant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JourneyParticipants
+    * const journeyParticipants = await prisma.journeyParticipant.findMany()
+    * ```
+    */
+  get journeyParticipant(): Prisma.JourneyParticipantDelegate<ExtArgs>;
+
+  /**
+   * `prisma.journeyLog`: Exposes CRUD operations for the **JourneyLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JourneyLogs
+    * const journeyLogs = await prisma.journeyLog.findMany()
+    * ```
+    */
+  get journeyLog(): Prisma.JourneyLogDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1615,7 +1703,10 @@ export namespace Prisma {
     PaymentProviderConfig: 'PaymentProviderConfig',
     IncentiveGrant: 'IncentiveGrant',
     EmailCampaign: 'EmailCampaign',
-    EmailCampaignLog: 'EmailCampaignLog'
+    EmailCampaignLog: 'EmailCampaignLog',
+    Journey: 'Journey',
+    JourneyParticipant: 'JourneyParticipant',
+    JourneyLog: 'JourneyLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1631,7 +1722,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "emailChangeToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "marketingTemplateVersion" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog"
+      modelProps: "organization" | "company" | "companyInvoice" | "sepaSubmission" | "sepaSubmissionInvoice" | "companyInvoiceItem" | "companyEmployee" | "location" | "user" | "customerPreference" | "preferenceAuditLog" | "customerMetrics" | "customerIdentifier" | "wallet" | "walletTransaction" | "userLocation" | "account" | "session" | "verificationToken" | "emailChangeToken" | "menu" | "promotionBanner" | "menuPromotionBanner" | "menuItem" | "dish" | "order" | "coupon" | "couponRedemption" | "orderItem" | "metadata" | "customerSegment" | "inAppMessage" | "inAppMessageRead" | "marketingWorkflow" | "workflowExecutionLog" | "segmentIncentive" | "marketingTemplate" | "marketingTemplateVersion" | "pushNotification" | "pushNotificationLog" | "pushSubscription" | "paymentProviderConfig" | "incentiveGrant" | "emailCampaign" | "emailCampaignLog" | "journey" | "journeyParticipant" | "journeyLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4785,6 +4876,216 @@ export namespace Prisma {
           }
         }
       }
+      Journey: {
+        payload: Prisma.$JourneyPayload<ExtArgs>
+        fields: Prisma.JourneyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JourneyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JourneyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>
+          }
+          findFirst: {
+            args: Prisma.JourneyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JourneyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>
+          }
+          findMany: {
+            args: Prisma.JourneyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>[]
+          }
+          create: {
+            args: Prisma.JourneyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>
+          }
+          createMany: {
+            args: Prisma.JourneyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JourneyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>[]
+          }
+          delete: {
+            args: Prisma.JourneyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>
+          }
+          update: {
+            args: Prisma.JourneyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>
+          }
+          deleteMany: {
+            args: Prisma.JourneyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JourneyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.JourneyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyPayload>
+          }
+          aggregate: {
+            args: Prisma.JourneyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJourney>
+          }
+          groupBy: {
+            args: Prisma.JourneyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JourneyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JourneyCountArgs<ExtArgs>
+            result: $Utils.Optional<JourneyCountAggregateOutputType> | number
+          }
+        }
+      }
+      JourneyParticipant: {
+        payload: Prisma.$JourneyParticipantPayload<ExtArgs>
+        fields: Prisma.JourneyParticipantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JourneyParticipantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JourneyParticipantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>
+          }
+          findFirst: {
+            args: Prisma.JourneyParticipantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JourneyParticipantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>
+          }
+          findMany: {
+            args: Prisma.JourneyParticipantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>[]
+          }
+          create: {
+            args: Prisma.JourneyParticipantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>
+          }
+          createMany: {
+            args: Prisma.JourneyParticipantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JourneyParticipantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>[]
+          }
+          delete: {
+            args: Prisma.JourneyParticipantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>
+          }
+          update: {
+            args: Prisma.JourneyParticipantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>
+          }
+          deleteMany: {
+            args: Prisma.JourneyParticipantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JourneyParticipantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.JourneyParticipantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyParticipantPayload>
+          }
+          aggregate: {
+            args: Prisma.JourneyParticipantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJourneyParticipant>
+          }
+          groupBy: {
+            args: Prisma.JourneyParticipantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JourneyParticipantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JourneyParticipantCountArgs<ExtArgs>
+            result: $Utils.Optional<JourneyParticipantCountAggregateOutputType> | number
+          }
+        }
+      }
+      JourneyLog: {
+        payload: Prisma.$JourneyLogPayload<ExtArgs>
+        fields: Prisma.JourneyLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JourneyLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JourneyLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>
+          }
+          findFirst: {
+            args: Prisma.JourneyLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JourneyLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>
+          }
+          findMany: {
+            args: Prisma.JourneyLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>[]
+          }
+          create: {
+            args: Prisma.JourneyLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>
+          }
+          createMany: {
+            args: Prisma.JourneyLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JourneyLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>[]
+          }
+          delete: {
+            args: Prisma.JourneyLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>
+          }
+          update: {
+            args: Prisma.JourneyLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.JourneyLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JourneyLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.JourneyLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JourneyLogPayload>
+          }
+          aggregate: {
+            args: Prisma.JourneyLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJourneyLog>
+          }
+          groupBy: {
+            args: Prisma.JourneyLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JourneyLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JourneyLogCountArgs<ExtArgs>
+            result: $Utils.Optional<JourneyLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4956,6 +5257,7 @@ export namespace Prisma {
     pushNotifications: number
     paymentConfigs: number
     emailCampaigns: number
+    journeys: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4969,6 +5271,7 @@ export namespace Prisma {
     pushNotifications?: boolean | OrganizationCountOutputTypeCountPushNotificationsArgs
     paymentConfigs?: boolean | OrganizationCountOutputTypeCountPaymentConfigsArgs
     emailCampaigns?: boolean | OrganizationCountOutputTypeCountEmailCampaignsArgs
+    journeys?: boolean | OrganizationCountOutputTypeCountJourneysArgs
   }
 
   // Custom InputTypes
@@ -5050,6 +5353,13 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountEmailCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmailCampaignWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountJourneysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyWhereInput
   }
 
 
@@ -5259,6 +5569,7 @@ export namespace Prisma {
     paymentConfigChanges: number
     emailCampaignsCreated: number
     emailCampaignLogs: number
+    journeyParticipants: number
     customerIdentifiers: number
     preferences: number
     emailChangeTokens: number
@@ -5279,6 +5590,7 @@ export namespace Prisma {
     paymentConfigChanges?: boolean | UserCountOutputTypeCountPaymentConfigChangesArgs
     emailCampaignsCreated?: boolean | UserCountOutputTypeCountEmailCampaignsCreatedArgs
     emailCampaignLogs?: boolean | UserCountOutputTypeCountEmailCampaignLogsArgs
+    journeyParticipants?: boolean | UserCountOutputTypeCountJourneyParticipantsArgs
     customerIdentifiers?: boolean | UserCountOutputTypeCountCustomerIdentifiersArgs
     preferences?: boolean | UserCountOutputTypeCountPreferencesArgs
     emailChangeTokens?: boolean | UserCountOutputTypeCountEmailChangeTokensArgs
@@ -5391,6 +5703,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountEmailCampaignLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmailCampaignLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountJourneyParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyParticipantWhereInput
   }
 
   /**
@@ -5954,6 +6273,77 @@ export namespace Prisma {
 
 
   /**
+   * Count Type JourneyCountOutputType
+   */
+
+  export type JourneyCountOutputType = {
+    participants: number
+    logs: number
+  }
+
+  export type JourneyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | JourneyCountOutputTypeCountParticipantsArgs
+    logs?: boolean | JourneyCountOutputTypeCountLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * JourneyCountOutputType without action
+   */
+  export type JourneyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyCountOutputType
+     */
+    select?: JourneyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * JourneyCountOutputType without action
+   */
+  export type JourneyCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyParticipantWhereInput
+  }
+
+  /**
+   * JourneyCountOutputType without action
+   */
+  export type JourneyCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyLogWhereInput
+  }
+
+
+  /**
+   * Count Type JourneyParticipantCountOutputType
+   */
+
+  export type JourneyParticipantCountOutputType = {
+    logs: number
+  }
+
+  export type JourneyParticipantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    logs?: boolean | JourneyParticipantCountOutputTypeCountLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * JourneyParticipantCountOutputType without action
+   */
+  export type JourneyParticipantCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipantCountOutputType
+     */
+    select?: JourneyParticipantCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * JourneyParticipantCountOutputType without action
+   */
+  export type JourneyParticipantCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyLogWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -6179,6 +6569,7 @@ export namespace Prisma {
     pushNotifications?: boolean | Organization$pushNotificationsArgs<ExtArgs>
     paymentConfigs?: boolean | Organization$paymentConfigsArgs<ExtArgs>
     emailCampaigns?: boolean | Organization$emailCampaignsArgs<ExtArgs>
+    journeys?: boolean | Organization$journeysArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -6221,6 +6612,7 @@ export namespace Prisma {
     pushNotifications?: boolean | Organization$pushNotificationsArgs<ExtArgs>
     paymentConfigs?: boolean | Organization$paymentConfigsArgs<ExtArgs>
     emailCampaigns?: boolean | Organization$emailCampaignsArgs<ExtArgs>
+    journeys?: boolean | Organization$journeysArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6238,6 +6630,7 @@ export namespace Prisma {
       pushNotifications: Prisma.$PushNotificationPayload<ExtArgs>[]
       paymentConfigs: Prisma.$PaymentProviderConfigPayload<ExtArgs>[]
       emailCampaigns: Prisma.$EmailCampaignPayload<ExtArgs>[]
+      journeys: Prisma.$JourneyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6625,6 +7018,7 @@ export namespace Prisma {
     pushNotifications<T extends Organization$pushNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$pushNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     paymentConfigs<T extends Organization$paymentConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$paymentConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findMany"> | Null>
     emailCampaigns<T extends Organization$emailCampaignsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$emailCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignPayload<ExtArgs>, T, "findMany"> | Null>
+    journeys<T extends Organization$journeysArgs<ExtArgs> = {}>(args?: Subset<T, Organization$journeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7176,6 +7570,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EmailCampaignScalarFieldEnum | EmailCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.journeys
+   */
+  export type Organization$journeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    where?: JourneyWhereInput
+    orderBy?: JourneyOrderByWithRelationInput | JourneyOrderByWithRelationInput[]
+    cursor?: JourneyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JourneyScalarFieldEnum | JourneyScalarFieldEnum[]
   }
 
   /**
@@ -14751,6 +15165,7 @@ export namespace Prisma {
     paymentConfigChanges?: boolean | User$paymentConfigChangesArgs<ExtArgs>
     emailCampaignsCreated?: boolean | User$emailCampaignsCreatedArgs<ExtArgs>
     emailCampaignLogs?: boolean | User$emailCampaignLogsArgs<ExtArgs>
+    journeyParticipants?: boolean | User$journeyParticipantsArgs<ExtArgs>
     customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     metrics?: boolean | User$metricsArgs<ExtArgs>
@@ -14808,6 +15223,7 @@ export namespace Prisma {
     paymentConfigChanges?: boolean | User$paymentConfigChangesArgs<ExtArgs>
     emailCampaignsCreated?: boolean | User$emailCampaignsCreatedArgs<ExtArgs>
     emailCampaignLogs?: boolean | User$emailCampaignLogsArgs<ExtArgs>
+    journeyParticipants?: boolean | User$journeyParticipantsArgs<ExtArgs>
     customerIdentifiers?: boolean | User$customerIdentifiersArgs<ExtArgs>
     preferences?: boolean | User$preferencesArgs<ExtArgs>
     metrics?: boolean | User$metricsArgs<ExtArgs>
@@ -14837,6 +15253,7 @@ export namespace Prisma {
       paymentConfigChanges: Prisma.$PaymentProviderConfigPayload<ExtArgs>[]
       emailCampaignsCreated: Prisma.$EmailCampaignPayload<ExtArgs>[]
       emailCampaignLogs: Prisma.$EmailCampaignLogPayload<ExtArgs>[]
+      journeyParticipants: Prisma.$JourneyParticipantPayload<ExtArgs>[]
       customerIdentifiers: Prisma.$CustomerIdentifierPayload<ExtArgs>[]
       preferences: Prisma.$CustomerPreferencePayload<ExtArgs>[]
       metrics: Prisma.$CustomerMetricsPayload<ExtArgs> | null
@@ -15236,6 +15653,7 @@ export namespace Prisma {
     paymentConfigChanges<T extends User$paymentConfigChangesArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentConfigChangesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentProviderConfigPayload<ExtArgs>, T, "findMany"> | Null>
     emailCampaignsCreated<T extends User$emailCampaignsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$emailCampaignsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignPayload<ExtArgs>, T, "findMany"> | Null>
     emailCampaignLogs<T extends User$emailCampaignLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailCampaignLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailCampaignLogPayload<ExtArgs>, T, "findMany"> | Null>
+    journeyParticipants<T extends User$journeyParticipantsArgs<ExtArgs> = {}>(args?: Subset<T, User$journeyParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findMany"> | Null>
     customerIdentifiers<T extends User$customerIdentifiersArgs<ExtArgs> = {}>(args?: Subset<T, User$customerIdentifiersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerIdentifierPayload<ExtArgs>, T, "findMany"> | Null>
     preferences<T extends User$preferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$preferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPreferencePayload<ExtArgs>, T, "findMany"> | Null>
     metrics<T extends User$metricsArgs<ExtArgs> = {}>(args?: Subset<T, User$metricsArgs<ExtArgs>>): Prisma__CustomerMetricsClient<$Result.GetResult<Prisma.$CustomerMetricsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
@@ -15907,6 +16325,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EmailCampaignLogScalarFieldEnum | EmailCampaignLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.journeyParticipants
+   */
+  export type User$journeyParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    where?: JourneyParticipantWhereInput
+    orderBy?: JourneyParticipantOrderByWithRelationInput | JourneyParticipantOrderByWithRelationInput[]
+    cursor?: JourneyParticipantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JourneyParticipantScalarFieldEnum | JourneyParticipantScalarFieldEnum[]
   }
 
   /**
@@ -53565,6 +54003,3100 @@ export namespace Prisma {
 
 
   /**
+   * Model Journey
+   */
+
+  export type AggregateJourney = {
+    _count: JourneyCountAggregateOutputType | null
+    _min: JourneyMinAggregateOutputType | null
+    _max: JourneyMaxAggregateOutputType | null
+  }
+
+  export type JourneyMinAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    name: string | null
+    description: string | null
+    status: $Enums.JourneyStatus | null
+    triggerType: $Enums.JourneyTriggerType | null
+    startDate: Date | null
+    endDate: Date | null
+    reEntryPolicy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type JourneyMaxAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    name: string | null
+    description: string | null
+    status: $Enums.JourneyStatus | null
+    triggerType: $Enums.JourneyTriggerType | null
+    startDate: Date | null
+    endDate: Date | null
+    reEntryPolicy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type JourneyCountAggregateOutputType = {
+    id: number
+    organizationId: number
+    name: number
+    description: number
+    status: number
+    triggerType: number
+    triggerConfig: number
+    content: number
+    startDate: number
+    endDate: number
+    reEntryPolicy: number
+    conversionGoal: number
+    exitRules: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type JourneyMinAggregateInputType = {
+    id?: true
+    organizationId?: true
+    name?: true
+    description?: true
+    status?: true
+    triggerType?: true
+    startDate?: true
+    endDate?: true
+    reEntryPolicy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type JourneyMaxAggregateInputType = {
+    id?: true
+    organizationId?: true
+    name?: true
+    description?: true
+    status?: true
+    triggerType?: true
+    startDate?: true
+    endDate?: true
+    reEntryPolicy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type JourneyCountAggregateInputType = {
+    id?: true
+    organizationId?: true
+    name?: true
+    description?: true
+    status?: true
+    triggerType?: true
+    triggerConfig?: true
+    content?: true
+    startDate?: true
+    endDate?: true
+    reEntryPolicy?: true
+    conversionGoal?: true
+    exitRules?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type JourneyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Journey to aggregate.
+     */
+    where?: JourneyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Journeys to fetch.
+     */
+    orderBy?: JourneyOrderByWithRelationInput | JourneyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JourneyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Journeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Journeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Journeys
+    **/
+    _count?: true | JourneyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JourneyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JourneyMaxAggregateInputType
+  }
+
+  export type GetJourneyAggregateType<T extends JourneyAggregateArgs> = {
+        [P in keyof T & keyof AggregateJourney]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJourney[P]>
+      : GetScalarType<T[P], AggregateJourney[P]>
+  }
+
+
+
+
+  export type JourneyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyWhereInput
+    orderBy?: JourneyOrderByWithAggregationInput | JourneyOrderByWithAggregationInput[]
+    by: JourneyScalarFieldEnum[] | JourneyScalarFieldEnum
+    having?: JourneyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JourneyCountAggregateInputType | true
+    _min?: JourneyMinAggregateInputType
+    _max?: JourneyMaxAggregateInputType
+  }
+
+  export type JourneyGroupByOutputType = {
+    id: string
+    organizationId: string
+    name: string
+    description: string | null
+    status: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonValue
+    content: JsonValue
+    startDate: Date | null
+    endDate: Date | null
+    reEntryPolicy: string
+    conversionGoal: JsonValue | null
+    exitRules: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: JourneyCountAggregateOutputType | null
+    _min: JourneyMinAggregateOutputType | null
+    _max: JourneyMaxAggregateOutputType | null
+  }
+
+  type GetJourneyGroupByPayload<T extends JourneyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JourneyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JourneyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JourneyGroupByOutputType[P]>
+            : GetScalarType<T[P], JourneyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JourneySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    name?: boolean
+    description?: boolean
+    status?: boolean
+    triggerType?: boolean
+    triggerConfig?: boolean
+    content?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    reEntryPolicy?: boolean
+    conversionGoal?: boolean
+    exitRules?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    participants?: boolean | Journey$participantsArgs<ExtArgs>
+    logs?: boolean | Journey$logsArgs<ExtArgs>
+    _count?: boolean | JourneyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journey"]>
+
+  export type JourneySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    name?: boolean
+    description?: boolean
+    status?: boolean
+    triggerType?: boolean
+    triggerConfig?: boolean
+    content?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    reEntryPolicy?: boolean
+    conversionGoal?: boolean
+    exitRules?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journey"]>
+
+  export type JourneySelectScalar = {
+    id?: boolean
+    organizationId?: boolean
+    name?: boolean
+    description?: boolean
+    status?: boolean
+    triggerType?: boolean
+    triggerConfig?: boolean
+    content?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    reEntryPolicy?: boolean
+    conversionGoal?: boolean
+    exitRules?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type JourneyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    participants?: boolean | Journey$participantsArgs<ExtArgs>
+    logs?: boolean | Journey$logsArgs<ExtArgs>
+    _count?: boolean | JourneyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type JourneyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $JourneyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Journey"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      participants: Prisma.$JourneyParticipantPayload<ExtArgs>[]
+      logs: Prisma.$JourneyLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationId: string
+      name: string
+      description: string | null
+      status: $Enums.JourneyStatus
+      triggerType: $Enums.JourneyTriggerType
+      triggerConfig: Prisma.JsonValue
+      content: Prisma.JsonValue
+      startDate: Date | null
+      endDate: Date | null
+      reEntryPolicy: string
+      conversionGoal: Prisma.JsonValue | null
+      exitRules: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["journey"]>
+    composites: {}
+  }
+
+  type JourneyGetPayload<S extends boolean | null | undefined | JourneyDefaultArgs> = $Result.GetResult<Prisma.$JourneyPayload, S>
+
+  type JourneyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JourneyFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: JourneyCountAggregateInputType | true
+    }
+
+  export interface JourneyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Journey'], meta: { name: 'Journey' } }
+    /**
+     * Find zero or one Journey that matches the filter.
+     * @param {JourneyFindUniqueArgs} args - Arguments to find a Journey
+     * @example
+     * // Get one Journey
+     * const journey = await prisma.journey.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JourneyFindUniqueArgs>(args: SelectSubset<T, JourneyFindUniqueArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Journey that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {JourneyFindUniqueOrThrowArgs} args - Arguments to find a Journey
+     * @example
+     * // Get one Journey
+     * const journey = await prisma.journey.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JourneyFindUniqueOrThrowArgs>(args: SelectSubset<T, JourneyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Journey that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyFindFirstArgs} args - Arguments to find a Journey
+     * @example
+     * // Get one Journey
+     * const journey = await prisma.journey.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JourneyFindFirstArgs>(args?: SelectSubset<T, JourneyFindFirstArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Journey that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyFindFirstOrThrowArgs} args - Arguments to find a Journey
+     * @example
+     * // Get one Journey
+     * const journey = await prisma.journey.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JourneyFindFirstOrThrowArgs>(args?: SelectSubset<T, JourneyFindFirstOrThrowArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Journeys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Journeys
+     * const journeys = await prisma.journey.findMany()
+     * 
+     * // Get first 10 Journeys
+     * const journeys = await prisma.journey.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const journeyWithIdOnly = await prisma.journey.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JourneyFindManyArgs>(args?: SelectSubset<T, JourneyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Journey.
+     * @param {JourneyCreateArgs} args - Arguments to create a Journey.
+     * @example
+     * // Create one Journey
+     * const Journey = await prisma.journey.create({
+     *   data: {
+     *     // ... data to create a Journey
+     *   }
+     * })
+     * 
+     */
+    create<T extends JourneyCreateArgs>(args: SelectSubset<T, JourneyCreateArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Journeys.
+     * @param {JourneyCreateManyArgs} args - Arguments to create many Journeys.
+     * @example
+     * // Create many Journeys
+     * const journey = await prisma.journey.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JourneyCreateManyArgs>(args?: SelectSubset<T, JourneyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Journeys and returns the data saved in the database.
+     * @param {JourneyCreateManyAndReturnArgs} args - Arguments to create many Journeys.
+     * @example
+     * // Create many Journeys
+     * const journey = await prisma.journey.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Journeys and only return the `id`
+     * const journeyWithIdOnly = await prisma.journey.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JourneyCreateManyAndReturnArgs>(args?: SelectSubset<T, JourneyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Journey.
+     * @param {JourneyDeleteArgs} args - Arguments to delete one Journey.
+     * @example
+     * // Delete one Journey
+     * const Journey = await prisma.journey.delete({
+     *   where: {
+     *     // ... filter to delete one Journey
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JourneyDeleteArgs>(args: SelectSubset<T, JourneyDeleteArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Journey.
+     * @param {JourneyUpdateArgs} args - Arguments to update one Journey.
+     * @example
+     * // Update one Journey
+     * const journey = await prisma.journey.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JourneyUpdateArgs>(args: SelectSubset<T, JourneyUpdateArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Journeys.
+     * @param {JourneyDeleteManyArgs} args - Arguments to filter Journeys to delete.
+     * @example
+     * // Delete a few Journeys
+     * const { count } = await prisma.journey.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JourneyDeleteManyArgs>(args?: SelectSubset<T, JourneyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Journeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Journeys
+     * const journey = await prisma.journey.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JourneyUpdateManyArgs>(args: SelectSubset<T, JourneyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Journey.
+     * @param {JourneyUpsertArgs} args - Arguments to update or create a Journey.
+     * @example
+     * // Update or create a Journey
+     * const journey = await prisma.journey.upsert({
+     *   create: {
+     *     // ... data to create a Journey
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Journey we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JourneyUpsertArgs>(args: SelectSubset<T, JourneyUpsertArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Journeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyCountArgs} args - Arguments to filter Journeys to count.
+     * @example
+     * // Count the number of Journeys
+     * const count = await prisma.journey.count({
+     *   where: {
+     *     // ... the filter for the Journeys we want to count
+     *   }
+     * })
+    **/
+    count<T extends JourneyCountArgs>(
+      args?: Subset<T, JourneyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JourneyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Journey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JourneyAggregateArgs>(args: Subset<T, JourneyAggregateArgs>): Prisma.PrismaPromise<GetJourneyAggregateType<T>>
+
+    /**
+     * Group by Journey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JourneyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JourneyGroupByArgs['orderBy'] }
+        : { orderBy?: JourneyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JourneyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJourneyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Journey model
+   */
+  readonly fields: JourneyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Journey.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JourneyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    participants<T extends Journey$participantsArgs<ExtArgs> = {}>(args?: Subset<T, Journey$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findMany"> | Null>
+    logs<T extends Journey$logsArgs<ExtArgs> = {}>(args?: Subset<T, Journey$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Journey model
+   */ 
+  interface JourneyFieldRefs {
+    readonly id: FieldRef<"Journey", 'String'>
+    readonly organizationId: FieldRef<"Journey", 'String'>
+    readonly name: FieldRef<"Journey", 'String'>
+    readonly description: FieldRef<"Journey", 'String'>
+    readonly status: FieldRef<"Journey", 'JourneyStatus'>
+    readonly triggerType: FieldRef<"Journey", 'JourneyTriggerType'>
+    readonly triggerConfig: FieldRef<"Journey", 'Json'>
+    readonly content: FieldRef<"Journey", 'Json'>
+    readonly startDate: FieldRef<"Journey", 'DateTime'>
+    readonly endDate: FieldRef<"Journey", 'DateTime'>
+    readonly reEntryPolicy: FieldRef<"Journey", 'String'>
+    readonly conversionGoal: FieldRef<"Journey", 'Json'>
+    readonly exitRules: FieldRef<"Journey", 'Json'>
+    readonly createdAt: FieldRef<"Journey", 'DateTime'>
+    readonly updatedAt: FieldRef<"Journey", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Journey findUnique
+   */
+  export type JourneyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * Filter, which Journey to fetch.
+     */
+    where: JourneyWhereUniqueInput
+  }
+
+  /**
+   * Journey findUniqueOrThrow
+   */
+  export type JourneyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * Filter, which Journey to fetch.
+     */
+    where: JourneyWhereUniqueInput
+  }
+
+  /**
+   * Journey findFirst
+   */
+  export type JourneyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * Filter, which Journey to fetch.
+     */
+    where?: JourneyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Journeys to fetch.
+     */
+    orderBy?: JourneyOrderByWithRelationInput | JourneyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Journeys.
+     */
+    cursor?: JourneyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Journeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Journeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Journeys.
+     */
+    distinct?: JourneyScalarFieldEnum | JourneyScalarFieldEnum[]
+  }
+
+  /**
+   * Journey findFirstOrThrow
+   */
+  export type JourneyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * Filter, which Journey to fetch.
+     */
+    where?: JourneyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Journeys to fetch.
+     */
+    orderBy?: JourneyOrderByWithRelationInput | JourneyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Journeys.
+     */
+    cursor?: JourneyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Journeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Journeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Journeys.
+     */
+    distinct?: JourneyScalarFieldEnum | JourneyScalarFieldEnum[]
+  }
+
+  /**
+   * Journey findMany
+   */
+  export type JourneyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * Filter, which Journeys to fetch.
+     */
+    where?: JourneyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Journeys to fetch.
+     */
+    orderBy?: JourneyOrderByWithRelationInput | JourneyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Journeys.
+     */
+    cursor?: JourneyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Journeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Journeys.
+     */
+    skip?: number
+    distinct?: JourneyScalarFieldEnum | JourneyScalarFieldEnum[]
+  }
+
+  /**
+   * Journey create
+   */
+  export type JourneyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Journey.
+     */
+    data: XOR<JourneyCreateInput, JourneyUncheckedCreateInput>
+  }
+
+  /**
+   * Journey createMany
+   */
+  export type JourneyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Journeys.
+     */
+    data: JourneyCreateManyInput | JourneyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Journey createManyAndReturn
+   */
+  export type JourneyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Journeys.
+     */
+    data: JourneyCreateManyInput | JourneyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Journey update
+   */
+  export type JourneyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Journey.
+     */
+    data: XOR<JourneyUpdateInput, JourneyUncheckedUpdateInput>
+    /**
+     * Choose, which Journey to update.
+     */
+    where: JourneyWhereUniqueInput
+  }
+
+  /**
+   * Journey updateMany
+   */
+  export type JourneyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Journeys.
+     */
+    data: XOR<JourneyUpdateManyMutationInput, JourneyUncheckedUpdateManyInput>
+    /**
+     * Filter which Journeys to update
+     */
+    where?: JourneyWhereInput
+  }
+
+  /**
+   * Journey upsert
+   */
+  export type JourneyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Journey to update in case it exists.
+     */
+    where: JourneyWhereUniqueInput
+    /**
+     * In case the Journey found by the `where` argument doesn't exist, create a new Journey with this data.
+     */
+    create: XOR<JourneyCreateInput, JourneyUncheckedCreateInput>
+    /**
+     * In case the Journey was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JourneyUpdateInput, JourneyUncheckedUpdateInput>
+  }
+
+  /**
+   * Journey delete
+   */
+  export type JourneyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+    /**
+     * Filter which Journey to delete.
+     */
+    where: JourneyWhereUniqueInput
+  }
+
+  /**
+   * Journey deleteMany
+   */
+  export type JourneyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Journeys to delete
+     */
+    where?: JourneyWhereInput
+  }
+
+  /**
+   * Journey.participants
+   */
+  export type Journey$participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    where?: JourneyParticipantWhereInput
+    orderBy?: JourneyParticipantOrderByWithRelationInput | JourneyParticipantOrderByWithRelationInput[]
+    cursor?: JourneyParticipantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JourneyParticipantScalarFieldEnum | JourneyParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * Journey.logs
+   */
+  export type Journey$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    where?: JourneyLogWhereInput
+    orderBy?: JourneyLogOrderByWithRelationInput | JourneyLogOrderByWithRelationInput[]
+    cursor?: JourneyLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JourneyLogScalarFieldEnum | JourneyLogScalarFieldEnum[]
+  }
+
+  /**
+   * Journey without action
+   */
+  export type JourneyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journey
+     */
+    select?: JourneySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model JourneyParticipant
+   */
+
+  export type AggregateJourneyParticipant = {
+    _count: JourneyParticipantCountAggregateOutputType | null
+    _min: JourneyParticipantMinAggregateOutputType | null
+    _max: JourneyParticipantMaxAggregateOutputType | null
+  }
+
+  export type JourneyParticipantMinAggregateOutputType = {
+    id: string | null
+    journeyId: string | null
+    userId: string | null
+    status: $Enums.JourneyParticipantStatus | null
+    currentNodeId: string | null
+    enteredAt: Date | null
+    convertedAt: Date | null
+    exitedAt: Date | null
+    nextStepAt: Date | null
+  }
+
+  export type JourneyParticipantMaxAggregateOutputType = {
+    id: string | null
+    journeyId: string | null
+    userId: string | null
+    status: $Enums.JourneyParticipantStatus | null
+    currentNodeId: string | null
+    enteredAt: Date | null
+    convertedAt: Date | null
+    exitedAt: Date | null
+    nextStepAt: Date | null
+  }
+
+  export type JourneyParticipantCountAggregateOutputType = {
+    id: number
+    journeyId: number
+    userId: number
+    status: number
+    currentNodeId: number
+    enteredAt: number
+    convertedAt: number
+    exitedAt: number
+    nextStepAt: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type JourneyParticipantMinAggregateInputType = {
+    id?: true
+    journeyId?: true
+    userId?: true
+    status?: true
+    currentNodeId?: true
+    enteredAt?: true
+    convertedAt?: true
+    exitedAt?: true
+    nextStepAt?: true
+  }
+
+  export type JourneyParticipantMaxAggregateInputType = {
+    id?: true
+    journeyId?: true
+    userId?: true
+    status?: true
+    currentNodeId?: true
+    enteredAt?: true
+    convertedAt?: true
+    exitedAt?: true
+    nextStepAt?: true
+  }
+
+  export type JourneyParticipantCountAggregateInputType = {
+    id?: true
+    journeyId?: true
+    userId?: true
+    status?: true
+    currentNodeId?: true
+    enteredAt?: true
+    convertedAt?: true
+    exitedAt?: true
+    nextStepAt?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type JourneyParticipantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JourneyParticipant to aggregate.
+     */
+    where?: JourneyParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyParticipants to fetch.
+     */
+    orderBy?: JourneyParticipantOrderByWithRelationInput | JourneyParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JourneyParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JourneyParticipants
+    **/
+    _count?: true | JourneyParticipantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JourneyParticipantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JourneyParticipantMaxAggregateInputType
+  }
+
+  export type GetJourneyParticipantAggregateType<T extends JourneyParticipantAggregateArgs> = {
+        [P in keyof T & keyof AggregateJourneyParticipant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJourneyParticipant[P]>
+      : GetScalarType<T[P], AggregateJourneyParticipant[P]>
+  }
+
+
+
+
+  export type JourneyParticipantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyParticipantWhereInput
+    orderBy?: JourneyParticipantOrderByWithAggregationInput | JourneyParticipantOrderByWithAggregationInput[]
+    by: JourneyParticipantScalarFieldEnum[] | JourneyParticipantScalarFieldEnum
+    having?: JourneyParticipantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JourneyParticipantCountAggregateInputType | true
+    _min?: JourneyParticipantMinAggregateInputType
+    _max?: JourneyParticipantMaxAggregateInputType
+  }
+
+  export type JourneyParticipantGroupByOutputType = {
+    id: string
+    journeyId: string
+    userId: string
+    status: $Enums.JourneyParticipantStatus
+    currentNodeId: string | null
+    enteredAt: Date
+    convertedAt: Date | null
+    exitedAt: Date | null
+    nextStepAt: Date | null
+    metadata: JsonValue | null
+    _count: JourneyParticipantCountAggregateOutputType | null
+    _min: JourneyParticipantMinAggregateOutputType | null
+    _max: JourneyParticipantMaxAggregateOutputType | null
+  }
+
+  type GetJourneyParticipantGroupByPayload<T extends JourneyParticipantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JourneyParticipantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JourneyParticipantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JourneyParticipantGroupByOutputType[P]>
+            : GetScalarType<T[P], JourneyParticipantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JourneyParticipantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    journeyId?: boolean
+    userId?: boolean
+    status?: boolean
+    currentNodeId?: boolean
+    enteredAt?: boolean
+    convertedAt?: boolean
+    exitedAt?: boolean
+    nextStepAt?: boolean
+    metadata?: boolean
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    logs?: boolean | JourneyParticipant$logsArgs<ExtArgs>
+    _count?: boolean | JourneyParticipantCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journeyParticipant"]>
+
+  export type JourneyParticipantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    journeyId?: boolean
+    userId?: boolean
+    status?: boolean
+    currentNodeId?: boolean
+    enteredAt?: boolean
+    convertedAt?: boolean
+    exitedAt?: boolean
+    nextStepAt?: boolean
+    metadata?: boolean
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["journeyParticipant"]>
+
+  export type JourneyParticipantSelectScalar = {
+    id?: boolean
+    journeyId?: boolean
+    userId?: boolean
+    status?: boolean
+    currentNodeId?: boolean
+    enteredAt?: boolean
+    convertedAt?: boolean
+    exitedAt?: boolean
+    nextStepAt?: boolean
+    metadata?: boolean
+  }
+
+  export type JourneyParticipantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    logs?: boolean | JourneyParticipant$logsArgs<ExtArgs>
+    _count?: boolean | JourneyParticipantCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type JourneyParticipantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $JourneyParticipantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JourneyParticipant"
+    objects: {
+      journey: Prisma.$JourneyPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+      logs: Prisma.$JourneyLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      journeyId: string
+      userId: string
+      status: $Enums.JourneyParticipantStatus
+      currentNodeId: string | null
+      enteredAt: Date
+      convertedAt: Date | null
+      exitedAt: Date | null
+      nextStepAt: Date | null
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["journeyParticipant"]>
+    composites: {}
+  }
+
+  type JourneyParticipantGetPayload<S extends boolean | null | undefined | JourneyParticipantDefaultArgs> = $Result.GetResult<Prisma.$JourneyParticipantPayload, S>
+
+  type JourneyParticipantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JourneyParticipantFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: JourneyParticipantCountAggregateInputType | true
+    }
+
+  export interface JourneyParticipantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JourneyParticipant'], meta: { name: 'JourneyParticipant' } }
+    /**
+     * Find zero or one JourneyParticipant that matches the filter.
+     * @param {JourneyParticipantFindUniqueArgs} args - Arguments to find a JourneyParticipant
+     * @example
+     * // Get one JourneyParticipant
+     * const journeyParticipant = await prisma.journeyParticipant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JourneyParticipantFindUniqueArgs>(args: SelectSubset<T, JourneyParticipantFindUniqueArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one JourneyParticipant that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {JourneyParticipantFindUniqueOrThrowArgs} args - Arguments to find a JourneyParticipant
+     * @example
+     * // Get one JourneyParticipant
+     * const journeyParticipant = await prisma.journeyParticipant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JourneyParticipantFindUniqueOrThrowArgs>(args: SelectSubset<T, JourneyParticipantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first JourneyParticipant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyParticipantFindFirstArgs} args - Arguments to find a JourneyParticipant
+     * @example
+     * // Get one JourneyParticipant
+     * const journeyParticipant = await prisma.journeyParticipant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JourneyParticipantFindFirstArgs>(args?: SelectSubset<T, JourneyParticipantFindFirstArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first JourneyParticipant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyParticipantFindFirstOrThrowArgs} args - Arguments to find a JourneyParticipant
+     * @example
+     * // Get one JourneyParticipant
+     * const journeyParticipant = await prisma.journeyParticipant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JourneyParticipantFindFirstOrThrowArgs>(args?: SelectSubset<T, JourneyParticipantFindFirstOrThrowArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more JourneyParticipants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyParticipantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JourneyParticipants
+     * const journeyParticipants = await prisma.journeyParticipant.findMany()
+     * 
+     * // Get first 10 JourneyParticipants
+     * const journeyParticipants = await prisma.journeyParticipant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const journeyParticipantWithIdOnly = await prisma.journeyParticipant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JourneyParticipantFindManyArgs>(args?: SelectSubset<T, JourneyParticipantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a JourneyParticipant.
+     * @param {JourneyParticipantCreateArgs} args - Arguments to create a JourneyParticipant.
+     * @example
+     * // Create one JourneyParticipant
+     * const JourneyParticipant = await prisma.journeyParticipant.create({
+     *   data: {
+     *     // ... data to create a JourneyParticipant
+     *   }
+     * })
+     * 
+     */
+    create<T extends JourneyParticipantCreateArgs>(args: SelectSubset<T, JourneyParticipantCreateArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many JourneyParticipants.
+     * @param {JourneyParticipantCreateManyArgs} args - Arguments to create many JourneyParticipants.
+     * @example
+     * // Create many JourneyParticipants
+     * const journeyParticipant = await prisma.journeyParticipant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JourneyParticipantCreateManyArgs>(args?: SelectSubset<T, JourneyParticipantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JourneyParticipants and returns the data saved in the database.
+     * @param {JourneyParticipantCreateManyAndReturnArgs} args - Arguments to create many JourneyParticipants.
+     * @example
+     * // Create many JourneyParticipants
+     * const journeyParticipant = await prisma.journeyParticipant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JourneyParticipants and only return the `id`
+     * const journeyParticipantWithIdOnly = await prisma.journeyParticipant.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JourneyParticipantCreateManyAndReturnArgs>(args?: SelectSubset<T, JourneyParticipantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a JourneyParticipant.
+     * @param {JourneyParticipantDeleteArgs} args - Arguments to delete one JourneyParticipant.
+     * @example
+     * // Delete one JourneyParticipant
+     * const JourneyParticipant = await prisma.journeyParticipant.delete({
+     *   where: {
+     *     // ... filter to delete one JourneyParticipant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JourneyParticipantDeleteArgs>(args: SelectSubset<T, JourneyParticipantDeleteArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one JourneyParticipant.
+     * @param {JourneyParticipantUpdateArgs} args - Arguments to update one JourneyParticipant.
+     * @example
+     * // Update one JourneyParticipant
+     * const journeyParticipant = await prisma.journeyParticipant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JourneyParticipantUpdateArgs>(args: SelectSubset<T, JourneyParticipantUpdateArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more JourneyParticipants.
+     * @param {JourneyParticipantDeleteManyArgs} args - Arguments to filter JourneyParticipants to delete.
+     * @example
+     * // Delete a few JourneyParticipants
+     * const { count } = await prisma.journeyParticipant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JourneyParticipantDeleteManyArgs>(args?: SelectSubset<T, JourneyParticipantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JourneyParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyParticipantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JourneyParticipants
+     * const journeyParticipant = await prisma.journeyParticipant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JourneyParticipantUpdateManyArgs>(args: SelectSubset<T, JourneyParticipantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one JourneyParticipant.
+     * @param {JourneyParticipantUpsertArgs} args - Arguments to update or create a JourneyParticipant.
+     * @example
+     * // Update or create a JourneyParticipant
+     * const journeyParticipant = await prisma.journeyParticipant.upsert({
+     *   create: {
+     *     // ... data to create a JourneyParticipant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JourneyParticipant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JourneyParticipantUpsertArgs>(args: SelectSubset<T, JourneyParticipantUpsertArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of JourneyParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyParticipantCountArgs} args - Arguments to filter JourneyParticipants to count.
+     * @example
+     * // Count the number of JourneyParticipants
+     * const count = await prisma.journeyParticipant.count({
+     *   where: {
+     *     // ... the filter for the JourneyParticipants we want to count
+     *   }
+     * })
+    **/
+    count<T extends JourneyParticipantCountArgs>(
+      args?: Subset<T, JourneyParticipantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JourneyParticipantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JourneyParticipant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyParticipantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JourneyParticipantAggregateArgs>(args: Subset<T, JourneyParticipantAggregateArgs>): Prisma.PrismaPromise<GetJourneyParticipantAggregateType<T>>
+
+    /**
+     * Group by JourneyParticipant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyParticipantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JourneyParticipantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JourneyParticipantGroupByArgs['orderBy'] }
+        : { orderBy?: JourneyParticipantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JourneyParticipantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJourneyParticipantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JourneyParticipant model
+   */
+  readonly fields: JourneyParticipantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JourneyParticipant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JourneyParticipantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    journey<T extends JourneyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JourneyDefaultArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    logs<T extends JourneyParticipant$logsArgs<ExtArgs> = {}>(args?: Subset<T, JourneyParticipant$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JourneyParticipant model
+   */ 
+  interface JourneyParticipantFieldRefs {
+    readonly id: FieldRef<"JourneyParticipant", 'String'>
+    readonly journeyId: FieldRef<"JourneyParticipant", 'String'>
+    readonly userId: FieldRef<"JourneyParticipant", 'String'>
+    readonly status: FieldRef<"JourneyParticipant", 'JourneyParticipantStatus'>
+    readonly currentNodeId: FieldRef<"JourneyParticipant", 'String'>
+    readonly enteredAt: FieldRef<"JourneyParticipant", 'DateTime'>
+    readonly convertedAt: FieldRef<"JourneyParticipant", 'DateTime'>
+    readonly exitedAt: FieldRef<"JourneyParticipant", 'DateTime'>
+    readonly nextStepAt: FieldRef<"JourneyParticipant", 'DateTime'>
+    readonly metadata: FieldRef<"JourneyParticipant", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JourneyParticipant findUnique
+   */
+  export type JourneyParticipantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyParticipant to fetch.
+     */
+    where: JourneyParticipantWhereUniqueInput
+  }
+
+  /**
+   * JourneyParticipant findUniqueOrThrow
+   */
+  export type JourneyParticipantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyParticipant to fetch.
+     */
+    where: JourneyParticipantWhereUniqueInput
+  }
+
+  /**
+   * JourneyParticipant findFirst
+   */
+  export type JourneyParticipantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyParticipant to fetch.
+     */
+    where?: JourneyParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyParticipants to fetch.
+     */
+    orderBy?: JourneyParticipantOrderByWithRelationInput | JourneyParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JourneyParticipants.
+     */
+    cursor?: JourneyParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JourneyParticipants.
+     */
+    distinct?: JourneyParticipantScalarFieldEnum | JourneyParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * JourneyParticipant findFirstOrThrow
+   */
+  export type JourneyParticipantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyParticipant to fetch.
+     */
+    where?: JourneyParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyParticipants to fetch.
+     */
+    orderBy?: JourneyParticipantOrderByWithRelationInput | JourneyParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JourneyParticipants.
+     */
+    cursor?: JourneyParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JourneyParticipants.
+     */
+    distinct?: JourneyParticipantScalarFieldEnum | JourneyParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * JourneyParticipant findMany
+   */
+  export type JourneyParticipantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyParticipants to fetch.
+     */
+    where?: JourneyParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyParticipants to fetch.
+     */
+    orderBy?: JourneyParticipantOrderByWithRelationInput | JourneyParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JourneyParticipants.
+     */
+    cursor?: JourneyParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyParticipants.
+     */
+    skip?: number
+    distinct?: JourneyParticipantScalarFieldEnum | JourneyParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * JourneyParticipant create
+   */
+  export type JourneyParticipantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JourneyParticipant.
+     */
+    data: XOR<JourneyParticipantCreateInput, JourneyParticipantUncheckedCreateInput>
+  }
+
+  /**
+   * JourneyParticipant createMany
+   */
+  export type JourneyParticipantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JourneyParticipants.
+     */
+    data: JourneyParticipantCreateManyInput | JourneyParticipantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JourneyParticipant createManyAndReturn
+   */
+  export type JourneyParticipantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many JourneyParticipants.
+     */
+    data: JourneyParticipantCreateManyInput | JourneyParticipantCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JourneyParticipant update
+   */
+  export type JourneyParticipantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JourneyParticipant.
+     */
+    data: XOR<JourneyParticipantUpdateInput, JourneyParticipantUncheckedUpdateInput>
+    /**
+     * Choose, which JourneyParticipant to update.
+     */
+    where: JourneyParticipantWhereUniqueInput
+  }
+
+  /**
+   * JourneyParticipant updateMany
+   */
+  export type JourneyParticipantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JourneyParticipants.
+     */
+    data: XOR<JourneyParticipantUpdateManyMutationInput, JourneyParticipantUncheckedUpdateManyInput>
+    /**
+     * Filter which JourneyParticipants to update
+     */
+    where?: JourneyParticipantWhereInput
+  }
+
+  /**
+   * JourneyParticipant upsert
+   */
+  export type JourneyParticipantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JourneyParticipant to update in case it exists.
+     */
+    where: JourneyParticipantWhereUniqueInput
+    /**
+     * In case the JourneyParticipant found by the `where` argument doesn't exist, create a new JourneyParticipant with this data.
+     */
+    create: XOR<JourneyParticipantCreateInput, JourneyParticipantUncheckedCreateInput>
+    /**
+     * In case the JourneyParticipant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JourneyParticipantUpdateInput, JourneyParticipantUncheckedUpdateInput>
+  }
+
+  /**
+   * JourneyParticipant delete
+   */
+  export type JourneyParticipantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    /**
+     * Filter which JourneyParticipant to delete.
+     */
+    where: JourneyParticipantWhereUniqueInput
+  }
+
+  /**
+   * JourneyParticipant deleteMany
+   */
+  export type JourneyParticipantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JourneyParticipants to delete
+     */
+    where?: JourneyParticipantWhereInput
+  }
+
+  /**
+   * JourneyParticipant.logs
+   */
+  export type JourneyParticipant$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    where?: JourneyLogWhereInput
+    orderBy?: JourneyLogOrderByWithRelationInput | JourneyLogOrderByWithRelationInput[]
+    cursor?: JourneyLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JourneyLogScalarFieldEnum | JourneyLogScalarFieldEnum[]
+  }
+
+  /**
+   * JourneyParticipant without action
+   */
+  export type JourneyParticipantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model JourneyLog
+   */
+
+  export type AggregateJourneyLog = {
+    _count: JourneyLogCountAggregateOutputType | null
+    _min: JourneyLogMinAggregateOutputType | null
+    _max: JourneyLogMaxAggregateOutputType | null
+  }
+
+  export type JourneyLogMinAggregateOutputType = {
+    id: string | null
+    journeyId: string | null
+    participantId: string | null
+    nodeId: string | null
+    eventType: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type JourneyLogMaxAggregateOutputType = {
+    id: string | null
+    journeyId: string | null
+    participantId: string | null
+    nodeId: string | null
+    eventType: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type JourneyLogCountAggregateOutputType = {
+    id: number
+    journeyId: number
+    participantId: number
+    nodeId: number
+    eventType: number
+    status: number
+    details: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type JourneyLogMinAggregateInputType = {
+    id?: true
+    journeyId?: true
+    participantId?: true
+    nodeId?: true
+    eventType?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type JourneyLogMaxAggregateInputType = {
+    id?: true
+    journeyId?: true
+    participantId?: true
+    nodeId?: true
+    eventType?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type JourneyLogCountAggregateInputType = {
+    id?: true
+    journeyId?: true
+    participantId?: true
+    nodeId?: true
+    eventType?: true
+    status?: true
+    details?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type JourneyLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JourneyLog to aggregate.
+     */
+    where?: JourneyLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyLogs to fetch.
+     */
+    orderBy?: JourneyLogOrderByWithRelationInput | JourneyLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JourneyLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JourneyLogs
+    **/
+    _count?: true | JourneyLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JourneyLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JourneyLogMaxAggregateInputType
+  }
+
+  export type GetJourneyLogAggregateType<T extends JourneyLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateJourneyLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJourneyLog[P]>
+      : GetScalarType<T[P], AggregateJourneyLog[P]>
+  }
+
+
+
+
+  export type JourneyLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JourneyLogWhereInput
+    orderBy?: JourneyLogOrderByWithAggregationInput | JourneyLogOrderByWithAggregationInput[]
+    by: JourneyLogScalarFieldEnum[] | JourneyLogScalarFieldEnum
+    having?: JourneyLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JourneyLogCountAggregateInputType | true
+    _min?: JourneyLogMinAggregateInputType
+    _max?: JourneyLogMaxAggregateInputType
+  }
+
+  export type JourneyLogGroupByOutputType = {
+    id: string
+    journeyId: string
+    participantId: string | null
+    nodeId: string | null
+    eventType: string
+    status: string
+    details: JsonValue | null
+    createdAt: Date
+    _count: JourneyLogCountAggregateOutputType | null
+    _min: JourneyLogMinAggregateOutputType | null
+    _max: JourneyLogMaxAggregateOutputType | null
+  }
+
+  type GetJourneyLogGroupByPayload<T extends JourneyLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JourneyLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JourneyLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JourneyLogGroupByOutputType[P]>
+            : GetScalarType<T[P], JourneyLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JourneyLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    journeyId?: boolean
+    participantId?: boolean
+    nodeId?: boolean
+    eventType?: boolean
+    status?: boolean
+    details?: boolean
+    createdAt?: boolean
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    participant?: boolean | JourneyLog$participantArgs<ExtArgs>
+  }, ExtArgs["result"]["journeyLog"]>
+
+  export type JourneyLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    journeyId?: boolean
+    participantId?: boolean
+    nodeId?: boolean
+    eventType?: boolean
+    status?: boolean
+    details?: boolean
+    createdAt?: boolean
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    participant?: boolean | JourneyLog$participantArgs<ExtArgs>
+  }, ExtArgs["result"]["journeyLog"]>
+
+  export type JourneyLogSelectScalar = {
+    id?: boolean
+    journeyId?: boolean
+    participantId?: boolean
+    nodeId?: boolean
+    eventType?: boolean
+    status?: boolean
+    details?: boolean
+    createdAt?: boolean
+  }
+
+  export type JourneyLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    participant?: boolean | JourneyLog$participantArgs<ExtArgs>
+  }
+  export type JourneyLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journey?: boolean | JourneyDefaultArgs<ExtArgs>
+    participant?: boolean | JourneyLog$participantArgs<ExtArgs>
+  }
+
+  export type $JourneyLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JourneyLog"
+    objects: {
+      journey: Prisma.$JourneyPayload<ExtArgs>
+      participant: Prisma.$JourneyParticipantPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      journeyId: string
+      participantId: string | null
+      nodeId: string | null
+      eventType: string
+      status: string
+      details: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["journeyLog"]>
+    composites: {}
+  }
+
+  type JourneyLogGetPayload<S extends boolean | null | undefined | JourneyLogDefaultArgs> = $Result.GetResult<Prisma.$JourneyLogPayload, S>
+
+  type JourneyLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JourneyLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: JourneyLogCountAggregateInputType | true
+    }
+
+  export interface JourneyLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JourneyLog'], meta: { name: 'JourneyLog' } }
+    /**
+     * Find zero or one JourneyLog that matches the filter.
+     * @param {JourneyLogFindUniqueArgs} args - Arguments to find a JourneyLog
+     * @example
+     * // Get one JourneyLog
+     * const journeyLog = await prisma.journeyLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JourneyLogFindUniqueArgs>(args: SelectSubset<T, JourneyLogFindUniqueArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one JourneyLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {JourneyLogFindUniqueOrThrowArgs} args - Arguments to find a JourneyLog
+     * @example
+     * // Get one JourneyLog
+     * const journeyLog = await prisma.journeyLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JourneyLogFindUniqueOrThrowArgs>(args: SelectSubset<T, JourneyLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first JourneyLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyLogFindFirstArgs} args - Arguments to find a JourneyLog
+     * @example
+     * // Get one JourneyLog
+     * const journeyLog = await prisma.journeyLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JourneyLogFindFirstArgs>(args?: SelectSubset<T, JourneyLogFindFirstArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first JourneyLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyLogFindFirstOrThrowArgs} args - Arguments to find a JourneyLog
+     * @example
+     * // Get one JourneyLog
+     * const journeyLog = await prisma.journeyLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JourneyLogFindFirstOrThrowArgs>(args?: SelectSubset<T, JourneyLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more JourneyLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JourneyLogs
+     * const journeyLogs = await prisma.journeyLog.findMany()
+     * 
+     * // Get first 10 JourneyLogs
+     * const journeyLogs = await prisma.journeyLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const journeyLogWithIdOnly = await prisma.journeyLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JourneyLogFindManyArgs>(args?: SelectSubset<T, JourneyLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a JourneyLog.
+     * @param {JourneyLogCreateArgs} args - Arguments to create a JourneyLog.
+     * @example
+     * // Create one JourneyLog
+     * const JourneyLog = await prisma.journeyLog.create({
+     *   data: {
+     *     // ... data to create a JourneyLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends JourneyLogCreateArgs>(args: SelectSubset<T, JourneyLogCreateArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many JourneyLogs.
+     * @param {JourneyLogCreateManyArgs} args - Arguments to create many JourneyLogs.
+     * @example
+     * // Create many JourneyLogs
+     * const journeyLog = await prisma.journeyLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JourneyLogCreateManyArgs>(args?: SelectSubset<T, JourneyLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JourneyLogs and returns the data saved in the database.
+     * @param {JourneyLogCreateManyAndReturnArgs} args - Arguments to create many JourneyLogs.
+     * @example
+     * // Create many JourneyLogs
+     * const journeyLog = await prisma.journeyLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JourneyLogs and only return the `id`
+     * const journeyLogWithIdOnly = await prisma.journeyLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JourneyLogCreateManyAndReturnArgs>(args?: SelectSubset<T, JourneyLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a JourneyLog.
+     * @param {JourneyLogDeleteArgs} args - Arguments to delete one JourneyLog.
+     * @example
+     * // Delete one JourneyLog
+     * const JourneyLog = await prisma.journeyLog.delete({
+     *   where: {
+     *     // ... filter to delete one JourneyLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JourneyLogDeleteArgs>(args: SelectSubset<T, JourneyLogDeleteArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one JourneyLog.
+     * @param {JourneyLogUpdateArgs} args - Arguments to update one JourneyLog.
+     * @example
+     * // Update one JourneyLog
+     * const journeyLog = await prisma.journeyLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JourneyLogUpdateArgs>(args: SelectSubset<T, JourneyLogUpdateArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more JourneyLogs.
+     * @param {JourneyLogDeleteManyArgs} args - Arguments to filter JourneyLogs to delete.
+     * @example
+     * // Delete a few JourneyLogs
+     * const { count } = await prisma.journeyLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JourneyLogDeleteManyArgs>(args?: SelectSubset<T, JourneyLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JourneyLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JourneyLogs
+     * const journeyLog = await prisma.journeyLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JourneyLogUpdateManyArgs>(args: SelectSubset<T, JourneyLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one JourneyLog.
+     * @param {JourneyLogUpsertArgs} args - Arguments to update or create a JourneyLog.
+     * @example
+     * // Update or create a JourneyLog
+     * const journeyLog = await prisma.journeyLog.upsert({
+     *   create: {
+     *     // ... data to create a JourneyLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JourneyLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JourneyLogUpsertArgs>(args: SelectSubset<T, JourneyLogUpsertArgs<ExtArgs>>): Prisma__JourneyLogClient<$Result.GetResult<Prisma.$JourneyLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of JourneyLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyLogCountArgs} args - Arguments to filter JourneyLogs to count.
+     * @example
+     * // Count the number of JourneyLogs
+     * const count = await prisma.journeyLog.count({
+     *   where: {
+     *     // ... the filter for the JourneyLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends JourneyLogCountArgs>(
+      args?: Subset<T, JourneyLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JourneyLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JourneyLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JourneyLogAggregateArgs>(args: Subset<T, JourneyLogAggregateArgs>): Prisma.PrismaPromise<GetJourneyLogAggregateType<T>>
+
+    /**
+     * Group by JourneyLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JourneyLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JourneyLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JourneyLogGroupByArgs['orderBy'] }
+        : { orderBy?: JourneyLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JourneyLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJourneyLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JourneyLog model
+   */
+  readonly fields: JourneyLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JourneyLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JourneyLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    journey<T extends JourneyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JourneyDefaultArgs<ExtArgs>>): Prisma__JourneyClient<$Result.GetResult<Prisma.$JourneyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    participant<T extends JourneyLog$participantArgs<ExtArgs> = {}>(args?: Subset<T, JourneyLog$participantArgs<ExtArgs>>): Prisma__JourneyParticipantClient<$Result.GetResult<Prisma.$JourneyParticipantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JourneyLog model
+   */ 
+  interface JourneyLogFieldRefs {
+    readonly id: FieldRef<"JourneyLog", 'String'>
+    readonly journeyId: FieldRef<"JourneyLog", 'String'>
+    readonly participantId: FieldRef<"JourneyLog", 'String'>
+    readonly nodeId: FieldRef<"JourneyLog", 'String'>
+    readonly eventType: FieldRef<"JourneyLog", 'String'>
+    readonly status: FieldRef<"JourneyLog", 'String'>
+    readonly details: FieldRef<"JourneyLog", 'Json'>
+    readonly createdAt: FieldRef<"JourneyLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JourneyLog findUnique
+   */
+  export type JourneyLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyLog to fetch.
+     */
+    where: JourneyLogWhereUniqueInput
+  }
+
+  /**
+   * JourneyLog findUniqueOrThrow
+   */
+  export type JourneyLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyLog to fetch.
+     */
+    where: JourneyLogWhereUniqueInput
+  }
+
+  /**
+   * JourneyLog findFirst
+   */
+  export type JourneyLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyLog to fetch.
+     */
+    where?: JourneyLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyLogs to fetch.
+     */
+    orderBy?: JourneyLogOrderByWithRelationInput | JourneyLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JourneyLogs.
+     */
+    cursor?: JourneyLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JourneyLogs.
+     */
+    distinct?: JourneyLogScalarFieldEnum | JourneyLogScalarFieldEnum[]
+  }
+
+  /**
+   * JourneyLog findFirstOrThrow
+   */
+  export type JourneyLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyLog to fetch.
+     */
+    where?: JourneyLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyLogs to fetch.
+     */
+    orderBy?: JourneyLogOrderByWithRelationInput | JourneyLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JourneyLogs.
+     */
+    cursor?: JourneyLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JourneyLogs.
+     */
+    distinct?: JourneyLogScalarFieldEnum | JourneyLogScalarFieldEnum[]
+  }
+
+  /**
+   * JourneyLog findMany
+   */
+  export type JourneyLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * Filter, which JourneyLogs to fetch.
+     */
+    where?: JourneyLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JourneyLogs to fetch.
+     */
+    orderBy?: JourneyLogOrderByWithRelationInput | JourneyLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JourneyLogs.
+     */
+    cursor?: JourneyLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JourneyLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JourneyLogs.
+     */
+    skip?: number
+    distinct?: JourneyLogScalarFieldEnum | JourneyLogScalarFieldEnum[]
+  }
+
+  /**
+   * JourneyLog create
+   */
+  export type JourneyLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JourneyLog.
+     */
+    data: XOR<JourneyLogCreateInput, JourneyLogUncheckedCreateInput>
+  }
+
+  /**
+   * JourneyLog createMany
+   */
+  export type JourneyLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JourneyLogs.
+     */
+    data: JourneyLogCreateManyInput | JourneyLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JourneyLog createManyAndReturn
+   */
+  export type JourneyLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many JourneyLogs.
+     */
+    data: JourneyLogCreateManyInput | JourneyLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JourneyLog update
+   */
+  export type JourneyLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JourneyLog.
+     */
+    data: XOR<JourneyLogUpdateInput, JourneyLogUncheckedUpdateInput>
+    /**
+     * Choose, which JourneyLog to update.
+     */
+    where: JourneyLogWhereUniqueInput
+  }
+
+  /**
+   * JourneyLog updateMany
+   */
+  export type JourneyLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JourneyLogs.
+     */
+    data: XOR<JourneyLogUpdateManyMutationInput, JourneyLogUncheckedUpdateManyInput>
+    /**
+     * Filter which JourneyLogs to update
+     */
+    where?: JourneyLogWhereInput
+  }
+
+  /**
+   * JourneyLog upsert
+   */
+  export type JourneyLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JourneyLog to update in case it exists.
+     */
+    where: JourneyLogWhereUniqueInput
+    /**
+     * In case the JourneyLog found by the `where` argument doesn't exist, create a new JourneyLog with this data.
+     */
+    create: XOR<JourneyLogCreateInput, JourneyLogUncheckedCreateInput>
+    /**
+     * In case the JourneyLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JourneyLogUpdateInput, JourneyLogUncheckedUpdateInput>
+  }
+
+  /**
+   * JourneyLog delete
+   */
+  export type JourneyLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+    /**
+     * Filter which JourneyLog to delete.
+     */
+    where: JourneyLogWhereUniqueInput
+  }
+
+  /**
+   * JourneyLog deleteMany
+   */
+  export type JourneyLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JourneyLogs to delete
+     */
+    where?: JourneyLogWhereInput
+  }
+
+  /**
+   * JourneyLog.participant
+   */
+  export type JourneyLog$participantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyParticipant
+     */
+    select?: JourneyParticipantSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyParticipantInclude<ExtArgs> | null
+    where?: JourneyParticipantWhereInput
+  }
+
+  /**
+   * JourneyLog without action
+   */
+  export type JourneyLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JourneyLog
+     */
+    select?: JourneyLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JourneyLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -54306,6 +57838,57 @@ export namespace Prisma {
   export type EmailCampaignLogScalarFieldEnum = (typeof EmailCampaignLogScalarFieldEnum)[keyof typeof EmailCampaignLogScalarFieldEnum]
 
 
+  export const JourneyScalarFieldEnum: {
+    id: 'id',
+    organizationId: 'organizationId',
+    name: 'name',
+    description: 'description',
+    status: 'status',
+    triggerType: 'triggerType',
+    triggerConfig: 'triggerConfig',
+    content: 'content',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    reEntryPolicy: 'reEntryPolicy',
+    conversionGoal: 'conversionGoal',
+    exitRules: 'exitRules',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type JourneyScalarFieldEnum = (typeof JourneyScalarFieldEnum)[keyof typeof JourneyScalarFieldEnum]
+
+
+  export const JourneyParticipantScalarFieldEnum: {
+    id: 'id',
+    journeyId: 'journeyId',
+    userId: 'userId',
+    status: 'status',
+    currentNodeId: 'currentNodeId',
+    enteredAt: 'enteredAt',
+    convertedAt: 'convertedAt',
+    exitedAt: 'exitedAt',
+    nextStepAt: 'nextStepAt',
+    metadata: 'metadata'
+  };
+
+  export type JourneyParticipantScalarFieldEnum = (typeof JourneyParticipantScalarFieldEnum)[keyof typeof JourneyParticipantScalarFieldEnum]
+
+
+  export const JourneyLogScalarFieldEnum: {
+    id: 'id',
+    journeyId: 'journeyId',
+    participantId: 'participantId',
+    nodeId: 'nodeId',
+    eventType: 'eventType',
+    status: 'status',
+    details: 'details',
+    createdAt: 'createdAt'
+  };
+
+  export type JourneyLogScalarFieldEnum = (typeof JourneyLogScalarFieldEnum)[keyof typeof JourneyLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -54738,6 +58321,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'JourneyStatus'
+   */
+  export type EnumJourneyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourneyStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'JourneyStatus[]'
+   */
+  export type ListEnumJourneyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourneyStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'JourneyTriggerType'
+   */
+  export type EnumJourneyTriggerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourneyTriggerType'>
+    
+
+
+  /**
+   * Reference to a field of type 'JourneyTriggerType[]'
+   */
+  export type ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourneyTriggerType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'JourneyParticipantStatus'
+   */
+  export type EnumJourneyParticipantStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourneyParticipantStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'JourneyParticipantStatus[]'
+   */
+  export type ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourneyParticipantStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -54779,6 +58404,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationListRelationFilter
     paymentConfigs?: PaymentProviderConfigListRelationFilter
     emailCampaigns?: EmailCampaignListRelationFilter
+    journeys?: JourneyListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -54803,6 +58429,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationOrderByRelationAggregateInput
     paymentConfigs?: PaymentProviderConfigOrderByRelationAggregateInput
     emailCampaigns?: EmailCampaignOrderByRelationAggregateInput
+    journeys?: JourneyOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -54830,6 +58457,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationListRelationFilter
     paymentConfigs?: PaymentProviderConfigListRelationFilter
     emailCampaigns?: EmailCampaignListRelationFilter
+    journeys?: JourneyListRelationFilter
   }, "id" | "slug">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -55473,6 +59101,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigListRelationFilter
     emailCampaignsCreated?: EmailCampaignListRelationFilter
     emailCampaignLogs?: EmailCampaignLogListRelationFilter
+    journeyParticipants?: JourneyParticipantListRelationFilter
     customerIdentifiers?: CustomerIdentifierListRelationFilter
     preferences?: CustomerPreferenceListRelationFilter
     metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
@@ -55509,6 +59138,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigOrderByRelationAggregateInput
     emailCampaignsCreated?: EmailCampaignOrderByRelationAggregateInput
     emailCampaignLogs?: EmailCampaignLogOrderByRelationAggregateInput
+    journeyParticipants?: JourneyParticipantOrderByRelationAggregateInput
     customerIdentifiers?: CustomerIdentifierOrderByRelationAggregateInput
     preferences?: CustomerPreferenceOrderByRelationAggregateInput
     metrics?: CustomerMetricsOrderByWithRelationInput
@@ -55548,6 +59178,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigListRelationFilter
     emailCampaignsCreated?: EmailCampaignListRelationFilter
     emailCampaignLogs?: EmailCampaignLogListRelationFilter
+    journeyParticipants?: JourneyParticipantListRelationFilter
     customerIdentifiers?: CustomerIdentifierListRelationFilter
     preferences?: CustomerPreferenceListRelationFilter
     metrics?: XOR<CustomerMetricsNullableRelationFilter, CustomerMetricsWhereInput> | null
@@ -58734,6 +62365,277 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"EmailCampaignLog"> | Date | string
   }
 
+  export type JourneyWhereInput = {
+    AND?: JourneyWhereInput | JourneyWhereInput[]
+    OR?: JourneyWhereInput[]
+    NOT?: JourneyWhereInput | JourneyWhereInput[]
+    id?: StringFilter<"Journey"> | string
+    organizationId?: StringFilter<"Journey"> | string
+    name?: StringFilter<"Journey"> | string
+    description?: StringNullableFilter<"Journey"> | string | null
+    status?: EnumJourneyStatusFilter<"Journey"> | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFilter<"Journey"> | $Enums.JourneyTriggerType
+    triggerConfig?: JsonFilter<"Journey">
+    content?: JsonFilter<"Journey">
+    startDate?: DateTimeNullableFilter<"Journey"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Journey"> | Date | string | null
+    reEntryPolicy?: StringFilter<"Journey"> | string
+    conversionGoal?: JsonNullableFilter<"Journey">
+    exitRules?: JsonNullableFilter<"Journey">
+    createdAt?: DateTimeFilter<"Journey"> | Date | string
+    updatedAt?: DateTimeFilter<"Journey"> | Date | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    participants?: JourneyParticipantListRelationFilter
+    logs?: JourneyLogListRelationFilter
+  }
+
+  export type JourneyOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    triggerType?: SortOrder
+    triggerConfig?: SortOrder
+    content?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    reEntryPolicy?: SortOrder
+    conversionGoal?: SortOrderInput | SortOrder
+    exitRules?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    participants?: JourneyParticipantOrderByRelationAggregateInput
+    logs?: JourneyLogOrderByRelationAggregateInput
+  }
+
+  export type JourneyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JourneyWhereInput | JourneyWhereInput[]
+    OR?: JourneyWhereInput[]
+    NOT?: JourneyWhereInput | JourneyWhereInput[]
+    organizationId?: StringFilter<"Journey"> | string
+    name?: StringFilter<"Journey"> | string
+    description?: StringNullableFilter<"Journey"> | string | null
+    status?: EnumJourneyStatusFilter<"Journey"> | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFilter<"Journey"> | $Enums.JourneyTriggerType
+    triggerConfig?: JsonFilter<"Journey">
+    content?: JsonFilter<"Journey">
+    startDate?: DateTimeNullableFilter<"Journey"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Journey"> | Date | string | null
+    reEntryPolicy?: StringFilter<"Journey"> | string
+    conversionGoal?: JsonNullableFilter<"Journey">
+    exitRules?: JsonNullableFilter<"Journey">
+    createdAt?: DateTimeFilter<"Journey"> | Date | string
+    updatedAt?: DateTimeFilter<"Journey"> | Date | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    participants?: JourneyParticipantListRelationFilter
+    logs?: JourneyLogListRelationFilter
+  }, "id">
+
+  export type JourneyOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    triggerType?: SortOrder
+    triggerConfig?: SortOrder
+    content?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    reEntryPolicy?: SortOrder
+    conversionGoal?: SortOrderInput | SortOrder
+    exitRules?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: JourneyCountOrderByAggregateInput
+    _max?: JourneyMaxOrderByAggregateInput
+    _min?: JourneyMinOrderByAggregateInput
+  }
+
+  export type JourneyScalarWhereWithAggregatesInput = {
+    AND?: JourneyScalarWhereWithAggregatesInput | JourneyScalarWhereWithAggregatesInput[]
+    OR?: JourneyScalarWhereWithAggregatesInput[]
+    NOT?: JourneyScalarWhereWithAggregatesInput | JourneyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Journey"> | string
+    organizationId?: StringWithAggregatesFilter<"Journey"> | string
+    name?: StringWithAggregatesFilter<"Journey"> | string
+    description?: StringNullableWithAggregatesFilter<"Journey"> | string | null
+    status?: EnumJourneyStatusWithAggregatesFilter<"Journey"> | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeWithAggregatesFilter<"Journey"> | $Enums.JourneyTriggerType
+    triggerConfig?: JsonWithAggregatesFilter<"Journey">
+    content?: JsonWithAggregatesFilter<"Journey">
+    startDate?: DateTimeNullableWithAggregatesFilter<"Journey"> | Date | string | null
+    endDate?: DateTimeNullableWithAggregatesFilter<"Journey"> | Date | string | null
+    reEntryPolicy?: StringWithAggregatesFilter<"Journey"> | string
+    conversionGoal?: JsonNullableWithAggregatesFilter<"Journey">
+    exitRules?: JsonNullableWithAggregatesFilter<"Journey">
+    createdAt?: DateTimeWithAggregatesFilter<"Journey"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Journey"> | Date | string
+  }
+
+  export type JourneyParticipantWhereInput = {
+    AND?: JourneyParticipantWhereInput | JourneyParticipantWhereInput[]
+    OR?: JourneyParticipantWhereInput[]
+    NOT?: JourneyParticipantWhereInput | JourneyParticipantWhereInput[]
+    id?: StringFilter<"JourneyParticipant"> | string
+    journeyId?: StringFilter<"JourneyParticipant"> | string
+    userId?: StringFilter<"JourneyParticipant"> | string
+    status?: EnumJourneyParticipantStatusFilter<"JourneyParticipant"> | $Enums.JourneyParticipantStatus
+    currentNodeId?: StringNullableFilter<"JourneyParticipant"> | string | null
+    enteredAt?: DateTimeFilter<"JourneyParticipant"> | Date | string
+    convertedAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    exitedAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    nextStepAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    metadata?: JsonNullableFilter<"JourneyParticipant">
+    journey?: XOR<JourneyRelationFilter, JourneyWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    logs?: JourneyLogListRelationFilter
+  }
+
+  export type JourneyParticipantOrderByWithRelationInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentNodeId?: SortOrderInput | SortOrder
+    enteredAt?: SortOrder
+    convertedAt?: SortOrderInput | SortOrder
+    exitedAt?: SortOrderInput | SortOrder
+    nextStepAt?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    journey?: JourneyOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    logs?: JourneyLogOrderByRelationAggregateInput
+  }
+
+  export type JourneyParticipantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    journeyId_userId?: JourneyParticipantJourneyIdUserIdCompoundUniqueInput
+    AND?: JourneyParticipantWhereInput | JourneyParticipantWhereInput[]
+    OR?: JourneyParticipantWhereInput[]
+    NOT?: JourneyParticipantWhereInput | JourneyParticipantWhereInput[]
+    journeyId?: StringFilter<"JourneyParticipant"> | string
+    userId?: StringFilter<"JourneyParticipant"> | string
+    status?: EnumJourneyParticipantStatusFilter<"JourneyParticipant"> | $Enums.JourneyParticipantStatus
+    currentNodeId?: StringNullableFilter<"JourneyParticipant"> | string | null
+    enteredAt?: DateTimeFilter<"JourneyParticipant"> | Date | string
+    convertedAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    exitedAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    nextStepAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    metadata?: JsonNullableFilter<"JourneyParticipant">
+    journey?: XOR<JourneyRelationFilter, JourneyWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    logs?: JourneyLogListRelationFilter
+  }, "id" | "journeyId_userId">
+
+  export type JourneyParticipantOrderByWithAggregationInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentNodeId?: SortOrderInput | SortOrder
+    enteredAt?: SortOrder
+    convertedAt?: SortOrderInput | SortOrder
+    exitedAt?: SortOrderInput | SortOrder
+    nextStepAt?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: JourneyParticipantCountOrderByAggregateInput
+    _max?: JourneyParticipantMaxOrderByAggregateInput
+    _min?: JourneyParticipantMinOrderByAggregateInput
+  }
+
+  export type JourneyParticipantScalarWhereWithAggregatesInput = {
+    AND?: JourneyParticipantScalarWhereWithAggregatesInput | JourneyParticipantScalarWhereWithAggregatesInput[]
+    OR?: JourneyParticipantScalarWhereWithAggregatesInput[]
+    NOT?: JourneyParticipantScalarWhereWithAggregatesInput | JourneyParticipantScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JourneyParticipant"> | string
+    journeyId?: StringWithAggregatesFilter<"JourneyParticipant"> | string
+    userId?: StringWithAggregatesFilter<"JourneyParticipant"> | string
+    status?: EnumJourneyParticipantStatusWithAggregatesFilter<"JourneyParticipant"> | $Enums.JourneyParticipantStatus
+    currentNodeId?: StringNullableWithAggregatesFilter<"JourneyParticipant"> | string | null
+    enteredAt?: DateTimeWithAggregatesFilter<"JourneyParticipant"> | Date | string
+    convertedAt?: DateTimeNullableWithAggregatesFilter<"JourneyParticipant"> | Date | string | null
+    exitedAt?: DateTimeNullableWithAggregatesFilter<"JourneyParticipant"> | Date | string | null
+    nextStepAt?: DateTimeNullableWithAggregatesFilter<"JourneyParticipant"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"JourneyParticipant">
+  }
+
+  export type JourneyLogWhereInput = {
+    AND?: JourneyLogWhereInput | JourneyLogWhereInput[]
+    OR?: JourneyLogWhereInput[]
+    NOT?: JourneyLogWhereInput | JourneyLogWhereInput[]
+    id?: StringFilter<"JourneyLog"> | string
+    journeyId?: StringFilter<"JourneyLog"> | string
+    participantId?: StringNullableFilter<"JourneyLog"> | string | null
+    nodeId?: StringNullableFilter<"JourneyLog"> | string | null
+    eventType?: StringFilter<"JourneyLog"> | string
+    status?: StringFilter<"JourneyLog"> | string
+    details?: JsonNullableFilter<"JourneyLog">
+    createdAt?: DateTimeFilter<"JourneyLog"> | Date | string
+    journey?: XOR<JourneyRelationFilter, JourneyWhereInput>
+    participant?: XOR<JourneyParticipantNullableRelationFilter, JourneyParticipantWhereInput> | null
+  }
+
+  export type JourneyLogOrderByWithRelationInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    participantId?: SortOrderInput | SortOrder
+    nodeId?: SortOrderInput | SortOrder
+    eventType?: SortOrder
+    status?: SortOrder
+    details?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    journey?: JourneyOrderByWithRelationInput
+    participant?: JourneyParticipantOrderByWithRelationInput
+  }
+
+  export type JourneyLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JourneyLogWhereInput | JourneyLogWhereInput[]
+    OR?: JourneyLogWhereInput[]
+    NOT?: JourneyLogWhereInput | JourneyLogWhereInput[]
+    journeyId?: StringFilter<"JourneyLog"> | string
+    participantId?: StringNullableFilter<"JourneyLog"> | string | null
+    nodeId?: StringNullableFilter<"JourneyLog"> | string | null
+    eventType?: StringFilter<"JourneyLog"> | string
+    status?: StringFilter<"JourneyLog"> | string
+    details?: JsonNullableFilter<"JourneyLog">
+    createdAt?: DateTimeFilter<"JourneyLog"> | Date | string
+    journey?: XOR<JourneyRelationFilter, JourneyWhereInput>
+    participant?: XOR<JourneyParticipantNullableRelationFilter, JourneyParticipantWhereInput> | null
+  }, "id">
+
+  export type JourneyLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    participantId?: SortOrderInput | SortOrder
+    nodeId?: SortOrderInput | SortOrder
+    eventType?: SortOrder
+    status?: SortOrder
+    details?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: JourneyLogCountOrderByAggregateInput
+    _max?: JourneyLogMaxOrderByAggregateInput
+    _min?: JourneyLogMinOrderByAggregateInput
+  }
+
+  export type JourneyLogScalarWhereWithAggregatesInput = {
+    AND?: JourneyLogScalarWhereWithAggregatesInput | JourneyLogScalarWhereWithAggregatesInput[]
+    OR?: JourneyLogScalarWhereWithAggregatesInput[]
+    NOT?: JourneyLogScalarWhereWithAggregatesInput | JourneyLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JourneyLog"> | string
+    journeyId?: StringWithAggregatesFilter<"JourneyLog"> | string
+    participantId?: StringNullableWithAggregatesFilter<"JourneyLog"> | string | null
+    nodeId?: StringNullableWithAggregatesFilter<"JourneyLog"> | string | null
+    eventType?: StringWithAggregatesFilter<"JourneyLog"> | string
+    status?: StringWithAggregatesFilter<"JourneyLog"> | string
+    details?: JsonNullableWithAggregatesFilter<"JourneyLog">
+    createdAt?: DateTimeWithAggregatesFilter<"JourneyLog"> | Date | string
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     name: string
@@ -58756,6 +62658,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -58780,6 +62683,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -58804,6 +62708,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -58828,6 +62733,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -59525,6 +63431,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -59560,6 +63467,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -59595,6 +63503,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -59630,6 +63539,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -63092,6 +67002,307 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type JourneyCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutJourneysInput
+    participants?: JourneyParticipantCreateNestedManyWithoutJourneyInput
+    logs?: JourneyLogCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyUncheckedCreateInput = {
+    id?: string
+    organizationId: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: JourneyParticipantUncheckedCreateNestedManyWithoutJourneyInput
+    logs?: JourneyLogUncheckedCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutJourneysNestedInput
+    participants?: JourneyParticipantUpdateManyWithoutJourneyNestedInput
+    logs?: JourneyLogUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type JourneyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: JourneyParticipantUncheckedUpdateManyWithoutJourneyNestedInput
+    logs?: JourneyLogUncheckedUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type JourneyCreateManyInput = {
+    id?: string
+    organizationId: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JourneyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyParticipantCreateInput = {
+    id?: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    journey: JourneyCreateNestedOneWithoutParticipantsInput
+    user: UserCreateNestedOneWithoutJourneyParticipantsInput
+    logs?: JourneyLogCreateNestedManyWithoutParticipantInput
+  }
+
+  export type JourneyParticipantUncheckedCreateInput = {
+    id?: string
+    journeyId: string
+    userId: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    logs?: JourneyLogUncheckedCreateNestedManyWithoutParticipantInput
+  }
+
+  export type JourneyParticipantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    journey?: JourneyUpdateOneRequiredWithoutParticipantsNestedInput
+    user?: UserUpdateOneRequiredWithoutJourneyParticipantsNestedInput
+    logs?: JourneyLogUpdateManyWithoutParticipantNestedInput
+  }
+
+  export type JourneyParticipantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    logs?: JourneyLogUncheckedUpdateManyWithoutParticipantNestedInput
+  }
+
+  export type JourneyParticipantCreateManyInput = {
+    id?: string
+    journeyId: string
+    userId: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type JourneyParticipantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type JourneyParticipantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type JourneyLogCreateInput = {
+    id?: string
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    journey: JourneyCreateNestedOneWithoutLogsInput
+    participant?: JourneyParticipantCreateNestedOneWithoutLogsInput
+  }
+
+  export type JourneyLogUncheckedCreateInput = {
+    id?: string
+    journeyId: string
+    participantId?: string | null
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type JourneyLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journey?: JourneyUpdateOneRequiredWithoutLogsNestedInput
+    participant?: JourneyParticipantUpdateOneWithoutLogsNestedInput
+  }
+
+  export type JourneyLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    participantId?: NullableStringFieldUpdateOperationsInput | string | null
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyLogCreateManyInput = {
+    id?: string
+    journeyId: string
+    participantId?: string | null
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type JourneyLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    participantId?: NullableStringFieldUpdateOperationsInput | string | null
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -63193,6 +67404,12 @@ export namespace Prisma {
     none?: EmailCampaignWhereInput
   }
 
+  export type JourneyListRelationFilter = {
+    every?: JourneyWhereInput
+    some?: JourneyWhereInput
+    none?: JourneyWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -63235,6 +67452,10 @@ export namespace Prisma {
   }
 
   export type EmailCampaignOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JourneyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -64011,6 +68232,12 @@ export namespace Prisma {
     none?: EmailCampaignLogWhereInput
   }
 
+  export type JourneyParticipantListRelationFilter = {
+    every?: JourneyParticipantWhereInput
+    some?: JourneyParticipantWhereInput
+    none?: JourneyParticipantWhereInput
+  }
+
   export type CustomerIdentifierListRelationFilter = {
     every?: CustomerIdentifierWhereInput
     some?: CustomerIdentifierWhereInput
@@ -64063,6 +68290,10 @@ export namespace Prisma {
   }
 
   export type EmailCampaignLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JourneyParticipantOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -66457,6 +70688,196 @@ export namespace Prisma {
     _max?: NestedEnumEmailDeliveryStatusFilter<$PrismaModel>
   }
 
+  export type EnumJourneyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyStatus | EnumJourneyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyStatusFilter<$PrismaModel> | $Enums.JourneyStatus
+  }
+
+  export type EnumJourneyTriggerTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyTriggerType | EnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyTriggerTypeFilter<$PrismaModel> | $Enums.JourneyTriggerType
+  }
+
+  export type JourneyLogListRelationFilter = {
+    every?: JourneyLogWhereInput
+    some?: JourneyLogWhereInput
+    none?: JourneyLogWhereInput
+  }
+
+  export type JourneyLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JourneyCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    triggerType?: SortOrder
+    triggerConfig?: SortOrder
+    content?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    reEntryPolicy?: SortOrder
+    conversionGoal?: SortOrder
+    exitRules?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type JourneyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    triggerType?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    reEntryPolicy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type JourneyMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    triggerType?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    reEntryPolicy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumJourneyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyStatus | EnumJourneyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyStatusWithAggregatesFilter<$PrismaModel> | $Enums.JourneyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourneyStatusFilter<$PrismaModel>
+    _max?: NestedEnumJourneyStatusFilter<$PrismaModel>
+  }
+
+  export type EnumJourneyTriggerTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyTriggerType | EnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyTriggerTypeWithAggregatesFilter<$PrismaModel> | $Enums.JourneyTriggerType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourneyTriggerTypeFilter<$PrismaModel>
+    _max?: NestedEnumJourneyTriggerTypeFilter<$PrismaModel>
+  }
+
+  export type EnumJourneyParticipantStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyParticipantStatus | EnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyParticipantStatusFilter<$PrismaModel> | $Enums.JourneyParticipantStatus
+  }
+
+  export type JourneyRelationFilter = {
+    is?: JourneyWhereInput
+    isNot?: JourneyWhereInput
+  }
+
+  export type JourneyParticipantJourneyIdUserIdCompoundUniqueInput = {
+    journeyId: string
+    userId: string
+  }
+
+  export type JourneyParticipantCountOrderByAggregateInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentNodeId?: SortOrder
+    enteredAt?: SortOrder
+    convertedAt?: SortOrder
+    exitedAt?: SortOrder
+    nextStepAt?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type JourneyParticipantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentNodeId?: SortOrder
+    enteredAt?: SortOrder
+    convertedAt?: SortOrder
+    exitedAt?: SortOrder
+    nextStepAt?: SortOrder
+  }
+
+  export type JourneyParticipantMinOrderByAggregateInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentNodeId?: SortOrder
+    enteredAt?: SortOrder
+    convertedAt?: SortOrder
+    exitedAt?: SortOrder
+    nextStepAt?: SortOrder
+  }
+
+  export type EnumJourneyParticipantStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyParticipantStatus | EnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyParticipantStatusWithAggregatesFilter<$PrismaModel> | $Enums.JourneyParticipantStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourneyParticipantStatusFilter<$PrismaModel>
+    _max?: NestedEnumJourneyParticipantStatusFilter<$PrismaModel>
+  }
+
+  export type JourneyParticipantNullableRelationFilter = {
+    is?: JourneyParticipantWhereInput | null
+    isNot?: JourneyParticipantWhereInput | null
+  }
+
+  export type JourneyLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    participantId?: SortOrder
+    nodeId?: SortOrder
+    eventType?: SortOrder
+    status?: SortOrder
+    details?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JourneyLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    participantId?: SortOrder
+    nodeId?: SortOrder
+    eventType?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JourneyLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    journeyId?: SortOrder
+    participantId?: SortOrder
+    nodeId?: SortOrder
+    eventType?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type LocationCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -66527,6 +70948,13 @@ export namespace Prisma {
     connect?: EmailCampaignWhereUniqueInput | EmailCampaignWhereUniqueInput[]
   }
 
+  export type JourneyCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<JourneyCreateWithoutOrganizationInput, JourneyUncheckedCreateWithoutOrganizationInput> | JourneyCreateWithoutOrganizationInput[] | JourneyUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: JourneyCreateOrConnectWithoutOrganizationInput | JourneyCreateOrConnectWithoutOrganizationInput[]
+    createMany?: JourneyCreateManyOrganizationInputEnvelope
+    connect?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+  }
+
   export type LocationUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -66595,6 +71023,13 @@ export namespace Prisma {
     connectOrCreate?: EmailCampaignCreateOrConnectWithoutOrganizationInput | EmailCampaignCreateOrConnectWithoutOrganizationInput[]
     createMany?: EmailCampaignCreateManyOrganizationInputEnvelope
     connect?: EmailCampaignWhereUniqueInput | EmailCampaignWhereUniqueInput[]
+  }
+
+  export type JourneyUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<JourneyCreateWithoutOrganizationInput, JourneyUncheckedCreateWithoutOrganizationInput> | JourneyCreateWithoutOrganizationInput[] | JourneyUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: JourneyCreateOrConnectWithoutOrganizationInput | JourneyCreateOrConnectWithoutOrganizationInput[]
+    createMany?: JourneyCreateManyOrganizationInputEnvelope
+    connect?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -66749,6 +71184,20 @@ export namespace Prisma {
     deleteMany?: EmailCampaignScalarWhereInput | EmailCampaignScalarWhereInput[]
   }
 
+  export type JourneyUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<JourneyCreateWithoutOrganizationInput, JourneyUncheckedCreateWithoutOrganizationInput> | JourneyCreateWithoutOrganizationInput[] | JourneyUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: JourneyCreateOrConnectWithoutOrganizationInput | JourneyCreateOrConnectWithoutOrganizationInput[]
+    upsert?: JourneyUpsertWithWhereUniqueWithoutOrganizationInput | JourneyUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: JourneyCreateManyOrganizationInputEnvelope
+    set?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    disconnect?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    delete?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    connect?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    update?: JourneyUpdateWithWhereUniqueWithoutOrganizationInput | JourneyUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: JourneyUpdateManyWithWhereWithoutOrganizationInput | JourneyUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: JourneyScalarWhereInput | JourneyScalarWhereInput[]
+  }
+
   export type LocationUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<LocationCreateWithoutOrganizationInput, LocationUncheckedCreateWithoutOrganizationInput> | LocationCreateWithoutOrganizationInput[] | LocationUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutOrganizationInput | LocationCreateOrConnectWithoutOrganizationInput[]
@@ -66887,6 +71336,20 @@ export namespace Prisma {
     update?: EmailCampaignUpdateWithWhereUniqueWithoutOrganizationInput | EmailCampaignUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: EmailCampaignUpdateManyWithWhereWithoutOrganizationInput | EmailCampaignUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: EmailCampaignScalarWhereInput | EmailCampaignScalarWhereInput[]
+  }
+
+  export type JourneyUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<JourneyCreateWithoutOrganizationInput, JourneyUncheckedCreateWithoutOrganizationInput> | JourneyCreateWithoutOrganizationInput[] | JourneyUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: JourneyCreateOrConnectWithoutOrganizationInput | JourneyCreateOrConnectWithoutOrganizationInput[]
+    upsert?: JourneyUpsertWithWhereUniqueWithoutOrganizationInput | JourneyUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: JourneyCreateManyOrganizationInputEnvelope
+    set?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    disconnect?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    delete?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    connect?: JourneyWhereUniqueInput | JourneyWhereUniqueInput[]
+    update?: JourneyUpdateWithWhereUniqueWithoutOrganizationInput | JourneyUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: JourneyUpdateManyWithWhereWithoutOrganizationInput | JourneyUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: JourneyScalarWhereInput | JourneyScalarWhereInput[]
   }
 
   export type CompanyEmployeeCreateNestedManyWithoutCompanyInput = {
@@ -67618,6 +72081,13 @@ export namespace Prisma {
     connect?: EmailCampaignLogWhereUniqueInput | EmailCampaignLogWhereUniqueInput[]
   }
 
+  export type JourneyParticipantCreateNestedManyWithoutUserInput = {
+    create?: XOR<JourneyParticipantCreateWithoutUserInput, JourneyParticipantUncheckedCreateWithoutUserInput> | JourneyParticipantCreateWithoutUserInput[] | JourneyParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutUserInput | JourneyParticipantCreateOrConnectWithoutUserInput[]
+    createMany?: JourneyParticipantCreateManyUserInputEnvelope
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+  }
+
   export type CustomerIdentifierCreateNestedManyWithoutUserInput = {
     create?: XOR<CustomerIdentifierCreateWithoutUserInput, CustomerIdentifierUncheckedCreateWithoutUserInput> | CustomerIdentifierCreateWithoutUserInput[] | CustomerIdentifierUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CustomerIdentifierCreateOrConnectWithoutUserInput | CustomerIdentifierCreateOrConnectWithoutUserInput[]
@@ -67747,6 +72217,13 @@ export namespace Prisma {
     connectOrCreate?: EmailCampaignLogCreateOrConnectWithoutUserInput | EmailCampaignLogCreateOrConnectWithoutUserInput[]
     createMany?: EmailCampaignLogCreateManyUserInputEnvelope
     connect?: EmailCampaignLogWhereUniqueInput | EmailCampaignLogWhereUniqueInput[]
+  }
+
+  export type JourneyParticipantUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<JourneyParticipantCreateWithoutUserInput, JourneyParticipantUncheckedCreateWithoutUserInput> | JourneyParticipantCreateWithoutUserInput[] | JourneyParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutUserInput | JourneyParticipantCreateOrConnectWithoutUserInput[]
+    createMany?: JourneyParticipantCreateManyUserInputEnvelope
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
   }
 
   export type CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput = {
@@ -67994,6 +72471,20 @@ export namespace Prisma {
     update?: EmailCampaignLogUpdateWithWhereUniqueWithoutUserInput | EmailCampaignLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: EmailCampaignLogUpdateManyWithWhereWithoutUserInput | EmailCampaignLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: EmailCampaignLogScalarWhereInput | EmailCampaignLogScalarWhereInput[]
+  }
+
+  export type JourneyParticipantUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JourneyParticipantCreateWithoutUserInput, JourneyParticipantUncheckedCreateWithoutUserInput> | JourneyParticipantCreateWithoutUserInput[] | JourneyParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutUserInput | JourneyParticipantCreateOrConnectWithoutUserInput[]
+    upsert?: JourneyParticipantUpsertWithWhereUniqueWithoutUserInput | JourneyParticipantUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JourneyParticipantCreateManyUserInputEnvelope
+    set?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    disconnect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    delete?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    update?: JourneyParticipantUpdateWithWhereUniqueWithoutUserInput | JourneyParticipantUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JourneyParticipantUpdateManyWithWhereWithoutUserInput | JourneyParticipantUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JourneyParticipantScalarWhereInput | JourneyParticipantScalarWhereInput[]
   }
 
   export type CustomerIdentifierUpdateManyWithoutUserNestedInput = {
@@ -68252,6 +72743,20 @@ export namespace Prisma {
     update?: EmailCampaignLogUpdateWithWhereUniqueWithoutUserInput | EmailCampaignLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: EmailCampaignLogUpdateManyWithWhereWithoutUserInput | EmailCampaignLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: EmailCampaignLogScalarWhereInput | EmailCampaignLogScalarWhereInput[]
+  }
+
+  export type JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JourneyParticipantCreateWithoutUserInput, JourneyParticipantUncheckedCreateWithoutUserInput> | JourneyParticipantCreateWithoutUserInput[] | JourneyParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutUserInput | JourneyParticipantCreateOrConnectWithoutUserInput[]
+    upsert?: JourneyParticipantUpsertWithWhereUniqueWithoutUserInput | JourneyParticipantUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JourneyParticipantCreateManyUserInputEnvelope
+    set?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    disconnect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    delete?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    update?: JourneyParticipantUpdateWithWhereUniqueWithoutUserInput | JourneyParticipantUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JourneyParticipantUpdateManyWithWhereWithoutUserInput | JourneyParticipantUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JourneyParticipantScalarWhereInput | JourneyParticipantScalarWhereInput[]
   }
 
   export type CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput = {
@@ -70496,6 +75001,216 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEmailCampaignLogsInput, UserUpdateWithoutEmailCampaignLogsInput>, UserUncheckedUpdateWithoutEmailCampaignLogsInput>
   }
 
+  export type OrganizationCreateNestedOneWithoutJourneysInput = {
+    create?: XOR<OrganizationCreateWithoutJourneysInput, OrganizationUncheckedCreateWithoutJourneysInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutJourneysInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type JourneyParticipantCreateNestedManyWithoutJourneyInput = {
+    create?: XOR<JourneyParticipantCreateWithoutJourneyInput, JourneyParticipantUncheckedCreateWithoutJourneyInput> | JourneyParticipantCreateWithoutJourneyInput[] | JourneyParticipantUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutJourneyInput | JourneyParticipantCreateOrConnectWithoutJourneyInput[]
+    createMany?: JourneyParticipantCreateManyJourneyInputEnvelope
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+  }
+
+  export type JourneyLogCreateNestedManyWithoutJourneyInput = {
+    create?: XOR<JourneyLogCreateWithoutJourneyInput, JourneyLogUncheckedCreateWithoutJourneyInput> | JourneyLogCreateWithoutJourneyInput[] | JourneyLogUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutJourneyInput | JourneyLogCreateOrConnectWithoutJourneyInput[]
+    createMany?: JourneyLogCreateManyJourneyInputEnvelope
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+  }
+
+  export type JourneyParticipantUncheckedCreateNestedManyWithoutJourneyInput = {
+    create?: XOR<JourneyParticipantCreateWithoutJourneyInput, JourneyParticipantUncheckedCreateWithoutJourneyInput> | JourneyParticipantCreateWithoutJourneyInput[] | JourneyParticipantUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutJourneyInput | JourneyParticipantCreateOrConnectWithoutJourneyInput[]
+    createMany?: JourneyParticipantCreateManyJourneyInputEnvelope
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+  }
+
+  export type JourneyLogUncheckedCreateNestedManyWithoutJourneyInput = {
+    create?: XOR<JourneyLogCreateWithoutJourneyInput, JourneyLogUncheckedCreateWithoutJourneyInput> | JourneyLogCreateWithoutJourneyInput[] | JourneyLogUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutJourneyInput | JourneyLogCreateOrConnectWithoutJourneyInput[]
+    createMany?: JourneyLogCreateManyJourneyInputEnvelope
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+  }
+
+  export type EnumJourneyStatusFieldUpdateOperationsInput = {
+    set?: $Enums.JourneyStatus
+  }
+
+  export type EnumJourneyTriggerTypeFieldUpdateOperationsInput = {
+    set?: $Enums.JourneyTriggerType
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutJourneysNestedInput = {
+    create?: XOR<OrganizationCreateWithoutJourneysInput, OrganizationUncheckedCreateWithoutJourneysInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutJourneysInput
+    upsert?: OrganizationUpsertWithoutJourneysInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutJourneysInput, OrganizationUpdateWithoutJourneysInput>, OrganizationUncheckedUpdateWithoutJourneysInput>
+  }
+
+  export type JourneyParticipantUpdateManyWithoutJourneyNestedInput = {
+    create?: XOR<JourneyParticipantCreateWithoutJourneyInput, JourneyParticipantUncheckedCreateWithoutJourneyInput> | JourneyParticipantCreateWithoutJourneyInput[] | JourneyParticipantUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutJourneyInput | JourneyParticipantCreateOrConnectWithoutJourneyInput[]
+    upsert?: JourneyParticipantUpsertWithWhereUniqueWithoutJourneyInput | JourneyParticipantUpsertWithWhereUniqueWithoutJourneyInput[]
+    createMany?: JourneyParticipantCreateManyJourneyInputEnvelope
+    set?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    disconnect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    delete?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    update?: JourneyParticipantUpdateWithWhereUniqueWithoutJourneyInput | JourneyParticipantUpdateWithWhereUniqueWithoutJourneyInput[]
+    updateMany?: JourneyParticipantUpdateManyWithWhereWithoutJourneyInput | JourneyParticipantUpdateManyWithWhereWithoutJourneyInput[]
+    deleteMany?: JourneyParticipantScalarWhereInput | JourneyParticipantScalarWhereInput[]
+  }
+
+  export type JourneyLogUpdateManyWithoutJourneyNestedInput = {
+    create?: XOR<JourneyLogCreateWithoutJourneyInput, JourneyLogUncheckedCreateWithoutJourneyInput> | JourneyLogCreateWithoutJourneyInput[] | JourneyLogUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutJourneyInput | JourneyLogCreateOrConnectWithoutJourneyInput[]
+    upsert?: JourneyLogUpsertWithWhereUniqueWithoutJourneyInput | JourneyLogUpsertWithWhereUniqueWithoutJourneyInput[]
+    createMany?: JourneyLogCreateManyJourneyInputEnvelope
+    set?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    disconnect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    delete?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    update?: JourneyLogUpdateWithWhereUniqueWithoutJourneyInput | JourneyLogUpdateWithWhereUniqueWithoutJourneyInput[]
+    updateMany?: JourneyLogUpdateManyWithWhereWithoutJourneyInput | JourneyLogUpdateManyWithWhereWithoutJourneyInput[]
+    deleteMany?: JourneyLogScalarWhereInput | JourneyLogScalarWhereInput[]
+  }
+
+  export type JourneyParticipantUncheckedUpdateManyWithoutJourneyNestedInput = {
+    create?: XOR<JourneyParticipantCreateWithoutJourneyInput, JourneyParticipantUncheckedCreateWithoutJourneyInput> | JourneyParticipantCreateWithoutJourneyInput[] | JourneyParticipantUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutJourneyInput | JourneyParticipantCreateOrConnectWithoutJourneyInput[]
+    upsert?: JourneyParticipantUpsertWithWhereUniqueWithoutJourneyInput | JourneyParticipantUpsertWithWhereUniqueWithoutJourneyInput[]
+    createMany?: JourneyParticipantCreateManyJourneyInputEnvelope
+    set?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    disconnect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    delete?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    connect?: JourneyParticipantWhereUniqueInput | JourneyParticipantWhereUniqueInput[]
+    update?: JourneyParticipantUpdateWithWhereUniqueWithoutJourneyInput | JourneyParticipantUpdateWithWhereUniqueWithoutJourneyInput[]
+    updateMany?: JourneyParticipantUpdateManyWithWhereWithoutJourneyInput | JourneyParticipantUpdateManyWithWhereWithoutJourneyInput[]
+    deleteMany?: JourneyParticipantScalarWhereInput | JourneyParticipantScalarWhereInput[]
+  }
+
+  export type JourneyLogUncheckedUpdateManyWithoutJourneyNestedInput = {
+    create?: XOR<JourneyLogCreateWithoutJourneyInput, JourneyLogUncheckedCreateWithoutJourneyInput> | JourneyLogCreateWithoutJourneyInput[] | JourneyLogUncheckedCreateWithoutJourneyInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutJourneyInput | JourneyLogCreateOrConnectWithoutJourneyInput[]
+    upsert?: JourneyLogUpsertWithWhereUniqueWithoutJourneyInput | JourneyLogUpsertWithWhereUniqueWithoutJourneyInput[]
+    createMany?: JourneyLogCreateManyJourneyInputEnvelope
+    set?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    disconnect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    delete?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    update?: JourneyLogUpdateWithWhereUniqueWithoutJourneyInput | JourneyLogUpdateWithWhereUniqueWithoutJourneyInput[]
+    updateMany?: JourneyLogUpdateManyWithWhereWithoutJourneyInput | JourneyLogUpdateManyWithWhereWithoutJourneyInput[]
+    deleteMany?: JourneyLogScalarWhereInput | JourneyLogScalarWhereInput[]
+  }
+
+  export type JourneyCreateNestedOneWithoutParticipantsInput = {
+    create?: XOR<JourneyCreateWithoutParticipantsInput, JourneyUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: JourneyCreateOrConnectWithoutParticipantsInput
+    connect?: JourneyWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutJourneyParticipantsInput = {
+    create?: XOR<UserCreateWithoutJourneyParticipantsInput, UserUncheckedCreateWithoutJourneyParticipantsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJourneyParticipantsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type JourneyLogCreateNestedManyWithoutParticipantInput = {
+    create?: XOR<JourneyLogCreateWithoutParticipantInput, JourneyLogUncheckedCreateWithoutParticipantInput> | JourneyLogCreateWithoutParticipantInput[] | JourneyLogUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutParticipantInput | JourneyLogCreateOrConnectWithoutParticipantInput[]
+    createMany?: JourneyLogCreateManyParticipantInputEnvelope
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+  }
+
+  export type JourneyLogUncheckedCreateNestedManyWithoutParticipantInput = {
+    create?: XOR<JourneyLogCreateWithoutParticipantInput, JourneyLogUncheckedCreateWithoutParticipantInput> | JourneyLogCreateWithoutParticipantInput[] | JourneyLogUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutParticipantInput | JourneyLogCreateOrConnectWithoutParticipantInput[]
+    createMany?: JourneyLogCreateManyParticipantInputEnvelope
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+  }
+
+  export type EnumJourneyParticipantStatusFieldUpdateOperationsInput = {
+    set?: $Enums.JourneyParticipantStatus
+  }
+
+  export type JourneyUpdateOneRequiredWithoutParticipantsNestedInput = {
+    create?: XOR<JourneyCreateWithoutParticipantsInput, JourneyUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: JourneyCreateOrConnectWithoutParticipantsInput
+    upsert?: JourneyUpsertWithoutParticipantsInput
+    connect?: JourneyWhereUniqueInput
+    update?: XOR<XOR<JourneyUpdateToOneWithWhereWithoutParticipantsInput, JourneyUpdateWithoutParticipantsInput>, JourneyUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutJourneyParticipantsNestedInput = {
+    create?: XOR<UserCreateWithoutJourneyParticipantsInput, UserUncheckedCreateWithoutJourneyParticipantsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJourneyParticipantsInput
+    upsert?: UserUpsertWithoutJourneyParticipantsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJourneyParticipantsInput, UserUpdateWithoutJourneyParticipantsInput>, UserUncheckedUpdateWithoutJourneyParticipantsInput>
+  }
+
+  export type JourneyLogUpdateManyWithoutParticipantNestedInput = {
+    create?: XOR<JourneyLogCreateWithoutParticipantInput, JourneyLogUncheckedCreateWithoutParticipantInput> | JourneyLogCreateWithoutParticipantInput[] | JourneyLogUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutParticipantInput | JourneyLogCreateOrConnectWithoutParticipantInput[]
+    upsert?: JourneyLogUpsertWithWhereUniqueWithoutParticipantInput | JourneyLogUpsertWithWhereUniqueWithoutParticipantInput[]
+    createMany?: JourneyLogCreateManyParticipantInputEnvelope
+    set?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    disconnect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    delete?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    update?: JourneyLogUpdateWithWhereUniqueWithoutParticipantInput | JourneyLogUpdateWithWhereUniqueWithoutParticipantInput[]
+    updateMany?: JourneyLogUpdateManyWithWhereWithoutParticipantInput | JourneyLogUpdateManyWithWhereWithoutParticipantInput[]
+    deleteMany?: JourneyLogScalarWhereInput | JourneyLogScalarWhereInput[]
+  }
+
+  export type JourneyLogUncheckedUpdateManyWithoutParticipantNestedInput = {
+    create?: XOR<JourneyLogCreateWithoutParticipantInput, JourneyLogUncheckedCreateWithoutParticipantInput> | JourneyLogCreateWithoutParticipantInput[] | JourneyLogUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: JourneyLogCreateOrConnectWithoutParticipantInput | JourneyLogCreateOrConnectWithoutParticipantInput[]
+    upsert?: JourneyLogUpsertWithWhereUniqueWithoutParticipantInput | JourneyLogUpsertWithWhereUniqueWithoutParticipantInput[]
+    createMany?: JourneyLogCreateManyParticipantInputEnvelope
+    set?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    disconnect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    delete?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    connect?: JourneyLogWhereUniqueInput | JourneyLogWhereUniqueInput[]
+    update?: JourneyLogUpdateWithWhereUniqueWithoutParticipantInput | JourneyLogUpdateWithWhereUniqueWithoutParticipantInput[]
+    updateMany?: JourneyLogUpdateManyWithWhereWithoutParticipantInput | JourneyLogUpdateManyWithWhereWithoutParticipantInput[]
+    deleteMany?: JourneyLogScalarWhereInput | JourneyLogScalarWhereInput[]
+  }
+
+  export type JourneyCreateNestedOneWithoutLogsInput = {
+    create?: XOR<JourneyCreateWithoutLogsInput, JourneyUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: JourneyCreateOrConnectWithoutLogsInput
+    connect?: JourneyWhereUniqueInput
+  }
+
+  export type JourneyParticipantCreateNestedOneWithoutLogsInput = {
+    create?: XOR<JourneyParticipantCreateWithoutLogsInput, JourneyParticipantUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutLogsInput
+    connect?: JourneyParticipantWhereUniqueInput
+  }
+
+  export type JourneyUpdateOneRequiredWithoutLogsNestedInput = {
+    create?: XOR<JourneyCreateWithoutLogsInput, JourneyUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: JourneyCreateOrConnectWithoutLogsInput
+    upsert?: JourneyUpsertWithoutLogsInput
+    connect?: JourneyWhereUniqueInput
+    update?: XOR<XOR<JourneyUpdateToOneWithWhereWithoutLogsInput, JourneyUpdateWithoutLogsInput>, JourneyUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type JourneyParticipantUpdateOneWithoutLogsNestedInput = {
+    create?: XOR<JourneyParticipantCreateWithoutLogsInput, JourneyParticipantUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: JourneyParticipantCreateOrConnectWithoutLogsInput
+    upsert?: JourneyParticipantUpsertWithoutLogsInput
+    disconnect?: JourneyParticipantWhereInput | boolean
+    delete?: JourneyParticipantWhereInput | boolean
+    connect?: JourneyParticipantWhereUniqueInput
+    update?: XOR<XOR<JourneyParticipantUpdateToOneWithWhereWithoutLogsInput, JourneyParticipantUpdateWithoutLogsInput>, JourneyParticipantUncheckedUpdateWithoutLogsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -71169,6 +75884,57 @@ export namespace Prisma {
     _max?: NestedEnumEmailDeliveryStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumJourneyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyStatus | EnumJourneyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyStatusFilter<$PrismaModel> | $Enums.JourneyStatus
+  }
+
+  export type NestedEnumJourneyTriggerTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyTriggerType | EnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyTriggerTypeFilter<$PrismaModel> | $Enums.JourneyTriggerType
+  }
+
+  export type NestedEnumJourneyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyStatus | EnumJourneyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyStatus[] | ListEnumJourneyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyStatusWithAggregatesFilter<$PrismaModel> | $Enums.JourneyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourneyStatusFilter<$PrismaModel>
+    _max?: NestedEnumJourneyStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumJourneyTriggerTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyTriggerType | EnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyTriggerType[] | ListEnumJourneyTriggerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyTriggerTypeWithAggregatesFilter<$PrismaModel> | $Enums.JourneyTriggerType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourneyTriggerTypeFilter<$PrismaModel>
+    _max?: NestedEnumJourneyTriggerTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumJourneyParticipantStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyParticipantStatus | EnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyParticipantStatusFilter<$PrismaModel> | $Enums.JourneyParticipantStatus
+  }
+
+  export type NestedEnumJourneyParticipantStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourneyParticipantStatus | EnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourneyParticipantStatus[] | ListEnumJourneyParticipantStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourneyParticipantStatusWithAggregatesFilter<$PrismaModel> | $Enums.JourneyParticipantStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourneyParticipantStatusFilter<$PrismaModel>
+    _max?: NestedEnumJourneyParticipantStatusFilter<$PrismaModel>
+  }
+
   export type LocationCreateWithoutOrganizationInput = {
     id?: string
     name: string
@@ -71241,6 +76007,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -71275,6 +76042,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -71637,6 +76405,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type JourneyCreateWithoutOrganizationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: JourneyParticipantCreateNestedManyWithoutJourneyInput
+    logs?: JourneyLogCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: JourneyParticipantUncheckedCreateNestedManyWithoutJourneyInput
+    logs?: JourneyLogUncheckedCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyCreateOrConnectWithoutOrganizationInput = {
+    where: JourneyWhereUniqueInput
+    create: XOR<JourneyCreateWithoutOrganizationInput, JourneyUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type JourneyCreateManyOrganizationInputEnvelope = {
+    data: JourneyCreateManyOrganizationInput | JourneyCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LocationUpsertWithWhereUniqueWithoutOrganizationInput = {
     where: LocationWhereUniqueInput
     update: XOR<LocationUpdateWithoutOrganizationInput, LocationUncheckedUpdateWithoutOrganizationInput>
@@ -71981,6 +76797,43 @@ export namespace Prisma {
     createdById?: StringNullableFilter<"EmailCampaign"> | string | null
     createdAt?: DateTimeFilter<"EmailCampaign"> | Date | string
     updatedAt?: DateTimeFilter<"EmailCampaign"> | Date | string
+  }
+
+  export type JourneyUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: JourneyWhereUniqueInput
+    update: XOR<JourneyUpdateWithoutOrganizationInput, JourneyUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<JourneyCreateWithoutOrganizationInput, JourneyUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type JourneyUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: JourneyWhereUniqueInput
+    data: XOR<JourneyUpdateWithoutOrganizationInput, JourneyUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type JourneyUpdateManyWithWhereWithoutOrganizationInput = {
+    where: JourneyScalarWhereInput
+    data: XOR<JourneyUpdateManyMutationInput, JourneyUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type JourneyScalarWhereInput = {
+    AND?: JourneyScalarWhereInput | JourneyScalarWhereInput[]
+    OR?: JourneyScalarWhereInput[]
+    NOT?: JourneyScalarWhereInput | JourneyScalarWhereInput[]
+    id?: StringFilter<"Journey"> | string
+    organizationId?: StringFilter<"Journey"> | string
+    name?: StringFilter<"Journey"> | string
+    description?: StringNullableFilter<"Journey"> | string | null
+    status?: EnumJourneyStatusFilter<"Journey"> | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFilter<"Journey"> | $Enums.JourneyTriggerType
+    triggerConfig?: JsonFilter<"Journey">
+    content?: JsonFilter<"Journey">
+    startDate?: DateTimeNullableFilter<"Journey"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Journey"> | Date | string | null
+    reEntryPolicy?: StringFilter<"Journey"> | string
+    conversionGoal?: JsonNullableFilter<"Journey">
+    exitRules?: JsonNullableFilter<"Journey">
+    createdAt?: DateTimeFilter<"Journey"> | Date | string
+    updatedAt?: DateTimeFilter<"Journey"> | Date | string
   }
 
   export type CompanyEmployeeCreateWithoutCompanyInput = {
@@ -72896,6 +77749,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -72930,6 +77784,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -73033,6 +77888,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -73067,6 +77923,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -73094,6 +77951,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutLocationsInput = {
@@ -73117,6 +77975,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutLocationsInput = {
@@ -73332,6 +78191,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutLocationsInput = {
@@ -73355,6 +78215,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type MenuUpsertWithWhereUniqueWithoutLocationInput = {
@@ -73490,6 +78351,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -73513,6 +78375,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -74015,6 +78878,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type JourneyParticipantCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    journey: JourneyCreateNestedOneWithoutParticipantsInput
+    logs?: JourneyLogCreateNestedManyWithoutParticipantInput
+  }
+
+  export type JourneyParticipantUncheckedCreateWithoutUserInput = {
+    id?: string
+    journeyId: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    logs?: JourneyLogUncheckedCreateNestedManyWithoutParticipantInput
+  }
+
+  export type JourneyParticipantCreateOrConnectWithoutUserInput = {
+    where: JourneyParticipantWhereUniqueInput
+    create: XOR<JourneyParticipantCreateWithoutUserInput, JourneyParticipantUncheckedCreateWithoutUserInput>
+  }
+
+  export type JourneyParticipantCreateManyUserInputEnvelope = {
+    data: JourneyParticipantCreateManyUserInput | JourneyParticipantCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CustomerIdentifierCreateWithoutUserInput = {
     id?: string
     type: $Enums.CustomerIdentifierType
@@ -74222,6 +79121,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -74245,6 +79145,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserLocationUpsertWithWhereUniqueWithoutUserInput = {
@@ -74607,6 +79508,38 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"EmailCampaignLog"> | Date | string
   }
 
+  export type JourneyParticipantUpsertWithWhereUniqueWithoutUserInput = {
+    where: JourneyParticipantWhereUniqueInput
+    update: XOR<JourneyParticipantUpdateWithoutUserInput, JourneyParticipantUncheckedUpdateWithoutUserInput>
+    create: XOR<JourneyParticipantCreateWithoutUserInput, JourneyParticipantUncheckedCreateWithoutUserInput>
+  }
+
+  export type JourneyParticipantUpdateWithWhereUniqueWithoutUserInput = {
+    where: JourneyParticipantWhereUniqueInput
+    data: XOR<JourneyParticipantUpdateWithoutUserInput, JourneyParticipantUncheckedUpdateWithoutUserInput>
+  }
+
+  export type JourneyParticipantUpdateManyWithWhereWithoutUserInput = {
+    where: JourneyParticipantScalarWhereInput
+    data: XOR<JourneyParticipantUpdateManyMutationInput, JourneyParticipantUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type JourneyParticipantScalarWhereInput = {
+    AND?: JourneyParticipantScalarWhereInput | JourneyParticipantScalarWhereInput[]
+    OR?: JourneyParticipantScalarWhereInput[]
+    NOT?: JourneyParticipantScalarWhereInput | JourneyParticipantScalarWhereInput[]
+    id?: StringFilter<"JourneyParticipant"> | string
+    journeyId?: StringFilter<"JourneyParticipant"> | string
+    userId?: StringFilter<"JourneyParticipant"> | string
+    status?: EnumJourneyParticipantStatusFilter<"JourneyParticipant"> | $Enums.JourneyParticipantStatus
+    currentNodeId?: StringNullableFilter<"JourneyParticipant"> | string | null
+    enteredAt?: DateTimeFilter<"JourneyParticipant"> | Date | string
+    convertedAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    exitedAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    nextStepAt?: DateTimeNullableFilter<"JourneyParticipant"> | Date | string | null
+    metadata?: JsonNullableFilter<"JourneyParticipant">
+  }
+
   export type CustomerIdentifierUpsertWithWhereUniqueWithoutUserInput = {
     where: CustomerIdentifierWhereUniqueInput
     update: XOR<CustomerIdentifierUpdateWithoutUserInput, CustomerIdentifierUncheckedUpdateWithoutUserInput>
@@ -74817,6 +79750,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
@@ -74851,6 +79785,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
@@ -74901,6 +79836,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
@@ -74935,6 +79871,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -74969,6 +79906,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
@@ -75003,6 +79941,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
@@ -75053,6 +79992,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
@@ -75087,6 +80027,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -75121,6 +80062,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
@@ -75155,6 +80097,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
     emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
@@ -75205,6 +80148,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
@@ -75239,6 +80183,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -75272,6 +80217,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -75306,6 +80252,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -75356,6 +80303,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -75390,6 +80338,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -75424,6 +80373,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -75458,6 +80408,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -75554,6 +80505,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -75588,6 +80540,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -75667,6 +80620,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -75701,6 +80655,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -75809,6 +80764,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -75843,6 +80799,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -75912,6 +80869,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -75946,6 +80904,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -76035,6 +80994,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -76069,6 +81029,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -76148,6 +81109,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -76182,6 +81144,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -76232,6 +81195,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -76266,6 +81230,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -76300,6 +81265,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -76334,6 +81300,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -76384,6 +81351,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -76418,6 +81386,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -76453,6 +81422,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -76487,6 +81457,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -76537,6 +81508,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -76571,6 +81543,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -77544,6 +82517,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -77578,6 +82552,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -77810,6 +82785,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -77844,6 +82820,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -78467,6 +83444,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -78501,6 +83479,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -78665,6 +83644,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -78699,6 +83679,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -78989,6 +83970,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSegmentsInput = {
@@ -79012,6 +83994,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSegmentsInput = {
@@ -79277,6 +84260,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSegmentsInput = {
@@ -79300,6 +84284,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type InAppMessageUpsertWithWhereUniqueWithoutSegmentInput = {
@@ -79403,6 +84388,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutInAppMessagesInput = {
@@ -79426,6 +84412,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutInAppMessagesInput = {
@@ -79569,6 +84556,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutInAppMessagesInput = {
@@ -79592,6 +84580,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutInAppMessagesInput = {
@@ -79827,6 +84816,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutWorkflowsInput = {
@@ -79850,6 +84840,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutWorkflowsInput = {
@@ -79950,6 +84941,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutWorkflowsInput = {
@@ -79973,6 +84965,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutWorkflowsInput = {
@@ -80137,6 +85130,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSegmentIncentivesInput = {
@@ -80160,6 +85154,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSegmentIncentivesInput = {
@@ -80319,6 +85314,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSegmentIncentivesInput = {
@@ -80342,6 +85338,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutSegmentIncentivesInput = {
@@ -80479,6 +85476,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutMarketingTemplatesInput = {
@@ -80502,6 +85500,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutMarketingTemplatesInput = {
@@ -80743,6 +85742,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutMarketingTemplatesInput = {
@@ -80766,6 +85766,7 @@ export namespace Prisma {
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type InAppMessageUpsertWithWhereUniqueWithoutMarketingTemplateInput = {
@@ -80980,6 +85981,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutPushNotificationsInput = {
@@ -81003,6 +86005,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutPushNotificationsInput = {
@@ -81148,6 +86151,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutPushNotificationsInput = {
@@ -81171,6 +86175,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type CustomerSegmentUpsertWithoutPushNotificationsInput = {
@@ -81350,6 +86355,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -81384,6 +86390,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -81479,6 +86486,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -81513,6 +86521,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -81547,6 +86556,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -81581,6 +86591,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -81631,6 +86642,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -81665,6 +86677,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -81692,6 +86705,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutPaymentConfigsInput = {
@@ -81715,6 +86729,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutPaymentConfigsInput = {
@@ -81750,6 +86765,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -81784,6 +86800,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -81827,6 +86844,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutPaymentConfigsInput = {
@@ -81850,6 +86868,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserUpsertWithoutPaymentConfigChangesInput = {
@@ -81891,6 +86910,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -81925,6 +86945,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -82000,6 +87021,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -82034,6 +87056,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -82217,6 +87240,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -82251,6 +87275,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -82376,6 +87401,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutEmailCampaignsInput = {
@@ -82399,6 +87425,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
     pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
     paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
+    journeys?: JourneyUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutEmailCampaignsInput = {
@@ -82516,6 +87543,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -82550,6 +87578,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -82629,6 +87658,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutEmailCampaignsInput = {
@@ -82652,6 +87682,7 @@ export namespace Prisma {
     marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
     pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
     paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
+    journeys?: JourneyUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type MarketingTemplateUpsertWithoutEmailCampaignsInput = {
@@ -82787,6 +87818,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -82821,6 +87853,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -82916,6 +87949,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    journeyParticipants?: JourneyParticipantCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
@@ -82950,6 +87984,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
     emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    journeyParticipants?: JourneyParticipantUncheckedCreateNestedManyWithoutUserInput
     customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
     preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
     metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
@@ -83051,6 +88086,7 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -83085,10 +88121,689 @@ export namespace Prisma {
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
     emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type OrganizationCreateWithoutJourneysInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationCreateNestedManyWithoutOrganizationInput
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigCreateNestedManyWithoutOrganizationInput
+    emailCampaigns?: EmailCampaignCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutJourneysInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    primaryColor?: string | null
+    secondaryColor?: string | null
+    sepaCreditorId?: string | null
+    sepaIban?: string | null
+    sepaBic?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    locations?: LocationUncheckedCreateNestedManyWithoutOrganizationInput
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    segments?: CustomerSegmentUncheckedCreateNestedManyWithoutOrganizationInput
+    inAppMessages?: InAppMessageUncheckedCreateNestedManyWithoutOrganizationInput
+    workflows?: MarketingWorkflowUncheckedCreateNestedManyWithoutOrganizationInput
+    segmentIncentives?: SegmentIncentiveUncheckedCreateNestedManyWithoutOrganizationInput
+    marketingTemplates?: MarketingTemplateUncheckedCreateNestedManyWithoutOrganizationInput
+    pushNotifications?: PushNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    paymentConfigs?: PaymentProviderConfigUncheckedCreateNestedManyWithoutOrganizationInput
+    emailCampaigns?: EmailCampaignUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutJourneysInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutJourneysInput, OrganizationUncheckedCreateWithoutJourneysInput>
+  }
+
+  export type JourneyParticipantCreateWithoutJourneyInput = {
+    id?: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    user: UserCreateNestedOneWithoutJourneyParticipantsInput
+    logs?: JourneyLogCreateNestedManyWithoutParticipantInput
+  }
+
+  export type JourneyParticipantUncheckedCreateWithoutJourneyInput = {
+    id?: string
+    userId: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    logs?: JourneyLogUncheckedCreateNestedManyWithoutParticipantInput
+  }
+
+  export type JourneyParticipantCreateOrConnectWithoutJourneyInput = {
+    where: JourneyParticipantWhereUniqueInput
+    create: XOR<JourneyParticipantCreateWithoutJourneyInput, JourneyParticipantUncheckedCreateWithoutJourneyInput>
+  }
+
+  export type JourneyParticipantCreateManyJourneyInputEnvelope = {
+    data: JourneyParticipantCreateManyJourneyInput | JourneyParticipantCreateManyJourneyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JourneyLogCreateWithoutJourneyInput = {
+    id?: string
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    participant?: JourneyParticipantCreateNestedOneWithoutLogsInput
+  }
+
+  export type JourneyLogUncheckedCreateWithoutJourneyInput = {
+    id?: string
+    participantId?: string | null
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type JourneyLogCreateOrConnectWithoutJourneyInput = {
+    where: JourneyLogWhereUniqueInput
+    create: XOR<JourneyLogCreateWithoutJourneyInput, JourneyLogUncheckedCreateWithoutJourneyInput>
+  }
+
+  export type JourneyLogCreateManyJourneyInputEnvelope = {
+    data: JourneyLogCreateManyJourneyInput | JourneyLogCreateManyJourneyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationUpsertWithoutJourneysInput = {
+    update: XOR<OrganizationUpdateWithoutJourneysInput, OrganizationUncheckedUpdateWithoutJourneysInput>
+    create: XOR<OrganizationCreateWithoutJourneysInput, OrganizationUncheckedCreateWithoutJourneysInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutJourneysInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutJourneysInput, OrganizationUncheckedUpdateWithoutJourneysInput>
+  }
+
+  export type OrganizationUpdateWithoutJourneysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUpdateManyWithoutOrganizationNestedInput
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUpdateManyWithoutOrganizationNestedInput
+    emailCampaigns?: EmailCampaignUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutJourneysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaCreditorId?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaIban?: NullableStringFieldUpdateOperationsInput | string | null
+    sepaBic?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    locations?: LocationUncheckedUpdateManyWithoutOrganizationNestedInput
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    segments?: CustomerSegmentUncheckedUpdateManyWithoutOrganizationNestedInput
+    inAppMessages?: InAppMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+    workflows?: MarketingWorkflowUncheckedUpdateManyWithoutOrganizationNestedInput
+    segmentIncentives?: SegmentIncentiveUncheckedUpdateManyWithoutOrganizationNestedInput
+    marketingTemplates?: MarketingTemplateUncheckedUpdateManyWithoutOrganizationNestedInput
+    pushNotifications?: PushNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    paymentConfigs?: PaymentProviderConfigUncheckedUpdateManyWithoutOrganizationNestedInput
+    emailCampaigns?: EmailCampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type JourneyParticipantUpsertWithWhereUniqueWithoutJourneyInput = {
+    where: JourneyParticipantWhereUniqueInput
+    update: XOR<JourneyParticipantUpdateWithoutJourneyInput, JourneyParticipantUncheckedUpdateWithoutJourneyInput>
+    create: XOR<JourneyParticipantCreateWithoutJourneyInput, JourneyParticipantUncheckedCreateWithoutJourneyInput>
+  }
+
+  export type JourneyParticipantUpdateWithWhereUniqueWithoutJourneyInput = {
+    where: JourneyParticipantWhereUniqueInput
+    data: XOR<JourneyParticipantUpdateWithoutJourneyInput, JourneyParticipantUncheckedUpdateWithoutJourneyInput>
+  }
+
+  export type JourneyParticipantUpdateManyWithWhereWithoutJourneyInput = {
+    where: JourneyParticipantScalarWhereInput
+    data: XOR<JourneyParticipantUpdateManyMutationInput, JourneyParticipantUncheckedUpdateManyWithoutJourneyInput>
+  }
+
+  export type JourneyLogUpsertWithWhereUniqueWithoutJourneyInput = {
+    where: JourneyLogWhereUniqueInput
+    update: XOR<JourneyLogUpdateWithoutJourneyInput, JourneyLogUncheckedUpdateWithoutJourneyInput>
+    create: XOR<JourneyLogCreateWithoutJourneyInput, JourneyLogUncheckedCreateWithoutJourneyInput>
+  }
+
+  export type JourneyLogUpdateWithWhereUniqueWithoutJourneyInput = {
+    where: JourneyLogWhereUniqueInput
+    data: XOR<JourneyLogUpdateWithoutJourneyInput, JourneyLogUncheckedUpdateWithoutJourneyInput>
+  }
+
+  export type JourneyLogUpdateManyWithWhereWithoutJourneyInput = {
+    where: JourneyLogScalarWhereInput
+    data: XOR<JourneyLogUpdateManyMutationInput, JourneyLogUncheckedUpdateManyWithoutJourneyInput>
+  }
+
+  export type JourneyLogScalarWhereInput = {
+    AND?: JourneyLogScalarWhereInput | JourneyLogScalarWhereInput[]
+    OR?: JourneyLogScalarWhereInput[]
+    NOT?: JourneyLogScalarWhereInput | JourneyLogScalarWhereInput[]
+    id?: StringFilter<"JourneyLog"> | string
+    journeyId?: StringFilter<"JourneyLog"> | string
+    participantId?: StringNullableFilter<"JourneyLog"> | string | null
+    nodeId?: StringNullableFilter<"JourneyLog"> | string | null
+    eventType?: StringFilter<"JourneyLog"> | string
+    status?: StringFilter<"JourneyLog"> | string
+    details?: JsonNullableFilter<"JourneyLog">
+    createdAt?: DateTimeFilter<"JourneyLog"> | Date | string
+  }
+
+  export type JourneyCreateWithoutParticipantsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutJourneysInput
+    logs?: JourneyLogCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyUncheckedCreateWithoutParticipantsInput = {
+    id?: string
+    organizationId: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: JourneyLogUncheckedCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyCreateOrConnectWithoutParticipantsInput = {
+    where: JourneyWhereUniqueInput
+    create: XOR<JourneyCreateWithoutParticipantsInput, JourneyUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type UserCreateWithoutJourneyParticipantsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    locations?: UserLocationCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutJourneyParticipantsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: $Enums.UserRole
+    image?: string | null
+    organizationId?: string | null
+    marketingEmailConsent?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customerId?: string | null
+    isAnonymous?: boolean
+    mergedIntoId?: string | null
+    locations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
+    companyEmployees?: CompanyEmployeeUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    couponRedemptions?: CouponRedemptionUncheckedCreateNestedManyWithoutUserInput
+    incentiveGrants?: IncentiveGrantUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    walletTransactions?: WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+    performedWalletActions?: WalletTransactionUncheckedCreateNestedManyWithoutPerformedByInput
+    pushNotificationLogs?: PushNotificationLogUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedCreateNestedManyWithoutUpdatedByInput
+    emailCampaignsCreated?: EmailCampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedCreateNestedManyWithoutUserInput
+    customerIdentifiers?: CustomerIdentifierUncheckedCreateNestedManyWithoutUserInput
+    preferences?: CustomerPreferenceUncheckedCreateNestedManyWithoutUserInput
+    metrics?: CustomerMetricsUncheckedCreateNestedOneWithoutUserInput
+    emailChangeTokens?: EmailChangeTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutJourneyParticipantsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutJourneyParticipantsInput, UserUncheckedCreateWithoutJourneyParticipantsInput>
+  }
+
+  export type JourneyLogCreateWithoutParticipantInput = {
+    id?: string
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    journey: JourneyCreateNestedOneWithoutLogsInput
+  }
+
+  export type JourneyLogUncheckedCreateWithoutParticipantInput = {
+    id?: string
+    journeyId: string
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type JourneyLogCreateOrConnectWithoutParticipantInput = {
+    where: JourneyLogWhereUniqueInput
+    create: XOR<JourneyLogCreateWithoutParticipantInput, JourneyLogUncheckedCreateWithoutParticipantInput>
+  }
+
+  export type JourneyLogCreateManyParticipantInputEnvelope = {
+    data: JourneyLogCreateManyParticipantInput | JourneyLogCreateManyParticipantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JourneyUpsertWithoutParticipantsInput = {
+    update: XOR<JourneyUpdateWithoutParticipantsInput, JourneyUncheckedUpdateWithoutParticipantsInput>
+    create: XOR<JourneyCreateWithoutParticipantsInput, JourneyUncheckedCreateWithoutParticipantsInput>
+    where?: JourneyWhereInput
+  }
+
+  export type JourneyUpdateToOneWithWhereWithoutParticipantsInput = {
+    where?: JourneyWhereInput
+    data: XOR<JourneyUpdateWithoutParticipantsInput, JourneyUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type JourneyUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutJourneysNestedInput
+    logs?: JourneyLogUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type JourneyUncheckedUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: JourneyLogUncheckedUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type UserUpsertWithoutJourneyParticipantsInput = {
+    update: XOR<UserUpdateWithoutJourneyParticipantsInput, UserUncheckedUpdateWithoutJourneyParticipantsInput>
+    create: XOR<UserCreateWithoutJourneyParticipantsInput, UserUncheckedCreateWithoutJourneyParticipantsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutJourneyParticipantsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutJourneyParticipantsInput, UserUncheckedUpdateWithoutJourneyParticipantsInput>
+  }
+
+  export type UserUpdateWithoutJourneyParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    locations?: UserLocationUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutJourneyParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingEmailConsent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isAnonymous?: BoolFieldUpdateOperationsInput | boolean
+    mergedIntoId?: NullableStringFieldUpdateOperationsInput | string | null
+    locations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
+    companyEmployees?: CompanyEmployeeUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    couponRedemptions?: CouponRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    incentiveGrants?: IncentiveGrantUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    walletTransactions?: WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+    performedWalletActions?: WalletTransactionUncheckedUpdateManyWithoutPerformedByNestedInput
+    pushNotificationLogs?: PushNotificationLogUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
+    emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
+    preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
+    metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
+    emailChangeTokens?: EmailChangeTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type JourneyLogUpsertWithWhereUniqueWithoutParticipantInput = {
+    where: JourneyLogWhereUniqueInput
+    update: XOR<JourneyLogUpdateWithoutParticipantInput, JourneyLogUncheckedUpdateWithoutParticipantInput>
+    create: XOR<JourneyLogCreateWithoutParticipantInput, JourneyLogUncheckedCreateWithoutParticipantInput>
+  }
+
+  export type JourneyLogUpdateWithWhereUniqueWithoutParticipantInput = {
+    where: JourneyLogWhereUniqueInput
+    data: XOR<JourneyLogUpdateWithoutParticipantInput, JourneyLogUncheckedUpdateWithoutParticipantInput>
+  }
+
+  export type JourneyLogUpdateManyWithWhereWithoutParticipantInput = {
+    where: JourneyLogScalarWhereInput
+    data: XOR<JourneyLogUpdateManyMutationInput, JourneyLogUncheckedUpdateManyWithoutParticipantInput>
+  }
+
+  export type JourneyCreateWithoutLogsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutJourneysInput
+    participants?: JourneyParticipantCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyUncheckedCreateWithoutLogsInput = {
+    id?: string
+    organizationId: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: JourneyParticipantUncheckedCreateNestedManyWithoutJourneyInput
+  }
+
+  export type JourneyCreateOrConnectWithoutLogsInput = {
+    where: JourneyWhereUniqueInput
+    create: XOR<JourneyCreateWithoutLogsInput, JourneyUncheckedCreateWithoutLogsInput>
+  }
+
+  export type JourneyParticipantCreateWithoutLogsInput = {
+    id?: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    journey: JourneyCreateNestedOneWithoutParticipantsInput
+    user: UserCreateNestedOneWithoutJourneyParticipantsInput
+  }
+
+  export type JourneyParticipantUncheckedCreateWithoutLogsInput = {
+    id?: string
+    journeyId: string
+    userId: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type JourneyParticipantCreateOrConnectWithoutLogsInput = {
+    where: JourneyParticipantWhereUniqueInput
+    create: XOR<JourneyParticipantCreateWithoutLogsInput, JourneyParticipantUncheckedCreateWithoutLogsInput>
+  }
+
+  export type JourneyUpsertWithoutLogsInput = {
+    update: XOR<JourneyUpdateWithoutLogsInput, JourneyUncheckedUpdateWithoutLogsInput>
+    create: XOR<JourneyCreateWithoutLogsInput, JourneyUncheckedCreateWithoutLogsInput>
+    where?: JourneyWhereInput
+  }
+
+  export type JourneyUpdateToOneWithWhereWithoutLogsInput = {
+    where?: JourneyWhereInput
+    data: XOR<JourneyUpdateWithoutLogsInput, JourneyUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type JourneyUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutJourneysNestedInput
+    participants?: JourneyParticipantUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type JourneyUncheckedUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: JourneyParticipantUncheckedUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type JourneyParticipantUpsertWithoutLogsInput = {
+    update: XOR<JourneyParticipantUpdateWithoutLogsInput, JourneyParticipantUncheckedUpdateWithoutLogsInput>
+    create: XOR<JourneyParticipantCreateWithoutLogsInput, JourneyParticipantUncheckedCreateWithoutLogsInput>
+    where?: JourneyParticipantWhereInput
+  }
+
+  export type JourneyParticipantUpdateToOneWithWhereWithoutLogsInput = {
+    where?: JourneyParticipantWhereInput
+    data: XOR<JourneyParticipantUpdateWithoutLogsInput, JourneyParticipantUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type JourneyParticipantUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    journey?: JourneyUpdateOneRequiredWithoutParticipantsNestedInput
+    user?: UserUpdateOneRequiredWithoutJourneyParticipantsNestedInput
+  }
+
+  export type JourneyParticipantUncheckedUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type LocationCreateManyOrganizationInput = {
@@ -83237,6 +88952,23 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type JourneyCreateManyOrganizationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    status?: $Enums.JourneyStatus
+    triggerType: $Enums.JourneyTriggerType
+    triggerConfig: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    reEntryPolicy?: string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type LocationUpdateWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -83312,6 +89044,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUpdateOneWithoutUserNestedInput
@@ -83346,6 +89079,7 @@ export namespace Prisma {
     paymentConfigChanges?: PaymentProviderConfigUncheckedUpdateManyWithoutUpdatedByNestedInput
     emailCampaignsCreated?: EmailCampaignUncheckedUpdateManyWithoutCreatedByNestedInput
     emailCampaignLogs?: EmailCampaignLogUncheckedUpdateManyWithoutUserNestedInput
+    journeyParticipants?: JourneyParticipantUncheckedUpdateManyWithoutUserNestedInput
     customerIdentifiers?: CustomerIdentifierUncheckedUpdateManyWithoutUserNestedInput
     preferences?: CustomerPreferenceUncheckedUpdateManyWithoutUserNestedInput
     metrics?: CustomerMetricsUncheckedUpdateOneWithoutUserNestedInput
@@ -83747,6 +89481,61 @@ export namespace Prisma {
     sentCount?: IntFieldUpdateOperationsInput | number
     failedCount?: IntFieldUpdateOperationsInput | number
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: JourneyParticipantUpdateManyWithoutJourneyNestedInput
+    logs?: JourneyLogUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type JourneyUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: JourneyParticipantUncheckedUpdateManyWithoutJourneyNestedInput
+    logs?: JourneyLogUncheckedUpdateManyWithoutJourneyNestedInput
+  }
+
+  export type JourneyUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJourneyStatusFieldUpdateOperationsInput | $Enums.JourneyStatus
+    triggerType?: EnumJourneyTriggerTypeFieldUpdateOperationsInput | $Enums.JourneyTriggerType
+    triggerConfig?: JsonNullValueInput | InputJsonValue
+    content?: JsonNullValueInput | InputJsonValue
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reEntryPolicy?: StringFieldUpdateOperationsInput | string
+    conversionGoal?: NullableJsonNullValueInput | InputJsonValue
+    exitRules?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -84481,6 +90270,18 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type JourneyParticipantCreateManyUserInput = {
+    id?: string
+    journeyId: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type CustomerIdentifierCreateManyUserInput = {
     id?: string
     type: $Enums.CustomerIdentifierType
@@ -85011,6 +90812,44 @@ export namespace Prisma {
     clickedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyParticipantUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    journey?: JourneyUpdateOneRequiredWithoutParticipantsNestedInput
+    logs?: JourneyLogUpdateManyWithoutParticipantNestedInput
+  }
+
+  export type JourneyParticipantUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    logs?: JourneyLogUncheckedUpdateManyWithoutParticipantNestedInput
+  }
+
+  export type JourneyParticipantUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CustomerIdentifierUpdateWithoutUserInput = {
@@ -86549,6 +92388,136 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type JourneyParticipantCreateManyJourneyInput = {
+    id?: string
+    userId: string
+    status?: $Enums.JourneyParticipantStatus
+    currentNodeId?: string | null
+    enteredAt?: Date | string
+    convertedAt?: Date | string | null
+    exitedAt?: Date | string | null
+    nextStepAt?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type JourneyLogCreateManyJourneyInput = {
+    id?: string
+    participantId?: string | null
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type JourneyParticipantUpdateWithoutJourneyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    user?: UserUpdateOneRequiredWithoutJourneyParticipantsNestedInput
+    logs?: JourneyLogUpdateManyWithoutParticipantNestedInput
+  }
+
+  export type JourneyParticipantUncheckedUpdateWithoutJourneyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    logs?: JourneyLogUncheckedUpdateManyWithoutParticipantNestedInput
+  }
+
+  export type JourneyParticipantUncheckedUpdateManyWithoutJourneyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumJourneyParticipantStatusFieldUpdateOperationsInput | $Enums.JourneyParticipantStatus
+    currentNodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type JourneyLogUpdateWithoutJourneyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participant?: JourneyParticipantUpdateOneWithoutLogsNestedInput
+  }
+
+  export type JourneyLogUncheckedUpdateWithoutJourneyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    participantId?: NullableStringFieldUpdateOperationsInput | string | null
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyLogUncheckedUpdateManyWithoutJourneyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    participantId?: NullableStringFieldUpdateOperationsInput | string | null
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyLogCreateManyParticipantInput = {
+    id?: string
+    journeyId: string
+    nodeId?: string | null
+    eventType: string
+    status: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type JourneyLogUpdateWithoutParticipantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journey?: JourneyUpdateOneRequiredWithoutLogsNestedInput
+  }
+
+  export type JourneyLogUncheckedUpdateWithoutParticipantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JourneyLogUncheckedUpdateManyWithoutParticipantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    journeyId?: StringFieldUpdateOperationsInput | string
+    nodeId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -86630,6 +92599,14 @@ export namespace Prisma {
      * @deprecated Use EmailCampaignCountOutputTypeDefaultArgs instead
      */
     export type EmailCampaignCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmailCampaignCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JourneyCountOutputTypeDefaultArgs instead
+     */
+    export type JourneyCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JourneyCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JourneyParticipantCountOutputTypeDefaultArgs instead
+     */
+    export type JourneyParticipantCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JourneyParticipantCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OrganizationDefaultArgs instead
      */
@@ -86810,6 +92787,18 @@ export namespace Prisma {
      * @deprecated Use EmailCampaignLogDefaultArgs instead
      */
     export type EmailCampaignLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmailCampaignLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JourneyDefaultArgs instead
+     */
+    export type JourneyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JourneyDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JourneyParticipantDefaultArgs instead
+     */
+    export type JourneyParticipantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JourneyParticipantDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JourneyLogDefaultArgs instead
+     */
+    export type JourneyLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JourneyLogDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

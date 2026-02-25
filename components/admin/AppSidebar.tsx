@@ -25,6 +25,7 @@ import {
   LayoutTemplate,
   BellRing,
   CreditCard,
+  GitBranch,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -90,6 +91,7 @@ const menuGroups = [
     label: 'Marketing',
     items: [
       { title: 'Kundensegmente', url: '/admin/marketing/segments', icon: Users2 },
+      { title: 'Journeys', url: '/admin/marketing/journeys', icon: GitBranch },
       { title: 'Kampagnen', url: '/admin/marketing/campaigns', icon: Mail },
       { title: 'Automation', url: '/admin/marketing/automation', icon: Zap },
       { title: 'Vorlagen', url: '/admin/marketing/templates', icon: LayoutTemplate },
