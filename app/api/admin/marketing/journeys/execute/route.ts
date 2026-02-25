@@ -316,9 +316,26 @@ async function executeIncentiveNode(
   return { skipped: 'unknown incentive type' }
 }
 
-export async function POST(request: NextRequest) {
+/** Accepts either a valid admin session OR a CRON_SECRET bearer token.
+ *  This allows both manual triggers from the browser and automated cron calls. */
+async function authorizeCronOrAdmin(request: NextRequest): Promise<NextResponse | null> {
+  // Option 1: CRON_SECRET header — used by Vercel Cron and any external scheduler
+  const cronSecret = process.env.CRON_SECRET
+  if (cronSecret) {
+    const authHeader = request.headers.get('authorization')
+    if (authHeader === `Bearer ${cronSecret}`) {
+      return null // authorized
+    }
+  }
+
+  // Option 2: Admin browser session
   const { error } = await requireAdminRole()
-  if (error) return error
+  return error ?? null
+}
+
+export async function POST(request: NextRequest) {
+  const authError = await authorizeCronOrAdmin(request)
+  if (authError) return authError
 
   const now = new Date()
   const BATCH_SIZE = 500

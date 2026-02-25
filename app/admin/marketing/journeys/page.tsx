@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Plus, Search, Zap, Users, TrendingUp } from 'lucide-react'
+import { Plus, Search, Zap, Users, TrendingUp, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -28,6 +28,7 @@ export default function JourneysPage() {
   const [statusFilter, setStatusFilter] = useState('all')
   const [showCreate, setShowCreate] = useState(false)
   const [creating, setCreating] = useState(false)
+  const [executing, setExecuting] = useState(false)
   const [newJourney, setNewJourney] = useState({
     name: '',
     description: '',
@@ -140,6 +141,24 @@ export default function JourneysPage() {
     }
   }
 
+  const handleExecuteNow = async () => {
+    setExecuting(true)
+    try {
+      const res = await fetch('/api/admin/marketing/journeys/execute', { method: 'POST' })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? 'Fehler beim Ausführen')
+      toast.success(
+        `Cron ausgeführt: ${data.processed} Participant(s) verarbeitet` +
+          (data.errors > 0 ? `, ${data.errors} Fehler` : '')
+      )
+      fetchJourneys()
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Fehler beim Ausführen')
+    } finally {
+      setExecuting(false)
+    }
+  }
+
   // Stats
   const totalJourneys = journeys.length
   const activeJourneys = journeys.filter((j) => j.status === 'ACTIVE').length
@@ -153,10 +172,23 @@ export default function JourneysPage() {
           <h1 className="text-xl font-bold text-gray-900">Journeys</h1>
           <p className="text-sm text-gray-500 mt-0.5">Marketing-Automatisierungs-Abläufe verwalten</p>
         </div>
-        <Button onClick={() => setShowCreate(true)}>
-          <Plus className="w-4 h-4 mr-1.5" />
-          Neue Journey
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExecuteNow}
+            disabled={executing}
+            title="Cron-Job sofort ausführen (nur für Tests)"
+            className="gap-1.5 text-amber-700 border-amber-300 hover:bg-amber-50"
+          >
+            <Play className={`w-3.5 h-3.5 ${executing ? 'animate-pulse' : ''}`} />
+            {executing ? 'Läuft…' : 'Jetzt ausführen'}
+          </Button>
+          <Button onClick={() => setShowCreate(true)}>
+            <Plus className="w-4 h-4 mr-1.5" />
+            Neue Journey
+          </Button>
+        </div>
       </div>
 
       {/* Stats Bar */}
