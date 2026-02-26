@@ -15,6 +15,12 @@ import { wrapEmailHtml } from '@/lib/email-html-wrapper'
 import { sendEmail, getEmailFrom, getDefaultSenderName } from '@/lib/email-service'
 import webpush from 'web-push'
 import type { TemplateContent } from '@/components/marketing/editor/editor-types'
+import {
+  loadAudienceData,
+  computeSegmentAudienceIds,
+  loadSingleUserAudienceData,
+} from '@/lib/segment-audience'
+import type { RulesCombination } from '@/lib/segment-audience'
 
 // Configure VAPID keys if present
 if (
@@ -87,15 +93,31 @@ function getNextNode(
 
 async function evaluateBranchCondition(
   config: Record<string, unknown>,
-  userId: string
+  userId: string,
+  organizationId: string
 ): Promise<boolean> {
   const { conditionType, field, operator, value, windowDays } = config
 
   try {
     if (conditionType === 'segment') {
-      // Segment membership is computed dynamically from rules — not stored as a separate table.
-      // Full rule evaluation not implemented in cron job; defaults to false.
-      return false
+      const segmentId = config.segmentId as string | undefined
+      if (!segmentId) return false
+
+      const segment = await prisma.customerSegment.findUnique({
+        where: { id: segmentId },
+        select: { rules: true, rulesCombination: true },
+      })
+      if (!segment) return false
+
+      const userData = await loadSingleUserAudienceData(userId, organizationId)
+      if (!userData) return false
+
+      const matchingIds = computeSegmentAudienceIds(
+        [userData],
+        segment.rules,
+        (segment.rulesCombination as RulesCombination) ?? 'AND'
+      )
+      return matchingIds.includes(userId)
     }
 
     if (conditionType === 'event') {
@@ -316,6 +338,218 @@ async function executeIncentiveNode(
   return { skipped: 'unknown incentive type' }
 }
 
+// ─── Enrollment helpers (run at start of each cron cycle) ────────────────────
+
+/**
+ * Enrolls all users who currently match a SEGMENT_ENTRY journey's segment.
+ * Re-entry policy is respected (NEVER / ALWAYS / AFTER_DAYS:X).
+ */
+async function runSegmentEntryEnrollment(now: Date): Promise<number> {
+  let enrolled = 0
+
+  const journeys = await prisma.journey.findMany({
+    where: { status: 'ACTIVE', triggerType: 'SEGMENT_ENTRY' },
+    select: {
+      id: true,
+      organizationId: true,
+      triggerConfig: true,
+      reEntryPolicy: true,
+      endDate: true,
+      content: true,
+    },
+  })
+
+  if (journeys.length === 0) return 0
+
+  // Group by organizationId — load audience data once per org
+  const byOrg = new Map<string, typeof journeys>()
+  for (const j of journeys) {
+    const list = byOrg.get(j.organizationId) ?? []
+    list.push(j)
+    byOrg.set(j.organizationId, list)
+  }
+
+  for (const [orgId, orgJourneys] of Array.from(byOrg.entries())) {
+    const audienceData = await loadAudienceData(orgId, null)
+    if (audienceData.length === 0) continue
+
+    for (const journey of orgJourneys) {
+      try {
+        if (journey.endDate && new Date(journey.endDate) < now) continue
+
+        const cfg = journey.triggerConfig as { segmentId?: string } | null
+        if (!cfg?.segmentId) continue
+
+        const segment = await prisma.customerSegment.findUnique({
+          where: { id: cfg.segmentId },
+          select: { rules: true, rulesCombination: true },
+        })
+        if (!segment) continue
+
+        const matchingUserIds = computeSegmentAudienceIds(
+          audienceData,
+          segment.rules,
+          (segment.rulesCombination as RulesCombination) ?? 'AND'
+        )
+
+        const content = journey.content as unknown as CanvasContent
+        const startNode = content?.nodes?.find((n) => n.type === 'start')
+
+        for (const userId of matchingUserIds) {
+          const existing = await prisma.journeyParticipant.findFirst({
+            where: { journeyId: journey.id, userId },
+            orderBy: { enteredAt: 'desc' },
+          })
+
+          if (existing) {
+            const policy = journey.reEntryPolicy ?? 'NEVER'
+            if (policy === 'NEVER') continue
+            if (policy === 'ALWAYS') {
+              await prisma.journeyParticipant.update({
+                where: { id: existing.id },
+                data: { status: 'EXITED', exitedAt: now },
+              })
+            } else if (policy.startsWith('AFTER_DAYS:')) {
+              const days = parseInt(policy.split(':')[1] ?? '0')
+              const sinceEntry =
+                (now.getTime() - new Date(existing.enteredAt).getTime()) / (1000 * 60 * 60 * 24)
+              if (sinceEntry < days) continue
+              await prisma.journeyParticipant.update({
+                where: { id: existing.id },
+                data: { status: 'EXITED', exitedAt: now },
+              })
+            } else {
+              continue
+            }
+          }
+
+          await prisma.journeyParticipant.create({
+            data: {
+              journeyId: journey.id,
+              userId,
+              status: 'ACTIVE',
+              currentNodeId: startNode?.id ?? null,
+              nextStepAt: now,
+            },
+          })
+
+          await prisma.journeyLog.create({
+            data: {
+              journeyId: journey.id,
+              eventType: 'ENTERED',
+              status: 'SUCCESS',
+              details: { trigger: 'SEGMENT_ENTRY', segmentId: cfg.segmentId, userId } as never,
+            },
+          })
+
+          enrolled++
+        }
+      } catch (err) {
+        console.error(`Segment enrollment error for journey ${journey.id}:`, err)
+      }
+    }
+  }
+
+  return enrolled
+}
+
+/**
+ * Enrolls inactive users (activityStatus = 'INAKTIV') into user.inactive EVENT journeys.
+ */
+async function runInactiveUserEnrollment(now: Date): Promise<number> {
+  let enrolled = 0
+
+  const journeys = await prisma.journey.findMany({
+    where: { status: 'ACTIVE', triggerType: 'EVENT' },
+    select: {
+      id: true,
+      organizationId: true,
+      triggerConfig: true,
+      reEntryPolicy: true,
+      endDate: true,
+      content: true,
+    },
+  })
+
+  const inactiveJourneys = journeys.filter((j) => {
+    const cfg = j.triggerConfig as { eventType?: string } | null
+    return cfg?.eventType === 'user.inactive'
+  })
+
+  if (inactiveJourneys.length === 0) return 0
+
+  for (const journey of inactiveJourneys) {
+    try {
+      if (journey.endDate && new Date(journey.endDate) < now) continue
+
+      const inactiveMetrics = await prisma.customerMetrics.findMany({
+        where: {
+          activityStatus: { in: ['SCHLAFEND', 'ABGEWANDERT'] },
+          user: { organizationId: journey.organizationId },
+        },
+        select: { userId: true },
+      })
+
+      const content = journey.content as CanvasContent
+      const startNode = content?.nodes?.find((n) => n.type === 'start')
+
+      for (const { userId } of inactiveMetrics) {
+        const existing = await prisma.journeyParticipant.findFirst({
+          where: { journeyId: journey.id, userId },
+          orderBy: { enteredAt: 'desc' },
+        })
+
+        if (existing) {
+          const policy = journey.reEntryPolicy ?? 'NEVER'
+          if (policy === 'NEVER') continue
+          if (policy === 'ALWAYS') {
+            await prisma.journeyParticipant.update({
+              where: { id: existing.id },
+              data: { status: 'EXITED', exitedAt: now },
+            })
+          } else if (policy.startsWith('AFTER_DAYS:')) {
+            const days = parseInt(policy.split(':')[1] ?? '0')
+            const sinceEntry =
+              (now.getTime() - new Date(existing.enteredAt).getTime()) / (1000 * 60 * 60 * 24)
+            if (sinceEntry < days) continue
+            await prisma.journeyParticipant.update({
+              where: { id: existing.id },
+              data: { status: 'EXITED', exitedAt: now },
+            })
+          } else {
+            continue
+          }
+        }
+
+        await prisma.journeyParticipant.create({
+          data: {
+            journeyId: journey.id,
+            userId,
+            status: 'ACTIVE',
+            currentNodeId: startNode?.id ?? null,
+            nextStepAt: now,
+          },
+        })
+
+        await prisma.journeyLog.create({
+          data: {
+            journeyId: journey.id,
+            eventType: 'ENTERED',
+            status: 'SUCCESS',
+            details: { trigger: 'user.inactive', userId } as never,
+          },
+        })
+
+        enrolled++
+      }
+    } catch (err) {
+      console.error(`Inactive enrollment error for journey ${journey.id}:`, err)
+    }
+  }
+
+  return enrolled
+}
+
 /** Accepts either a valid admin session OR a CRON_SECRET bearer token.
  *  This allows both manual triggers from the browser and automated cron calls. */
 async function authorizeCronOrAdmin(request: NextRequest): Promise<NextResponse | null> {
@@ -342,7 +576,16 @@ export async function POST(request: NextRequest) {
   let processed = 0
   let errors = 0
 
+  let enrolled = 0
+
   try {
+    // 0. Enrollment phase: pull new users into journeys before processing steps
+    const [segmentEnrolled, inactiveEnrolled] = await Promise.all([
+      runSegmentEntryEnrollment(now),
+      runInactiveUserEnrollment(now),
+    ])
+    enrolled = segmentEnrolled + inactiveEnrolled
+
     // 1. Find all due participants in active journeys
     const dueParticipants = await prisma.journeyParticipant.findMany({
       where: {
@@ -402,7 +645,7 @@ export async function POST(request: NextRequest) {
             stepDetails = { nodeType: 'delay', label: `Wartezeit abgelaufen (${delayAmt} ${delayUnit})` }
           } else if (currentNode.type === 'branch') {
             const cfg = currentNode.config ?? {}
-            const result = await evaluateBranchCondition(cfg, participant.userId)
+            const result = await evaluateBranchCondition(cfg, participant.userId, participant.journey.organizationId)
             const handle = result ? 'yes' : 'no'
             nextNode = getNextNode(currentNode.id, handle, edges, nodes)
             stepDetails = {
@@ -570,6 +813,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       ok: true,
+      enrolled,
       processed,
       errors,
       timestamp: now.toISOString(),

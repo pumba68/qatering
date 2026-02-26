@@ -147,10 +147,11 @@ export default function JourneysPage() {
       const res = await fetch('/api/admin/marketing/journeys/execute', { method: 'POST' })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? 'Fehler beim Ausführen')
-      toast.success(
-        `Cron ausgeführt: ${data.processed} Participant(s) verarbeitet` +
-          (data.errors > 0 ? `, ${data.errors} Fehler` : '')
-      )
+      const parts = []
+      if (data.enrolled > 0) parts.push(`${data.enrolled} neu eingeschrieben`)
+      if (data.processed > 0) parts.push(`${data.processed} Schritte verarbeitet`)
+      if (data.errors > 0) parts.push(`${data.errors} Fehler`)
+      toast.success(`Cron ausgeführt${parts.length ? ': ' + parts.join(', ') : ' – keine fälligen Einträge'}`)}
       fetchJourneys()
     } catch (e) {
       toast.error(e instanceof Error ? e.message : 'Fehler beim Ausführen')
