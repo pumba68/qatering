@@ -490,7 +490,7 @@ async function runInactiveUserEnrollment(now: Date): Promise<number> {
         select: { userId: true },
       })
 
-      const content = journey.content as CanvasContent
+      const content = journey.content as unknown as CanvasContent
       const startNode = content?.nodes?.find((n) => n.type === 'start')
 
       for (const { userId } of inactiveMetrics) {
