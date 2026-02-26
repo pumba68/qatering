@@ -151,7 +151,7 @@ export default function JourneysPage() {
       if (data.enrolled > 0) parts.push(`${data.enrolled} neu eingeschrieben`)
       if (data.processed > 0) parts.push(`${data.processed} Schritte verarbeitet`)
       if (data.errors > 0) parts.push(`${data.errors} Fehler`)
-      toast.success(`Cron ausgeführt${parts.length ? ': ' + parts.join(', ') : ' – keine fälligen Einträge'}`)}
+      toast.success(`Cron ausgeführt${parts.length ? ': ' + parts.join(', ') : ' – keine fälligen Einträge'}`)
       fetchJourneys()
     } catch (e) {
       toast.error(e instanceof Error ? e.message : 'Fehler beim Ausführen')
