@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Plus, Pencil, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -233,10 +234,12 @@ export default function AdminLocationsPage() {
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" size="sm" className="gap-1" onClick={() => openEdit(loc)}>
-                    <Pencil className="h-3.5 w-3.5" />
-                    Bearbeiten
-                  </Button>
+                  <Link href={`/admin/locations/${loc.id}`}>
+                    <Button variant="outline" size="sm" className="gap-1">
+                      <Pencil className="h-3.5 w-3.5" />
+                      Bearbeiten
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>

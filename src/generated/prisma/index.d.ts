@@ -376,6 +376,14 @@ export const WalletTransactionType: {
 export type WalletTransactionType = (typeof WalletTransactionType)[keyof typeof WalletTransactionType]
 
 
+export const LocationRole: {
+  KITCHEN_STAFF: 'KITCHEN_STAFF',
+  LOCATION_ADMIN: 'LOCATION_ADMIN'
+};
+
+export type LocationRole = (typeof LocationRole)[keyof typeof LocationRole]
+
+
 export const OrderStatus: {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
@@ -564,6 +572,10 @@ export const CustomerIdentifierType: typeof $Enums.CustomerIdentifierType
 export type WalletTransactionType = $Enums.WalletTransactionType
 
 export const WalletTransactionType: typeof $Enums.WalletTransactionType
+
+export type LocationRole = $Enums.LocationRole
+
+export const LocationRole: typeof $Enums.LocationRole
 
 export type OrderStatus = $Enums.OrderStatus
 
@@ -23103,6 +23115,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     locationId: string | null
+    role: $Enums.LocationRole | null
     createdAt: Date | null
   }
 
@@ -23110,6 +23123,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     locationId: string | null
+    role: $Enums.LocationRole | null
     createdAt: Date | null
   }
 
@@ -23117,6 +23131,7 @@ export namespace Prisma {
     id: number
     userId: number
     locationId: number
+    role: number
     createdAt: number
     _all: number
   }
@@ -23126,6 +23141,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     locationId?: true
+    role?: true
     createdAt?: true
   }
 
@@ -23133,6 +23149,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     locationId?: true
+    role?: true
     createdAt?: true
   }
 
@@ -23140,6 +23157,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     locationId?: true
+    role?: true
     createdAt?: true
     _all?: true
   }
@@ -23220,6 +23238,7 @@ export namespace Prisma {
     id: string
     userId: string
     locationId: string
+    role: $Enums.LocationRole
     createdAt: Date
     _count: UserLocationCountAggregateOutputType | null
     _min: UserLocationMinAggregateOutputType | null
@@ -23244,6 +23263,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     locationId?: boolean
+    role?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     location?: boolean | LocationDefaultArgs<ExtArgs>
@@ -23253,6 +23273,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     locationId?: boolean
+    role?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     location?: boolean | LocationDefaultArgs<ExtArgs>
@@ -23262,6 +23283,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     locationId?: boolean
+    role?: boolean
     createdAt?: boolean
   }
 
@@ -23284,6 +23306,7 @@ export namespace Prisma {
       id: string
       userId: string
       locationId: string
+      role: $Enums.LocationRole
       createdAt: Date
     }, ExtArgs["result"]["userLocation"]>
     composites: {}
@@ -23683,6 +23706,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserLocation", 'String'>
     readonly userId: FieldRef<"UserLocation", 'String'>
     readonly locationId: FieldRef<"UserLocation", 'String'>
+    readonly role: FieldRef<"UserLocation", 'LocationRole'>
     readonly createdAt: FieldRef<"UserLocation", 'DateTime'>
   }
     
@@ -58511,6 +58535,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     locationId: 'locationId',
+    role: 'role',
     createdAt: 'createdAt'
   };
 
@@ -59315,6 +59340,20 @@ export namespace Prisma {
    * Reference to a field of type 'WalletTransactionType[]'
    */
   export type ListEnumWalletTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletTransactionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'LocationRole'
+   */
+  export type EnumLocationRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LocationRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'LocationRole[]'
+   */
+  export type ListEnumLocationRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LocationRole[]'>
     
 
 
@@ -60995,6 +61034,7 @@ export namespace Prisma {
     id?: StringFilter<"UserLocation"> | string
     userId?: StringFilter<"UserLocation"> | string
     locationId?: StringFilter<"UserLocation"> | string
+    role?: EnumLocationRoleFilter<"UserLocation"> | $Enums.LocationRole
     createdAt?: DateTimeFilter<"UserLocation"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     location?: XOR<LocationRelationFilter, LocationWhereInput>
@@ -61004,6 +61044,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     locationId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     location?: LocationOrderByWithRelationInput
@@ -61017,6 +61058,7 @@ export namespace Prisma {
     NOT?: UserLocationWhereInput | UserLocationWhereInput[]
     userId?: StringFilter<"UserLocation"> | string
     locationId?: StringFilter<"UserLocation"> | string
+    role?: EnumLocationRoleFilter<"UserLocation"> | $Enums.LocationRole
     createdAt?: DateTimeFilter<"UserLocation"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     location?: XOR<LocationRelationFilter, LocationWhereInput>
@@ -61026,6 +61068,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     locationId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     _count?: UserLocationCountOrderByAggregateInput
     _max?: UserLocationMaxOrderByAggregateInput
@@ -61039,6 +61082,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserLocation"> | string
     userId?: StringWithAggregatesFilter<"UserLocation"> | string
     locationId?: StringWithAggregatesFilter<"UserLocation"> | string
+    role?: EnumLocationRoleWithAggregatesFilter<"UserLocation"> | $Enums.LocationRole
     createdAt?: DateTimeWithAggregatesFilter<"UserLocation"> | Date | string
   }
 
@@ -65526,6 +65570,7 @@ export namespace Prisma {
 
   export type UserLocationCreateInput = {
     id?: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutLocationsInput
     location: LocationCreateNestedOneWithoutUsersInput
@@ -65535,11 +65580,13 @@ export namespace Prisma {
     id?: string
     userId: string
     locationId: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
   }
 
   export type UserLocationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLocationsNestedInput
     location?: LocationUpdateOneRequiredWithoutUsersNestedInput
@@ -65549,6 +65596,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     locationId?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -65556,11 +65604,13 @@ export namespace Prisma {
     id?: string
     userId: string
     locationId: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
   }
 
   export type UserLocationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -65568,6 +65618,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     locationId?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -70281,6 +70332,13 @@ export namespace Prisma {
     _max?: NestedEnumWalletTransactionTypeFilter<$PrismaModel>
   }
 
+  export type EnumLocationRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationRole | EnumLocationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationRoleFilter<$PrismaModel> | $Enums.LocationRole
+  }
+
   export type LocationRelationFilter = {
     is?: LocationWhereInput
     isNot?: LocationWhereInput
@@ -70295,6 +70353,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     locationId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -70302,6 +70361,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     locationId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -70309,7 +70369,18 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     locationId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type EnumLocationRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationRole | EnumLocationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationRoleWithAggregatesFilter<$PrismaModel> | $Enums.LocationRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLocationRoleFilter<$PrismaModel>
+    _max?: NestedEnumLocationRoleFilter<$PrismaModel>
   }
 
   export type AccountProviderProviderAccountIdCompoundUniqueInput = {
@@ -74424,6 +74495,10 @@ export namespace Prisma {
     connect?: LocationWhereUniqueInput
   }
 
+  export type EnumLocationRoleFieldUpdateOperationsInput = {
+    set?: $Enums.LocationRole
+  }
+
   export type UserUpdateOneRequiredWithoutLocationsNestedInput = {
     create?: XOR<UserCreateWithoutLocationsInput, UserUncheckedCreateWithoutLocationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutLocationsInput
@@ -77144,6 +77219,23 @@ export namespace Prisma {
     _max?: NestedEnumWalletTransactionTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumLocationRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationRole | EnumLocationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationRoleFilter<$PrismaModel> | $Enums.LocationRole
+  }
+
+  export type NestedEnumLocationRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationRole | EnumLocationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationRole[] | ListEnumLocationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationRoleWithAggregatesFilter<$PrismaModel> | $Enums.LocationRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLocationRoleFilter<$PrismaModel>
+    _max?: NestedEnumLocationRoleFilter<$PrismaModel>
+  }
+
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -79564,6 +79656,7 @@ export namespace Prisma {
 
   export type UserLocationCreateWithoutLocationInput = {
     id?: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutLocationsInput
   }
@@ -79571,6 +79664,7 @@ export namespace Prisma {
   export type UserLocationUncheckedCreateWithoutLocationInput = {
     id?: string
     userId: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
   }
 
@@ -79769,6 +79863,7 @@ export namespace Prisma {
     id?: StringFilter<"UserLocation"> | string
     userId?: StringFilter<"UserLocation"> | string
     locationId?: StringFilter<"UserLocation"> | string
+    role?: EnumLocationRoleFilter<"UserLocation"> | $Enums.LocationRole
     createdAt?: DateTimeFilter<"UserLocation"> | Date | string
   }
 
@@ -79866,6 +79961,7 @@ export namespace Prisma {
 
   export type UserLocationCreateWithoutUserInput = {
     id?: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
     location: LocationCreateNestedOneWithoutUsersInput
   }
@@ -79873,6 +79969,7 @@ export namespace Prisma {
   export type UserLocationUncheckedCreateWithoutUserInput = {
     id?: string
     locationId: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
   }
 
@@ -91960,6 +92057,7 @@ export namespace Prisma {
   export type UserLocationCreateManyLocationInput = {
     id?: string
     userId: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
   }
 
@@ -92096,6 +92194,7 @@ export namespace Prisma {
 
   export type UserLocationUpdateWithoutLocationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLocationsNestedInput
   }
@@ -92103,12 +92202,14 @@ export namespace Prisma {
   export type UserLocationUncheckedUpdateWithoutLocationInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserLocationUncheckedUpdateManyWithoutLocationInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -92180,6 +92281,7 @@ export namespace Prisma {
   export type UserLocationCreateManyUserInput = {
     id?: string
     locationId: string
+    role?: $Enums.LocationRole
     createdAt?: Date | string
   }
 
@@ -92405,6 +92507,7 @@ export namespace Prisma {
 
   export type UserLocationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: LocationUpdateOneRequiredWithoutUsersNestedInput
   }
@@ -92412,12 +92515,14 @@ export namespace Prisma {
   export type UserLocationUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     locationId?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserLocationUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     locationId?: StringFieldUpdateOperationsInput | string
+    role?: EnumLocationRoleFieldUpdateOperationsInput | $Enums.LocationRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

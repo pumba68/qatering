@@ -1,163 +1,44 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { useAdminLocation } from '@/components/admin/LocationContext'
 import { MapPin } from 'lucide-react'
 
-const DAYS = [
-  { value: 0, label: 'Sonntag', short: 'So' },
-  { value: 1, label: 'Montag', short: 'Mo' },
-  { value: 2, label: 'Dienstag', short: 'Di' },
-  { value: 3, label: 'Mittwoch', short: 'Mi' },
-  { value: 4, label: 'Donnerstag', short: 'Do' },
-  { value: 5, label: 'Freitag', short: 'Fr' },
-  { value: 6, label: 'Samstag', short: 'Sa' },
-]
-
+/**
+ * PROJ-26: Die Werktage-Konfiguration ist jetzt direkt am Standort unter
+ * /admin/locations/[id] zu finden. Diese Seite leitet den Admin dorthin.
+ */
 export default function SettingsPage() {
-  const { effectiveLocationId, locations, loading: locationsLoading } = useAdminLocation()
-  const locationId = effectiveLocationId ?? ''
-  const [workingDays, setWorkingDays] = useState<number[]>([1, 2, 3, 4, 5])
-  const [locationName, setLocationName] = useState<string>('')
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-
-  useEffect(() => {
-    if (!locationId) return
-    fetchSettings()
-  }, [locationId])
-
-  async function fetchSettings() {
-    if (!locationId) return
-    try {
-      setLoading(true)
-      const response = await fetch(`/api/admin/settings?locationId=${locationId}`)
-      if (!response.ok) throw new Error('Fehler beim Laden der Settings')
-      const data = await response.json()
-      setWorkingDays(data.workingDays || [1, 2, 3, 4, 5])
-      setLocationName(data.name || '')
-    } catch (error) {
-      console.error('Fehler:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  async function saveSettings() {
-    try {
-      setSaving(true)
-      const response = await fetch('/api/admin/settings', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          locationId,
-          workingDays,
-        }),
-      })
-
-      if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.error || 'Fehler beim Speichern')
-      }
-
-      alert('Einstellungen wurden gespeichert!')
-    } catch (error) {
-      alert(error instanceof Error ? error.message : 'Fehler beim Speichern')
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  const toggleDay = (dayValue: number) => {
-    setWorkingDays((prev) =>
-      prev.includes(dayValue)
-        ? prev.filter((d) => d !== dayValue)
-        : [...prev, dayValue].sort()
-    )
-  }
-
-  if (!locationId) {
-    return (
-      <div className="min-h-screen bg-background p-6">
-        <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20">
-          <CardContent className="pt-6">
-            <p className="flex items-center gap-2 text-foreground">
-              <MapPin className="h-5 w-5 text-amber-600" />
-              {locationsLoading
-                ? 'Standorte werden geladen…'
-                : locations.length === 0
-                  ? 'Keine Standorte vorhanden. Bitte zuerst unter „Standorte“ eine Location anlegen.'
-                  : 'Bitte im Header oben rechts einen Standort wählen, um die Einstellungen zu bearbeiten.'}
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background p-6">
-        <div className="text-center py-12 text-muted-foreground">Lade Einstellungen...</div>
-      </div>
-    )
-  }
-
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">Einstellungen</h1>
-          <p className="text-muted-foreground">
-            {locationName ? `Werktage für ${locationName}` : 'Konfigurieren Sie die Werktage für Ihr Menü'}
-          </p>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Werktage</CardTitle>
-            <CardDescription>
-              Wählen Sie die Tage aus, an denen das Menü angezeigt werden soll.
-              Nicht ausgewählte Tage werden im Kundenmenü nicht angezeigt.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <Label>Verfügbare Tage</Label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {DAYS.map((day) => {
-                  const isSelected = workingDays.includes(day.value)
-                  return (
-                    <Button
-                      key={day.value}
-                      type="button"
-                      variant={isSelected ? 'default' : 'outline'}
-                      onClick={() => toggleDay(day.value)}
-                      className="h-auto py-4 flex flex-col gap-1"
-                    >
-                      <span className="text-lg font-semibold">{day.short}</span>
-                      <span className="text-xs opacity-80">{day.label}</span>
-                    </Button>
-                  )
-                })}
-              </div>
-
-              <div className="pt-4 border-t border-border">
-                <Button
-                  onClick={saveSettings}
-                  disabled={saving}
-                  className="w-full md:w-auto"
-                >
-                  {saving ? 'Speichert...' : 'Einstellungen speichern'}
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">Einstellungen</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">Standort-Konfiguration</p>
       </div>
+
+      <Card className="border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/20">
+        <CardContent className="pt-6 pb-6">
+          <div className="flex items-start gap-3">
+            <MapPin className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" />
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">
+                Werktage werden jetzt direkt am Standort gepflegt.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Öffnungszeiten und aktive Wochentage können individuell pro Standort
+                unter <strong>Standorte → Standort bearbeiten</strong> konfiguriert werden.
+              </p>
+              <Link href="/admin/locations">
+                <Button size="sm" variant="outline" className="mt-1 gap-2">
+                  <MapPin className="h-4 w-4" />
+                  Zur Standort-Verwaltung
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

@@ -89,6 +89,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: 'Marketing',
     icon: TrendingUp,
     items: [
+      { title: 'Kunden', url: '/admin/kunden', icon: Users },
       { title: 'Kundensegmente', url: '/admin/marketing/segments', icon: Users2 },
       { title: 'Journeys', url: '/admin/marketing/journeys', icon: GitBranch },
       { title: 'Kampagnen', url: '/admin/marketing/campaigns', icon: Mail },
@@ -105,6 +106,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { title: 'Guthaben verwalten', url: '/admin/wallet', icon: Wallet },
       { title: 'Zahlungen', url: '/admin/zahlungen', icon: Receipt },
+      { title: 'Vertragspartner-Abrechnung', url: '/admin/billing', icon: Receipt },
     ],
   },
   {
@@ -112,10 +114,8 @@ const NAV_GROUPS: NavGroup[] = [
     label: 'Verwaltung',
     icon: Building2,
     items: [
-      { title: 'Kunden', url: '/admin/kunden', icon: Users2 },
       { title: 'Standorte', url: '/admin/locations', icon: Pin },
       { title: 'Unternehmen', url: '/admin/companies', icon: Building2 },
-      { title: 'Vertragspartner-Abrechnung', url: '/admin/billing', icon: Receipt },
       { title: 'Nutzer', url: '/admin/users', icon: Users },
     ],
   },

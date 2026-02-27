@@ -340,6 +340,7 @@ exports.Prisma.UserLocationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   locationId: 'locationId',
+  role: 'role',
   createdAt: 'createdAt'
 };
 
@@ -875,6 +876,11 @@ exports.WalletTransactionType = exports.$Enums.WalletTransactionType = {
   REFUND: 'REFUND',
   ADJUSTMENT: 'ADJUSTMENT',
   INCENTIVE: 'INCENTIVE'
+};
+
+exports.LocationRole = exports.$Enums.LocationRole = {
+  KITCHEN_STAFF: 'KITCHEN_STAFF',
+  LOCATION_ADMIN: 'LOCATION_ADMIN'
 };
 
 exports.OrderStatus = exports.$Enums.OrderStatus = {
