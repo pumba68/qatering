@@ -1,13 +1,15 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import MenuWeek from '@/components/menu/MenuWeek'
 import CartSidebar from '@/components/order/CartSidebar'
 import { MarketingSlotArea } from '@/components/marketing/MarketingSlotArea'
 import { MarketingBannerArea } from '@/components/marketing/MarketingBannerArea'
 import { IncentiveCodesWidget } from '@/components/marketing/IncentiveCodesWidget'
 import { Button } from '@/components/ui/button'
-import { ShoppingCart, MapPin, ChevronDown } from 'lucide-react'
+import { ShoppingCart, MapPin, ChevronDown, ArrowLeft } from 'lucide-react'
 import { formatCurrency } from '@/lib/utils'
 import {
   DropdownMenu,
@@ -21,6 +23,7 @@ const MENU_LOCATION_STORAGE_KEY = 'menu-selected-location-id'
 interface LocationOption {
   id: string
   name: string
+  address?: string | null
 }
 
 interface CartItem {
@@ -40,85 +43,106 @@ function getEffectivePrice(item: { price: number | string; isPromotion?: boolean
 }
 
 export default function MenuPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const { data: session, status: sessionStatus } = useSession()
+
   const [locations, setLocations] = useState<LocationOption[]>([])
   const [locationsLoading, setLocationsLoading] = useState(true)
   const [selectedLocationId, setSelectedLocationIdState] = useState<string | null>(null)
   const [cart, setCart] = useState<CartItem[]>([])
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [cartOpen, setCartOpen] = useState(false)
+  const [authModalOpen, setAuthModalOpen] = useState(false)
 
   const setSelectedLocationId = useCallback((id: string) => {
     setSelectedLocationIdState(id)
-    try {
-      localStorage.setItem(MENU_LOCATION_STORAGE_KEY, id)
-    } catch {
-      // ignore
-    }
+    try { localStorage.setItem(MENU_LOCATION_STORAGE_KEY, id) } catch { /* ignore */ }
   }, [])
 
   useEffect(() => {
     let cancelled = false
+
     async function load() {
       try {
-        const res = await fetch('/api/locations')
+        // Öffentliches API – kein Auth erforderlich (PROJ-25)
+        const res = await fetch('/api/public/locations')
         if (!res.ok) return
-        const data = await res.json()
-        if (!cancelled && Array.isArray(data)) {
-          setLocations(data)
-          const stored = localStorage.getItem(MENU_LOCATION_STORAGE_KEY)
-          const firstId = data[0]?.id
-          if (stored && data.some((l: LocationOption) => l.id === stored)) {
-            setSelectedLocationIdState(stored)
-          } else if (firstId) {
-            setSelectedLocationIdState(firstId)
-            try {
-              localStorage.setItem(MENU_LOCATION_STORAGE_KEY, firstId)
-            } catch {
-              // ignore
-            }
+        const data: LocationOption[] = await res.json()
+
+        if (cancelled) return
+
+        if (!Array.isArray(data) || data.length === 0) {
+          // Keine Locations → zurück zur Auswahl
+          router.replace('/')
+          return
+        }
+
+        setLocations(data)
+
+        // Priority: 1) URL-Param, 2) localStorage, 3) erste Location
+        const urlParam = searchParams.get('locationId')
+        const stored = (() => { try { return localStorage.getItem(MENU_LOCATION_STORAGE_KEY) } catch { return null } })()
+
+        const validIds = data.map((l) => l.id)
+
+        if (urlParam && validIds.includes(urlParam)) {
+          setSelectedLocationIdState(urlParam)
+          try { localStorage.setItem(MENU_LOCATION_STORAGE_KEY, urlParam) } catch { /* ignore */ }
+        } else if (stored && validIds.includes(stored)) {
+          setSelectedLocationIdState(stored)
+        } else if (data[0]) {
+          // Kein valider Param/Storage → zurück zur Auswahl wenn kein eindeutiger Fallback
+          if (data.length === 1) {
+            setSelectedLocationIdState(data[0].id)
+            try { localStorage.setItem(MENU_LOCATION_STORAGE_KEY, data[0].id) } catch { /* ignore */ }
+          } else {
+            // Mehrere Locations, keine Vorauswahl möglich → zurück zum Picker
+            router.replace('/')
+            return
           }
         }
-      } catch (e) {
+      } catch {
         if (!cancelled) setLocations([])
       } finally {
         if (!cancelled) setLocationsLoading(false)
       }
     }
+
     load()
-    return () => {
-      cancelled = true
-    }
+    return () => { cancelled = true }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const locationId = selectedLocationId ?? (locations[0]?.id ?? '')
   const selectedLocationName = locations.find((l) => l.id === locationId)?.name ?? 'Standort'
 
+  /** Auth-Gate: Nur eingeloggte User dürfen den Warenkorb befüllen */
   const handleSelectItem = (item: any, quantity: number = 1) => {
+    if (sessionStatus !== 'authenticated') {
+      // Nicht eingeloggt → Login mit callbackUrl
+      const callbackUrl = encodeURIComponent(`/menu?locationId=${locationId}`)
+      router.push(`/login?callbackUrl=${callbackUrl}`)
+      return
+    }
+
     const existingItem = cart.find((i) => i.menuItemId === item.id)
     if (existingItem) {
       const newQuantity = existingItem.quantity + quantity
       if (newQuantity <= 0) {
         handleRemoveItem(item.id)
       } else {
-        setCart(
-          cart.map((i) =>
-            i.menuItemId === item.id
-              ? { ...i, quantity: newQuantity }
-              : i
-          )
-        )
+        setCart(cart.map((i) =>
+          i.menuItemId === item.id ? { ...i, quantity: newQuantity } : i
+        ))
       }
     } else if (quantity > 0) {
-      const effectivePrice = getEffectivePrice(item)
-      setCart([
-        ...cart,
-        {
-          menuItemId: item.id,
-          quantity: quantity,
-          dishName: item.dish.name,
-          price: effectivePrice,
-        },
-      ])
+      setCart([...cart, {
+        menuItemId: item.id,
+        quantity,
+        dishName: item.dish.name,
+        price: getEffectivePrice(item),
+      }])
     }
   }
 
@@ -126,11 +150,9 @@ export default function MenuPage() {
     if (quantity <= 0) {
       handleRemoveItem(menuItemId)
     } else {
-      setCart(
-        cart.map((i) =>
-          i.menuItemId === menuItemId ? { ...i, quantity } : i
-        )
-      )
+      setCart(cart.map((i) =>
+        i.menuItemId === menuItemId ? { ...i, quantity } : i
+      ))
     }
   }
 
@@ -143,12 +165,11 @@ export default function MenuPage() {
     setSelectedLocationId(newLocationId)
     setCart([])
     setCartOpen(false)
+    // URL aktualisieren
+    router.replace(`/menu?locationId=${newLocationId}`)
   }
 
-  const totalAmount = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  )
+  const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   if (locationsLoading && locations.length === 0) {
     return (
@@ -166,6 +187,8 @@ export default function MenuPage() {
     )
   }
 
+  const isLoggedIn = sessionStatus === 'authenticated'
+
   return (
     <div className="min-h-screen menu-page-pattern bg-gradient-to-br from-background/95 via-background/90 to-green-50/40 dark:to-green-950/15">
       <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl">
@@ -173,11 +196,54 @@ export default function MenuPage() {
         <div className="space-y-4 mb-6">
           <MarketingSlotArea slotId="menu_top" />
           <MarketingBannerArea displayPlace="menu" />
-          <IncentiveCodesWidget />
+          {isLoggedIn && <IncentiveCodesWidget />}
         </div>
-        {/* Standort-Switcher (nur wenn mehrere Locations) */}
-        {locations.length > 1 && (
-          <div className="flex justify-end mb-4">
+
+        {/* Auth-Hinweis für Gäste */}
+        {!isLoggedIn && sessionStatus !== 'loading' && (
+          <div className="mb-5 flex items-center justify-between gap-3 rounded-xl border border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-950/30 px-4 py-3 text-sm">
+            <span className="text-green-800 dark:text-green-300">
+              Du siehst den Speiseplan als Gast. Zum Bestellen bitte einloggen oder registrieren.
+            </span>
+            <div className="flex items-center gap-2 shrink-0">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-green-400 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 h-8 px-3"
+                onClick={() => router.push(`/login?callbackUrl=${encodeURIComponent(`/menu?locationId=${locationId}`)}`)}
+              >
+                Einloggen
+              </Button>
+              <Button
+                size="sm"
+                className="bg-green-600 hover:bg-green-700 text-white h-8 px-3"
+                onClick={() => router.push('/register')}
+              >
+                Registrieren
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Obere Leiste: Kantine-Wechseln + Standort-Switcher */}
+        <div className="flex items-center justify-between mb-4 gap-2">
+          {/* Zurück zur Kantine-Auswahl */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-1.5 text-muted-foreground hover:text-foreground"
+            onClick={() => {
+              try { localStorage.removeItem(MENU_LOCATION_STORAGE_KEY) } catch { /* ignore */ }
+              router.push('/')
+            }}
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span className="hidden sm:inline">Kantine wechseln</span>
+            <span className="sm:hidden">Wechseln</span>
+          </Button>
+
+          {/* Standort-Switcher (nur wenn mehrere Locations) */}
+          {locations.length > 1 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="gap-2">
@@ -197,10 +263,10 @@ export default function MenuPage() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        )}
+          )}
+        </div>
 
-        {/* Warenkorb Button (Floating oder in Header) */}
+        {/* Warenkorb Button (Floating) */}
         {cart.length > 0 && (
           <div className="fixed bottom-6 right-6 z-40">
             <Button
@@ -216,8 +282,8 @@ export default function MenuPage() {
         )}
 
         {/* Menü Bereich */}
-        <MenuWeek 
-          locationId={locationId} 
+        <MenuWeek
+          locationId={locationId}
           onSelectItem={handleSelectItem}
           cart={cart}
           onQuantityChange={handleQuantityChange}

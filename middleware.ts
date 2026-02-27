@@ -1,5 +1,6 @@
 export { default } from 'next-auth/middleware'
 
 export const config = {
-  matcher: ['/kitchen/:path*', '/menu', '/admin/:path*'],
+  // /menu ist öffentlich (PROJ-25) – kein Auth-Schutz mehr hier
+  matcher: ['/kitchen/:path*', '/admin/:path*', '/wallet/:path*', '/order/:path*', '/profil/:path*'],
 }
