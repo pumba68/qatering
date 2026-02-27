@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "dart": {
+      "command": "C:\\Users\\Administrator\\Desktop\\flutter\\flutter\\bin\\cache\\dart-sdk\\bin\\dart.exe",
+      "args": ["mcp-server"],
+      "type": "stdio",
+      "env": {
+        "FLUTTER_ROOT": "C:\\Users\\Administrator\\Desktop\\flutter\\flutter",
+        "PATH": "C:\\Users\\Administrator\\Desktop\\flutter\\flutter\\bin;C:\\Users\\Administrator\\Desktop\\flutter\\flutter\\bin\\cache\\dart-sdk\\bin;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Windows"
+      }
+    }
+  }
+}

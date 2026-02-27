@@ -21,7 +21,8 @@
       "Bash(python3:*)",
       "Bash(powershell -Command:*)",
       "WebFetch(domain:www.braze.com)",
-      "WebFetch(domain:support.iterable.com)"
+      "WebFetch(domain:support.iterable.com)",
+      "mcp__dart__analyze_files"
     ]
   }
 }
