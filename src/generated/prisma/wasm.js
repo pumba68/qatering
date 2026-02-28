@@ -807,6 +807,7 @@ exports.SubsidyType = exports.$Enums.SubsidyType = {
 exports.UserRole = exports.$Enums.UserRole = {
   CUSTOMER: 'CUSTOMER',
   KITCHEN_STAFF: 'KITCHEN_STAFF',
+  CASHIER: 'CASHIER',
   ADMIN: 'ADMIN',
   SUPER_ADMIN: 'SUPER_ADMIN'
 };

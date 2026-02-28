@@ -478,6 +478,7 @@ model WalletTransaction {
 enum UserRole {
   CUSTOMER // Kunde
   KITCHEN_STAFF // Küchenpersonal
+  CASHIER // Kassierer (POS) – PROJ-28
   ADMIN // Organisation Admin
   SUPER_ADMIN // Platform Admin
 }

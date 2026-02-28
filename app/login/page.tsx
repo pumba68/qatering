@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { signIn } from 'next-auth/react'
+import { signIn, getSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
@@ -45,8 +45,24 @@ export default function LoginPage() {
       })
 
       if (result?.ok) {
-        const redirect = searchParams.get('redirect') || '/menu'
-        router.push(redirect)
+        // Explicit callback takes priority (e.g. from middleware or auth-gated links)
+        const callbackUrl = searchParams.get('callbackUrl') || searchParams.get('redirect')
+        if (callbackUrl) {
+          router.push(callbackUrl)
+        } else {
+          // Role-based redirect
+          const session = await getSession()
+          const role = (session?.user as any)?.role
+          if (role === 'KITCHEN_STAFF') {
+            router.push('/kitchen/dashboard')
+          } else if (role === 'CASHIER') {
+            router.push('/pos')
+          } else if (role === 'ADMIN' || role === 'SUPER_ADMIN') {
+            router.push('/admin')
+          } else {
+            router.push('/')
+          }
+        }
         router.refresh()
       } else {
         const message =

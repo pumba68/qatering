@@ -12,7 +12,7 @@ import { TopDishesBarChart } from '@/components/charts/TopDishesBarChart'
 import { SchaltzentraleKPIs } from '@/components/charts/SchaltzentraleKPIs'
 import { StatusPieChart } from '@/components/charts/StatusPieChart'
 import { WeekdayBarChart } from '@/components/charts/WeekdayBarChart'
-import { LayoutDashboard, ListOrdered, MapPin, ChevronDown } from 'lucide-react'
+import { LayoutDashboard, ListOrdered, MapPin, ChevronDown, ChefHat, ShoppingBag } from 'lucide-react'
 import { useAdminLocation } from '@/components/admin/LocationContext'
 import {
   DropdownMenu,
@@ -305,6 +305,28 @@ export default function AdminDashboard() {
                   Bestellungen verwalten
                 </Link>
               </Button>
+              {/* CTA Küchenansicht */}
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-xl border-orange-300 text-orange-700 hover:bg-orange-50 dark:border-orange-700 dark:text-orange-400 dark:hover:bg-orange-950/30"
+              >
+                <Link href="/kitchen/dashboard" className="inline-flex items-center gap-2">
+                  <ChefHat className="w-4 h-4" />
+                  Küchenansicht
+                </Link>
+              </Button>
+              {/* CTA Kassenansicht */}
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-xl border-violet-300 text-violet-700 hover:bg-violet-50 dark:border-violet-700 dark:text-violet-400 dark:hover:bg-violet-950/30"
+              >
+                <Link href="/pos" className="inline-flex items-center gap-2">
+                  <ShoppingBag className="w-4 h-4" />
+                  Kassenansicht
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -501,9 +523,28 @@ export default function AdminDashboard() {
                 Bestellungen verwalten
               </Link>
             </Button>
-            <p className="text-sm text-muted-foreground text-center sm:text-left">
-              Alle Bestellungen einsehen und bearbeiten.
-            </p>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-xl border-orange-300 text-orange-700 hover:bg-orange-50 dark:border-orange-700 dark:text-orange-400 dark:hover:bg-orange-950/30 hover:scale-105 active:scale-95 transition-transform shadow-sm"
+            >
+              <Link href="/kitchen/dashboard" className="inline-flex items-center gap-2">
+                <ChefHat className="w-5 h-5" />
+                Küchenansicht öffnen
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-xl border-violet-300 text-violet-700 hover:bg-violet-50 dark:border-violet-700 dark:text-violet-400 dark:hover:bg-violet-950/30 hover:scale-105 active:scale-95 transition-transform shadow-sm"
+            >
+              <Link href="/pos" className="inline-flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5" />
+                Kassenansicht öffnen
+              </Link>
+            </Button>
           </div>
         </section>
       </main>

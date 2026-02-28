@@ -1,7 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { signOut } from 'next-auth/react'
 import { formatDate, formatTime, formatCurrency } from '@/lib/utils'
+
+interface LocationAssignment {
+  role: string
+  location: {
+    id: string
+    name: string
+    address: string | null
+  }
+}
 
 interface OrderItem {
   id: string
@@ -28,24 +38,55 @@ interface Order {
 }
 
 export default function KitchenDashboard() {
-  const locationId = 'demo-location-1' // Demo: später aus Auth/Context
+  // ── Location state ────────────────────────────────────────────────────────
+  const [assignments, setAssignments] = useState<LocationAssignment[]>([])
+  const [locationId, setLocationId] = useState<string | null>(null)
+  const [locationName, setLocationName] = useState<string>('')
+  const [locationLoading, setLocationLoading] = useState(true)
+  const [locationError, setLocationError] = useState<string | null>(null)
+
+  // ── Orders state ──────────────────────────────────────────────────────────
   const [orders, setOrders] = useState<Order[]>([])
   const [filter, setFilter] = useState<'today' | 'all'>('today')
   const [selectedStatus, setSelectedStatus] = useState<string>('ALL')
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
+  // ── Fetch assigned locations on mount ─────────────────────────────────────
   useEffect(() => {
+    fetch('/api/kitchen/my-location')
+      .then((r) => r.json())
+      .then((data: LocationAssignment[] | { error: string }) => {
+        if (!Array.isArray(data)) {
+          setLocationError((data as { error: string }).error ?? 'Fehler beim Laden der Standorte.')
+          return
+        }
+        setAssignments(data)
+        if (data.length === 1) {
+          setLocationId(data[0].location.id)
+          setLocationName(data[0].location.name)
+        } else if (data.length === 0) {
+          setLocationError('Kein Standort zugewiesen. Bitte wenden Sie sich an Ihren Administrator.')
+        }
+        // If multiple → user picks below
+      })
+      .catch(() => setLocationError('Fehler beim Laden des Standorts.'))
+      .finally(() => setLocationLoading(false))
+  }, [])
+
+  // ── Fetch orders whenever locationId or filter changes ────────────────────
+  useEffect(() => {
+    if (!locationId) return
     fetchOrders()
-    // Polling alle 30 Sekunden für Live-Updates
     const interval = setInterval(fetchOrders, 30000)
     return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, locationId])
 
   async function fetchOrders() {
+    if (!locationId) return
     try {
       setLoading(true)
       let url = `/api/orders?locationId=${locationId}`
-      
       if (filter === 'today') {
         const today = new Date().toISOString().split('T')[0]
         url += `&pickupDate=${today}`
@@ -53,15 +94,14 @@ export default function KitchenDashboard() {
 
       const response = await fetch(url)
       if (!response.ok) throw new Error('Fehler beim Laden der Bestellungen')
-      const data = await response.json()
-      
+      const data: Order[] = await response.json()
+
       let filteredData = data
       if (selectedStatus !== 'ALL') {
-        filteredData = data.filter((o: Order) => o.status === selectedStatus)
+        filteredData = data.filter((o) => o.status === selectedStatus)
       }
-      
-      // Sortiere nach Status und dann nach Zeit
-      filteredData.sort((a: Order, b: Order) => {
+
+      filteredData.sort((a, b) => {
         const statusOrder: Record<string, number> = {
           PENDING: 1,
           CONFIRMED: 2,
@@ -70,8 +110,8 @@ export default function KitchenDashboard() {
           PICKED_UP: 5,
           CANCELLED: 6,
         }
-        const statusDiff = statusOrder[a.status] - statusOrder[b.status]
-        if (statusDiff !== 0) return statusDiff
+        const diff = statusOrder[a.status] - statusOrder[b.status]
+        if (diff !== 0) return diff
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       })
 
@@ -87,15 +127,11 @@ export default function KitchenDashboard() {
     try {
       const response = await fetch(`/api/orders/${orderId}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
       })
-
       if (!response.ok) throw new Error('Fehler beim Aktualisieren')
-      
-      fetchOrders() // Refresh
+      fetchOrders()
     } catch (error) {
       alert(error instanceof Error ? error.message : 'Fehler beim Aktualisieren')
     }
@@ -132,23 +168,99 @@ export default function KitchenDashboard() {
     ready: orders.filter((o) => o.status === 'READY').length,
   }
 
+  // ── Loading / error / location picker states ──────────────────────────────
+
+  if (locationLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-gray-500">Lade Standortdaten…</p>
+      </div>
+    )
+  }
+
+  if (locationError) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
+        <p className="text-red-600 font-medium">{locationError}</p>
+        <button
+          onClick={() => signOut({ callbackUrl: '/login' })}
+          className="text-sm text-gray-500 hover:text-gray-700 underline"
+        >
+          Abmelden
+        </button>
+      </div>
+    )
+  }
+
+  // Multiple locations → let the user pick one
+  if (assignments.length > 1 && !locationId) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-6 p-6">
+        <h1 className="text-2xl font-bold text-gray-900">Standort auswählen</h1>
+        <p className="text-gray-500">Sie sind mehreren Standorten zugewiesen. Bitte wählen Sie einen aus.</p>
+        <div className="flex flex-col gap-3 w-full max-w-sm">
+          {assignments.map((a) => (
+            <button
+              key={a.location.id}
+              onClick={() => {
+                setLocationId(a.location.id)
+                setLocationName(a.location.name)
+              }}
+              className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-left hover:border-blue-400 hover:shadow-md transition-all"
+            >
+              <div className="font-semibold text-gray-900">{a.location.name}</div>
+              {a.location.address && (
+                <div className="text-sm text-gray-500 mt-0.5">{a.location.address}</div>
+              )}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => signOut({ callbackUrl: '/login' })}
+          className="text-sm text-gray-400 hover:text-gray-600 underline mt-2"
+        >
+          Abmelden
+        </button>
+      </div>
+    )
+  }
+
+  // ── Main dashboard ────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            🍳 Küchen-Dashboard
-          </h1>
-          
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">🍳 Küchen-Dashboard</h1>
+              <p className="text-sm text-gray-500 mt-1">{locationName}</p>
+            </div>
+            <div className="flex items-center gap-3">
+              {/* Location switch if multiple assigned */}
+              {assignments.length > 1 && (
+                <button
+                  onClick={() => setLocationId(null)}
+                  className="text-sm text-blue-600 hover:text-blue-800 underline"
+                >
+                  Standort wechseln
+                </button>
+              )}
+              <button
+                onClick={() => signOut({ callbackUrl: '/login' })}
+                className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Abmelden
+              </button>
+            </div>
+          </div>
+
           {/* Filter */}
           <div className="flex flex-wrap gap-4 items-center">
             <div className="flex gap-2">
               <button
                 onClick={() => setFilter('today')}
                 className={`px-4 py-2 rounded-lg ${
-                  filter === 'today'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700'
+                  filter === 'today' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
                 }`}
               >
                 Heute
@@ -156,15 +268,13 @@ export default function KitchenDashboard() {
               <button
                 onClick={() => setFilter('all')}
                 className={`px-4 py-2 rounded-lg ${
-                  filter === 'all'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700'
+                  filter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
                 }`}
               >
                 Alle
               </button>
             </div>
-            
+
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
@@ -203,11 +313,9 @@ export default function KitchenDashboard() {
 
       <div className="container mx-auto px-4 py-8">
         {loading ? (
-          <div className="text-center py-12 text-gray-600">Lade Bestellungen...</div>
+          <div className="text-center py-12 text-gray-600">Lade Bestellungen…</div>
         ) : orders.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
-            Keine Bestellungen gefunden
-          </div>
+          <div className="text-center py-12 text-gray-500">Keine Bestellungen gefunden</div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {orders.map((order) => (
@@ -217,37 +325,26 @@ export default function KitchenDashboard() {
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <div className="font-mono text-lg font-bold text-gray-900">
-                      {order.pickupCode}
-                    </div>
+                    <div className="font-mono text-lg font-bold text-gray-900">{order.pickupCode}</div>
                     <div className="text-sm text-gray-600 mt-1">
                       {order.user.name || order.user.email}
                     </div>
                   </div>
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(
-                      order.status
-                    )}`}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(order.status)}`}
                   >
                     {getStatusLabel(order.status)}
                   </span>
                 </div>
 
                 <div className="mb-4">
-                  <div className="text-sm text-gray-600 mb-2">
-                    📅 {formatDate(order.pickupDate)}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    🕐 Bestellt: {formatTime(order.createdAt)}
-                  </div>
+                  <div className="text-sm text-gray-600 mb-2">📅 {formatDate(order.pickupDate)}</div>
+                  <div className="text-sm text-gray-600">🕐 Bestellt: {formatTime(order.createdAt)}</div>
                 </div>
 
                 <div className="border-t pt-4 mb-4">
                   {order.items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex justify-between text-sm mb-1"
-                    >
+                    <div key={item.id} className="flex justify-between text-sm mb-1">
                       <span>
                         {item.menuItem.dish.name} × {item.quantity}
                       </span>

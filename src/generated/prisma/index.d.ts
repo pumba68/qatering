@@ -275,6 +275,7 @@ export type SubsidyType = (typeof SubsidyType)[keyof typeof SubsidyType]
 export const UserRole: {
   CUSTOMER: 'CUSTOMER',
   KITCHEN_STAFF: 'KITCHEN_STAFF',
+  CASHIER: 'CASHIER',
   ADMIN: 'ADMIN',
   SUPER_ADMIN: 'SUPER_ADMIN'
 };
