@@ -449,7 +449,7 @@ function CartPanel({
                 </button>
                 <button
                   onClick={handlePay}
-                  disabled={checkoutLoading || (paymentMethod === 'wallet' && customer && customer.walletBalance < total)}
+                  disabled={checkoutLoading || !!(paymentMethod === 'wallet' && customer && customer.walletBalance < total)}
                   className="flex-2 flex-grow py-2.5 px-4 rounded-xl bg-green-600 hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2"
                 >
                   {checkoutLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
