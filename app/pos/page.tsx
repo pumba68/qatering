@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { ShoppingCart, X, Plus, Minus, ChefHat, MapPin, Search, Loader2, CreditCard, Banknote, Wallet, LogOut, SwitchCamera } from 'lucide-react'
@@ -375,11 +375,11 @@ function CartPanel({
             <div className="space-y-3">
               {/* Method selector */}
               <div className="grid grid-cols-3 gap-1.5">
-                {([
-                  { value: 'cash', label: 'Bar', icon: Banknote },
-                  { value: 'sumup', label: 'SumUp', icon: CreditCard },
-                  { value: 'wallet', label: 'Wallet', icon: Wallet, disabled: !customer },
-                ] as const).map(({ value, label, icon: Icon, disabled }) => (
+                {(([
+                  { value: 'cash' as PaymentMethod, label: 'Bar', icon: Banknote, disabled: false },
+                  { value: 'sumup' as PaymentMethod, label: 'SumUp', icon: CreditCard, disabled: false },
+                  { value: 'wallet' as PaymentMethod, label: 'Wallet', icon: Wallet, disabled: !customer },
+                ] as { value: PaymentMethod; label: string; icon: React.ElementType; disabled: boolean }[])).map(({ value, label, icon: Icon, disabled }) => (
                   <button
                     key={value}
                     onClick={() => !disabled && setPaymentMethod(value as PaymentMethod)}
